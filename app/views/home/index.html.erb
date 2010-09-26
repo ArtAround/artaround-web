@@ -1,0 +1,374 @@
+<% content_for :head do %>
+<!--  Script tab with API KEY  -->
+
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAoJZJ6SAH3uyIpco2OCpoqhTcTBrl_GKMO9-nn7nZRb4t3b35uRSYZngpl1uFkP7ik4GIWM51Zqakqg&sensor=false"
+              type="text/javascript"></script>
+
+  <!--  SCRIPT BEGINS -->           
+      <script type="text/javascript">
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    var markerGroups = { "Mural":[], "Gallery":[],  "Museum":[], "Statue":[], "Memorial":[], "Monument":[], "Sculpture":[], "Mosaic":[], "Pasted":[], "Painting":[] };
+    var markerChecked = [];
+
+    var markerGroups2 = { " ":[], "Adams Morgan":[], "American University Park":[], "Anacostia":[], "Arboretum":[], "Barnaby Woods":[], "Barney Circle":[], "Barry Farm":[], "Bellevue":[], "Chinatown":[], "Columbia Heights":[], "Congress Heights":[], "Deanwood":[], "Downtown":[], "Dupont Circle":[], "East Potomac Park":[], "Edgewood":[], "Foggy Bottom":[], "Fort Davis":[], "Foxhall":[], "Georgetown":[], "H Street Corridor":[], "Hillcrest":[], "Judiciary Square":[], "Kalorama":[], "Logan Circle":[], "Mount Pleasant":[], "Mount Vernon Square":[], "Navy Yard":[], "Penn Quarter":[], "Petworth":[], "Shaw":[], "Shepherd Park":[], "Silver Spring":[], "Southwest":[],  "Takoma":[],  "Trinidad":[],  "U Street":[],  "Union Station":[],  "Washington Highlands":[],  "Washington Mall":[],  "Woodley Park":[]  };
+    var markerChecked2 = [];
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    <!--  Function Initialize  and Browser Check  -->
+      var map;
+
+        function initialize() {
+          if (GBrowserIsCompatible()) {
+            map = new GMap2(document.getElementById("map_canvas"));
+            map.setCenter(new GLatLng(38.9043, -77.035), 12);
+            map.setUIToDefault();
+      //map.setMapType(G_PHYSICAL_MAP); /// cannot do this, because need to zoom in farther
+      //map.addControl(new TextualZoomControl());
+      //map.addControl(new GMapTypeControl());
+      //map.addControl(new GSmallZoomControl3D());
+      //map.addControl(new GSmallMapControl());
+      map.disableScrollWheelZoom();
+      //map.removeMapType(G_SATELLITE_MAP);  ///
+    
+
+                    G_PHYSICAL_MAP.getMinimumResolution = function () { return 11 };
+                    G_NORMAL_MAP.getMinimumResolution = function () { return 11 };
+                    G_SATELLITE_MAP.getMinimumResolution = function () { return 11 };
+                    G_HYBRID_MAP.getMinimumResolution = function () { return 11 };
+
+                    G_PHYSICAL_MAP.getMaximumResolution = function () { return 15 };
+                   // G_NORMAL_MAP.getMaximumResolution = function () { return 15 };
+                    G_SATELLITE_MAP.getMaximumResolution = function () { return 15 };
+                    G_HYBRID_MAP.getMaximumResolution = function () { return 15 }; 
+
+
+
+
+
+        var iconBlue = new GIcon(); 
+        iconBlue.image = '/images/marker_blue.png';
+        iconBlue.iconSize = new GSize(35, 35);
+        iconBlue.iconAnchor = new GPoint(17, 36);
+        iconBlue.infoWindowAnchor = new GPoint(5, 1);
+
+        var iconRed = new GIcon(); 
+        iconRed.image = '/images/marker_red.png';
+        iconRed.iconSize = new GSize(35, 35);
+        iconRed.iconAnchor = new GPoint(17, 36);
+        iconRed.infoWindowAnchor = new GPoint(5, 1);
+
+        var iconMuseum = new GIcon();
+        iconMuseum.image = '/images/museum.png';
+        iconMuseum.shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
+        iconMuseum.iconSize = new GSize(35, 27);
+        iconMuseum.shadowSize = new GSize(22, 20);
+        iconMuseum.iconAnchor = new GPoint(17, 36);
+        iconMuseum.infoWindowAnchor = new GPoint(5, 1);
+
+
+
+          // ==================================================
+          // A function to create a tabbed marker and set up the event window
+          function createMarker(point,html,category,title,neighborhood) {
+
+      if (category == 'Museum')  {
+        image = iconMuseum;
+      } else if (category == 'Gallery') {
+        image = iconMuseum;
+      } else { 
+        image = iconRed;
+      }
+
+            var marker = new GMarker(point, { icon: image, title: title });
+            GEvent.addListener(marker, "click", function() {
+              marker.openInfoWindowHtml(html,{maxWidth:400});
+            });
+      markerGroups[category].push(marker);
+      markerGroups2[neighborhood].push(marker);
+            return marker;
+          }
+          // ==================================================
+
+
+          } // end browser check
+        } // end function initialize
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function toggleGroup(type) {    
+
+
+
+      if (markerChecked.indexOf(type) == -1) { /// if not in the group already, then add it
+        markerChecked.push(type); // push to short-term array
+      } else {    /// otherwise, it is already there, so remove it
+        markerChecked.splice(markerChecked.indexOf(type),1);
+        map.closeInfoWindow(); 
+      }
+
+
+      
+      
+
+       for (var i = 0; i < markerGroups['Mural'].length; i++) {
+              var marker = markerGroups['Mural'][i];
+          if (markerChecked.indexOf('Mural') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+       for (var i = 0; i < markerGroups['Gallery'].length; i++) {
+              var marker = markerGroups['Gallery'][i];
+          if (markerChecked.indexOf('Gallery') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+
+
+
+
+
+       for (var i = 0; i < markerGroups['Museum'].length; i++) {
+              var marker = markerGroups['Museum'][i];
+          if (markerChecked.indexOf('Museum') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+
+       for (var i = 0; i < markerGroups['Statue'].length; i++) {
+              var marker = markerGroups['Statue'][i];
+          if (markerChecked.indexOf('Statue') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+       for (var i = 0; i < markerGroups['Memorial'].length; i++) {
+              var marker = markerGroups['Memorial'][i];
+          if (markerChecked.indexOf('Memorial') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+
+       for (var i = 0; i < markerGroups['Sculpture'].length; i++) {
+              var marker = markerGroups['Sculpture'][i];
+          if (markerChecked.indexOf('Sculpture') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+
+       for (var i = 0; i < markerGroups['Mosaic'].length; i++) {
+              var marker = markerGroups['Mosaic'][i];
+          if (markerChecked.indexOf('Mosaic') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+       for (var i = 0; i < markerGroups['Pasted'].length; i++) {
+              var marker = markerGroups['Pasted'][i];
+          if (markerChecked.indexOf('Pasted') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+       for (var i = 0; i < markerGroups['Painting'].length; i++) {
+              var marker = markerGroups['Painting'][i];
+          if (markerChecked.indexOf('Painting') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+       for (var i = 0; i < markerGroups['Monument'].length; i++) {
+              var marker = markerGroups['Monument'][i];
+          if (markerChecked.indexOf('Monument') == -1) {
+        marker.hide();
+          } else {
+        marker.show();
+          }
+
+         } // end for
+
+
+
+        } /// end toggleGroup
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        function toggleGroup2(type) {    
+
+
+      if (markerChecked2.indexOf(type) == -1) { /// if not in the group already, then add it
+        markerChecked2.push(type); // push to short-term array
+      } else {    /// otherwise, it is already there, so remove it
+        markerChecked2.splice(markerChecked2.indexOf(type),1);
+        map.closeInfoWindow(); 
+      }
+
+
+         } /// end Toggle Group2
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+        </script>
+<% end %>
+
+<body class="home" onload="initialize()" onunload="GUnload()">
+    
+    <div id="headerWrapper">
+      <div id="pageMain">
+        <div id="header">
+          <h1><a href="/">Art Around</a></h1>
+          <div id="nav">
+            <ul>
+              <li id="about"><a href="#">About</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+            <div class="clear"></div> 
+          </div>
+          <div id="featureBox">
+            <div id="mainText">
+              <h2>Discover the art around us</h2>
+              <span>find and map the graffiti you love to the mural we missed</span>
+            </div>
+            <div id="curateBox">
+              <span>Know of some art around you?</span>
+              <a class="buttonLink" id="curateButton" href="new_point.php">Curate it now!</a>
+            </div>  
+          </div>    
+        </div>
+      </div>
+    </div>
+    
+    <div id="mapContainer">
+      <form id="filterForm" action="." method="get">
+        <fieldset>
+          <legend>Category</legend>
+          <a class="hideCategory" href="#">Hide</a>
+          <a class="showCategory" href="#">Show</a>
+          <div class="clear"></div>
+          <ul id="categoryScroll">
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word"  onclick="toggleGroup('Mural')" />Mural</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word"  onclick="toggleGroup('Gallery') " />Gallery</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Museum')"  />Museum</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Statue')"  />Statue</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Memorial')"  />Memorial</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Sculpture')"  />Sculpture</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Mosaic')"  />Mosaic</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Painting')"  />Painting</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Monument')"  />Monument</label>
+            </li>
+
+          </ul> 
+        </fieldset>
+        <fieldset>
+          <legend>Neighborhood</legend>
+          <a class="hideNeighborhood" href="#">Hide</a>
+          <a class="showNeighborhood" href="#">Show</a>
+          <div class="clear"></div>
+          <ul id="neighborhoodScroll">
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup2('Adams Morgan')" />Adams Morgan</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" />American University Park</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" />Anacostia</label>
+            </li>
+            <li>
+              <label><input class="checkbox" type="checkbox" name="word" />Arboretum</label>
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+      <div id="map_canvas"></div>
+    </div>  
+    <div id="footerWrapper">
+      <div id="footer">
+        <h3>Recent Uploads</h3>
+        
+      </div>
+    </div>
+  </body>
