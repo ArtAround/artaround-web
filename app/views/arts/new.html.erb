@@ -1,0 +1,89 @@
+<div id="fullColumn">
+  <div id="titleContent">
+    <h2 class="withSubtext">Add a New Point</h2>
+  </div>
+</div>
+
+<div id="ltColumn">
+  <form id="addForm" name="form" action="new_point_handle.php" method="POST"  enctype="multipart/form-data">
+    <ul>
+      <li>
+        <label>Category</label>
+        <select id="id_categories" name="sources">
+          <option value="all">All Categories</option>
+          <option value="Gallery">Gallery</option>
+          <option value="Memorial">Memorial</option>
+          <option value="Monument">Monument</option>
+          <option value="Mosaic">Mosaic</option>
+          <option value="Mural">Mural</option>
+          <option value="Museum">Museum</option>
+          <option value="Painting">Painting</option>
+          <option value="Sculpture">Sculpture</option>
+          <option value="Statue">Statue</option>
+        </select> 
+      </li>
+      <li>
+        <label>Title</label>
+        <input id="id_title" type="text" name="title"/>
+      </li>
+      <li>
+        <label>Artist(s)</label>
+        <input id="id_artist" type="text" name="artist"/>
+      </li>
+      <li>
+        <label>Year</label>
+        <input id="id_year" type="text" name="year"/>
+      </li>
+
+
+      <li>
+        <label>Neighborhood</label>
+        <select id="id_neighborhood" name="neighborhood">
+        </select>
+      </li>
+      <li>
+        <label>Location Description</label>
+        <textarea id="id_locDescription" name="text"></textarea>
+      </li>
+      <li class="formModule">
+        <label>Latitude</label>
+        <input id="id_year" name="latitude" value='Click on Map' type="text" name="year"/>
+      </li>
+      <li>
+        <label>Longitude</label>
+        <input id="id_year" name="longitude" value='Click on Map' type="text" name="year"/>
+      </li>
+      <li><span>or</span></li>            
+      <li>
+        <label>Address</label>
+        <input id="id_address" type="text" name="address"/>
+      </li>
+      <li>
+        <label>City</label>
+        <input id="id_city" type="text" name="city"/>
+      </li>
+      <li>
+        <label>State</label>
+        <input id="id_state" type="text" name="state"/>
+      </li>
+      <li>
+        <label>Zip Code</label>
+        <input id="id_zip" type="text" name="zip"/>
+      </li>
+      <li class="formModule">
+        <label>Photo</label>
+        <span class="tip">(jpg, gif only; 2MB limit)</span>
+        <input id="file" type="file" name="file" />
+      </li>
+      <li>
+        <button class="submitBtn" name="submit" type="submit">
+            <span>Submit</span>
+        </button>
+      </li> 
+    </ul>
+  </form>
+</div>
+
+<div id="rtColumn">
+  <div id="map_canvas"></div>
+</div>

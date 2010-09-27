@@ -1,7 +1,10 @@
 class ArtsController < ApplicationController
-  before_filter :load_art
+  before_filter :load_art, :only => :show
   
   def show
+  end
+  
+  def new
   end
   
   protected
