@@ -1,50 +1,65 @@
 <div id="fullColumn">
   <div id="titleContent">
-    <h2 class="withSubtext withIcon"><?php echo $title; ?></h2>
-    <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
+    <h2 class="withSubtext withIcon">
+      <%= h @art.title %>
+    </h2>
+    
+    <% if @art.commissioned %>
+      <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
+    <% end %>
+    
     <div class="clear"></div>
-    <span class="commentTitle">2 comments</span>
+    
+    <!-- <span class="commentTitle">2 comments</span> -->
   </div>
 </div>
+
 <div id="ltColumn">
   <div class="module">
     <div id="editInformation">
-      <span class="callout">Know more information about this piece? <a href="#">Edit it now!</a></span>
-    </div>  
+      <span class="callout">
+        Know more information about this piece?
+        <a href="#">Edit it now!</a>
+      </span>
+    </div>
+    
     <dl id="artworkMetaData">
       <dt>Category</dt> 
-      <dd><?php echo $category; ?></dd>
+      <dd><%= @art.category %></dd>
 
       <dt>Artist(s)</dt>  
-      <dd><?php echo $artist; ?></dd>
+      <dd><%= @art.artist %></dd>
 
       <dt>Year</dt> 
-      <dd><?php echo $year; ?></dd>
+      <dd><%= @art.year %></dd>
 
       <dt>Neighborhood</dt> 
-      <dd><?php echo $neighborhood; ?></dd>
+      <dd><%= @art.neighborhood %></dd>
 
       <dt>Description</dt>  
-      <dd><?php echo $description; ?></dd>
-    </dl> 
+      <dd><%= @art.description %></dd>
+    </dl>
+    
     <form id="edit_artworkMetaData" action="." method="get">
       <ul>
         <li>
           <label>Location Description</label>
-          <textarea id="id_locDescription" value="At the Upshur Recreation Center at 14th and Arkansas NW. (Not seen in street view.)" name="text"></textarea>
+          <textarea id="id_locDescription" name="text"></textarea>
         </li>
         <li>
           <button class="submitBtn" type="submit">
-                    <span>Submit</span>
-                </button>
+              <span>Submit</span>
+          </button>
         </li>
         <li>
           <a class="cancelBtn buttonLink " href="#">Cancel</a>
         </li> 
-      </ul> 
+      </ul>
     </form>
     <div class="clear"></div>
+    
   </div>
+  
   <div class="module" id="comments">
     <h3>Comments</h3>
     <ol>
@@ -68,6 +83,7 @@
       </li>
     </ol> 
   </div>
+  
   <div class="module">
     <h3>Leave a Comment</h3>
     <form id="commentForm" action="." method="get">
@@ -100,7 +116,7 @@
 
 <div id="rtColumn">
   <div class="module" id="artworkPhoto">
-    <img src="/images/102/1_upshurmural.jpg">
+    <%= image_tag 'placeholder_big.jpg' %>
   </div>
   
   <div class="module">
