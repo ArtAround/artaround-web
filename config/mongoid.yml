@@ -9,7 +9,7 @@ development:
 
 # set these environment variables on your prod server
 production:
-  host: <%= ENV['ARTAROUND_MONGOID_HOST'] %>
-  port: <%= ENV['ARTAROUND_MONGOID_PORT'] %>
-  database: <%= ENV['ARTAROUND_MONGOID_DATABASE'] %>
+  host: <%= ENV['MONGOID_HOST'] %>
+  port: <%= ENV['MONGOID_PORT'] %>
+  database: <%= ENV['MONGOID_DATABASE'] %>
 
