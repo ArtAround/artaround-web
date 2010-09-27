@@ -1,98 +1,115 @@
 <div id="fullColumn">
   <div id="titleContent">
-    <h2 class="withSubtext"></h2>
-    <span>_ comments</span>
+    <h2 class="withSubtext withIcon"><?php echo $title; ?></h2>
+    <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
+    <div class="clear"></div>
+    <span class="commentTitle">2 comments</span>
   </div>
 </div>
 <div id="ltColumn">
-  <div id="editInformation">
-    <span class="callout">Know more information about this piece? <a href="#">Edit it now!</a></span>
-  </div>  
-  <dl id="artworkMetaData">
-    <dt>Category</dt> 
-    <dd></dd>
+  <div class="module">
+    <div id="editInformation">
+      <span class="callout">Know more information about this piece? <a href="#">Edit it now!</a></span>
+    </div>  
+    <dl id="artworkMetaData">
+      <dt>Category</dt> 
+      <dd><?php echo $category; ?></dd>
 
-    <dt>Artist(s)</dt>  
-    <dd></dd>
+      <dt>Artist(s)</dt>  
+      <dd><?php echo $artist; ?></dd>
 
-    <dt>Year</dt> 
-    <dd></dd>
+      <dt>Year</dt> 
+      <dd><?php echo $year; ?></dd>
 
-    <dt>Neighborhood</dt> 
-    <dd></dd>
+      <dt>Neighborhood</dt> 
+      <dd><?php echo $neighborhood; ?></dd>
 
-    <dt>Description</dt>  
-    <dd></dd>
-  </dl> 
-  <form id="edit_artworkMetaData" action="." method="get">
-    <ul>
+      <dt>Description</dt>  
+      <dd><?php echo $description; ?></dd>
+    </dl> 
+    <form id="edit_artworkMetaData" action="." method="get">
+      <ul>
+        <li>
+          <label>Location Description</label>
+          <textarea id="id_locDescription" value="At the Upshur Recreation Center at 14th and Arkansas NW. (Not seen in street view.)" name="text"></textarea>
+        </li>
+        <li>
+          <button class="submitBtn" type="submit">
+                    <span>Submit</span>
+                </button>
+        </li>
+        <li>
+          <a class="cancelBtn buttonLink " href="#">Cancel</a>
+        </li> 
+      </ul> 
+    </form>
+    <div class="clear"></div>
+  </div>
+  <div class="module" id="comments">
+    <h3>Comments</h3>
+    <ol>
       <li>
-        <label>Category</label>
-        <select id="id_categories" name="sources">
-          <option value="all">All Categories</option>
-          <option value="1">Mural</option>
-          <option value="2">Gallery </option>
-          <option value="3">Installation</option>
-          <option value="4">Museum</option>
-          <option value="5">Statue</option>
-          <option value="6">Memorial</option>
-          <option value="7">Sculpture</option>
-          <option value="8">Mosaic</option>
-          <option value="9">Painting</option>
-          <option value="10">Monument</option>
-        </select> 
+        <span class="commentNumber">1</span>
+        <div class="commentMetaData">
+          <span class="commentName"><a href="#">Ali</a></span>
+          <span class="entryDate">August 27, 2010</span>
+          <p>This is a really interesting piece. Definitely going to walk down and see it this weekend!</p>
+        </div>
+        <div class="clear"></div>
       </li>
       <li>
-        <label>Title</label>
-        <input id="id_title" type="text" name="title"/>
+        <span class="commentNumber">2</span>
+        <div class="commentMetaData">
+          <span class="commentName"><a href="#">Chris</a></span>
+          <span class="entryDate">August 30, 2010</span>
+          <p>Thanks for posting this, it is one of my favorite pieces in the city.</p>
+        </div>
+        <div class="clear"></div>
       </li>
-      <li>
-        <label>Artist(s)</label>
-        <input id="id_artist" type="text" name="artist"/>
-      </li>
-      <li>
-        <label>Year</label>
-        <input id="id_year" type="text" name="year"/>
-      </li>
-      <li>
-        <label>Neighborhood</label>
-        <select id="id_neighborhood" name="neighborhood">
-          <option value="all">All Neighborhood</option>
-          <option value="1"></option>
-          <option value="2"></option>
-          <option value="3"></option>
-          <option value="4"></option>
-          <option value="5"></option>
-          <option value="6"></option>
-          <option value="7"></option>
-          <option value="8"></option>
-          <option value="9"></option>
-          <option value="10"></option>
-        </select>
-      </li>
-      <li>
-        <label>Location Description</label>
-        <textarea id="id_locDescription" name="text"></textarea>
-      </li>
-      <li>
-        <button class="submitBtn" type="submit">
+    </ol> 
+  </div>
+  <div class="module">
+    <h3>Leave a Comment</h3>
+    <form id="commentForm" action="." method="get">
+      <ul>
+        <li>
+          <label>Name</label>
+          <input id="id_name" type="text" name="name"/>
+        </li>
+        <li>
+          <label>Email</label>
+          <input id="id_email" type="text" name="email"/>
+        </li>
+        <li>
+          <label>URL</label>
+          <input id="id_url" type="text" name="url"/>
+        </li>
+        <li>
+          <label>Comment</label>
+          <textarea id="id_comment" name="text"></textarea>
+        </li>
+        <li>
+          <button class="submitBtn" type="submit">
             <span>Submit</span>
-        </button>
-      </li>
-      <li>
-        <a class="cancelBtn buttonLink " href="#">Cancel</a>
-      </li> 
-    </ul> 
-  </form>
-  <div class="clear"></div>
-  <div name="pano" id="pano"></div>
+          </button>
+        </li>   
+      </ul> 
+    </form>
+  </div>
 </div>
-
 
 <div id="rtColumn">
+  <div class="module" id="artworkPhoto">
+    <img src="/images/102/1_upshurmural.jpg">
+  </div>
   
-  <a href="#">Slide Show</a>
-
-  <div id="map_canvas"></div>
+  <div class="module">
+    <h3>Have Another Photo? Upload it now!</h3>
+    <input type="file" />
+  </div>
+  
+  <div id="map_canvas" class="smMap module"></div>
+  <div name="pano" id="pano" class="module"></div>
 </div>
+
 <div class="clear"></div>

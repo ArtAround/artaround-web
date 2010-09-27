@@ -31,6 +31,7 @@
             <div class="clear"></div> 
           </div>
           
+          <!-- used on home page for featured box -->
           <%= yield :header %>
         </div>
         
@@ -39,7 +40,15 @@
       </div>
     </div>
   
+    <!-- used on home page for map container -->
     <%= yield :bottom %>
+    
+    <div id="footerWrapper">
+      <div id="footer">
+        <h3>Recent Uploads</h3>
+        
+      </div>
+    </div>
     
   </body>
 </html>
