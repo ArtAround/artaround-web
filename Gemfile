@@ -11,4 +11,5 @@ gem 'fastercsv'
 
 group :development do
   gem 'mongrel'
+  gem 'wirble'
 end
