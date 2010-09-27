@@ -1,0 +1,98 @@
+<div id="fullColumn">
+  <div id="titleContent">
+    <h2 class="withSubtext"></h2>
+    <span>_ comments</span>
+  </div>
+</div>
+<div id="ltColumn">
+  <div id="editInformation">
+    <span class="callout">Know more information about this piece? <a href="#">Edit it now!</a></span>
+  </div>  
+  <dl id="artworkMetaData">
+    <dt>Category</dt> 
+    <dd></dd>
+
+    <dt>Artist(s)</dt>  
+    <dd></dd>
+
+    <dt>Year</dt> 
+    <dd></dd>
+
+    <dt>Neighborhood</dt> 
+    <dd></dd>
+
+    <dt>Description</dt>  
+    <dd></dd>
+  </dl> 
+  <form id="edit_artworkMetaData" action="." method="get">
+    <ul>
+      <li>
+        <label>Category</label>
+        <select id="id_categories" name="sources">
+          <option value="all">All Categories</option>
+          <option value="1">Mural</option>
+          <option value="2">Gallery </option>
+          <option value="3">Installation</option>
+          <option value="4">Museum</option>
+          <option value="5">Statue</option>
+          <option value="6">Memorial</option>
+          <option value="7">Sculpture</option>
+          <option value="8">Mosaic</option>
+          <option value="9">Painting</option>
+          <option value="10">Monument</option>
+        </select> 
+      </li>
+      <li>
+        <label>Title</label>
+        <input id="id_title" type="text" name="title"/>
+      </li>
+      <li>
+        <label>Artist(s)</label>
+        <input id="id_artist" type="text" name="artist"/>
+      </li>
+      <li>
+        <label>Year</label>
+        <input id="id_year" type="text" name="year"/>
+      </li>
+      <li>
+        <label>Neighborhood</label>
+        <select id="id_neighborhood" name="neighborhood">
+          <option value="all">All Neighborhood</option>
+          <option value="1"></option>
+          <option value="2"></option>
+          <option value="3"></option>
+          <option value="4"></option>
+          <option value="5"></option>
+          <option value="6"></option>
+          <option value="7"></option>
+          <option value="8"></option>
+          <option value="9"></option>
+          <option value="10"></option>
+        </select>
+      </li>
+      <li>
+        <label>Location Description</label>
+        <textarea id="id_locDescription" name="text"></textarea>
+      </li>
+      <li>
+        <button class="submitBtn" type="submit">
+            <span>Submit</span>
+        </button>
+      </li>
+      <li>
+        <a class="cancelBtn buttonLink " href="#">Cancel</a>
+      </li> 
+    </ul> 
+  </form>
+  <div class="clear"></div>
+  <div name="pano" id="pano"></div>
+</div>
+
+
+<div id="rtColumn">
+  
+  <a href="#">Slide Show</a>
+
+  <div id="map_canvas"></div>
+</div>
+<div class="clear"></div>
