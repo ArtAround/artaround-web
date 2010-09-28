@@ -8,10 +8,12 @@
   <script type="text/javascript">
     var icons = {};
   
-    var markerCategories = {};
-    var markerNeighborhoods = {};
+    var categoryMarkers = {};
+    var neighborhoodMarkers = {};
   
     var arts = [];
+    
+    var currentInfoWindow;
     
     <% @arts.each do |art| %>
       arts.push({
@@ -45,13 +47,13 @@
         var marker = markerFor(art, map);
         marker.setMap(map);
         
-        if (!markerCategories[art.category])
-          markerCategories[art.category] = [];
-        if (!markerNeighborhoods[art.neighborhood])
-          markerNeighborhoods[art.neighborhood] = [];
+        if (!categoryMarkers[art.category])
+          categoryMarkers[art.category] = [];
+        if (!neighborhoodMarkers[art.neighborhood])
+          neighborhoodMarkers[art.neighborhood] = [];
           
-        markerCategories[art.category].push(marker);
-        markerNeighborhoods[art.neighborhood].push(marker);
+        categoryMarkers[art.category].push(marker);
+        neighborhoodMarkers[art.neighborhood].push(marker);
       });
     }
     
@@ -73,11 +75,33 @@
       });
       
       google.maps.event.addListener(marker, "click", function() {
-        new google.maps.InfoWindow({content: html}).open(map, marker);
+        if (currentInfoWindow) currentInfoWindow.close();
+        currentInfoWindow = new google.maps.InfoWindow({content: html});
+        currentInfoWindow.open(map, marker);
       });
       
       return marker;
     }
+    
+    // arm the filter checkboxes
+    $(function() {
+      
+      $("input.checkbox.category").click(function() {
+        var checked = this.checked;
+        var category = $(this).next("span.category").html();
+        $.each(categoryMarkers[category], function(i, marker) {
+          marker.setVisible(checked);
+        });
+      });
+      
+      $("input.checkbox.neighborhood").click(function() {
+        var checked = this.checked;
+        var neighborhood = $(this).next("span.neighborhood").html();
+        $.each(neighborhoodMarkers[neighborhood], function(i, marker) {
+          marker.setVisible(checked);
+        });
+      });
+    });
     
   </script>
   
@@ -106,35 +130,14 @@
         <a class="showCategory" href="#">Show</a>
         <div class="clear"></div>
         <ul id="categoryScroll">
-          
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Mural</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Gallery</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Museum</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Statue</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Memorial</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Sculpture</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Mosaic</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Painting</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Monument</label>
-          </li>
-
+          <% @categories.each do |category| %>
+            <li>
+              <label>
+                <input class="checkbox category" type="checkbox" name="word" checked />
+                <span class="category"><%= category %></span>
+              </label>
+            </li>
+          <% end %>
         </ul> 
       </fieldset>
       <fieldset>
@@ -143,18 +146,16 @@
         <a class="showNeighborhood" href="#">Show</a>
         <div class="clear"></div>
         <ul id="neighborhoodScroll">
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Adams Morgan</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>American University Park</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Anacostia</label>
-          </li>
-          <li>
-            <label><input class="checkbox" type="checkbox" name="word"/>Arboretum</label>
-          </li>
+          <% @neighborhoods.each do |neighborhood| %>
+            <% if neighborhood.present? and neighborhood.strip.present? %>
+              <li>
+                <label>
+                  <input class="checkbox neighborhood" type="checkbox" name="word" checked />
+                  <span class="neighborhood"><%= neighborhood %></span>
+                </label>
+              </li>
+            <% end %>
+          <% end %>
         </ul>
       </fieldset>
     </form>
