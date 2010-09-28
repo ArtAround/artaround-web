@@ -1,13 +1,86 @@
 <% content_for :body_class, "home" %>
+<% content_for :footer do %>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMap"></script>
+<% end %>
 
 <% content_for :head do %>
 
-  <!--  SCRIPT BEGINS -->           
   <script type="text/javascript">
-    var markerGroups = { "Mural":[], "Gallery":[],  "Museum":[], "Statue":[], "Memorial":[], "Monument":[], "Sculpture":[], "Mosaic":[], "Pasted":[], "Painting":[] };
-
-    var markerGroups2 = { " ":[], "Adams Morgan":[], "American University Park":[], "Anacostia":[], "Arboretum":[], "Barnaby Woods":[], "Barney Circle":[], "Barry Farm":[], "Bellevue":[], "Chinatown":[], "Columbia Heights":[], "Congress Heights":[], "Deanwood":[], "Downtown":[], "Dupont Circle":[], "East Potomac Park":[], "Edgewood":[], "Foggy Bottom":[], "Fort Davis":[], "Foxhall":[], "Georgetown":[], "H Street Corridor":[], "Hillcrest":[], "Judiciary Square":[], "Kalorama":[], "Logan Circle":[], "Mount Pleasant":[], "Mount Vernon Square":[], "Navy Yard":[], "Penn Quarter":[], "Petworth":[], "Shaw":[], "Shepherd Park":[], "Silver Spring":[], "Southwest":[],  "Takoma":[],  "Trinidad":[],  "U Street":[],  "Union Station":[],  "Washington Highlands":[],  "Washington Mall":[],  "Woodley Park":[]  };
+    var icons = {};
+  
+    var markerCategories = {};
+    var markerNeighborhoods = {};
+  
+    var arts = [];
+    
+    <% @arts.each do |art| %>
+      arts.push({
+        title: "<%= escape_javascript art.title %>",
+        category: "<%= escape_javascript art.category %>",
+        neighborhood: "<%= escape_javascript art.neighborhood %>",
+        ward: "<%= escape_javascript art.ward %>",
+        artist: "<%= escape_javascript art.artist %>",
+        year: "<%= escape_javascript art.year %>",
+        description: "<%= escape_javascript art.description %>",
+        latitude: <%= art.latitude || 0 %>,
+        longitude: <%= art.longitude || 0 %>
+      });
+    <% end %>
+  
+    function loadMap() {
+      var location = new google.maps.LatLng(38.9043, -77.035);
+    
+      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+        center: location,
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+      
+      // icon types
+      icons.blue = new google.maps.MarkerImage("/images/marker_blue.png");
+      icons.red = new google.maps.MarkerImage("/images/marker_red.png");
+      icons.museum = new google.maps.MarkerImage("/images/museum.png");
+      
+      $.each(arts, function(i, art) {
+        var marker = markerFor(art, map);
+        marker.setMap(map);
+        
+        if (!markerCategories[art.category])
+          markerCategories[art.category] = [];
+        if (!markerNeighborhoods[art.neighborhood])
+          markerNeighborhoods[art.neighborhood] = [];
+          
+        markerCategories[art.category].push(marker);
+        markerNeighborhoods[art.neighborhood].push(marker);
+      });
+    }
+    
+    function markerFor(art, map) {
+      var location = new google.maps.LatLng(art.latitude, art.longitude);
+      
+      var neighborhood = art.neighborhood || "Adams Morgan";
+      var html = "<table>" +
+        "<tr rowspan=\"6\"><td><img src=\"/images/placeholder.jpg\" width=\"200px\" height=\"200px\"></td><td><table><tr><td><b>Title:</b> </td><td NOWRAP>" + art.title +
+        "</td></tr><tr><td><b>Artist:</b> </td><td NOWRAP>" + art.artist + " </td></tr><tr><td><b>Erected:</b> </td><td>" + art.year + "  </td></tr><tr><td><b>NeighborHood:</b></td><td NOWRAP>" + neighborhood + "</td></tr>    <tr><td COLSPAN=2><a href=\"/arts/" + art.id + "\" target=\"_blank\" />Landing Page</a></table>      </td></tr>   </td></tr>" +
+        "</table>";
+      
+      var icon = (art.category == 'Museum' || art.category == 'Gallery') ? icons.museum : icons.red;
+      
+      var marker = new google.maps.Marker({
+        position: location,
+        icon: icon,
+        title: art.title
+      });
+      
+      google.maps.event.addListener(marker, "click", function() {
+        new google.maps.InfoWindow({content: html}).open(map, marker);
+      });
+      
+      return marker;
+    }
+    
   </script>
+  
 <% end %>
 
 <% content_for :header do %>
@@ -33,32 +106,33 @@
         <a class="showCategory" href="#">Show</a>
         <div class="clear"></div>
         <ul id="categoryScroll">
+          
           <li>
-            <label><input class="checkbox" type="checkbox" name="word"  onclick="toggleGroup('Mural')" />Mural</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Mural</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word"  onclick="toggleGroup('Gallery') " />Gallery</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Gallery</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Museum')"  />Museum</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Museum</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Statue')"  />Statue</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Statue</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Memorial')"  />Memorial</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Memorial</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Sculpture')"  />Sculpture</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Sculpture</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Mosaic')"  />Mosaic</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Mosaic</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Painting')"  />Painting</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Painting</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup('Monument')"  />Monument</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Monument</label>
           </li>
 
         </ul> 
@@ -70,21 +144,23 @@
         <div class="clear"></div>
         <ul id="neighborhoodScroll">
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" onclick="toggleGroup2('Adams Morgan')" />Adams Morgan</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Adams Morgan</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" />American University Park</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>American University Park</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" />Anacostia</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Anacostia</label>
           </li>
           <li>
-            <label><input class="checkbox" type="checkbox" name="word" />Arboretum</label>
+            <label><input class="checkbox" type="checkbox" name="word"/>Arboretum</label>
           </li>
         </ul>
       </fieldset>
     </form>
+    
     <div id="map_canvas"></div>
+    
   </div>  
 
 <% end %>

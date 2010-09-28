@@ -24,6 +24,7 @@ class Art
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
   
+  
   # indexes
   index [[:location, Mongo::GEO2D]]
   index :neighborhood
@@ -32,6 +33,7 @@ class Art
   index :approved
   index :year
   index :category
+  
   
   # scopes
   scope :commissioned, :where => {:commissioned => true}
