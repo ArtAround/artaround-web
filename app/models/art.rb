@@ -38,4 +38,13 @@ class Art
   scope :uncommissioned, :where => {:commissioned => false}
   scope :approved, :where => {:approved => true}
   scope :unapproved, :where => {:approved => false}
+  
+  
+  def latitude
+    location[0]
+  end
+  
+  def longitude
+    location[1]
+  end
 end
