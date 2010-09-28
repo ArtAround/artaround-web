@@ -47,4 +47,9 @@ class Art
   def longitude
     location[1]
   end
+  
+  # should rename the field itself eventually
+  def header
+    yaw
+  end
 end

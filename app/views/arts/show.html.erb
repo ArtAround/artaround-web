@@ -4,8 +4,13 @@
 
 <script type="text/javascript">
 
-var latitude = <%= @art.latitude %>;
-var longitude = <%= @art.longitude %>;
+var latitude = <%= @art.latitude || 0 %>;
+var longitude = <%= @art.longitude || 0 %>;
+
+// street view, point of view
+var heading = <%= @art.header || 0 %>;
+var pitch = <%= @art.pitch || 0 %>;
+var zoom = <%= @art.zoom || 0 %>;
 
 function loadMaps() {
   var location = new google.maps.LatLng(latitude, longitude);
@@ -23,6 +28,19 @@ function loadMaps() {
   });
   marker.setMap(map);
   
+  // street view map
+  var street = new google.maps.StreetViewPanorama(document.getElementById("pano"), {
+    position: location,
+    pov: {
+      heading: heading,
+      pitch: pitch,
+      zoom: zoom
+    },
+    addressControl: false,
+    navigationControlOptions: {
+      style: google.maps.NavigationControlStyle.SMALL
+    }
+  });
 }
 
 

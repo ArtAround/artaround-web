@@ -64,7 +64,7 @@ input.checkbox { width: 15px; margin-right: 10px;}
 #mapContainer { border-top: 1px solid #b4b2ad; border-bottom: 4px solid #b4b2ad;}
 #rtColumn #map_canvas { border: 1px solid #b4b2ad;}
 #rtColumn .smMap { height: 200px;}
-#pano { margin-top: 35px;}
+#pano { margin-top: 35px; width: 285px; height: 200px;}
 #artworkPhoto img { width: 275px; border: 3px solid #E5E3DF; padding: 5px;}
 
 .module { padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px dashed #cecfc8;}
