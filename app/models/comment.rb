@@ -19,4 +19,5 @@ class Comment
   validates_presence_of :art_id
   
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
+  validates_format_of :url, :with => URI.regexp(['http']), :on => :create, :allow_blank => true
 end
