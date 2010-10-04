@@ -101,6 +101,42 @@
           marker.setVisible(checked);
         });
       });
+      
+      $(".hideCategory").click(
+        function() {
+          $("#categoryScroll").slideUp();
+          $(".hideCategory").hide();
+          $(".showCategory").show();
+          return false;
+        }
+      );
+      
+      $(".hideNeighborhood").click(
+        function() {
+          $("#neighborhoodScroll").slideUp();
+          $(".hideNeighborhood").hide();
+          $(".showNeighborhood").show();
+          return false;
+        }
+      );
+      
+      $(".showCategory").click(
+        function() {
+          $("#categoryScroll").slideDown();
+          $(".showCategory").hide();
+          $(".hideCategory").show();
+          return false;
+        }
+      );
+      
+      $(".showNeighborhood").click(
+        function() {
+          $("#neighborhoodScroll").slideDown();
+          $(".showNeighborhood").hide();
+          $(".hideNeighborhood").show();
+          return false;
+        }
+      );
     });
     
   </script>
