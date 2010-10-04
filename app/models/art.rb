@@ -2,6 +2,8 @@ class Art
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  references_many :comments
+  
   field :title
   field :category
   field :artist

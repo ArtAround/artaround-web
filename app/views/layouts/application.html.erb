@@ -29,11 +29,20 @@
             <div class="clear"></div> 
           </div>
           
+          <% [:notice, :alert].each do |msg| %>
+            <% if flash[msg] %>
+              <div class="flash <%= msg %>">
+                <%= flash[msg] %>
+              </div>
+            <% end %>
+          <% end %>
+          
           <!-- used on home page for featured box -->
           <%= yield :header %>
         </div>
         
         <%= yield %>
+        
         <div class="clear"></div>
       </div>
     </div>

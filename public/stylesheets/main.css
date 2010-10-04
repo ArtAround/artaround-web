@@ -115,3 +115,12 @@ dt, dd { margin-bottom: 5px;}
 #footer img { border: 3px solid #4c5457; }
 #footer { background: url(/images/bg_footer.jpg) top center no-repeat; height: 223px;}
 #footer li { float: left;}
+
+
+ul.errors li {color: red; margin: 5px 0;}
+div.field_with_errors {margin: 0; padding: 0;}
+div.field_with_errors {color: red}
+
+div.flash {font-size: 120%; font-weight: bold; margin: 10px 0;}
+div.flash.alert {color: red;}
+div.flash.notice {color: green;}

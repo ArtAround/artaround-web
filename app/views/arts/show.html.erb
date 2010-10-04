@@ -107,7 +107,7 @@
       <dd><%= @art.description %></dd>
     </dl>
     
-    <form id="edit_artworkMetaData" action="." method="get">
+    <form id="edit_artworkMetaData" action="#" method="post">
       <ul>
         <li>
           <label>Location Description</label>
@@ -127,49 +127,57 @@
     
   </div>
   
-  <div class="module" id="comments">
-    <h3>Comments</h3>
-    <ol>
-      <li>
-        <span class="commentNumber">1</span>
-        <div class="commentMetaData">
-          <span class="commentName"><a href="#">Ali</a></span>
-          <span class="entryDate">August 27, 2010</span>
-          <p>This is a really interesting piece. Definitely going to walk down and see it this weekend!</p>
-        </div>
-        <div class="clear"></div>
-      </li>
-      <li>
-        <span class="commentNumber">2</span>
-        <div class="commentMetaData">
-          <span class="commentName"><a href="#">Chris</a></span>
-          <span class="entryDate">August 30, 2010</span>
-          <p>Thanks for posting this, it is one of my favorite pieces in the city.</p>
-        </div>
-        <div class="clear"></div>
-      </li>
-    </ol> 
-  </div>
+  <% if @art.comments.any? %>
+    <div class="module" id="comments">
+      <h3>Comments</h3>
+      <% @art.comments.each_with_index do |comment, i| %>
+        <ol>
+          <li>
+            <span class="commentNumber"><%= i + 1 %></span>
+            <div class="commentMetaData">
+              <span class="commentName">
+                <% if comment.url.present? %>
+                  <a href="<%= comment.url %>"><%= comment.name %></a>
+                <% else %>
+                  <%= comment.name %>
+                <% end %>
+              </span>
+              
+              <span class="entryDate">
+                <%= comment.created_at.strftime "%B %d, %Y" %>
+              </span>
+              
+              <p>
+                <%= comment.text %>
+              </p>
+            </div>
+            <div class="clear"></div>
+          </li>
+        </ol>
+      <% end %>
+    </div>
+  <% end %>
   
   <div class="module">
     <h3>Leave a Comment</h3>
-    <form id="commentForm" action="." method="get">
+    
+    <% form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
       <ul>
         <li>
-          <label>Name</label>
-          <input id="id_name" type="text" name="name"/>
+          <%= f.label :name %>
+          <%= f.text_field :name %>
         </li>
         <li>
-          <label>Email</label>
-          <input id="id_email" type="text" name="email"/>
+          <%= f.label :email %>
+          <%= f.text_field :email %>
         </li>
         <li>
-          <label>URL</label>
-          <input id="id_url" type="text" name="url"/>
+          <%= f.label :url %>
+          <%= f.text_field :url %>
         </li>
         <li>
-          <label>Comment</label>
-          <textarea id="id_comment" name="text"></textarea>
+          <%= f.label :text, "Comment" %>
+          <%= f.text_area :text %>
         </li>
         <li>
           <button class="submitBtn" type="submit">
@@ -177,7 +185,8 @@
           </button>
         </li>   
       </ul> 
-    </form>
+    <% end %>
+    
   </div>
 </div>
 
