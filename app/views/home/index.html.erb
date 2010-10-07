@@ -17,6 +17,7 @@
     
     <% @arts.each do |art| %>
       arts.push({
+        id: "<%= art.id %>",
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
