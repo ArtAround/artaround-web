@@ -16,9 +16,11 @@ class ArtsController < ApplicationController
     params[:art][:location] = [latitude, longitude]
     
     @art = Art.new params[:art]
+    @art.approved = false
+    @art.commissioned = false
     
     if @art.save
-      redirect_to @art, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your entry should appear shortly."
+      redirect_to new_art_path, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your entry should appear shortly."
     else
       render :new
     end
@@ -42,7 +44,7 @@ class ArtsController < ApplicationController
   protected
   
   def load_art
-    unless params[:id] and (@art = Art.find(params[:id]))
+    unless params[:id] and (@art = Art.first(:conditions => {:id => BSON::ObjectId(params[:id]), :approved => true}))
       head :not_found and return false
     end
   end
