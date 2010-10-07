@@ -167,7 +167,7 @@
         <a class="showCategory" href="#">Show</a>
         <div class="clear"></div>
         <ul id="categoryScroll">
-          <% @categories.each do |category| %>
+          <% categories.each do |category| %>
             <li>
               <label>
                 <input class="checkbox category" type="checkbox" name="word" checked />
@@ -183,15 +183,13 @@
         <a class="showNeighborhood" href="#">Show</a>
         <div class="clear"></div>
         <ul id="neighborhoodScroll">
-          <% @neighborhoods.each do |neighborhood| %>
-            <% if neighborhood.present? and neighborhood.strip.present? %>
-              <li>
-                <label>
-                  <input class="checkbox neighborhood" type="checkbox" name="word" checked />
-                  <span class="neighborhood"><%= neighborhood %></span>
-                </label>
-              </li>
-            <% end %>
+          <% neighborhoods.each do |neighborhood| %>
+            <li>
+              <label>
+                <input class="checkbox neighborhood" type="checkbox" name="word" checked />
+                <span class="neighborhood"><%= neighborhood %></span>
+              </label>
+            </li>
           <% end %>
         </ul>
       </fieldset>

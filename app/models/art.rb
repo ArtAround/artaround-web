@@ -16,6 +16,15 @@ class Art
   
   # Location (array of lat/long)
   field :location, :type => Array
+  # redundant for ease of validation, not indexed
+  field :latitude, :type => Float
+  field :longitude, :type => Float
+  
+  # Address (optional, will geocode to lat/long eventually)
+  field :address
+  field :city
+  field :state
+  field :zip
   
   # Used to orient street view
   field :yaw, :type => Float
@@ -26,8 +35,6 @@ class Art
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
   
-  
-  # indexes
   index [[:location, Mongo::GEO2D]]
   index :neighborhood
   index :ward
@@ -36,24 +43,34 @@ class Art
   index :year
   index :category
   
-  
-  # scopes
   scope :commissioned, :where => {:commissioned => true}
   scope :uncommissioned, :where => {:commissioned => false}
   scope :approved, :where => {:approved => true}
   scope :unapproved, :where => {:approved => false}
   
+  validates_presence_of :title
+  validates_numericality_of :year, :allow_blank => true
+  validates_numericality_of :latitude, :allow_nil => true
+  validates_numericality_of :longitude, :allow_nil => true
+  validate :contains_address, :on => :create
   
-  def latitude
-    location[0]
-  end
-  
-  def longitude
-    location[1]
-  end
+  before_create :store_location
   
   # should rename the field itself eventually
   def header
     yaw
+  end
+  
+  def store_location
+    self.location ||= []
+    location[0] = latitude
+    location[1] = longitude
+  end
+  
+  # validation for either having latitude and longitude, or an address (address/city/state)
+  def contains_address
+    unless (latitude.present? and longitude.present?) or (address.present? and city.present? and state.present?)
+      errors.add(:location, "not used") and return false
+    end
   end
 end

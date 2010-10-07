@@ -1,3 +1,30 @@
+<% content_for :footer do %>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
+<% end %>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    function loadMaps() {
+      
+      // dupont circle
+      var start = new google.maps.LatLng(38.90940, -77.04382);
+      
+      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+        zoom: 15,
+        center: start,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+      });
+      
+      google.maps.event.addListener(map, "click", function(event) {
+        $("input#art_latitude").val(event.latLng.lat());
+        $("input#art_longitude").val(event.latLng.lng());
+      });
+      
+    }
+  </script>
+<% end %>
+
 <div id="fullColumn">
   <div id="titleContent">
     <h2 class="withSubtext">Add a New Point</h2>
@@ -5,83 +32,85 @@
 </div>
 
 <div id="ltColumn">
-  <form id="addForm" name="form" action="new_point_handle.php" method="POST"  enctype="multipart/form-data">
+  <% if @art.errors[:location].present? %>
+    <div class="errors">
+      Please click on the map to choose a latitude or longitude, or enter an address.
+    </div>
+  <% end %>
+
+  <% form_for @art do |f| %>
     <ul>
       <li>
-        <label>Category</label>
-        <select id="id_categories" name="sources">
-          <option value="all">All Categories</option>
-          <option value="Gallery">Gallery</option>
-          <option value="Memorial">Memorial</option>
-          <option value="Monument">Monument</option>
-          <option value="Mosaic">Mosaic</option>
-          <option value="Mural">Mural</option>
-          <option value="Museum">Museum</option>
-          <option value="Painting">Painting</option>
-          <option value="Sculpture">Sculpture</option>
-          <option value="Statue">Statue</option>
-        </select> 
-      </li>
-      <li>
-        <label>Title</label>
-        <input id="id_title" type="text" name="title"/>
-      </li>
-      <li>
-        <label>Artist(s)</label>
-        <input id="id_artist" type="text" name="artist"/>
-      </li>
-      <li>
-        <label>Year</label>
-        <input id="id_year" type="text" name="year"/>
-      </li>
-
-
-      <li>
-        <label>Neighborhood</label>
-        <select id="id_neighborhood" name="neighborhood">
+        <%= f.label :category %>
+        <select id="id_categories" name="art[category]">
+          <option value="">---</option>
+          <% categories.each do |category| %>
+            <option><%= category %></option>
+          <% end %>
         </select>
       </li>
       <li>
-        <label>Location Description</label>
-        <textarea id="id_locDescription" name="text"></textarea>
-      </li>
-      <li class="formModule">
-        <label>Latitude</label>
-        <input id="id_year" name="latitude" value='Click on Map' type="text" name="year"/>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
       </li>
       <li>
-        <label>Longitude</label>
-        <input id="id_year" name="longitude" value='Click on Map' type="text" name="year"/>
+        <%= f.label :artist, "Artist(s)" %>
+        <%= f.text_field :artist %>
+      </li>
+      <li>
+        <%= f.label :year %>
+        <%= f.text_field :year %>
+      </li>
+      <li>
+        <%= f.label :neighborhood %>
+        <select id="id_neighborhood" name="art[neighborhood]">
+          <option value="">---</option>
+          <% neighborhoods.each do |neighborhood| %>
+            <option><%= neighborhood %></option>
+          <% end %>
+        </select>
+      </li>
+      <li>
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+      </li>
+      <li class="formModule">
+        <%= f.label :latitude %>
+        <%= f.text_field :latitude, :value => "Click on Map" %>
+      </li>
+      <li>
+        <%= f.label :longitude %>
+        <%= f.text_field :longitude, :value => "Click on Map" %>
       </li>
       <li><span>or</span></li>            
       <li>
-        <label>Address</label>
-        <input id="id_address" type="text" name="address"/>
+        <%= f.label :address %>
+        <%= f.text_field :address %>
       </li>
       <li>
-        <label>City</label>
-        <input id="id_city" type="text" name="city"/>
+        <%= f.label :city %>
+        <%= f.text_field :city %>
       </li>
       <li>
-        <label>State</label>
-        <input id="id_state" type="text" name="state"/>
+        <%= f.label :state %>
+        <%= f.text_field :state %>
       </li>
       <li>
-        <label>Zip Code</label>
-        <input id="id_zip" type="text" name="zip"/>
+        <%= f.label :zip %>
+        <%= f.text_field :zip%>
       </li>
-      <li class="formModule">
+      <!--<li class="formModule">
         <label>Photo</label>
         <span class="tip">(jpg, gif only; 2MB limit)</span>
         <input id="file" type="file" name="file" />
-      </li>
+      </li>-->
       <li>
         <button class="submitBtn" name="submit" type="submit">
             <span>Submit</span>
         </button>
       </li> 
     </ul>
-  </form>
+  <% end %>
 </div>
 
 <div id="rtColumn">
