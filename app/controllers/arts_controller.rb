@@ -6,16 +6,16 @@ class ArtsController < ApplicationController
   end
   
   def create
+    latitude = params[:art].delete 'latitude'
+    longitude = params[:art].delete 'longitude'
+    
+    # remove special case
+    latitude = nil if latitude == "Click on Map"
+    longitude = nil if longitude == "Click on Map"
+    
+    params[:art][:location] = [latitude, longitude]
+    
     @art = Art.new params[:art]
-    
-    # remove Click on Map special cases
-    if @art.latitude == "Click on Map"
-      @art.latitude = nil
-    end
-    
-    if @art.longitude == "Click on Map"
-      @art.longitude = nil
-    end
     
     if @art.save
       redirect_to @art, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your entry should appear shortly."

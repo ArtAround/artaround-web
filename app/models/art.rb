@@ -16,9 +16,6 @@ class Art
   
   # Location (array of lat/long)
   field :location, :type => Array
-  # redundant for ease of validation, not indexed
-  field :latitude, :type => Float
-  field :longitude, :type => Float
   
   # Address (optional, will geocode to lat/long eventually)
   field :address
@@ -50,21 +47,21 @@ class Art
   
   validates_presence_of :title
   validates_numericality_of :year, :allow_blank => true
-  validates_numericality_of :latitude, :allow_nil => true
-  validates_numericality_of :longitude, :allow_nil => true
   validate :contains_address, :on => :create
-  
-  before_create :store_location
   
   # should rename the field itself eventually
   def header
     yaw
   end
   
-  def store_location
+  def latitude
     self.location ||= []
-    location[0] = latitude
-    location[1] = longitude
+    location[0]
+  end
+  
+  def longitude
+    self.location ||= []
+    location[1]
   end
   
   # validation for either having latitude and longitude, or an address (address/city/state)

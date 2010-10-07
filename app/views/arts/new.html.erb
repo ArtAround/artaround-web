@@ -4,6 +4,13 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
+    $(function() {
+      if ($("input#art_latitude").val() == "")
+        $("input#art_latitude").val("Click on Map");
+      if ($("input#art_longitude").val() == "")
+        $("input#art_longitude").val("Click on Map");
+    });
+    
     function loadMaps() {
       
       // dupont circle
@@ -76,11 +83,11 @@
       </li>
       <li class="formModule">
         <%= f.label :latitude %>
-        <%= f.text_field :latitude, :value => "Click on Map" %>
+        <%= f.text_field :latitude %>
       </li>
       <li>
         <%= f.label :longitude %>
-        <%= f.text_field :longitude, :value => "Click on Map" %>
+        <%= f.text_field :longitude %>
       </li>
       <li><span>or</span></li>            
       <li>
