@@ -92,7 +92,6 @@ button, a.buttonLink { text-indent: -9999em; display: block; cursor: pointer; bo
 #curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 144px; height: 49px;}
 #curateButton:hover { background: url(/images/btn_curate.png) left -48px no-repeat; }
 
-#edit_artworkMetaData { display: none;}
 #edit_artworkMetaData .cancelBtn, #edit_artworkMetaData .submitBtn { float: left; margin: 15px 20px 20px 0;}
 #edit_artworkMetaData .submitBtn { margin-left: 120px;}
 

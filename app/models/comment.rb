@@ -4,14 +4,18 @@ class Comment
   
   referenced_in :art
   
-  field :name, :type => String
-  field :email, :type => String
-  field :ip_address, :type => String
-  field :url, :type => String
-  field :text, :type => String
+  attr_protected :_id, :ip_address
+  
+  field :name
+  field :email
+  field :ip_address
+  field :url
+  field :text
   
   index :email
   index :ip_address
+  
+  scope :inbox, :order_by => :created_at.desc
   
   validates_presence_of :name
   validates_presence_of :email

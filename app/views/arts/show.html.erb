@@ -102,6 +102,9 @@
 
       <dt>Neighborhood</dt> 
       <dd><%= @art.neighborhood %></dd>
+      
+      <dt>Ward</dt> 
+      <dd><%= @art.ward %></dd>
 
       <dt>Location</dt>
       <dd><%= @art.location_description %></dd>
@@ -110,12 +113,54 @@
       <dd><%= @art.description %></dd>
     </dl>
     
-    <form id="edit_artworkMetaData" action="#" method="post">
+    <% form_for ([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
       <ul>
+      
         <li>
-          <label>Location Description</label>
-          <textarea id="id_locDescription" name="text"></textarea>
+          <%= f.label :category %>
+          <select id="id_categories" name="submission[category]">
+            <option value="">---</option>
+            <% categories.each do |category| %>
+              <option><%= category %></option>
+            <% end %>
+          </select>
         </li>
+        
+        <li>
+          <%= f.label :artist, "Artist(s)" %>
+          <%= f.text_field :artist %>
+        </li>
+        
+        <li>
+          <%= f.label :year %>
+          <%= f.text_field :year %>
+        </li>
+        
+        <li>
+          <%= f.label :neighborhood %>
+          <select id="id_neighborhood" name="submission[neighborhood]">
+            <option value="">---</option>
+            <% neighborhoods.each do |neighborhood| %>
+              <option><%= neighborhood %></option>
+            <% end %>
+          </select>
+        </li>
+      
+        <li>
+          <%= f.label :ward %>
+          <%= f.text_field :ward %>
+        </li>
+      
+        <li>
+          <%= f.label :location_description, "Location" %>
+          <%= f.text_area :location_description %>
+        </li>
+        
+        <li>
+          <%= f.label :description %>
+          <%= f.text_area :description %>
+        </li>
+        
         <li>
           <button class="submitBtn" type="submit">
               <span>Submit</span>
@@ -125,7 +170,7 @@
           <a class="cancelBtn buttonLink " href="#">Cancel</a>
         </li> 
       </ul>
-    </form>
+    <% end %>
     <div class="clear"></div>
     
   </div>

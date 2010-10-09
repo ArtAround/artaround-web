@@ -1,5 +1,5 @@
 class ArtsController < ApplicationController
-  before_filter :load_art, :only => [:show, :comment]
+  before_filter :load_art, :only => [:show, :comment, :submit]
   
   def new
     @art = Art.new
@@ -20,14 +20,29 @@ class ArtsController < ApplicationController
     @art.commissioned = false
     
     if @art.save
-      redirect_to new_art_path, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your entry should appear shortly."
+      redirect_to new_art_path, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your contribution should appear shortly."
     else
       render :new
     end
   end
   
+  def submit
+    @submission = @art.submissions.build params[:submission]
+    
+    if @submission.save
+      @art.submitted_at = Time.now
+      @art.save!
+      
+      redirect_to art_path(@art), :notice => "Thanks for helping us fill in the gaps! We moderate submissions, so your contribution should appear shortly."
+    else
+      @comment = Comment.new
+      render :show
+    end
+  end
+  
   def show
     @comment = Comment.new
+    @submission = Submission.new
   end
   
   def comment
@@ -37,6 +52,7 @@ class ArtsController < ApplicationController
     if @comment.save
       redirect_to @art, :notice => "Your comment has been posted below. Thanks for contributing!"
     else
+      @submission = Submission.new
       render :show
     end
   end

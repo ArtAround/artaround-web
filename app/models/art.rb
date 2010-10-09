@@ -3,17 +3,20 @@ class Art
   include Mongoid::Timestamps
   
   references_many :comments
+  embeds_many :submissions
+  
+  attr_protected :_id, :commissioned, :approved
   
   field :title
+  
+  # fields doubled on submissions
   field :category
   field :artist
   field :year
-  field :location_description
-  field :description
-  
-  # DC location fields
   field :neighborhood
   field :ward
+  field :location_description
+  field :description
   
   # Location (array of lat/long)
   field :location, :type => Array
@@ -33,6 +36,8 @@ class Art
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
   
+  field :submitted_at, :type => DateTime
+  
   index [[:location, Mongo::GEO2D]]
   index :neighborhood
   index :ward
@@ -47,6 +52,7 @@ class Art
   scope :unapproved, :where => {:approved => false}
   
   scope :inbox, :where => {:approved => false}, :order_by => :created_at.desc
+  scope :submitted, :order_by => :submitted_at.desc
   
   validates_presence_of :title
   validates_numericality_of :year, :allow_blank => true
