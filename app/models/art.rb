@@ -8,6 +8,7 @@ class Art
   field :category
   field :artist
   field :year
+  field :location_description
   field :description
   
   # DC location fields
@@ -45,8 +46,11 @@ class Art
   scope :approved, :where => {:approved => true}
   scope :unapproved, :where => {:approved => false}
   
+  scope :inbox, :where => {:approved => false}, :order_by => :created_at.desc
+  
   validates_presence_of :title
   validates_numericality_of :year, :allow_blank => true
+  validates_numericality_of :ward, :allow_blank => true
   validate :contains_address, :on => :create
   
   # should rename the field itself eventually

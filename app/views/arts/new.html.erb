@@ -78,7 +78,15 @@
         </select>
       </li>
       <li>
-        <%= f.label :description %>
+        <%= f.label :ward %>
+        <%= f.text_field :ward %>
+      </li>
+      <li>
+        <%= f.label :location_description, "Describe the location" %>
+        <%= f.text_area :location_description %>
+      </li>
+      <li>
+        <%= f.label :description, "Describe the art" %>
         <%= f.text_area :description %>
       </li>
       <li class="formModule">

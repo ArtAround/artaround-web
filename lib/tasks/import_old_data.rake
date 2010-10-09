@@ -9,10 +9,10 @@ namespace :old_data do
       art.category = row[1]
       art.title = row[2]
       art.artist = row[3]
-      art.year = row[4]
+      art.year = row[4] unless row[4] == 'Unkn'
       art.neighborhood = row[5]
       art.ward = row[6]
-      art.description = row[7]
+      art.location_description = row[7]
       art.location = [(row[8] || 0.0).to_f, (row[9] || 0.0).to_f]
       art.yaw = row[10]
       art.pitch = row[11]
