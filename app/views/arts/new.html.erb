@@ -49,12 +49,7 @@
     <ul>
       <li>
         <%= f.label :category %>
-        <select id="id_categories" name="art[category]">
-          <option value="">---</option>
-          <% categories.each do |category| %>
-            <option><%= category %></option>
-          <% end %>
-        </select>
+        <%= f.select :category, categories, {:include_blank => "---"} %>
       </li>
       <li>
         <%= f.label :title %>
@@ -70,12 +65,7 @@
       </li>
       <li>
         <%= f.label :neighborhood %>
-        <select id="id_neighborhood" name="art[neighborhood]">
-          <option value="">---</option>
-          <% neighborhoods.each do |neighborhood| %>
-            <option><%= neighborhood %></option>
-          <% end %>
-        </select>
+        <%= f.select :neighborhood, categories, {:include_blank => "---"} %>
       </li>
       <li>
         <%= f.label :ward %>
