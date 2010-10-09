@@ -70,6 +70,18 @@ class Art
     location[1]
   end
   
+  def new_submission
+    self.submissions.build(
+      :category => category,
+      :artist => artist,
+      :year => year,
+      :neighborhood => neighborhood,
+      :ward => ward,
+      :location_description => location_description,
+      :description => description
+    )
+  end
+  
   # validation for either having latitude and longitude, or an address (address/city/state)
   def contains_address
     unless (latitude.present? and longitude.present?) or (address.present? and city.present? and state.present?)

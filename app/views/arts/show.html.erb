@@ -61,6 +61,11 @@
         return false;
       }
     );
+    
+    <% if @submission.errors.any? %>
+      // submission has errors, show the form
+      $("#editInformation a").click();
+    <% end %>
 
   });
 </script>
@@ -118,12 +123,7 @@
       
         <li>
           <%= f.label :category %>
-          <select id="id_categories" name="submission[category]">
-            <option value="">---</option>
-            <% categories.each do |category| %>
-              <option><%= category %></option>
-            <% end %>
-          </select>
+          <%= f.select :category, categories, {:include_blank => "---"} %>
         </li>
         
         <li>
@@ -138,12 +138,7 @@
         
         <li>
           <%= f.label :neighborhood %>
-          <select id="id_neighborhood" name="submission[neighborhood]">
-            <option value="">---</option>
-            <% neighborhoods.each do |neighborhood| %>
-              <option><%= neighborhood %></option>
-            <% end %>
-          </select>
+          <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
         </li>
       
         <li>

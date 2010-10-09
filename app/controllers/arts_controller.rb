@@ -42,7 +42,7 @@ class ArtsController < ApplicationController
   
   def show
     @comment = Comment.new
-    @submission = Submission.new
+    @submission = @art.new_submission
   end
   
   def comment
@@ -52,7 +52,7 @@ class ArtsController < ApplicationController
     if @comment.save
       redirect_to @art, :notice => "Your comment has been posted below. Thanks for contributing!"
     else
-      @submission = Submission.new
+      @art.new_submission
       render :show
     end
   end
