@@ -25,7 +25,7 @@ class Art
   field :zip
   
   # Used to orient street view
-  field :yaw, :type => Float
+  field :header, :type => Float
   field :pitch, :type => Float
   field :zoom, :type => Float
   
@@ -53,10 +53,6 @@ class Art
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_address, :on => :create
   
-  # should rename the field itself eventually
-  def header
-    yaw
-  end
   
   def latitude
     self.location ||= []

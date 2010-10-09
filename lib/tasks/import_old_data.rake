@@ -14,7 +14,7 @@ namespace :old_data do
       art.ward = row[6]
       art.location_description = row[7]
       art.location = [(row[8] || 0.0).to_f, (row[9] || 0.0).to_f]
-      art.yaw = row[10]
+      art.header = row[10]
       art.pitch = row[11]
       art.zoom = row[12]
       
