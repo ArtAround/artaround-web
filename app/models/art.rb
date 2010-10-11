@@ -6,7 +6,7 @@ class Art
   references_many :comments
   embeds_many :submissions
   
-  attr_protected :_id, :commissioned, :approved
+  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids
   
   field :title
   slug :title
