@@ -1,11 +1,14 @@
+# designed for use with the Fleakr gem (http://rubydoc.info/gems/fleakr/0.6.3/)
+
 :account:
-  :user_id: 
+  :user_id: # needed for slideshow embed
   :auth_token: 
   :api_key: 
   :shared_secret: 
 
 # The info attached to each photo that gets sent to Flickr
 :metadata:
-  :title: 
   :tag: 
-  :viewable_by: everyone # possible values: everyone, friends, family
+  :viewable_by: :everyone # possible values: :everyone, :friends, :family, [:friends, :family]
+  :level: :safe # possible values: :safe, :moderate, :restricted
+  :type: :photo # possible values :photo, :screenshot, :other
