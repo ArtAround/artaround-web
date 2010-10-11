@@ -70,9 +70,7 @@
         <ul>
           <% recent_art.each do |art| %>
             <li>
-              <a href="<%= art_path(:id => art.id) %>" id="art-thumbnail-<%= art.id %>">
-                <%= image_tag 'placeholder.jpg' %>
-              </a>
+              <a href="<%= art_path(:id => art.id) %>" id="art-thumbnail-<%= art.id %>"></a>
             </li>
           <% end %>
         </ul>
