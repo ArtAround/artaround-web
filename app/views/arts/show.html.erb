@@ -5,6 +5,11 @@
 <script type="text/javascript">
   var latitude = <%= @art.latitude || 0 %>;
   var longitude = <%= @art.longitude || 0 %>;
+  
+  var address = "<%= @art.address %>";
+  var city = "<%= @art.city %>";
+  var state = "<%= @art.state %>";
+  var zip = "<%= @art.zip %>";
 
   // street view, point of view
   var heading = <%= @art.header || 0 %>;
@@ -12,8 +17,27 @@
   var zoom = <%= @art.zoom || 0 %>;
 
   function loadMaps() {
-    var location = new google.maps.LatLng(latitude, longitude);
-
+    // use lat/long directly
+    if (latitude && longitude)
+      centerMaps(new google.maps.LatLng(latitude, longitude));
+    
+    // geocode
+    else {
+      var full_address = address + ", " + city + ", " + state;
+      if (zip) full_address = full_address + " " + zip;
+      
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({address: full_address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK)
+          centerMaps(results[0].geometry.location);
+        else
+          centerMaps(new google.maps.LatLng(0, 0));
+      });
+    }
+    
+  }
+  
+  function centerMaps(location) {
     // regular map
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
       zoom: 15,
