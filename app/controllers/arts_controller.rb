@@ -41,7 +41,7 @@ class ArtsController < ApplicationController
   end
   
   def add_photo
-    head 404 and return false unless params[:new_photo] and params[:new_photo].respond_to?(:path)
+    redirect_to(art_path(@art)) and return false unless params[:new_photo] and params[:new_photo].respond_to?(:path)
     
     # size check
     if File.size(params[:new_photo].path) > (1024*1024 * 4)

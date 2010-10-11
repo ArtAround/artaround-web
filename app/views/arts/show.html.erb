@@ -234,12 +234,14 @@
 </div>
 
 <div id="rtColumn">
-  <div class="module" id="artworkPhoto">
-    <%= image_tag 'placeholder_big.jpg' %>
-  </div>
+  <% if @art.flickr_ids and @art.flickr_ids.any? %>
+    <div class="module" id="artworkPhoto">
+      <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=art-id-<%= @art.id %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+    </div>
+  <% end %>
   
   <div class="module">
-    <h3>Have Another Photo? Upload it now!</h3>
+    <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
     <%= form_tag add_photo_art_path(@art), :multipart => true do %>
       <%= file_field_tag 'new_photo' %>
       <%= submit_tag "Upload (temp)" %>

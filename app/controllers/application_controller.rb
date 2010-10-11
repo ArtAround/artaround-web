@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     @categories ||= ["Gallery", "Memorial", "Monument", "Mosaic", "Mural", "Museum", "Painting", "Sculpture", "Statue"]
   end
   
+  helper_method :flickr
   def flickr
     @flickr ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
   end

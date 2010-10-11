@@ -9,6 +9,21 @@
     <%= stylesheet_link_tag 'main' %>
     
     <%= javascript_include_tag 'jquery-1.4.2.min' %>
+    <%= javascript_include_tag 'flickr' %>
+    <%= javascript_include_tag 'artaround' %>
+    
+    <script type="text/javascript">
+      Flickr.api_key = "<%= flickr[:account][:api_key] %>";
+      
+      $(function() {
+        // load thumbnails into recent art frames
+        <% recent_art.each do |art| %>
+          <% if art.flickr_ids and art.flickr_ids.any? %>
+            loadThumbnail("art-thumbnail-<%= art.id %>", "<%= art.flickr_ids.first %>");
+          <% end %>
+        <% end %>
+      });
+    </script>
     
     <%= yield :head %>
 
@@ -55,7 +70,7 @@
         <ul>
           <% recent_art.each do |art| %>
             <li>
-              <a href="<%= art_path(:id => art.id) %>">
+              <a href="<%= art_path(:id => art.id) %>" id="art-thumbnail-<%= art.id %>">
                 <%= image_tag 'placeholder.jpg' %>
               </a>
             </li>
