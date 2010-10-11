@@ -64,7 +64,7 @@ class Art
   validates_presence_of :title
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
-  validate :contains_address, :on => :create
+  validate :contains_location, :on => :create
   validates_uniqueness_of :slug
   
   
@@ -90,10 +90,21 @@ class Art
     )
   end
   
-  # validation for either having latitude and longitude, or an address (address/city/state)
-  def contains_address
-    unless (latitude.present? and longitude.present?) or (address.present? and city.present? and state.present?)
-      errors.add(:location, "not used") and return false
+  def contains_location
+    if !latitude.present? and !longitude.present?
+      if address.present? and state.present? and city.present?
+        full_address = "#{address}, #{city}, #{state}"
+        full_address += " #{zip}" if zip.present?
+        
+        result = Geokit::Geocoders::GoogleGeocoder.geocode full_address
+        if result.success?
+          self.location = [result.lat, result.lng]
+        else
+          errors.add(:geocode, "not used") and return false
+        end
+      else
+        errors.add(:location, "not used") and return false
+      end
     end
   end
 end

@@ -9,6 +9,8 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # and decide whether they need to be re-applied.
 gem 'fleakr', '0.6.3' 
 
+gem 'geokit', '1.5.0'
+
 gem "mongoid", :git => "http://github.com/mongoid/mongoid.git" 
 gem "mongoid_slug", '0.4.6'
 gem 'bson_ext', '1.0.7'
