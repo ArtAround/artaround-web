@@ -242,7 +242,7 @@
 <div id="rtColumn">
   <% if @art.flickr_ids and @art.flickr_ids.any? %>
     <div class="module" id="artworkPhoto">
-      <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=art-id-<%= @art.id %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+      <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
     </div>
   <% end %>
   

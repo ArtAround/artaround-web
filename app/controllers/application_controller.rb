@@ -3,9 +3,12 @@ class ApplicationController < ActionController::Base
   layout "application"
   
   def upload_photo(art, path)
+    tags = [@art.slug, flickr[:metadata][:tag], "dc"]
+    tags << @art.category.downcase if @art.category.present?
+    
     Fleakr.upload path, {
         :title => @art.title,
-        :tags => ["art-id-#{@art.id}", flickr[:metadata][:tag]],
+        :tags => tags,
         :viewable_by => flickr[:metadata][:viewable_by],
         :level => flickr[:metadata][:level],
         :type => flickr[:metadata][:type]
