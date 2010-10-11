@@ -240,7 +240,10 @@
   
   <div class="module">
     <h3>Have Another Photo? Upload it now!</h3>
-    <input type="file" />
+    <%= form_tag add_photo_art_path(@art), :multipart => true do %>
+      <%= file_field_tag 'new_photo' %>
+      <%= submit_tag "Upload (temp)" %>
+    <% end %>
   </div>
   
   <div id="map_canvas" class="smMap module"></div>
