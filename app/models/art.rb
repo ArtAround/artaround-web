@@ -1,6 +1,7 @@
 class Art
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Slug
   
   references_many :comments
   embeds_many :submissions
@@ -8,6 +9,7 @@ class Art
   attr_protected :_id, :commissioned, :approved
   
   field :title
+  slug :title
   
   # fields doubled on submissions
   field :category
@@ -61,6 +63,7 @@ class Art
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_address, :on => :create
+  validates_uniqueness_of :slug
   
   
   def latitude

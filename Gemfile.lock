@@ -65,6 +65,8 @@ GEM
     mime-types (1.16)
     mongo (1.0.8)
       bson (>= 1.0.5)
+    mongoid_slug (0.4.6)
+      mongoid (~> 2.0.0.beta)
     mongrel (1.1.5)
       cgi_multipart_eof_fix (>= 2.4)
       daemons (>= 1.0.3)
@@ -106,6 +108,7 @@ DEPENDENCIES
   fastercsv
   fleakr (= 0.6.3)
   mongoid!
+  mongoid_slug (= 0.4.6)
   mongrel
   rails (= 3.0.0)
   sqlite3-ruby
