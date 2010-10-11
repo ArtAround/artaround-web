@@ -103,25 +103,25 @@
     
     <dl id="artworkMetaData">
       <dt>Category</dt> 
-      <dd><%= @art.category %></dd>
+      <dd><%= known @art.category %></dd>
 
       <dt>Artist(s)</dt>  
-      <dd><%= @art.artist %></dd>
+      <dd><%= known @art.artist %></dd>
 
       <dt>Year</dt> 
-      <dd><%= @art.year %></dd>
+      <dd><%= known @art.year %></dd>
 
       <dt>Neighborhood</dt> 
-      <dd><%= @art.neighborhood %></dd>
+      <dd><%= known @art.neighborhood %></dd>
       
       <dt>Ward</dt> 
-      <dd><%= @art.ward %></dd>
+      <dd><%= known @art.ward %></dd>
 
       <dt>Location</dt>
-      <dd><%= @art.location_description %></dd>
+      <dd><%= known @art.location_description %></dd>
 
       <dt>Description</dt>  
-      <dd><%= @art.description %></dd>
+      <dd><%= known @art.description %></dd>
     </dl>
     
     <% form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
