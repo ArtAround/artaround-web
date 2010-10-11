@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :recent_art
   def recent_art
-    @recent_art ||= Art.descending(:created_at).limit(6)
+    @recent_art ||= Art.approved.descending(:created_at).limit(6)
   end
   
   helper_method :categories
