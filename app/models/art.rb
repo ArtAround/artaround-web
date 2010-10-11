@@ -51,6 +51,8 @@ class Art
   index :year
   index :category
   
+  index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
+  
   scope :commissioned, :where => {:commissioned => true}
   scope :uncommissioned, :where => {:commissioned => false}
   scope :approved, :where => {:approved => true}
