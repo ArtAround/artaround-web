@@ -1,4 +1,4 @@
-Artaround::Application.routes.draw do |map|
+Artaround::Application.routes.draw do
   resources :arts do
     post :comment, :on => :member
     post :submit, :on => :member
