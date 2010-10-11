@@ -1,35 +1,31 @@
-namespace :old_data do
+namespace :initialize do
 
   desc "Load in public art pieces from a CSV export of the old theartaround.us database"
   task :load => :environment do
     Art.delete_all
     Comment.delete_all
   
-    i = 0
-    FasterCSV.foreach("data/old/public_art.csv") do |row|
+    FasterCSV.foreach("data/initial/art.csv") do |row|
       art = Art.new
       
-      art.category = row[1]
-      art.title = row[2]
-      art.artist = row[3]
-      art.year = row[4] unless row[4] == 'Unkn'
-      art.neighborhood = row[5]
-      art.ward = row[6]
-      art.location_description = row[7]
-      art.location = [(row[8] || 0.0).to_f, (row[9] || 0.0).to_f]
-      art.header = row[10]
-      art.pitch = row[11]
-      art.zoom = row[12]
+      art.category = row[0]
+      art.title = row[1]
+      art.artist = row[2]
+      art.year = row[3]
+      art.neighborhood = row[4]
+      art.ward = row[5]
+      art.location_description = row[6]
+      art.location = [(row[7] || 0.0).to_f, (row[8] || 0.0).to_f]
+      art.header = row[9]
+      art.pitch = row[10]
+      art.zoom = row[11]
       
-      # skip panoramicid (row[13])
-      
-      art.commissioned = row[14]
-      art.approved = row[15]
+      art.commissioned = row[12]
+      art.approved = row[13]
       
       art.save!
-      i += 1
     end
     
-    puts "Loaded #{i} art pieces into the database. Documents in the arts collection: #{Art.count}"
+    puts "Loaded #{Art.count} art pieces into the database."
   end
 end
