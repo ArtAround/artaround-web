@@ -66,6 +66,12 @@
       // submission has errors, show the form
       $("#editInformation a").click();
     <% end %>
+    
+    $("input#new_photo").change(function() {
+      $(this).hide();
+      $("#uploading_photo").show();
+      $("form#new_photo_form").submit();
+    });
 
   });
 </script>
@@ -242,9 +248,11 @@
   
   <div class="module">
     <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
-    <%= form_tag add_photo_art_path(@art), :multipart => true do %>
+    <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
       <%= file_field_tag 'new_photo' %>
-      <%= submit_tag "Upload (temp)" %>
+      <div id="uploading_photo" style="display: none">
+        <p>Uploading photo, please wait...</p>
+      </div>
     <% end %>
   </div>
   
