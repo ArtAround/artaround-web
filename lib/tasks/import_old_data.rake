@@ -2,6 +2,9 @@ namespace :old_data do
 
   desc "Load in public art pieces from a CSV export of the old theartaround.us database"
   task :load => :environment do
+    Art.delete_all
+    Comment.delete_all
+  
     i = 0
     FasterCSV.foreach("data/old/public_art.csv") do |row|
       art = Art.new
