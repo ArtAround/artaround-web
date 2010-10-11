@@ -15,6 +15,8 @@
     
     var currentInfoWindow;
     
+    var map;
+    
     <% @arts.each do |art| %>
       arts.push({
         id: "<%= art.to_param %>",
@@ -33,11 +35,14 @@
     function loadMap() {
       var location = new google.maps.LatLng(38.9043, -77.035);
     
-      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+      map = new google.maps.Map(document.getElementById("map_canvas"), {
         center: location,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
+      
+      var wards = new google.maps.KmlLayer("http://theartaround.us/kml/wards.kml");
+      wards.setMap(map);
       
       // icon types
       icons.blue = new google.maps.MarkerImage("/images/marker_blue.png");
