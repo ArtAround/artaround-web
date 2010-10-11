@@ -1,0 +1,11 @@
+:account:
+  :user_id: 
+  :auth_token: 
+  :api_key: 
+  :shared_secret: 
+
+# The info attached to each photo that gets sent to Flickr
+:metadata:
+  :title: 
+  :tag: 
+  :viewable_by: everyone # possible values: everyone, friends, family
