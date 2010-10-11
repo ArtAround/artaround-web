@@ -4,13 +4,6 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
-    $(function() {
-      if ($("input#art_latitude").val() == "")
-        $("input#art_latitude").val("Click on Map");
-      if ($("input#art_longitude").val() == "")
-        $("input#art_longitude").val("Click on Map");
-    });
-    
     function loadMaps() {
       
       // dupont circle
@@ -29,6 +22,19 @@
       });
       
     }
+    
+    $(function() {
+      if ($("input#art_latitude").val() == "")
+        $("input#art_latitude").val("Click on Map");
+      if ($("input#art_longitude").val() == "")
+        $("input#art_longitude").val("Click on Map");
+        
+      $("#new_form").submit(function() {
+        $("#new_photo").hide();
+        $("#uploading_photo").show();
+        return true;
+      });
+    });
   </script>
 <% end %>
 
@@ -45,7 +51,7 @@
     </div>
   <% end %>
 
-  <% form_for @art do |f| %>
+  <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
     <ul>
       <li>
         <%= f.label :category %>
@@ -104,11 +110,14 @@
         <%= f.label :zip %>
         <%= f.text_field :zip%>
       </li>
-      <!--<li class="formModule">
+      <li class="formModule">
         <label>Photo</label>
-        <span class="tip">(jpg, gif only; 2MB limit)</span>
-        <input id="file" type="file" name="file" />
-      </li>-->
+        <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
+        <%= file_field_tag 'new_photo' %>
+        <div id="uploading_photo" style="display: none">
+          <p>Uploading photo, please wait...</p>
+        </div>
+      </li>
       <li>
         <button class="submitBtn" name="submit" type="submit">
             <span>Submit</span>

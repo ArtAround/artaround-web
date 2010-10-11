@@ -16,11 +16,32 @@ class ArtsController < ApplicationController
     params[:art][:location] = [latitude, longitude]
     
     @art = Art.new params[:art]
-    @art.approved = false
+    @art.approved = true # auto-approve
     @art.commissioned = false
     
-    if @art.save
-      redirect_to new_art_path, :notice => "Thanks for letting us know about a new piece of art! We moderate submissions, so your contribution should appear shortly."
+    # save safely because the id must be used to tag the flickr photo
+    if @art.safely.save
+      
+      if params[:new_photo] and params[:new_photo].respond_to?(:path)
+    
+        # size check
+        if File.size(params[:new_photo].path) > (1024*1024 * 2)
+          flash[:alert] = "We ask that uploaded photos be less than 2MB in size. Please resize your photo so that it takes up less space and try again."
+        else
+        
+          begin
+            uploads = upload_photo @art, params[:new_photo].path
+          rescue Fleakr::ApiError
+            flash[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
+          else
+            @art.flickr_ids ||= []
+            @art.flickr_ids << uploads.first.id
+            @art.save! # should not be a controversial operation
+          end
+        end
+      end
+      
+      redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
     else
       render :new
     end
@@ -44,19 +65,13 @@ class ArtsController < ApplicationController
     redirect_to(art_path(@art)) and return false unless params[:new_photo] and params[:new_photo].respond_to?(:path)
     
     # size check
-    if File.size(params[:new_photo].path) > (1024*1024 * 4)
-      redirect_to art_path(@art), :alert => "We ask that uploaded photos be less than 4MB in size. Please resize your photo so that it takes up less space and try again."
+    if File.size(params[:new_photo].path) > (1024*1024 * 2)
+      redirect_to art_path(@art), :alert => "We ask that uploaded photos be less than 2MB in size. Please resize your photo so that it takes up less space and try again."
       return false
     end
     
     begin
-      uploads = Fleakr.upload params[:new_photo].path, {
-        :title => @art.title,
-        :tags => ["art-id-#{@art.id}", flickr[:metadata][:tag]],
-        :viewable_by => flickr[:metadata][:viewable_by],
-        :level => flickr[:metadata][:level],
-        :type => flickr[:metadata][:type]
-      }
+      uploads = upload_photo @art, params[:new_photo].path
     rescue Fleakr::ApiError
       redirect_to art_path(@art), :alert => "There was a problem uploading your photo. If you don't mind, please try it again."
     else

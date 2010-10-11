@@ -2,6 +2,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "application"
   
+  def upload_photo(art, path)
+    Fleakr.upload path, {
+        :title => @art.title,
+        :tags => ["art-id-#{@art.id}", flickr[:metadata][:tag]],
+        :viewable_by => flickr[:metadata][:viewable_by],
+        :level => flickr[:metadata][:level],
+        :type => flickr[:metadata][:type]
+      }
+  end
+  
   helper_method :recent_art
   def recent_art
     @recent_art ||= Art.approved.descending(:created_at).limit(6)

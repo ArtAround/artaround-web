@@ -124,7 +124,7 @@
       <dd><%= @art.description %></dd>
     </dl>
     
-    <% form_for ([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
+    <% form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
       <ul>
       
         <li>
