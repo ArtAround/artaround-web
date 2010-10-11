@@ -14,7 +14,7 @@ class ArtsController < ApplicationController
     longitude = ["Click on Map", nil].include?(longitude) ? nil : longitude.to_f
     
     @art = Art.new params[:art]
-    @art.location = [latitude, longitude]
+    @art.location = [latitude, longitude] if latitude and longitude
     @art.approved = true # auto-approve
     @art.commissioned = false
     
