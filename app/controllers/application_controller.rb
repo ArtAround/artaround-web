@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :categories
   def categories
-    @categories ||= ["Gallery", "Memorial", "Monument", "Mosaic", "Mural", "Museum", "Painting", "Sculpture", "Statue"]
+    @categories ||= ["Architecture", "Gallery", "Memorial", "Mosaic", "Mural", "Museum", "Painting", "Sculpture", "Statue"]
   end
   
   helper_method :flickr
