@@ -1,7 +1,7 @@
 namespace :initialize do
 
   desc "Load in public art pieces from a CSV export of the old theartaround.us database"
-  task :load => :environment do
+  task :from_csv => :environment do
     Art.delete_all
     Comment.delete_all
   
