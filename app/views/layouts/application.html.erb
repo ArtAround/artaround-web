@@ -19,7 +19,7 @@
         // load thumbnails into recent art frames
         <% recent_art.each do |art| %>
           <% if art.flickr_ids and art.flickr_ids.any? %>
-            loadThumbnail("art-thumbnail-<%= art.slug %>", "<%= art.flickr_ids.first %>");
+            loadThumbnail("art-thumbnail-<%= art.slug %>", "<%= art.flickr_ids.first %>", "Small", 75, 75);
           <% end %>
         <% end %>
       });

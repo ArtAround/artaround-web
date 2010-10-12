@@ -1,8 +1,10 @@
-function loadThumbnail(element_id, photo_id) {
-  Flickr.getThumbnail(photo_id, "Small", function(thumbnail) {
+var sizes
+
+function loadThumbnail(element_id, photo_id, flickr_size, max_width, max_height, resize) {
+  Flickr.getThumbnail(photo_id, flickr_size, function(thumbnail) {
     if (thumbnail) {
-      var max_width = 75;
-      var max_height = 75;
+      var max_width = max_width;
+      var max_height = max_height;
       
       var rendered_height = thumbnail.height;
       var rendered_width = thumbnail.width;
@@ -23,7 +25,7 @@ function loadThumbnail(element_id, photo_id) {
       
       $("#" + element_id).html(
         "<img src=\"" + thumbnail.source + "\" " + 
-          //"style=\"width: " + rendered_width + "px; height: " + rendered_height + "px\" " +
+          (resize ? "style=\"width: " + rendered_width + "px; height: " + rendered_height + "px\" " : "") +
           "/>"
       );
     }

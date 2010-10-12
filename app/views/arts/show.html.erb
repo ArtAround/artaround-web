@@ -265,9 +265,16 @@
 
 <div id="rtColumn">
   <% if @art.flickr_ids and @art.flickr_ids.any? %>
-    <div class="module" id="artworkPhoto">
-      <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
-    </div>
+    <% if @art.flickr_ids.size > 1 %>
+      <div class="module" id="artworkPhoto">
+        <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+      </div>
+    <% else %>
+      <div class="module" id="artworkPhoto"></div>
+      <script type="text/javascript">
+        loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", "Medium", 300, 300);
+      </script>
+    <% end %>
   <% end %>
   
   <div class="module">
