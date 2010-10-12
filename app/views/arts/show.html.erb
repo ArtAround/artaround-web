@@ -272,7 +272,11 @@
     <% else %>
       <div class="module" id="artworkPhoto"></div>
       <script type="text/javascript">
-        loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", "Medium", 300, 300);
+        loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
+          flickr_size: "Medium",
+          max_width: 275,
+          link_to_flickr: true
+        });
       </script>
     <% end %>
   <% end %>

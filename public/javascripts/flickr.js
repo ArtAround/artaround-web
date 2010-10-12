@@ -1,10 +1,15 @@
 // homegrown Flickr API JS wrapper for fetching thumbnails
 var Flickr = {
   api_key: null,
+  username: null,
   
   url: function(method, params) {
     return "http://api.flickr.com/services/rest/?method=" + method + "&format=json" +
         "&api_key=" + Flickr.api_key + ($.isEmptyObject(params) ? '' : '&' + $.param(params)) + "&jsoncallback=?";
+  },
+  
+  photoUrl: function(photo_id) {
+    return "http://www.flickr.com/photos/" + Flickr.username + "/" + photo_id + "/";
   },
   
   get: function(method, params, callback) {

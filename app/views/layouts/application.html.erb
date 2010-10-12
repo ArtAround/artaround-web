@@ -14,12 +14,16 @@
     
     <script type="text/javascript">
       Flickr.api_key = "<%= flickr[:account][:api_key] %>";
+      Flickr.username = "<%= flickr[:account][:username] %>";
       
       $(function() {
-        // load thumbnails into recent art frames
         <% recent_art.each do |art| %>
           <% if art.flickr_ids and art.flickr_ids.any? %>
-            loadThumbnail("art-thumbnail-<%= art.slug %>", "<%= art.flickr_ids.first %>", "Small", 75, 75);
+            loadThumbnail("art-thumbnail-<%= art.slug %>", "<%= art.flickr_ids.first %>", {
+              flickr_size: "Small", 
+              max_width: 75,
+              max_height: 75
+            });
           <% end %>
         <% end %>
       });

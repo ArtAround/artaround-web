@@ -1,6 +1,12 @@
 var sizes
 
-function loadThumbnail(element_id, photo_id, flickr_size, max_width, max_height, resize) {
+function loadThumbnail(element_id, photo_id, options) {
+  var flickr_size = options.flickr_size || "Small";
+  var max_width = options.max_width || 75;
+  var max_height = options.max_height || 75
+  var resize = options.resize || false;
+  var link_to_flickr = options.link_to_flickr || false;
+  
   Flickr.getThumbnail(photo_id, flickr_size, function(thumbnail) {
     if (thumbnail) {
       var max_width = max_width;
@@ -23,11 +29,15 @@ function loadThumbnail(element_id, photo_id, flickr_size, max_width, max_height,
         }
       }
       
-      $("#" + element_id).html(
-        "<img src=\"" + thumbnail.source + "\" " + 
-          (resize ? "style=\"width: " + rendered_width + "px; height: " + rendered_height + "px\" " : "") +
-          "/>"
-      );
+      html = "<img src=\"" + thumbnail.source + "\" ";
+      if (resize)
+        html += "style=\"width: " + rendered_width + "px; height: " + rendered_height + "px\" ";
+      html += "/>";
+      
+      if (link_to_flickr)
+        html = "<a href=\"" + Flickr.photoUrl(photo_id) + "\">" + html + "</a>";
+      
+      $("#" + element_id).html(html);
     }
   });
 }
