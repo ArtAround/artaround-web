@@ -41,7 +41,9 @@
         mapTypeId: google.maps.MapTypeId.ROADMAP
       });
       
-      var wards = new google.maps.KmlLayer("http://theartaround.us/kml/wards.kml");
+      var wards = new google.maps.KmlLayer("http://theartaround.us/kml/dc.kml", {
+        preserveViewport: true
+      });
       wards.setMap(map);
       
       // icon types
