@@ -8,7 +8,6 @@
 
 # The info attached to each photo that gets sent to Flickr
 :metadata:
-  :tag: 
   :viewable_by: :everyone # possible values: :everyone, :friends, :family, [:friends, :family]
   :level: :safe # possible values: :safe, :moderate, :restricted
   :type: :photo # possible values :photo, :screenshot, :other
