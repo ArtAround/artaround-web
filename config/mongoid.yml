@@ -5,6 +5,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
+  autocreate_indexes: true
   database: artaround
 
 # set these environment variables on your prod server
