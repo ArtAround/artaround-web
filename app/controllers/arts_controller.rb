@@ -20,29 +20,36 @@ class ArtsController < ApplicationController
     @art.approved = true # auto-approve
     @art.commissioned = false
     
+    unless params[:new_photo] and params[:new_photo].respond_to?(:path)
+      flash.now[:alert] = "Please include a photo of this piece of art."
+      @art.valid? # generate errors
+      render :new
+      return false
+    end
+    
     # save safely because the id must be used to tag the flickr photo
     if @art.safely.save
+      # size check
+      if File.size(params[:new_photo].path) > (1024*1024 * 2)
+        @art.destroy
+        flash.now[:alert] = "We ask that uploaded photos be less than 2MB in size. Please resize your photo so that it takes up less space and try again."
+        render :new
+      else
       
-      if params[:new_photo] and params[:new_photo].respond_to?(:path)
-    
-        # size check
-        if File.size(params[:new_photo].path) > (1024*1024 * 2)
-          flash[:alert] = "We ask that uploaded photos be less than 2MB in size. Please resize your photo so that it takes up less space and try again."
+        begin
+          uploads = upload_photo @art, params[:new_photo].path
+        rescue Fleakr::ApiError
+          @art.destroy
+          flash.now[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
+          render :new
         else
-        
-          begin
-            uploads = upload_photo @art, params[:new_photo].path
-          rescue Fleakr::ApiError
-            flash[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
-          else
-            @art.flickr_ids ||= []
-            @art.flickr_ids << uploads.first.id
-            @art.save! # should not be a controversial operation
-          end
+          @art.flickr_ids ||= []
+          @art.flickr_ids << uploads.first.id
+          @art.save! # should not be a controversial operation
+          
+          redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
         end
       end
-      
-      redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
     else
       render :new
     end
