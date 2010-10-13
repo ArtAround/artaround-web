@@ -7,6 +7,7 @@ Artaround::Application.routes.draw do
   
   match "/contact" => "home#contact"
   match "/about" => "home#about"
+  match "/faq" => "home#faq"
   
   root :to => "home#index"
 end

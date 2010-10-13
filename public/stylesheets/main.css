@@ -154,3 +154,5 @@ div.field_with_errors {color: red;}
 div.flash {font-size: 110%; margin: 10px 0; -moz-border-radius: 3px; -webkit-border-radius: 3px; width: 940px; margin: 10px auto; color: #fff; padding: 10px 20px;}
 div.flash.alert { background-color: #edaa95; border: 2px solid #9d0101; }
 div.flash.notice { background-color: #beda03; border: 2px solid #a3bb01; }
+
+div.about strong {font-weight: bold}
