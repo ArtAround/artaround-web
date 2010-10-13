@@ -2,6 +2,7 @@
 
 :account:
   :user_id: # needed for slideshow embed
+  :username: # needed for links to photos
   :auth_token: 
   :api_key: 
   :shared_secret: 
