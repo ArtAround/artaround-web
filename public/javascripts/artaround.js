@@ -35,7 +35,7 @@ function loadThumbnail(element_id, photo_id, options) {
       if (link_to_flickr)
         html = "<a href=\"" + Flickr.photoUrl(photo_id) + "\">" + html + "</a>";
       
-      $("#" + element_id).html(html);
+      $("#" + element_id).prepend(html);
     }
   });
 }

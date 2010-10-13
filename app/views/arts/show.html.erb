@@ -274,26 +274,28 @@
 
   <div id="rtColumn">
     <% if @art.flickr_ids and @art.flickr_ids.any? %>
-      <% if @art.flickr_ids.size > 1 %>
-        <div class="module" id="artworkPhoto">
+      <div class="module" id="artworkPhoto">
+      
+        <% if @art.flickr_ids.size > 1 %>
           <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
-        </div>
-      <% else %>
-        <div class="module" id="artworkPhoto"></div>
-        <script type="text/javascript">
-          loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
-            flickr_size: "Medium",
-            max_width: 275,
-            link_to_flickr: true
-          });
-        </script>
-      <% end %>
+        <% else %>
+          <script type="text/javascript">
+            loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
+              flickr_size: "Medium",
+              max_width: 275,
+              link_to_flickr: true
+            });
+          </script>
+        <% end %>
+        
+        <span class="tip">
+          All photos uploaded are published on <a href="http://flickr.com">Flickr</a> with a Creative Commons Attribution-Non-commercial license
+        </span>
+      </div>
     <% end %>
     
     <div class="module">
-      <span class="tip">
-        All photos uploaded are published on Flickr with a Creative Commons Attribution-Non-commercial license
-      </span>
+      
     </div>  
     
     <div class="module">
