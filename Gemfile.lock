@@ -1,11 +1,10 @@
 GIT
   remote: http://github.com/mongoid/mongoid.git
-  revision: 82c354e6b0212ef42a3199f9809c8d19fb1021d7
+  revision: b1080cda54d32d3bc18e008867b33b82d64fb55b
   specs:
-    mongoid (2.0.0.beta.18)
+    mongoid (2.0.0.beta.19)
       activemodel (~> 3.0)
-      bson (= 1.0.7)
-      mongo (= 1.0.8)
+      mongo (~> 1.1)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
 
@@ -41,8 +40,8 @@ GEM
     activesupport (3.0.0)
     arel (1.0.1)
       activesupport (~> 3.0.0)
-    bson (1.0.7)
-    bson_ext (1.0.7)
+    bson (1.1)
+    bson_ext (1.1)
     builder (2.1.2)
     cgi_multipart_eof_fix (2.5.0)
     daemons (1.0.10)
@@ -64,7 +63,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
-    mongo (1.0.8)
+    mongo (1.1)
       bson (>= 1.0.5)
     mongoid_slug (0.4.6)
       mongoid (~> 2.0.0.beta)
@@ -105,10 +104,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext (= 1.0.7)
+  bson_ext (= 1.1)
   fastercsv
   fleakr (= 0.6.3)
   geokit (= 1.5.0)
+  mongo (= 1.1)
   mongoid!
   mongoid_slug (= 0.4.6)
   mongrel

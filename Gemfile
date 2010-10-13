@@ -11,9 +11,10 @@ gem 'fleakr', '0.6.3'
 
 gem 'geokit', '1.5.0'
 
+gem "mongo", "1.1"
 gem "mongoid", :git => "http://github.com/mongoid/mongoid.git" 
 gem "mongoid_slug", '0.4.6'
-gem 'bson_ext', '1.0.7'
+gem 'bson_ext', '1.1'
 
 # for importing old data (can be removed eventually)
 gem 'fastercsv'
