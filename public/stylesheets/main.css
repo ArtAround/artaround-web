@@ -12,109 +12,130 @@ a:hover { outline: none; color: #046f8c; }
 a:active { outline: none; color: #046f8c; }
 
 body{
-	color:#585246;
-	background: url(/images/bg.jpg) top left repeat;
+	color: #585246;
+	background: url(/images/bg_grid.jpg) top left repeat;
 	font-size: 80%;
   	line-height: 20px;
   	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 .clear { clear: both;}
+p { margin-bottom: 1em;}
 
-h1 { float: left; width: 268px; height: 71px; margin-top: 25px; float: left; margin-bottom: 55px;}
-h1 a { text-indent: -9999em; display: block; width: 268px; height: 71px; background: url(/images/logo.png) top left no-repeat;}
+#headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 123px;}
+#header { background: url(/images/bg_header.jpg) center top no-repeat;}
+#header, #featureBox, #mapSearch, #pageMain, #footer { width: 940px; padding: 0 10px; margin: 0 auto;}
 
-h2 { text-transform: lowercase; font-family: Georgia, "Times New Roman", Times, serif; font-size: 280%; margin-bottom: 30px; color: #34312a; line-height: 40px;}
-h2.withSubtext { margin-bottom: 0px;}
-.withIcon { float: left; }
+body { background: url(/images/bg_main.jpg) center top repeat;}
 
-h3 { font-family: Georgia, "Times New Roman", Times, serif; margin-bottom: 20px; font-size: 180%; color: #34312a; text-transform: lowercase; line-height: 28px;}
+#pageMain { padding-top: 40px;}
+div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 25px; width: 285px; }
+div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 605px; }
 
-#titleContent { background: url(/images/bg_header.png) bottom left no-repeat; margin-bottom: 25px; padding-bottom: 30px;}
+.tip { color: #86827a; font-size: 95%; font-family: Georgia, "Times New Roman", Times, serif; margin-top: 15px; font-style: oblique;}
 
-#pageMain { background: url(/images/bg_mainHeader.jpg) top center no-repeat; }
-#headerWrapper { background: url(/images/bg_wrapper.jpg) top center repeat-x; }
+h1 { width: 170px; height: 96px; float: left;}
+h1 a { text-indent: -9999em; display: block; width: 170px; height: 96px; background: url(/images/logo.png) top left no-repeat;}
 
-#nav { padding-top: 57px;}
+h2 { font-size: 230%; font-family: Georgia, "Times New Roman", Times, serif; line-height: 30px; padding-bottom: 5px; border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px;}
+h3 { font-size: 180%; margin-bottom: 25px; font-family: Georgia, "Times New Roman", Times, serif; line-height: 25px;}
+
+#titleContent { padding-bottom: 5px; border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px; }
+#titleContent h2, #featureBox h2 { padding-bottom: 0px; border-bottom: none; margin-bottom: 0px; }
+
+#nav { float: right; font-family: Georgia, "Times New Roman", Times, serif; font-size: 130%; padding-top: 80px;}
 #nav li { float: left;}
-#nav li#about { margin-left: 30px;}
-#nav li a { padding: 0 20px; text-decoration: none; color: #777266; text-transform: uppercase; }
-#nav li a:hover { font-weight: bold;}
+#nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decoration: none;}
+#nav a:hover { text-decoration: underline;}
+#about { margin-right: 20px; padding-right: 20px; border-right: 1px solid #565251;}
 
-#pageMain { margin-top:-30px;}
+#featureBox { background: url(/images/bg_feature.jpg) center top no-repeat; height: 229px;}
+#featureBoxWrapper { background: url(/images/bg_featureWrapper.jpg) center top repeat-x; height: 229px;}
 
-div#rtColumn { float: left; width: 285px; margin-left: 25px; margin-bottom: 80px;}
-div#ltColumn { float: left; width: 605px; margin-right: 25px; margin-bottom: 80px;}
+#mainText { float: left; width: 466px; height: 202px; display: block; background: url(/images/bg_featureText.png) top left no-repeat; margin: 26px 0 0 130px;}
+#mainText h2, #mainText span { text-indent: -9999em; display: block;}
 
-#footer, #pageMain { padding: 0 10px; width: 940px; margin: 0 auto;}
+#curateBox { float: left; font-family: Georgia, "Times New Roman", Times, serif; margin-top: 140px; }
+#curateBox span { font-style: oblique; font-size: 115%; margin-bottom: 10px; display: block; }
 
-#featureBox { background: url(/images/bg_feature.png) top center no-repeat; width: 940px; height: 266px; margin-top: -40px;}
-#mainText h2, #mainText span { text-indent: -9999em; display: block; }
-#mainText { float: left; width: 640px;}
-#curateBox { width: 200px; float: left; margin-left: 670px; margin-top: -15px;}
-#curateBox span { text-transform: lowercase; width: 130px; color:#AA9C95; font-family: Georgia, "Times New Roman", Times, serif; font-size: 140%; line-height: 23px; margin-bottom: 20px; display: block;}
+button, a.buttonLink { text-indent: -9999em; display: block; border: none; cursor: pointer;}
+#curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 141px; height: 45px;}
+#curateButton:hover { background: url(/images/btn_curate.png) bottom left no-repeat; }
+.searchBtn { background: url(/images/btn_search.png) top left no-repeat; width: 77px; height: 23px;}
+.searchBtn:hover { background: url(/images/btn_search.png) bottom left no-repeat; }
+.submitBtn { background: url(/images/btn_submit.png) top left no-repeat; width: 89px; height: 45px; margin-left: 120px; margin-top: 45px;}
+.submitBtn:hover { background: url(/images/btn_submit.png) bottom left no-repeat; }
+.cancelBtn { background: url(/images/btn_cancel.png) top left no-repeat; width: 89px; height: 45px; margin-top: 45px;}
+.cancelBtn:hover { background: url(/images/btn_cancel.png) bottom left no-repeat; }
 
-input, textarea { -moz-border-radius: 3px; -webkit-border-radius: 3px; color: #585755; border: 1px dotted #e0dbd3; background-color: #fff; padding: 5px; width: 400px;}
-textarea { height: 200px;}
-label { text-transform: lowercase; float: left; width: 120px; margin-top: 3px; display: block; font-size: 110%; font-family: Georgia, "Times New Roman", Times, serif;}
-form li { margin-bottom: 15px;}
-input.checkbox { width: 15px; margin-right: 10px;}
+#mapContainer { border-bottom: 4px solid #B4B2AD; border-top: 1px solid #B4B2AD; }
+
+#mapSearchWrapper { background: url(/images/bg_mapSearch.jpg) center top repeat-x; height: 45px;}
+#mapSearch { color: #ccc7bc; font-family: Georgia, "Times New Roman", Times, serif; font-style: oblique; padding-top: 12px;}
+#mapSearch input { background-color: #bfbeb6; float: left; margin-right: 10px; width: 240px; padding: 3px; border: none;}
+#mapSearch label { float: left; display: block; margin-top: 3px; margin-right: 15px; width: auto;}
+
+#filterForm { background-color: #FFFFFF; margin: 20px 0 0 80px; max-height: 522px; opacity: 0.9 !important; padding: 10px 20px; position: absolute; width: 180px; z-index: 9; }
+fieldset { border-bottom: 1px solid #B4B2AD; margin-bottom: 10px; padding-bottom: 10px; }
+#filterForm legend { float: left; font-weight: bold; text-transform: uppercase; }
+#filterForm ul { margin-top: 10px;}
+#categoryScroll, #neighborhoodScroll, #museumScroll { max-height: 200px; overflow-x: hidden; overflow-y: scroll; }
+
+input, textarea { -moz-border-radius: 3px; -webkit-border-radius: 3px; background-color: #FFFFFF; border: 1px dotted #E0DBD3; color: #585755; padding: 5px; width: 400px; }
+input.checkbox, input.radio { margin-right: 10px; width: 15px; }
+label { display: block; float: left; font-family: Georgia,"Times New Roman",Times,serif; font-size: 110%; margin-top: 3px; text-transform: lowercase; width: 120px; }
+textarea { height: 200px; }
+
+form li { margin-bottom: 15px; }
+.formModule { border-top: 1px solid #E0DBD3; margin-top: 25px; padding-top: 25px; }
+
+#filterForm #publicSubset { margin-left: 25px; margin-top: -10px;}
+
+#rtColumn #map_canvas { border:1px solid #B4B2AD; }
+
+#artworkData { margin-bottom: 20px;}
+dt, dd { margin-bottom: 5px; }
+dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weight: bold; text-transform: lowercase; width: 120px; }
+
+.module { border-bottom: 1px dashed #CECFC8; margin-bottom: 35px; padding-bottom: 35px; }
+
+.gmnoprint td img { margin-right: 20px; width: 80px;}
+.gmnoprint td { margin-right: 15px;}
+.gmnoprint a { margin-top: 20px;}
+
+.withIcon { float: left; }
+#edit_artworkMetaData .cancelBtn, #edit_artworkMetaData .submitBtn { float: left; margin: 15px 20px 20px 0; }
+
+#commissioned { text-indent: -9999em; display: block; width: 38px; height: 30px; background: url(/images/icon_commissioned.png) top left no-repeat; float: left; margin-left: 20px;}
+
+.showCategory, .showNeighborhood, .showMuseum, .showCommissioned { display: none; }
+.showCategory, .showNeighborhood, .showMuseum, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned { float: right; }
+
+.errors { margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; background-color: #edaa95; border: 2px solid #9d0101; }
+#editInformation { background-color: #e4e593; margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; border: 2px solid #c5c708;}
+
+/** Footer **/
+
+#footerWrapper { background: url(/images/bg_footerWrapper.png) center top repeat-x; height: 172px;}
+#footer h3 { text-indent: -9999em; display: block; width: 253px; height: 23px; background: url(/images/title_footer.png) top left no-repeat;}
+#footer li { background: url(/images/icon_footerMarker.png) top left no-repeat; width: 89px; height: 107px; float: left; }
+#footer li img, #footer li a { width: 65px; height: 65px; margin: 11px 0 0 6px; } 
+
+.artwork1 { margin-top: -10px;}
+.artwork2 { margin-left: 25px; margin-top: 20px;}
+.artwork3 { margin-left: 60px; margin-top: -30px;}
+.artwork4 { margin-left: 80px;}
+.artwork5 { margin-left: 100px; margin-top: 10px;}
+.artwork6 { margin-left: 140px; margin-top: -5px;}
+
+
+/** Added by Eric **/
+
+#pano { margin-top: 35px; width: 285px; height: 200px;}
 
 #map_canvas { height: 560px;}
-#mapContainer { border-top: 1px solid #b4b2ad; border-bottom: 4px solid #b4b2ad;}
-#rtColumn #map_canvas { border: 1px solid #b4b2ad;}
-#rtColumn .smMap { height: 200px;}
-#pano { margin-top: 35px; width: 285px; height: 200px;}
-#artworkPhoto img { width: 275px; border: 3px solid #E5E3DF; padding: 5px;}
 
-.module { padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px dashed #cecfc8;}
-
-fieldset { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #B4B2AD;}
-.fieldsetHeader { border-bottom: 1px solid #dfdfd1;}
-
-#filterForm legend { font-weight: bold; text-transform: uppercase; float: left;}
-.showCategory, .showNeighborhood, .showMuseum, .hideCategory, .hideNeighborhood, .hideMuseum { float: right;}
-#filterForm { max-height: 522px; background-color: #fff; padding: 10px 20px; width: 180px; position: absolute; z-index: 9; margin: 20px 0 0 80px; -moz-opacity: 0.9 !important; -webkit-opacity: 0.9!important; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)" !important; filter: alpha(opacity=90) !important; opacity: 0.9 !important; }
-#filterForm ul { margin-top: 10px;}
-
-#categoryScroll, #neighborhoodScroll, #museumScroll { overflow-y: scroll; overflow-x: hidden; max-height: 200px;}
-
-.showCategory, .showNeighborhood, .showMuseum { display: none;}
-.callout { border: 1px dotted #b6c015; background-color: #eaeeb2; padding: 8px 15px; -moz-border-radius: 3px; -webkit-border-radius: 3px; display: block; margin-bottom: 25px;}
-
-.formModule { margin-top: 25px; padding-top: 25px; border-top: 1px solid #E0DBD3;}
-
-button, a.buttonLink { text-indent: -9999em; display: block; cursor: pointer; border: none;}
-.submitBtn { background: url(/images/btn_submit.png) top left no-repeat; width: 94px; height: 49px; margin-left: 120px; margin-top: 30px;}
-.submitBtn:hover { background: url(/images/btn_submit.png) left -49px no-repeat; } 
-.cancelBtn { background: url(/images/btn_cancel.png) top left no-repeat; width: 94px; height: 49px; margin-top: 30px;}
-.cancelBtn:hover { background: url(/images/btn_cancel.png) left -49px no-repeat; }
-#curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 144px; height: 49px;}
-#curateButton:hover { background: url(/images/btn_curate.png) left -48px no-repeat; }
-
-#edit_artworkMetaData .cancelBtn, #edit_artworkMetaData .submitBtn { float: left; margin: 15px 20px 20px 0;}
-#edit_artworkMetaData .submitBtn { margin-left: 120px;}
-
-#comments li { margin-bottom: 35px;}
-.commentNumber { float: left; font-family: Georgia, "Times New Roman", Times, serif; font-size: 600%; font-style: oblique; color: #dcd5d1;}
-.commentName { display: block; font-size: 140%; font-family: Georgia, "Times New Roman", Times, serif;}
-.entryDate { font-family: Georgia, "Times New Roman", Times, serif; font-style: oblique; color: #AA9C95; margin-bottom: 8px; display: block;}
-.commentMetaData { float: left; margin-left: 25px; }
-
-#commissioned { background: url(/images/commissioned_dc.png) left -2px no-repeat; display: block; text-indent: -9999em; width: 47px; height: 46px; float: left; margin-left: 15px;}
-.commentTitle { color: #AA9C95;}
-
-dt { float: left; font-weight: bold; font-family: Georgia, "Times New Roman", Times, serif; text-transform: lowercase; width: 120px;}
-dd { float: left; width: 460px; }
-dt, dd { margin-bottom: 5px;}
-
-#footerWrapper { background: url(/images/bg_footerWrapper.jpg) top center repeat-x; border-top: 3px solid #000;}
-#footer h3 { color: #aebbc0; padding-top: 30px;}
-#footer a, #footer img { width: 75px; height: 75px; padding: 5px;}
-#footer img { border: 3px solid #4c5457; }
-#footer { background: url(/images/bg_footer.jpg) top center no-repeat; height: 223px;}
-#footer li { float: left;}
-
+#artworkPhoto img { width: 275px; }
 
 div.errors, ul.errors li {color: red; margin: 5px 0;}
 div.field_with_errors {margin: 0; padding: 0;}

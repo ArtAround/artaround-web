@@ -22,7 +22,8 @@
             loadThumbnail("art-thumbnail-<%= art.slug %>", "<%= art.flickr_ids.first %>", {
               flickr_size: "Small", 
               max_width: 75,
-              max_height: 75
+              max_height: 75,
+              resize: true
             });
           <% end %>
         <% end %>
@@ -36,44 +37,28 @@
   <body class="<%= content_for :body_class %>">
   
     <div id="headerWrapper">
-      <div id="pageMain">
-        <div id="header">
-          <h1><a href="/">Art Around</a></h1>
-          <div id="nav">
-            <ul>
-              <li id="about"><a href="#">About</a></li>
-              <li><a href="<%= contact_path %>">Contact Us</a></li>
-            </ul>
-            <div class="clear"></div> 
-          </div>
-          
-          <% [:notice, :alert].each do |msg| %>
-            <% if flash[msg] %>
-              <div class="flash <%= msg %>">
-                <%= flash[msg] %>
-              </div>
-            <% end %>
-          <% end %>
-          
-          <!-- used on home page for featured box -->
-          <%= yield :header %>
+      <div id="header">
+        <h1><a href="/">Art Around</a></h1>
+        <div id="nav">
+          <ul>
+            <li id="about"><a href="#">About</a></li>
+            <li><a href="<%= contact_path %>">Contact Us</a></li>
+          </ul>
+          <div class="clear"></div> 
         </div>
-        
-        <%= yield %>
-        
-        <div class="clear"></div>
-      </div>
+      </div>  
     </div>
-  
-    <!-- used on home page for map container -->
-    <%= yield :bottom %>
+    
+    <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+    
+    <%= yield %>
     
     <div id="footerWrapper">
       <div id="footer">
         <h3>Recent Uploads</h3>
         <ul>
-          <% recent_art.each do |art| %>
-            <li>
+          <% recent_art.each_with_index do |art, i| %>
+            <li class="artwork<%= i + 1 %>">
               <a href="<%= art_path art %>" id="art-thumbnail-<%= art.slug %>"></a>
             </li>
           <% end %>

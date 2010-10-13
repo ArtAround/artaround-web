@@ -9,8 +9,6 @@ function loadThumbnail(element_id, photo_id, options) {
   
   Flickr.getThumbnail(photo_id, flickr_size, function(thumbnail) {
     if (thumbnail) {
-      var max_width = max_width;
-      var max_height = max_height;
       
       var rendered_height = thumbnail.height;
       var rendered_width = thumbnail.width;

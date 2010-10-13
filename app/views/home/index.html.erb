@@ -151,7 +151,8 @@
   
 <% end %>
 
-<% content_for :header do %>
+
+<div id="featureBoxWrapper">       
   <div id="featureBox">
     <div id="mainText">
       <h2>Discover the art around us</h2>
@@ -159,51 +160,60 @@
     </div>
     <div id="curateBox">
       <span>Know of some art around you?</span>
-      <a class="buttonLink" id="curateButton" href="<%= new_art_path %>">Curate it now!</a>
+      <a class="buttonLink" id="curateButton" href="/arts/new">Curate it now!</a>
     </div>  
+    <div class="clear"></div>
   </div>
-<% end %>
+</div>
 
-<% content_for :bottom do %>
-
-  <div id="mapContainer">
-    <form id="filterForm" action="." method="get">
-      <fieldset>
-        <legend>Category</legend>
-        <a class="hideCategory" href="#">Hide</a>
-        <a class="showCategory" href="#">Show</a>
-        <div class="clear"></div>
-        <ul id="categoryScroll">
-          <% categories.each do |category| %>
-            <li>
-              <label>
-                <input class="checkbox category" type="checkbox" name="word" checked />
-                <span class="category"><%= category %></span>
-              </label>
-            </li>
-          <% end %>
-        </ul> 
-      </fieldset>
-      <fieldset>
-        <legend>Neighborhood</legend>
-        <a class="hideNeighborhood" href="#">Hide</a>
-        <a class="showNeighborhood" href="#">Show</a>
-        <div class="clear"></div>
-        <ul id="neighborhoodScroll">
-          <% neighborhoods.each do |neighborhood| %>
-            <li>
-              <label>
-                <input class="checkbox neighborhood" type="checkbox" name="word" checked />
-                <span class="neighborhood"><%= neighborhood %></span>
-              </label>
-            </li>
-          <% end %>
-        </ul>
-      </fieldset>
+<div id="mapSearchWrapper">
+  <div id="mapSearch">
+    <form action="." method="get">
+      <label>Zoom me down to an address or zip</label>
+      <input id="id_mapsearch" type="text" name="mapsearch"/>
+      <button class="searchBtn" type="submit">
+          <span>Search</span>
+      </button>
     </form>
-    
-    <div id="map_canvas"></div>
-    
   </div>  
+</div>
 
-<% end %>
+<div id="mapContainer">
+  <form id="filterForm" action="." method="get">
+    <fieldset>
+      <legend>Category</legend>
+      <a class="hideCategory" href="#">Hide</a>
+      <a class="showCategory" href="#">Show</a>
+      <div class="clear"></div>
+      <ul id="categoryScroll">
+        <% categories.each do |category| %>
+          <li>
+            <label>
+              <input class="checkbox category" type="checkbox" name="word" checked />
+              <span class="category"><%= category %></span>
+            </label>
+          </li>
+        <% end %>
+      </ul> 
+    </fieldset>
+    <fieldset>
+      <legend>Neighborhood</legend>
+      <a class="hideNeighborhood" href="#">Hide</a>
+      <a class="showNeighborhood" href="#">Show</a>
+      <div class="clear"></div>
+      <ul id="neighborhoodScroll">
+        <% neighborhoods.each do |neighborhood| %>
+          <li>
+            <label>
+              <input class="checkbox neighborhood" type="checkbox" name="word" checked />
+              <span class="neighborhood"><%= neighborhood %></span>
+            </label>
+          </li>
+        <% end %>
+      </ul>
+    </fieldset>
+  </form>
+  
+  <div id="map_canvas"></div>
+  
+</div>

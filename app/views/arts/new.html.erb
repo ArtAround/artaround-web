@@ -38,102 +38,107 @@
   </script>
 <% end %>
 
-<div id="fullColumn">
-  <div id="titleContent">
-    <h2 class="withSubtext">Add a New Point</h2>
+<div id="pageMain">
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2 class="withSubtext">Add a New Point</h2>
+    </div>
   </div>
-</div>
 
-<div id="ltColumn">
+  <div id="ltColumn">
+      
+    <% if @art.errors[:location].present? %>
+      <div class="errors">
+        Please click on the map to choose a latitude or longitude, or enter an address.
+      </div>
+    <% end %>
     
-  <% if @art.errors[:location].present? %>
-    <div class="errors">
-      Please click on the map to choose a latitude or longitude, or enter an address.
-    </div>
-  <% end %>
+    <% if @art.errors[:geocode].present? %>
+      <div class="errors">
+        We couldn't locate the address you gave. Please give a more specific address so that we can locate the art.
+      </div>
+    <% end %>
+
+    <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
+      <ul>
+        <li>
+          <%= f.label :category %>
+          <%= f.select :category, categories, {:include_blank => "---"} %>
+        </li>
+        <li>
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+        </li>
+        <li>
+          <%= f.label :artist, "Artist(s)" %>
+          <%= f.text_field :artist %>
+        </li>
+        <li>
+          <%= f.label :year %>
+          <%= f.text_field :year %>
+        </li>
+        <li>
+          <%= f.label :neighborhood %>
+          <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
+        </li>
+        <li>
+          <%= f.label :ward %>
+          <%= f.text_field :ward %>
+        </li>
+        <li>
+          <%= f.label :location_description, "Describe the location" %>
+          <%= f.text_area :location_description %>
+        </li>
+        <li>
+          <%= f.label :description, "Describe the art" %>
+          <%= f.text_area :description %>
+        </li>
+        <li class="formModule">
+          <%= f.label :latitude %>
+          <%= f.text_field :latitude %>
+        </li>
+        <li>
+          <%= f.label :longitude %>
+          <%= f.text_field :longitude %>
+        </li>
+        <li><span>or</span></li>            
+        <li>
+          <%= f.label :address %>
+          <%= f.text_field :address %>
+        </li>
+        <li>
+          <%= f.label :city %>
+          <%= f.text_field :city %>
+        </li>
+        <li>
+          <%= f.label :state %>
+          <%= f.text_field :state %>
+        </li>
+        <li>
+          <%= f.label :zip %>
+          <%= f.text_field :zip%>
+        </li>
+        <li class="formModule">
+          <label>Photo</label>
+          <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
+          <%= file_field_tag 'new_photo' %>
+          <div id="uploading_photo" style="display: none">
+            <p>Uploading photo, please wait...</p>
+          </div>
+        </li>
+        <li>
+          <button class="submitBtn" name="submit" type="submit">
+              <span>Submit</span>
+          </button>
+        </li> 
+      </ul>
+    <% end %>
+  </div>
+
+  <div id="rtColumn">
+    <div id="map_canvas"></div>
+  </div>
+
+  <div class="clear"></div>
   
-  <% if @art.errors[:geocode].present? %>
-    <div class="errors">
-      We couldn't locate the address you gave. Please give a more specific address so that we can locate the art.
-    </div>
-  <% end %>
-
-  <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
-    <ul>
-      <li>
-        <%= f.label :category %>
-        <%= f.select :category, categories, {:include_blank => "---"} %>
-      </li>
-      <li>
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-      </li>
-      <li>
-        <%= f.label :artist, "Artist(s)" %>
-        <%= f.text_field :artist %>
-      </li>
-      <li>
-        <%= f.label :year %>
-        <%= f.text_field :year %>
-      </li>
-      <li>
-        <%= f.label :neighborhood %>
-        <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
-      </li>
-      <li>
-        <%= f.label :ward %>
-        <%= f.text_field :ward %>
-      </li>
-      <li>
-        <%= f.label :location_description, "Describe the location" %>
-        <%= f.text_area :location_description %>
-      </li>
-      <li>
-        <%= f.label :description, "Describe the art" %>
-        <%= f.text_area :description %>
-      </li>
-      <li class="formModule">
-        <%= f.label :latitude %>
-        <%= f.text_field :latitude %>
-      </li>
-      <li>
-        <%= f.label :longitude %>
-        <%= f.text_field :longitude %>
-      </li>
-      <li><span>or</span></li>            
-      <li>
-        <%= f.label :address %>
-        <%= f.text_field :address %>
-      </li>
-      <li>
-        <%= f.label :city %>
-        <%= f.text_field :city %>
-      </li>
-      <li>
-        <%= f.label :state %>
-        <%= f.text_field :state %>
-      </li>
-      <li>
-        <%= f.label :zip %>
-        <%= f.text_field :zip%>
-      </li>
-      <li class="formModule">
-        <label>Photo</label>
-        <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
-        <%= file_field_tag 'new_photo' %>
-        <div id="uploading_photo" style="display: none">
-          <p>Uploading photo, please wait...</p>
-        </div>
-      </li>
-      <li>
-        <button class="submitBtn" name="submit" type="submit">
-            <span>Submit</span>
-        </button>
-      </li> 
-    </ul>
-  <% end %>
-</div>
-
-<div id="rtColumn">
-  <div id="map_canvas"></div>
 </div>

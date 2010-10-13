@@ -100,197 +100,216 @@
   });
 </script>
 
-<div id="fullColumn">
-  <div id="titleContent">
-    <h2 class="withSubtext withIcon">
-      <%= @art.title %>
-    </h2>
-    
-    <% if @art.commissioned %>
-      <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
-    <% end %>
-    
-    <div class="clear"></div>
-    
-    <!-- <span class="commentTitle">2 comments</span> -->
-  </div>
-</div>
+<div id="pageMain">
 
-<div id="ltColumn">
-  <div class="module">
-    <div id="editInformation">
-      <span class="callout">
-        Know more information about this piece?
-        <a href="#">Edit it now!</a>
-      </span>
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2 class="withSubtext withIcon">
+        <%= @art.title %>
+      </h2>
+      
+      <% if @art.commissioned %>
+        <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
+      <% end %>
+      
+      <div class="clear"></div>
+      
+      <!-- <span class="commentTitle">2 comments</span> -->
+    </div>
+  </div>
+
+  <div id="ltColumn">
+    <div class="module">
+      <div id="editInformation">
+        <!--
+        <dl id="artworkData">
+          <dt>Artist's Website</dt>
+          <dd>http://www.website.com</dd>
+        </dl>
+        -->
+      
+        <span class="callout">
+          Know more information about this piece?
+          <a href="#">Edit it now!</a>
+        </span>
+      </div>
+      
+      <dl id="artworkMetaData">
+        <dt>Category</dt> 
+        <dd><%= known @art.category %></dd>
+
+        <dt>Artist(s)</dt>  
+        <dd><%= known @art.artist %></dd>
+
+        <dt>Year</dt> 
+        <dd><%= known @art.year %></dd>
+
+        <dt>Neighborhood</dt> 
+        <dd><%= known @art.neighborhood %></dd>
+        
+        <dt>Ward</dt> 
+        <dd><%= known @art.ward %></dd>
+
+        <dt>Location</dt>
+        <dd><%= known @art.location_description %></dd>
+
+        <dt>Description</dt>  
+        <dd><%= known @art.description %></dd>
+      </dl>
+      
+      <% form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
+        <ul>
+        
+          <li>
+            <%= f.label :category %>
+            <%= f.select :category, categories, {:include_blank => "---"} %>
+          </li>
+          
+          <li>
+            <%= f.label :artist, "Artist(s)" %>
+            <%= f.text_field :artist %>
+          </li>
+          
+          <li>
+            <%= f.label :year %>
+            <%= f.text_field :year %>
+          </li>
+          
+          <li>
+            <%= f.label :neighborhood %>
+            <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
+          </li>
+        
+          <li>
+            <%= f.label :ward %>
+            <%= f.text_field :ward %>
+          </li>
+        
+          <li>
+            <%= f.label :location_description, "Location" %>
+            <%= f.text_area :location_description %>
+          </li>
+          
+          <li>
+            <%= f.label :description %>
+            <%= f.text_area :description %>
+          </li>
+          
+          <li>
+            <button class="submitBtn" type="submit">
+                <span>Submit</span>
+            </button>
+          </li>
+          <li>
+            <a class="cancelBtn buttonLink " href="#">Cancel</a>
+          </li> 
+        </ul>
+      <% end %>
+      <div class="clear"></div>
+      
     </div>
     
-    <dl id="artworkMetaData">
-      <dt>Category</dt> 
-      <dd><%= known @art.category %></dd>
-
-      <dt>Artist(s)</dt>  
-      <dd><%= known @art.artist %></dd>
-
-      <dt>Year</dt> 
-      <dd><%= known @art.year %></dd>
-
-      <dt>Neighborhood</dt> 
-      <dd><%= known @art.neighborhood %></dd>
-      
-      <dt>Ward</dt> 
-      <dd><%= known @art.ward %></dd>
-
-      <dt>Location</dt>
-      <dd><%= known @art.location_description %></dd>
-
-      <dt>Description</dt>  
-      <dd><%= known @art.description %></dd>
-    </dl>
-    
-    <% form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
-      <ul>
-      
-        <li>
-          <%= f.label :category %>
-          <%= f.select :category, categories, {:include_blank => "---"} %>
-        </li>
-        
-        <li>
-          <%= f.label :artist, "Artist(s)" %>
-          <%= f.text_field :artist %>
-        </li>
-        
-        <li>
-          <%= f.label :year %>
-          <%= f.text_field :year %>
-        </li>
-        
-        <li>
-          <%= f.label :neighborhood %>
-          <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
-        </li>
-      
-        <li>
-          <%= f.label :ward %>
-          <%= f.text_field :ward %>
-        </li>
-      
-        <li>
-          <%= f.label :location_description, "Location" %>
-          <%= f.text_area :location_description %>
-        </li>
-        
-        <li>
-          <%= f.label :description %>
-          <%= f.text_area :description %>
-        </li>
-        
-        <li>
-          <button class="submitBtn" type="submit">
-              <span>Submit</span>
-          </button>
-        </li>
-        <li>
-          <a class="cancelBtn buttonLink " href="#">Cancel</a>
-        </li> 
-      </ul>
+    <% if @art.comments.any? %>
+      <div class="module" id="comments">
+        <h3>Comments</h3>
+        <% @art.comments.each_with_index do |comment, i| %>
+          <ol>
+            <li>
+              <span class="commentNumber"><%= i + 1 %></span>
+              <div class="commentMetaData">
+                <span class="commentName">
+                  <% if comment.url.present? %>
+                    <a href="<%= comment.url %>"><%= comment.name %></a>
+                  <% else %>
+                    <%= comment.name %>
+                  <% end %>
+                </span>
+                
+                <span class="entryDate">
+                  <%= comment.created_at.strftime "%B %d, %Y" %>
+                </span>
+                
+                <p>
+                  <%= comment.text %>
+                </p>
+              </div>
+              <div class="clear"></div>
+            </li>
+          </ol>
+        <% end %>
+      </div>
     <% end %>
-    <div class="clear"></div>
     
-  </div>
-  
-  <% if @art.comments.any? %>
-    <div class="module" id="comments">
-      <h3>Comments</h3>
-      <% @art.comments.each_with_index do |comment, i| %>
-        <ol>
+    <div class="module">
+      <h3>Leave a Comment</h3>
+      
+      <% form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
+        <ul>
           <li>
-            <span class="commentNumber"><%= i + 1 %></span>
-            <div class="commentMetaData">
-              <span class="commentName">
-                <% if comment.url.present? %>
-                  <a href="<%= comment.url %>"><%= comment.name %></a>
-                <% else %>
-                  <%= comment.name %>
-                <% end %>
-              </span>
-              
-              <span class="entryDate">
-                <%= comment.created_at.strftime "%B %d, %Y" %>
-              </span>
-              
-              <p>
-                <%= comment.text %>
-              </p>
-            </div>
-            <div class="clear"></div>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
           </li>
-        </ol>
+          <li>
+            <%= f.label :email %>
+            <%= f.text_field :email %>
+          </li>
+          <li>
+            <%= f.label :url %>
+            <%= f.text_field :url %>
+          </li>
+          <li>
+            <%= f.label :text, "Comment" %>
+            <%= f.text_area :text %>
+          </li>
+          <li>
+            <button class="submitBtn" type="submit">
+              <span>Submit</span>
+            </button>
+          </li>   
+        </ul> 
+      <% end %>
+      
+    </div>
+  </div>
+
+  <div id="rtColumn">
+    <% if @art.flickr_ids and @art.flickr_ids.any? %>
+      <% if @art.flickr_ids.size > 1 %>
+        <div class="module" id="artworkPhoto">
+          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+        </div>
+      <% else %>
+        <div class="module" id="artworkPhoto"></div>
+        <script type="text/javascript">
+          loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
+            flickr_size: "Medium",
+            max_width: 275,
+            link_to_flickr: true
+          });
+        </script>
+      <% end %>
+    <% end %>
+    
+    <div class="module">
+      <span class="tip">
+        All photos uploaded are published on Flickr with a Creative Commons Attribution-Non-commercial license
+      </span>
+    </div>  
+    
+    <div class="module">
+      <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
+      <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
+        <%= file_field_tag 'new_photo' %>
+        <div id="uploading_photo" style="display: none">
+          <p>Uploading photo, please wait...</p>
+        </div>
       <% end %>
     </div>
-  <% end %>
-  
-  <div class="module">
-    <h3>Leave a Comment</h3>
     
-    <% form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
-      <ul>
-        <li>
-          <%= f.label :name %>
-          <%= f.text_field :name %>
-        </li>
-        <li>
-          <%= f.label :email %>
-          <%= f.text_field :email %>
-        </li>
-        <li>
-          <%= f.label :url %>
-          <%= f.text_field :url %>
-        </li>
-        <li>
-          <%= f.label :text, "Comment" %>
-          <%= f.text_area :text %>
-        </li>
-        <li>
-          <button class="submitBtn" type="submit">
-            <span>Submit</span>
-          </button>
-        </li>   
-      </ul> 
-    <% end %>
-    
+    <div id="map_canvas" class="smMap module"></div>
+    <div name="pano" id="pano" class="module"></div>
   </div>
-</div>
 
-<div id="rtColumn">
-  <% if @art.flickr_ids and @art.flickr_ids.any? %>
-    <% if @art.flickr_ids.size > 1 %>
-      <div class="module" id="artworkPhoto">
-        <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
-      </div>
-    <% else %>
-      <div class="module" id="artworkPhoto"></div>
-      <script type="text/javascript">
-        loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
-          flickr_size: "Medium",
-          max_width: 275,
-          link_to_flickr: true
-        });
-      </script>
-    <% end %>
-  <% end %>
-  
-  <div class="module">
-    <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
-    <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
-      <%= file_field_tag 'new_photo' %>
-      <div id="uploading_photo" style="display: none">
-        <p>Uploading photo, please wait...</p>
-      </div>
-    <% end %>
-  </div>
-  
-  <div id="map_canvas" class="smMap module"></div>
-  <div name="pano" id="pano" class="module"></div>
+  <div class="clear"></div>
+
 </div>
