@@ -119,7 +119,7 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 #footerWrapper { background: url(/images/bg_footerWrapper.png) center top repeat-x; height: 172px;}
 #footer h3 { text-indent: -9999em; display: block; width: 253px; height: 23px; background: url(/images/title_footer.png) top left no-repeat;}
 #footer li { background: url(/images/icon_footerMarker.png) top left no-repeat; width: 89px; height: 107px; float: left; }
-#footer li a { width: 65px; height: 65px; margin: 11px auto; background: url("http://farm5.static.flickr.com/4107/5031586589_e0631c61a4_m.jpg") center center no-repeat; text-indent: -9999em; display: block;} 
+#footer li a { width: 65px; height: 65px; margin: 11px auto; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;} 
 
 #artworkPhoto img { border: 3px solid #E5E3DF; padding: 5px; width: 275px; }
 

@@ -280,10 +280,13 @@
           <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
         <% else %>
           <script type="text/javascript">
-            loadThumbnail("artworkPhoto", "<%= @art.flickr_ids.first %>", {
-              flickr_size: "Medium",
-              max_width: 275,
-              link_to_flickr: true
+            var photo_id = "<%= @art.flickr_ids.first %>";
+            Flickr.getThumbnail(photo_id, "Medium", function(thumbnail) {
+              if (thumbnail) {
+                var image = "<img src=\"" + thumbnail.source + "\" />";
+                var html = "<a href=\"" + Flickr.photoUrl(photo_id) + "\">" + image + "</a>";
+                $("#artworkPhoto").prepend(html);
+              }
             });
           </script>
         <% end %>
