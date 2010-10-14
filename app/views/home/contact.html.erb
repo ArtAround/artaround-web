@@ -2,23 +2,19 @@
 
   <div id="ltColumn">
     <h2>Contact Us</h2>
-    <form id="contactForm" action="." method="get">
+    <%= form_tag send_contact_path do %>
       <ul>
         <li>
           <label>Name</label>
-          <input id="id_name" type="text" name="name"/>
+          <%= text_field_tag :name, params[:name] %>
         </li>
         <li>
           <label>Email</label>
-          <input id="id_email" type="text" name="email"/>
-        </li>
-        <li>
-          <label>URL</label>
-          <input id="id_url" type="text" name="url"/>
+          <%= text_field_tag :email, params[:email] %>
         </li>
         <li>
           <label>Comment</label>
-          <textarea id="id_comment" name="text"></textarea>
+          <%= text_area_tag :text, params[:text] %>
         </li>
         <li>
           <button class="submitBtn" type="submit">
@@ -26,7 +22,7 @@
           </button>
         </li>   
       </ul> 
-    </form>
+    <% end %>
   </div>
 
   <div id="rtColumn"></div>

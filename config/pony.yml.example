@@ -1,0 +1,10 @@
+:via: smtp
+:to:
+  - 
+:from: 
+:smtp:
+  :host: 
+  :user: 
+  :password: 
+  :auth: 
+  :port: 

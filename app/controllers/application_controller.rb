@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "application"
   
+  
+  def mailer_settings
+    @mailer_settings ||= YAML.load_file "#{Rails.root}/config/pony.yml"
+  end
+  
   def upload_photo(art, path)
     tags = [@art.slug, "dc"]
     tags << @art.category.downcase if @art.category.present?

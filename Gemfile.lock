@@ -73,6 +73,8 @@ GEM
       fastthread (>= 1.0.1)
       gem_plugin (>= 0.2.3)
     polyglot (0.3.1)
+    pony (1.0.1)
+      mail (> 2.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -112,6 +114,7 @@ DEPENDENCIES
   mongoid!
   mongoid_slug (= 0.4.6)
   mongrel
+  pony (= 1.0.1)
   rails (= 3.0.0)
   sqlite3-ruby
   wirble
