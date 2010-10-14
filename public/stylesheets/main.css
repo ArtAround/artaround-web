@@ -154,7 +154,8 @@ div.flash {font-size: 110%; margin: 10px 0; -moz-border-radius: 3px; -webkit-bor
 div.flash.alert { background-color: #edaa95; border: 2px solid #9d0101; }
 div.flash.notice { background-color: #beda03; border: 2px solid #a3bb01; }
 
-div.about strong {font-weight: bold}
+div.about strong, div.faq strong {font-weight: bold}
+div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 
 .mapBubble .bubbleMetaData { width: 300px; float: left;}
 .bubbleMetaData a { margin-top: 10px; display: block;}
