@@ -15,6 +15,16 @@
     var searchMarker;
     var searchInfoWindow;
     
+    var all_categories = [];
+    var public_categories = [];
+    <% categories.each do |category| %>
+      all_categories.push("<%= category %>");
+      <% unless category == "Gallery" || category == "Museum" %>
+        public_categories.push("<%= category %>");
+      <% end %>
+    <% end %>
+    
+    
     var markers = [];
   
     var currentInfoWindow;
@@ -186,16 +196,33 @@
         else if ($("#filter_commissioned_only")[0].checked)
           ensure_commissioned = true;
           
+          
+        var all_categories = $("#filter_category_all")[0].checked;
+        var just_museum = $("#filter_category_museum")[0].checked;
+        var just_gallery = $("#filter_category_gallery")[0].checked;
+        
         //TODO: figure out allowed categories
-
-
+        var allowed_categories;
+        if ($("#filter_category_public")[0].checked) {
+          allowed_categories = public_categories;
+        }
+          
         // go through each marker and ensure it passes the test
         $.each(markers, function(i, marker) {
           var passed_commission;
-          var passed_category = true;
+          var passed_category;
           
           // examine for commissioned status
           passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
+          
+          if (all_categories)
+            passed_category = true;
+          else if (just_museum)
+            passed_category = (marker.filters.category == "Museum");
+          else if (just_gallery)
+            passed_category = (marker.filters.category == "Gallery");
+          else
+            passed_category = false;
           
           marker.setVisible(passed_commission && passed_category);
         });
@@ -249,28 +276,28 @@
       <ul id="categoryScroll">
         <li>
           <label>
-            <input class="filter radio" type="radio" name="category" id="filter_all" checked />
+            <input class="filter radio" type="radio" name="category" id="filter_category_all" checked />
             <span>All</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="filter category radio" name="category" type="radio" id="filter_museum" />
+            <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
             <span>Museum</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="filter category radio" name="category" type="radio" id="filter_gallery" />
+            <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
             <span>Gallery</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="filter radio" name="category" type="radio" id="filter_public" />
+            <input class="filter radio" name="category" type="radio" id="filter_category_public" />
             <span>Public</span>
           </label>
           
