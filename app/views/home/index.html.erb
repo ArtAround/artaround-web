@@ -6,16 +6,19 @@
 <% content_for :head do %>
 
   <script type="text/javascript">
+    var map;
+    var geocoder;
+    
+    var arts = [];
     var icons = {};
-  
+    
+    var searchMarker;
+    var searchInfoWindow;
+    
     var categoryMarkers = {};
     var neighborhoodMarkers = {};
   
-    var arts = [];
-    
     var currentInfoWindow;
-    
-    var map;
     
     <% @arts.each do |art| %>
       arts.push({
@@ -62,6 +65,21 @@
           
         categoryMarkers[art.category].push(marker);
         neighborhoodMarkers[art.neighborhood].push(marker);
+      });
+      
+      geocoder = new google.maps.Geocoder();
+      $("button.searchBtn").click(function() {
+        var query = $("#id_mapsearch").val();
+        geocoder.geocode({address: query}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setZoom(15);
+            
+            searchMarker = new google.maps.Marker({position: results[0].geometry.location});
+            searchMarker.setMap(map);
+              
+            map.panTo(results[0].geometry.location);
+          }
+        });
       });
     }
     
@@ -168,9 +186,9 @@
 
 <div id="mapSearchWrapper">
   <div id="mapSearch">
-    <form action="." method="get">
+    <form action="#" onsubmit="return false">
       <label>Zoom me down to an address or zip</label>
-      <input id="id_mapsearch" type="text" name="mapsearch"/>
+      <input id="id_mapsearch" type="text" />
       <button class="searchBtn" type="submit">
           <span>Search</span>
       </button>
