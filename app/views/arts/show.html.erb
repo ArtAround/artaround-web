@@ -93,7 +93,11 @@
       </h2>
       
       <% if @art.commissioned %>
-        <span id="commissioned" title="Commissioned by the city">Commissioned by the city</span>
+        <a href="http://dcarts.dc.gov/DC/DCARTS/">
+          <span id="commissioned" title="Commissioned by the city">
+            Commissioned by the city
+          </span>
+        </a>
       <% end %>
       
       <%= render :partial => "layouts/addthis" %>
