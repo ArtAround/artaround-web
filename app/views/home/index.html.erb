@@ -15,8 +15,7 @@
     var searchMarker;
     var searchInfoWindow;
     
-    var categoryMarkers = {};
-    var neighborhoodMarkers = {};
+    var markers = [];
   
     var currentInfoWindow;
     
@@ -26,10 +25,9 @@
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
-        ward: "<%= escape_javascript art.ward %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year %>",
-        description: "<%= escape_javascript art.description %>",
+        flickr_id: "<%= art.flickr_ids.first %>",
         latitude: <%= art.latitude || 0 %>,
         longitude: <%= art.longitude || 0 %>
       });
@@ -56,15 +54,12 @@
       
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
-        marker.setMap(map);
         
-        if (!categoryMarkers[art.category])
-          categoryMarkers[art.category] = [];
-        if (!neighborhoodMarkers[art.neighborhood])
-          neighborhoodMarkers[art.neighborhood] = [];
-          
-        categoryMarkers[art.category].push(marker);
-        neighborhoodMarkers[art.neighborhood].push(marker);
+        //TODO:
+        // set the category and commissioned flag for each marker on the marker itself
+        // store the marker in the markers array
+        
+        marker.setMap(map);
       });
       
       geocoder = new google.maps.Geocoder();
@@ -86,11 +81,26 @@
     function markerFor(art, map) {
       var location = new google.maps.LatLng(art.latitude, art.longitude);
       
-      var neighborhood = art.neighborhood || "Adams Morgan";
-      var html = "<table>" +
-        "<tr rowspan=\"6\"><td><img src=\"/images/placeholder.jpg\" width=\"200px\" height=\"200px\"></td><td><table><tr><td><b>Title:</b> </td><td NOWRAP>" + art.title +
-        "</td></tr><tr><td><b>Artist:</b> </td><td NOWRAP>" + art.artist + " </td></tr><tr><td><b>Erected:</b> </td><td>" + art.year + "  </td></tr><tr><td><b>NeighborHood:</b></td><td NOWRAP>" + neighborhood + "</td></tr>    <tr><td COLSPAN=2><a href=\"/arts/" + art.id + "\" target=\"_blank\" />Landing Page</a></table>      </td></tr>   </td></tr>" +
-        "</table>";
+      var html = '<div class="mapBubble">' +
+        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
+        //'<a href="#">Close</a>' +
+        '<div class="bubbleMetaData">' +
+            '<dl>' +
+                '<dt>Title</dt>' +
+                '<dd>' + art.title + '</dd>' +
+            
+                '<dt>Artist</dt>' +
+                '<dd>' + (art.artist || "Unknown") + '</dd>' +
+            
+                '<dt>Erected</dt>' +
+                '<dd>' + (art.year || "Unknown") + '</dd>' +
+            
+                '<dt>Neighborhood</dt>' +
+                '<dd>' + (art.neighborhood || "Unknown") + '</dd>' +
+            '</dl>' +
+            '<a href="/arts/' + art.id + '" target="_blank">More Information</a>' +
+        '</div>' +
+      '</div>';
       
       var icon = (art.category == 'Museum' || art.category == 'Gallery') ? icons.museum : icons.red;
       
@@ -104,6 +114,13 @@
         if (currentInfoWindow) currentInfoWindow.close();
         currentInfoWindow = new google.maps.InfoWindow({content: html});
         currentInfoWindow.open(map, marker);
+        
+        if (art.flickr_id) {
+          Flickr.getThumbnail(art.flickr_id, "Medium", function(thumbnail) {
+            if (thumbnail)
+              $("#bubbleimg-" + art.id).css("background-image", "url(\"" + thumbnail.source + "\")");
+          });
+        }
       });
       
       return marker;
@@ -112,36 +129,11 @@
     // arm the filter checkboxes
     $(function() {
       
-      $("input.checkbox.category").click(function() {
-        var checked = this.checked;
-        var category = $(this).next("span.category").html();
-        $.each(categoryMarkers[category], function(i, marker) {
-          marker.setVisible(checked);
-        });
-      });
-      
-      $("input.checkbox.neighborhood").click(function() {
-        var checked = this.checked;
-        var neighborhood = $(this).next("span.neighborhood").html();
-        $.each(neighborhoodMarkers[neighborhood], function(i, marker) {
-          marker.setVisible(checked);
-        });
-      });
-      
       $(".hideCategory").click(
         function() {
           $("#categoryScroll").slideUp();
           $(".hideCategory").hide();
           $(".showCategory").show();
-          return false;
-        }
-      );
-      
-      $(".hideNeighborhood").click(
-        function() {
-          $("#neighborhoodScroll").slideUp();
-          $(".hideNeighborhood").hide();
-          $(".showNeighborhood").show();
           return false;
         }
       );
@@ -155,15 +147,22 @@
         }
       );
       
-      $(".showNeighborhood").click(
-        function() {
-          $("#neighborhoodScroll").slideDown();
-          $(".showNeighborhood").hide();
-          $(".hideNeighborhood").show();
-          return false;
-        }
-      );
+      
+      $("input.checkbox.category.public").click(function() {
+        var checked = this.checked;
+        var category = $(this).next("span.category").html();
+//         $.each(categoryMarkers[category], function(i, marker) {
+//           marker.setVisible(checked);
+//         });
+      });
+      
+      $("input#filter_all")
+      
     });
+    
+    function filterMap(markerFunction) {
+      // go through each marker, apply function
+    }
     
   </script>
   
@@ -202,34 +201,75 @@
       <legend>Category</legend>
       <a class="hideCategory" href="#">Hide</a>
       <a class="showCategory" href="#">Show</a>
+      
       <div class="clear"></div>
+      
       <ul id="categoryScroll">
-        <% categories.each do |category| %>
-          <li>
-            <label>
-              <input class="checkbox category" type="checkbox" name="word" checked />
-              <span class="category"><%= category %></span>
-            </label>
-          </li>
-        <% end %>
-      </ul> 
-    </fieldset>
-    <fieldset>
-      <legend>Neighborhood</legend>
-      <a class="hideNeighborhood" href="#">Hide</a>
-      <a class="showNeighborhood" href="#">Show</a>
-      <div class="clear"></div>
-      <ul id="neighborhoodScroll">
-        <% neighborhoods.each do |neighborhood| %>
-          <li>
-            <label>
-              <input class="checkbox neighborhood" type="checkbox" name="word" checked />
-              <span class="neighborhood"><%= neighborhood %></span>
-            </label>
-          </li>
-        <% end %>
+        <li>
+          <label>
+            <input class="radio" type="radio" name="all" id="filter_all" checked />
+            <span>All</span>
+          </label>
+        </li>
+        
+        <li>
+          <label>
+            <input class="category radio" type="radio" id="filter_museum" />
+            <span>Museum</span>
+          </label>
+        </li>
+        
+        <li>
+          <label>
+            <input class="category radio" type="radio" id="filter_gallery" />
+            <span>Gallery</span>
+          </label>
+        </li>
+        
+        <li>
+          <label>
+            <input class="radio" type="radio" id="filter_public" />
+            <span>Public</span>
+          </label>
+          
+          <div class="clear"></div>
+          
+          <ul id="publicSubset">
+            <% categories.each do |category| %>
+              <li>
+                <label>
+                  <input class="checkbox category public" type="checkbox" checked disabled/>
+                  <span class="category"><%= category %></span>
+                </label>
+              </li>
+            <% end %>
+          </ul>
+          
+        </li>
       </ul>
     </fieldset>
+    
+    <fieldset>
+      <legend>Commissioned</legend>
+      <a class="hideCommissioned" href="#">Hide</a>
+      <a class="showCommissioned" href="#">Show</a>
+      <div class="clear"></div>
+      <ul>
+        <li>
+          <label>
+            <input class="commissioned radio" type="radio" name="word" id="filter_all" checked />
+            <span>All</span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input class="radio" type="radio" name="word" id="filter_commissioned" />
+            <span>Commissioned</span>
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+
   </form>
   
   <div id="map_canvas"></div>

@@ -18,7 +18,6 @@
       $(function() {
         <% recent_art.each do |art| %>
           <% if art.flickr_ids and art.flickr_ids.any? %>
-            "<%= art.flickr_ids.first %>";
             Flickr.getThumbnail("<%= art.flickr_ids.first %>", "Small", function(thumbnail) {
               if (thumbnail) {
                 $("#art-thumbnail-<%= art.slug %>").css("background-image", "url(\"" + thumbnail.source + "\")");
