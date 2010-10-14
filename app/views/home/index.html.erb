@@ -13,17 +13,7 @@
     var icons = {};
     
     var searchMarker;
-    var searchInfoWindow;
-    
-    var all_categories = [];
-    var public_categories = [];
-    <% categories.each do |category| %>
-      all_categories.push("<%= category %>");
-      <% unless category == "Gallery" || category == "Museum" %>
-        public_categories.push("<%= category %>");
-      <% end %>
-    <% end %>
-    
+    var searchInfoWindow;    
     
     var markers = [];
   
@@ -201,10 +191,13 @@
         var just_museum = $("#filter_category_museum")[0].checked;
         var just_gallery = $("#filter_category_gallery")[0].checked;
         
-        //TODO: figure out allowed categories
-        var allowed_categories;
-        if ($("#filter_category_public")[0].checked) {
-          allowed_categories = public_categories;
+        var just_public = $("#filter_category_public")[0].checked;
+        var allowed_categories = [];
+        if (just_public) {
+          $("input.filter.public").each(function(i, element) {
+            if (element.checked)
+              allowed_categories.push($(this).next("span.category").html());
+          });
         }
           
         // go through each marker and ensure it passes the test
@@ -221,6 +214,8 @@
             passed_category = (marker.filters.category == "Museum");
           else if (just_gallery)
             passed_category = (marker.filters.category == "Gallery");
+          else if (just_public)
+            passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           else
             passed_category = false;
           
@@ -304,10 +299,10 @@
           <div class="clear"></div>
           
           <ul id="publicSubset">
-            <% categories.each do |category| %>
+            <% categories.reject {|c| ["Museum", "Gallery"].include? c}.each do |category| %>
               <li>
                 <label>
-                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked disabled/>
+                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
                   <span class="category"><%= category %></span>
                 </label>
               </li>
