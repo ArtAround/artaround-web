@@ -47,7 +47,8 @@ h3 { font-size: 180%; margin-bottom: 25px; font-family: Georgia, "Times New Roma
 #nav li { float: left;}
 #nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decoration: none;}
 #nav a:hover { text-decoration: underline;}
-#about { margin-right: 20px; padding-right: 20px; border-right: 1px solid #565251;}
+
+li.nav_link { margin-right: 20px; padding-right: 20px; border-right: 1px solid #565251;}
 
 #featureBox { background: url(/images/bg_feature.jpg) center top no-repeat; height: 229px;}
 #featureBoxWrapper { background: url(/images/bg_featureWrapper.jpg) center top repeat-x; height: 229px;}
