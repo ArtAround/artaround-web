@@ -38,7 +38,6 @@ var Flickr = {
           callback(null);
       }
     });
-  },
-  
+  }
   
 }
