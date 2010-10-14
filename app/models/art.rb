@@ -64,6 +64,7 @@ class Art
   scope :submitted, :order_by => :submitted_at.desc
   
   validates_presence_of :title
+  validates_presence_of :category
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_location, :on => :create
