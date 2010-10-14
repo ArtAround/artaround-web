@@ -35,7 +35,7 @@ div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 605p
 .tip { color: #86827a; font-size: 95%; font-family: Georgia, "Times New Roman", Times, serif; margin-top: 15px; font-style: oblique;}
 
 h1 { width: 170px; height: 96px; float: left;}
-h1 a { text-indent: -9999em; display: block; width: 170px; height: 96px; background: url(/images/logo.png) top left no-repeat;}
+h1 a { text-indent: -9999em; display: block; width: 175px; height: 99px; background: url(/images/logo_beta.png) top left no-repeat;}
 
 h2 { font-size: 230%; font-family: Georgia, "Times New Roman", Times, serif; line-height: 30px; padding-bottom: 5px; border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px;}
 h3 { font-size: 180%; margin-bottom: 25px; font-family: Georgia, "Times New Roman", Times, serif; line-height: 25px;}
@@ -68,7 +68,7 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 .cancelBtn { background: url(/images/btn_cancel.png) top left no-repeat; width: 89px; height: 45px; margin-top: 45px;}
 .cancelBtn:hover { background: url(/images/btn_cancel.png) bottom left no-repeat; }
 
-#mapContainer { border-bottom: 4px solid #B4B2AD; border-top: 1px solid #B4B2AD; }
+#mapContainer { border-bottom: 4px solid #B4B2AD; border-top: 1px solid #B4B2AD; margin-bottom:50px;}
 
 #mapSearchWrapper { background: url(/images/bg_mapSearch.jpg) center top repeat-x; height: 45px;}
 #mapSearch { color: #ccc7bc; font-family: Georgia, "Times New Roman", Times, serif; font-style: oblique; padding-top: 12px;}
@@ -121,7 +121,7 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 #footer li { background: url(/images/icon_footerMarker.png) top left no-repeat; width: 89px; height: 107px; float: left; }
 #footer li a { width: 65px; height: 65px; margin: 11px auto; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;} 
 
-#artworkPhoto img { border: 3px solid #E5E3DF; padding: 5px; width: 275px; }
+#artworkPhoto img { border: 3px solid #c9c0bd; padding: 5px; width: 275px; }
 
 #comments li { margin-bottom: 35px; }
 .commentMetaData { float: left; margin-left: 25px; }
@@ -129,7 +129,7 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 .commentName { display: block; font-family: Georgia,"Times New Roman",Times,serif; font-size: 140%; }
 .entryDate { color:#AA9C95; display: block; font-family: Georgia,"Times New Roman",Times,serif; font-style: oblique; margin-bottom: 8px; }
 
-#artworkPhoto span { margin-top: 20px;}
+#artworkPhoto span { margin-top: 20px; display: block;}
 
 .artwork1 { margin-top: -10px;}
 .artwork2 { margin-left: 25px; margin-top: 20px;}
@@ -145,8 +145,6 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 
 #map_canvas { height: 560px;}
 
-#artworkPhoto img { width: 275px; }
-
 ul.errors li { color: red; margin: 5px 0;}
 div.field_with_errors {margin: 0; padding: 0;}
 div.field_with_errors {color: red;}
@@ -156,3 +154,9 @@ div.flash.alert { background-color: #edaa95; border: 2px solid #9d0101; }
 div.flash.notice { background-color: #beda03; border: 2px solid #a3bb01; }
 
 div.about strong {font-weight: bold}
+
+.mapBubble .bubbleMetaData { width: 300px; float: left;}
+.bubbleMetaData a { margin-top: 10px; display: block;}
+.bubbleimg { max-width: 80px; margin-right: 20px; float: left;}
+
+.addthis_toolbox { float: right; margin-top: 10px;}
