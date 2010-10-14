@@ -80,7 +80,8 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 fieldset { border-bottom: 1px solid #B4B2AD; margin-bottom: 10px; padding-bottom: 10px; }
 #filterForm legend { float: left; font-weight: bold; text-transform: uppercase; }
 #filterForm ul { margin-top: 10px;}
-#categoryScroll, #neighborhoodScroll, #museumScroll { max-height: 200px; overflow-x: hidden; overflow-y: scroll; }
+#categoryScroll, #neighborhoodScroll, #museumScroll { max-height: 200px; overflow-x: hidden; overflow-y: auto; }
+#categoryScroll {max-height: 300px;}
 
 input, textarea { -moz-border-radius: 3px; -webkit-border-radius: 3px; background-color: #FFFFFF; border: 1px dotted #E0DBD3; color: #585755; padding: 5px; width: 400px; }
 input.checkbox, input.radio { margin-right: 10px; width: 15px; }
