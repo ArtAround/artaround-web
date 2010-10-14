@@ -123,14 +123,14 @@
 
   <div id="ltColumn">
     <div class="module">
-      <div id="editInformation">
-        <!--
+      <% if @art.website.present? %>
         <dl id="artworkData">
           <dt>Artist's Website</dt>
-          <dd>http://www.website.com</dd>
+          <dd><%= link_to @art.website, @art.website %></dd>
         </dl>
-        -->
-      
+      <% end %>
+        
+      <div id="editInformation">
         <span class="callout">
           Know more information about this piece?
           <a href="#">Edit it now!</a>

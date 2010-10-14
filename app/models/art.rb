@@ -11,6 +11,8 @@ class Art
   field :title
   slug :title
   
+  field :website
+  
   # fields doubled on submissions
   field :category
   field :artist
