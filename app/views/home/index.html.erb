@@ -71,7 +71,10 @@
       geocoder = new google.maps.Geocoder();
       $("button.searchBtn").click(function() {
         var query = $("#id_mapsearch").val();
-        geocoder.geocode({address: query}, function(results, status) {
+        geocoder.geocode({
+          address: query,
+          region: "us"
+        }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setZoom(15);
             
