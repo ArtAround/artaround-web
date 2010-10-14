@@ -110,7 +110,7 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 #commissioned { text-indent: -9999em; display: block; width: 38px; height: 30px; background: url(/images/icon_commissioned.png) top left no-repeat; float: left; margin-left: 20px;}
 
 .showCategory, .showNeighborhood, .showMuseum, .showCommissioned { display: none; }
-.showCategory, .showNeighborhood, .showMuseum, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned { float: right; }
+.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned { float: right; }
 
 .errors { margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; background-color: #edaa95; border: 2px solid #9d0101; color: #fff; font-size: 110%;}
 #editInformation { background-color: #e4e593; margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; border: 2px solid #c5c708;}

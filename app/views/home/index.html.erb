@@ -28,6 +28,7 @@
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year %>",
         flickr_id: "<%= art.flickr_ids.first %>",
+        commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
         longitude: <%= art.longitude || 0 %>
       });
@@ -58,6 +59,11 @@
         //TODO:
         // set the category and commissioned flag for each marker on the marker itself
         // store the marker in the markers array
+        marker.filters = {
+          category: (art.category || "Unknown"), 
+          commissioned: art.commissioned
+        };
+        markers.push(marker);
         
         marker.setMap(map);
       });
@@ -111,7 +117,8 @@
       });
       
       google.maps.event.addListener(marker, "click", function() {
-        if (currentInfoWindow) currentInfoWindow.close();
+        clearWindow();
+        
         currentInfoWindow = new google.maps.InfoWindow({content: html});
         currentInfoWindow.open(map, marker);
         
@@ -147,23 +154,55 @@
         }
       );
       
+      $(".hideCommissioned").click(
+        function() {
+          $("#commissionedScroll").slideUp();
+          $(".hideCommissioned").hide();
+          $(".showCommissioned").show();
+          return false;
+        }
+      );
       
-      $("input.checkbox.category.public").click(function() {
-        var checked = this.checked;
-        var category = $(this).next("span.category").html();
-//         $.each(categoryMarkers[category], function(i, marker) {
-//           marker.setVisible(checked);
-//         });
+      $(".showCommissioned").click(
+        function() {
+          $("#commissionedScroll").slideDown();
+          $(".showCommissioned").hide();
+          $(".hideCommissioned").show();
+          return false;
+        }
+      );
+      
+      
+      $("input.filter").click(function() {
+        clearWindow();
+        
+        // figure out commission filter
+        var ensure_commissioned;
+        if ($("#filter_commissioned_all")[0].checked)
+          ensure_commissioned = false;
+        else if ($("#filter_commissioned_only")[0].checked)
+          ensure_commissioned = true;
+          
+        //TODO: figure out allowed categories
+
+
+        // go through each marker and ensure it passes the test
+        $.each(markers, function(i, marker) {
+          var passed_commission;
+          var passed_category = true;
+          
+          // examine for commissioned status
+          passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
+          
+          marker.setVisible(passed_commission && passed_category);
+        });
       });
-      
-      $("input#filter_all")
       
     });
     
-    function filterMap(markerFunction) {
-      // go through each marker, apply function
+    function clearWindow() {
+      if (currentInfoWindow) currentInfoWindow.close();
     }
-    
   </script>
   
 <% end %>
@@ -207,28 +246,28 @@
       <ul id="categoryScroll">
         <li>
           <label>
-            <input class="radio" type="radio" name="all" id="filter_all" checked />
+            <input class="filter radio" type="radio" name="category" id="filter_all" checked />
             <span>All</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="category radio" type="radio" id="filter_museum" />
+            <input class="filter category radio" name="category" type="radio" id="filter_museum" />
             <span>Museum</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="category radio" type="radio" id="filter_gallery" />
+            <input class="filter category radio" name="category" type="radio" id="filter_gallery" />
             <span>Gallery</span>
           </label>
         </li>
         
         <li>
           <label>
-            <input class="radio" type="radio" id="filter_public" />
+            <input class="filter radio" name="category" type="radio" id="filter_public" />
             <span>Public</span>
           </label>
           
@@ -238,7 +277,7 @@
             <% categories.each do |category| %>
               <li>
                 <label>
-                  <input class="checkbox category public" type="checkbox" checked disabled/>
+                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked disabled/>
                   <span class="category"><%= category %></span>
                 </label>
               </li>
@@ -254,16 +293,17 @@
       <a class="hideCommissioned" href="#">Hide</a>
       <a class="showCommissioned" href="#">Show</a>
       <div class="clear"></div>
-      <ul>
+      
+      <ul id="commissionedScroll">
         <li>
           <label>
-            <input class="commissioned radio" type="radio" name="word" id="filter_all" checked />
+            <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
             <span>All</span>
           </label>
         </li>
         <li>
           <label>
-            <input class="radio" type="radio" name="word" id="filter_commissioned" />
+            <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
             <span>Commissioned</span>
           </label>
         </li>
