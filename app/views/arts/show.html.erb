@@ -86,7 +86,7 @@
         if (confirm("Unapprove this comment?")) {
           var elem = $(this);
           $.post(elem.attr("href"), function() {
-            elem.parents("li").remove();
+            location.href = "<%= art_url @art %>";
           });
         }
         return false;
