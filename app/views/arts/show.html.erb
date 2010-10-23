@@ -80,6 +80,18 @@
       $("#uploading_photo").show();
       $("form#new_photo_form").submit();
     });
+    
+    <% if admin? %>
+      $("div.delete_comment a").click(function() {
+        if (confirm("Unapprove this comment?")) {
+          var elem = $(this);
+          $.post(elem.attr("href"), function() {
+            elem.parents("li").remove();
+          });
+        }
+        return false;
+      });
+    <% end %>
 
   });
 </script>
@@ -203,11 +215,12 @@
       
     </div>
     
-    <% if @art.comments.any? %>
+    <% if @art.comments.approved.any? %>
       <div class="module" id="comments">
         <h3>Comments</h3>
-        <% @art.comments.each_with_index do |comment, i| %>
-          <ol>
+        
+        <ol>
+          <% @art.comments.approved.each_with_index do |comment, i| %>
             <li>
               <span class="commentNumber"><%= i + 1 %></span>
               <div class="commentMetaData">
@@ -227,10 +240,18 @@
                   <%= comment.text %>
                 </p>
               </div>
+              
+              <% if admin? %>
+                <div class="delete_comment">
+                  <%= link_to "Unapprove", unapprove_admin_art_comment_path(@art, comment) %>
+                </div>
+              <% end %>
+              
               <div class="clear"></div>
             </li>
-          </ol>
-        <% end %>
+          <% end %>
+        </ol>
+        
       </div>
     <% end %>
     

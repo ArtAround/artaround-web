@@ -4,18 +4,23 @@ class Comment
   
   referenced_in :art
   
-  attr_protected :_id, :ip_address
+  attr_protected :_id, :ip_address, :approved
   
   field :name
   field :email
   field :ip_address
   field :url
   field :text
+  field :approved, :type => Boolean, :default => true
   
   index :email
   index :ip_address
+  index :approved
+  index [[:art_id, Mongo::ASCENDING], [:approved, Mongo::ASCENDING]]
   
   scope :inbox, :order_by => :created_at.desc
+  scope :approved, :where => {:approved => true}
+  scope :unapproved, :where => {:approved => false}
   
   validates_presence_of :name
   validates_presence_of :email

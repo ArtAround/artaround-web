@@ -6,7 +6,11 @@ Artaround::Application.routes.draw do
   end
   
   namespace :admin do
-    resources :arts
+    resources :arts do
+      resources :comments do
+        post :unapprove, :on => :member
+      end
+    end
   end
   
   match "/admin" => "admin/arts#login", :as => "admin"
