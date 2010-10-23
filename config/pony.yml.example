@@ -2,9 +2,9 @@
 :to:
   - 
 :from: 
-:smtp:
-  :host: 
-  :user: 
+:via_options:
+  :address: 
+  :user_name: 
   :password: 
   :auth: 
   :port: 
