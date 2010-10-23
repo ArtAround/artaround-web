@@ -102,6 +102,12 @@
       
       <%= render :partial => "layouts/addthis" %>
       
+      <% if admin? %>
+        <div class="admin_art">
+          <%= link_to "Admin", admin_art_path(@art) %>
+        </div>
+      <% end %>
+      
       <div class="clear"></div>
     </div>
   </div>

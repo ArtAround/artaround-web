@@ -9,6 +9,8 @@ Artaround::Application.routes.draw do
     resources :arts
   end
   
+  match "/admin" => "admin/arts#login", :as => "admin"
+  
   match "/contact" => "home#contact"
   match "/about" => "home#about"
   match "/faq" => "home#faq"
