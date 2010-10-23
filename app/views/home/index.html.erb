@@ -61,7 +61,7 @@
         // set the category and commissioned flag for each marker on the marker itself
         // store the marker in the markers array
         marker.filters = {
-          category: (art.category || "Unknown"), 
+          category: (art.category || "Unknown").toLowerCase(), 
           commissioned: art.commissioned
         };
         markers.push(marker);
@@ -197,7 +197,7 @@
         if (just_public) {
           $("input.filter.public").each(function(i, element) {
             if (element.checked)
-              allowed_categories.push($(this).next("span.category").html());
+              allowed_categories.push($(this).next("span.category").html().toLowerCase());
           });
         }
           
@@ -212,9 +212,9 @@
           if (all_categories)
             passed_category = true;
           else if (just_museum)
-            passed_category = (marker.filters.category == "Museum");
+            passed_category = (marker.filters.category == "museum");
           else if (just_gallery)
-            passed_category = (marker.filters.category == "Gallery");
+            passed_category = (marker.filters.category == "gallery");
           else if (just_public)
             passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           else
