@@ -43,17 +43,15 @@ class Art
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
   
+  # last submitted at
   field :submitted_at, :type => DateTime
   
   index [[:location, Mongo::GEO2D]]
-  index :neighborhood
-  index :ward
   index :commissioned
-  index :approved
-  index :year
   index :category
-  
   index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
+  index :approved
+  index :slug
   
   scope :commissioned, :where => {:commissioned => true}
   scope :uncommissioned, :where => {:commissioned => false}

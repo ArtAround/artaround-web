@@ -5,6 +5,10 @@ Artaround::Application.routes.draw do
     post :add_photo, :on => :member
   end
   
+  namespace :admin do
+    resources :arts
+  end
+  
   match "/contact" => "home#contact"
   match "/about" => "home#about"
   match "/faq" => "home#faq"
