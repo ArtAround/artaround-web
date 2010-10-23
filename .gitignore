@@ -10,3 +10,5 @@
 /config/admin.yml
 
 /vendor/gems
+/vendor/bundle
+/tmp
