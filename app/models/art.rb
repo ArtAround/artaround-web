@@ -68,6 +68,9 @@ class Art
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
   
+  def self.json_fields
+    [:slug, :location_description, :artist, :location, :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, :year, :neighborhood, :ward]
+  end
   
   def latitude
     self.location ||= []

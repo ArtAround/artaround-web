@@ -13,6 +13,12 @@ Artaround::Application.routes.draw do
     end
   end
   
+  namespace :api do
+    scope '/v1' do
+      resources :arts
+    end
+  end
+  
   match "/admin" => "admin/arts#login", :as => "admin"
   
   match "/contact" => "home#contact"
