@@ -25,14 +25,12 @@
       });
       
       <% if @art.latitude and @art.longitude %>
-        var marker = new google.maps.Marker({
-          position: start
-        });
-        marker.setMap(map);
+        // initialize
+        updateLocation(start);
       <% end %>
       
       google.maps.event.addListener(map, "click", function(event) {
-        updateLocation(event.latLng.lat(), event.latLng.lng());
+        updateLocation(event.latLng);
       });
       
       geocoder = new google.maps.Geocoder();
@@ -43,22 +41,31 @@
           region: "us"
         }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
-            var latlng = results[0].geometry.location;
+            var location = results[0].geometry.location;
             
             map.setZoom(15);
-            
-            if (searchMarker)
-              searchMarker.setMap(null);
-              
-            searchMarker = new google.maps.Marker({position: latlng});
-            searchMarker.setMap(map);
-            updateLocation(latlng.lat(), latlng.lng());
-              
-            map.panTo(latlng);
+            updateLocation(location);
+            map.panTo(location);
           }
         });
       });
       
+    }
+    
+    function updateLocation(location) {
+      if (searchMarker)
+        searchMarker.setMap(null);  
+      
+      searchMarker = new google.maps.Marker({position: location});
+      searchMarker.setMap(map);
+      
+      $("input#art_latitude").val(location.lat());
+      $("input#art_longitude").val(location.lng());
+      
+      searchMarker.setDraggable(true);
+      google.maps.event.addListener(searchMarker, "dragend", function(event) {
+        updateLocation(event.latLng);
+      });
     }
     
     $(function() {
@@ -67,11 +74,6 @@
       if ($("input#art_longitude").val() == "")
         $("input#art_longitude").val("Click on Map");
     });
-    
-    function updateLocation(latitude, longitude) {
-      $("input#art_latitude").val(latitude);
-      $("input#art_longitude").val(longitude);
-    }
   </script>
 <% end %>
 
