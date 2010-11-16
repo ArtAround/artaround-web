@@ -19,7 +19,10 @@ class Admin::ArtsController < Admin::AdminController
     
     latitude = params[:art].delete 'latitude'
     longitude = params[:art].delete 'longitude'
-    @art.location = [latitude, longitude] if latitude and longitude
+    # remove special case
+    latitude = ["Click on Map", nil].include?(latitude) ? nil : latitude.to_f
+    longitude = ["Click on Map", nil].include?(longitude) ? nil : longitude.to_f
+    @art.location = [latitude, longitude]
     
     @art.attributes = params[:art]
     

@@ -1,3 +1,48 @@
+<% content_for :footer do %>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
+<% end %>
+
+<% content_for :head do %>
+  <script type="text/javascript">
+    function loadMaps() {
+      
+      <% if @art.latitude and @art.longitude %>
+        var start = new google.maps.LatLng(<%= @art.latitude %>, <%= @art.longitude %>);
+      <% else %>
+        // dupont circle
+        var start = new google.maps.LatLng(38.90940, -77.04382);
+      <% end %>
+      
+      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+        zoom: 15,
+        center: start,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+      });
+      
+      <% if @art.latitude and @art.longitude %>
+        var marker = new google.maps.Marker({
+          position: start
+        });
+        marker.setMap(map);
+      <% end %>
+      
+      google.maps.event.addListener(map, "click", function(event) {
+        $("input#art_latitude").val(event.latLng.lat());
+        $("input#art_longitude").val(event.latLng.lng());
+      });
+      
+    }
+    
+    $(function() {
+      if ($("input#art_latitude").val() == "")
+        $("input#art_latitude").val("Click on Map");
+      if ($("input#art_longitude").val() == "")
+        $("input#art_longitude").val("Click on Map");
+    });
+  </script>
+<% end %>
+
 <div id="pageMain" class="admin">
 
 <div id="fullColumn">
@@ -42,6 +87,14 @@
         <%= f.text_field :ward %>
       </li>
       <li>
+        <%= f.label :latitude %>
+        <%= f.text_field :latitude %>
+      </li>
+      <li>
+        <%= f.label :longitude %>
+        <%= f.text_field :longitude %>
+      </li>
+      <li>
         <%= f.label :artist, "Artist(s)" %>
         <%= f.text_field :artist %>
       </li>
@@ -63,7 +116,8 @@
 
 </div>
 
-<div class="rtColumn">
+<div id="rtColumn">
+  <div id="map_canvas"></div>
 </div>
 
 <div class="clear"></div>
