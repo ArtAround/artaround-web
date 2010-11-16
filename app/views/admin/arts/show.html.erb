@@ -4,6 +4,10 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
+    var geocoder;
+    var map;
+    var searchMarker;
+    
     function loadMaps() {
       
       <% if @art.latitude and @art.longitude %>
@@ -13,7 +17,7 @@
         var start = new google.maps.LatLng(38.90940, -77.04382);
       <% end %>
       
-      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+      map = new google.maps.Map(document.getElementById("map_canvas"), {
         zoom: 15,
         center: start,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -28,8 +32,31 @@
       <% end %>
       
       google.maps.event.addListener(map, "click", function(event) {
-        $("input#art_latitude").val(event.latLng.lat());
-        $("input#art_longitude").val(event.latLng.lng());
+        updateLocation(event.latLng.lat(), event.latLng.lng());
+      });
+      
+      geocoder = new google.maps.Geocoder();
+      $("input#search_button").click(function() {
+        var query = $("input#search_text").val();
+        geocoder.geocode({
+          address: query,
+          region: "us"
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var latlng = results[0].geometry.location;
+            
+            map.setZoom(15);
+            
+            if (searchMarker)
+              searchMarker.setMap(null);
+              
+            searchMarker = new google.maps.Marker({position: latlng});
+            searchMarker.setMap(map);
+            updateLocation(latlng.lat(), latlng.lng());
+              
+            map.panTo(latlng);
+          }
+        });
       });
       
     }
@@ -40,6 +67,11 @@
       if ($("input#art_longitude").val() == "")
         $("input#art_longitude").val("Click on Map");
     });
+    
+    function updateLocation(latitude, longitude) {
+      $("input#art_latitude").val(latitude);
+      $("input#art_longitude").val(longitude);
+    }
   </script>
 <% end %>
 
@@ -117,6 +149,10 @@
 </div>
 
 <div id="rtColumn">
+  <div id="search_box">
+    <input type="text" id="search_text" />
+    <input type="submit" id="search_button" value="Search" />
+  </div>
   <div id="map_canvas"></div>
 </div>
 
