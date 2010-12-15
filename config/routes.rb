@@ -16,6 +16,8 @@ Artaround::Application.routes.draw do
   namespace :api do
     scope '/v1' do
       resources :arts
+      match "/neighborhoods" => "arts#neighborhoods_api"
+      match "/categories" => "arts#categories_api"
     end
   end
   

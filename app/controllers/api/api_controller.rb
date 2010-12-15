@@ -1,34 +1,52 @@
 class Api::ApiController < ApplicationController
-
-  def json_for_list(criteria)
-    # get it from the criteria before the content is lazily loaded
-    model = criteria.klass
-    total_count = criteria.count
+  
+  def json_for_art(art)
     
+    {
+      :art => clean(art.attributes).merge(:comments => json_for_comments(art))
+    }
+  end
+
+  def json_for_arts
+    arts = Art.only(art_fields).approved
+    
+    # get it from the criteria before the content is lazily loaded
+    total_count = arts.count
     pagination = paginate_options
     
-    results = criteria.paginate(pagination).map {|document| scoped model, document.attributes}
+    results = arts.paginate(pagination).map {|art| clean art.attributes}
     {
-      model.to_s.underscore.pluralize => results,
+      :arts => results,
       :page => pagination.merge(:count => results.size),
       :total_count => total_count
     }.to_json
   end
   
-  def scoped(model, attributes)
-    attributes.keys.each do |key|
-      attributes.delete(key) unless model.json_fields.include?(key.to_sym)
-    end
+  def json_for_comments(art)
+    art.comments.only(comment_fields).approved.all.map {|comment| clean comment.attributes}
+  end
+  
+  def clean(attributes)
+    [:_id, :updated_at].each {|key| attributes.delete(key)}
     attributes
   end
   
   def paginate_options
-    page = params[:page] || 1
+    page = (params[:page] || 1).to_i
     page = 1 if page.to_i < 1
     
-    per_page = params[:per_page] || 20
+    per_page = (params[:per_page] || 20).to_i
     per_page = 20 if per_page.to_i < 1
     
     {:page => page, :per_page => per_page}
+  end
+  
+  
+  def art_fields
+    [:slug, :location_description, :artist, :location, :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, :year, :neighborhood, :ward]
+  end
+  
+  def comment_fields
+    [:name, :created_at, :url, :text]
   end
 end
