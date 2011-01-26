@@ -61,10 +61,10 @@
     <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
       <ul class="new-art">
         <li>
-          If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.
+          <strong>If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.</strong>
         </li>
         <li>
-          <em><sup>*</sup> = required</em>
+          <span class="small blue"><em><sup>*</sup> = required</em>
         </li>
       
         <li>
@@ -88,7 +88,7 @@
           <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
         </li>
         <li>
-          Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.
+          <em>Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.</em>
           <%= f.label :ward %>
           <%= f.text_field :ward %>
         </li>
@@ -101,7 +101,7 @@
           <%= f.text_area :description %>
         </li>
         <li class="formModule">
-          <strong>Click on the map</strong> to enter the exact location, or fill in the approximate street address below.<sup>*</sup>
+          <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
         </li>
         <li>
           <%= f.label :latitude %>
