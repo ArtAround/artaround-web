@@ -22,7 +22,8 @@ body{
 .clear { clear: both;}
 p { margin-bottom: 1em;}
 
-em {font-style: italic;}
+em {font-style: italic; font-size: 80%; color: #046F8C;}
+strong {font-weight: bold;}
 
 #headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 123px;}
 #header { background: url(/images/bg_header.jpg) center top no-repeat;}
