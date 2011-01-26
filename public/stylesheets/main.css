@@ -22,6 +22,8 @@ body{
 .clear { clear: both;}
 p { margin-bottom: 1em;}
 
+em {font-style: italic;}
+
 #headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 123px;}
 #header { background: url(/images/bg_header.jpg) center top no-repeat;}
 #header, #featureBox, #mapSearch, #pageMain, #footer { width: 940px; padding: 0 10px; margin: 0 auto;}
@@ -59,6 +61,8 @@ li.nav_link { margin-right: 20px; padding-right: 20px; border-right: 1px solid #
 #curateBox { float: left; font-family: Georgia, "Times New Roman", Times, serif; margin-top: 140px; }
 #curateBox span { font-style: oblique; font-size: 115%; margin-bottom: 10px; display: block; }
 
+ul.new-art {margin-top: -10px;}
+
 button, a.buttonLink { text-indent: -9999em; display: block; border: none; cursor: pointer;}
 #curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 141px; height: 45px;}
 #curateButton:hover { background: url(/images/btn_curate.png) bottom left no-repeat; }
@@ -90,6 +94,7 @@ label { display: block; float: left; font-family: Georgia,"Times New Roman",Time
 textarea { height: 200px; }
 
 form li { margin-bottom: 15px; }
+form sup {color: #046F8C; margin-left: 3px; margin-right: 3px;}
 .formModule { border-top: 1px solid #E0DBD3; margin-top: 25px; padding-top: 25px; }
 
 #filterForm #publicSubset { margin-left: 25px; margin-top: -10px;}

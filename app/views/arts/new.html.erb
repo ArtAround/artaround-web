@@ -46,7 +46,6 @@
   </div>
 
   <div id="ltColumn">
-      
     <% if @art.errors[:location].present? %>
       <div class="errors">
         Please click on the map to choose a latitude or longitude, or enter an address.
@@ -60,17 +59,24 @@
     <% end %>
 
     <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
-      <ul>
+      <ul class="new-art">
         <li>
-          <%= f.label :category %>
+          If you don't know something, don't be afraid to leave it blank.
+        </li>
+        <li>
+          <sup>*</sup> = required
+        </li>
+      
+        <li>
+          <label for="art_category">category<sup>*</sup></label>
           <%= f.select :category, categories, {:include_blank => "---"} %>
         </li>
         <li>
-          <%= f.label :title %>
+          <label for="art_title">title<sup>*</sup></label>
           <%= f.text_field :title %>
         </li>
         <li>
-          <%= f.label :artist, "Artist(s)" %>
+          <%= f.label :artist, "Artist/Founder(s)" %>
           <%= f.text_field :artist %>
         </li>
         <li>
@@ -78,10 +84,11 @@
           <%= f.text_field :year %>
         </li>
         <li>
-          <%= f.label :neighborhood %>
+          <label for="art_neighborhood">neighborhood<sup>*</sup></label>
           <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
         </li>
         <li>
+          Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.
           <%= f.label :ward %>
           <%= f.text_field :ward %>
         </li>
@@ -94,6 +101,9 @@
           <%= f.text_area :description %>
         </li>
         <li class="formModule">
+          <sup>*</sup>Click on the map to enter the exact location, or fill in the approximate street address below.
+        </li>
+        <li>
           <%= f.label :latitude %>
           <%= f.text_field :latitude %>
         </li>
@@ -121,7 +131,7 @@
           <%= f.text_field :zip %>
         </li>
         <li class="formModule">
-          <label>Photo</label>
+          <label>photo<sup>*</sup></label>
           <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
           <%= file_field_tag 'new_photo' %>
           <div id="uploading_photo" style="display: none">
