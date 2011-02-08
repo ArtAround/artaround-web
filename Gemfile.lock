@@ -1,13 +1,3 @@
-GIT
-  remote: http://github.com/mongoid/mongoid.git
-  revision: b1080cda54d32d3bc18e008867b33b82d64fb55b
-  specs:
-    mongoid (2.0.0.beta.19)
-      activemodel (~> 3.0)
-      mongo (~> 1.1)
-      tzinfo (~> 0.3.22)
-      will_paginate (~> 3.0.pre)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -65,6 +55,11 @@ GEM
     mime-types (1.16)
     mongo (1.1)
       bson (>= 1.0.5)
+    mongoid (2.0.0.beta.19)
+      activemodel (~> 3.0)
+      mongo (~> 1.1)
+      tzinfo (~> 0.3.22)
+      will_paginate (~> 3.0.pre)
     mongoid_slug (0.4.6)
       mongoid (~> 2.0.0.beta)
     mongrel (1.1.5)
@@ -111,7 +106,7 @@ DEPENDENCIES
   fleakr (= 0.6.3)
   geokit (= 1.5.0)
   mongo (= 1.1)
-  mongoid!
+  mongoid
   mongoid_slug (= 0.4.6)
   mongrel
   pony (= 1.0.1)
