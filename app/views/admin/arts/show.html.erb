@@ -105,6 +105,10 @@
         <%= f.text_field :title %>
       </li>
       <li>
+        <%= f.label :website %>
+        <%= f.text_field :website %>
+      </li>
+      <li>
         <%= f.label :category %>
         <%= f.select :category, categories, {:include_blank => "---"} %>
       </li>
