@@ -78,15 +78,16 @@ class Art
     location[1]
   end
   
+  # new submissions should be blank, so that users are only entering the fields that they wish to correct
   def new_submission
     self.submissions.build(
-      :category => category,
-      :artist => artist,
-      :year => year,
-      :neighborhood => neighborhood,
-      :ward => ward,
-      :location_description => location_description,
-      :description => description
+      :category => nil,
+      :artist => nil,
+      :year => nil,
+      :neighborhood => nil,
+      :ward => nil,
+      :location_description => nil,
+      :description => nil
     )
   end
   
