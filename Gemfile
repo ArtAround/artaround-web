@@ -1,18 +1,18 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails'
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'fleakr' 
 
-gem 'geokit', '1.5.0'
+gem 'geokit'
 
-gem "mongo", "1.1"
+gem "mongo" 
 gem "mongoid" #, :git => "http://github.com/mongoid/mongoid.git" 
-gem "mongoid_slug", '0.4.6'
-gem 'bson_ext', '1.1'
+gem "mongoid_slug"
+gem 'bson_ext'
 
-gem 'pony', '1.0.1'
+gem 'pony' 
 
 # for importing old data (can be removed eventually)
 gem 'fastercsv'
