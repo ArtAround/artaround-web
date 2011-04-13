@@ -75,7 +75,7 @@ end
 
 desc "Setup the production server"
 task :production do
-  set :deploy_to, "/home/xhr/webapps/#{application}/production"
+  set :deploy_to, "/home/dotthei/webapps/#{application}/production"
 
   # We don't really need this, but it's a good example of
   # how to set the server details in case the staging
