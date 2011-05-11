@@ -9,8 +9,10 @@ gem 'geokit'
 
 gem "mongo" 
 gem "mongoid" #, :git => "http://github.com/mongoid/mongoid.git" 
-gem "mongoid_slug"
+gem "mongoid_slug", :require => "mogoid/slug"
 gem 'bson_ext'
+
+gem "will_paginate"
 
 gem 'pony' 
 
