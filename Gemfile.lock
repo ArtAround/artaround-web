@@ -116,4 +116,5 @@ DEPENDENCIES
   mongoid_slug
   pony
   rails
+  will_paginate
   wirble
