@@ -107,6 +107,12 @@ class ArtsController < ApplicationController
       render :show
     end
   end
+
+  def logger
+    Rails.logger.info "#{params.inspect}"
+
+    render :text => "OK", :status => 200
+  end
   
   protected
   
