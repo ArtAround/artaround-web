@@ -111,7 +111,10 @@ class ArtsController < ApplicationController
   def logger
     Rails.logger.info "#{params.inspect}"
 
-    render :text => "OK", :status => 200
+    respond_to do |format|
+      format.json { render :json => { :successful => true } }
+      format.html { render :text => "OK" }
+    end
   end
   
   protected
