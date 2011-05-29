@@ -15,6 +15,7 @@ Artaround::Application.routes.draw do
   
   scope "api/v1" do
     post "arts" => "arts#logger"
+    put  "arts/:id" => "arts#logger"
     post "arts(/:id)/photos" => "arts#logger"
     post "arts(/:id)/comments" => "arts#logger"
   end
