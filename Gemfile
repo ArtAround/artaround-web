@@ -22,4 +22,5 @@ gem 'fastercsv'
 group :development do
   gem 'wirble'
   gem 'capistrano'
+  gem 'unicorn'
 end
