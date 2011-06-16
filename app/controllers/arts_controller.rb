@@ -111,6 +111,7 @@ class ArtsController < ApplicationController
       Mailer.new(mailer_settings).send_new_comment @art.title, @art.slug, params[:comment]['name'], params[:comment]['text']
       redirect_to @art, :notice => "Your comment has been posted below. Thanks for contributing!"
     else
+      flash.now[:alert] = "Your comment couldn't be posted. Please look below and check for any missing fields or errors."
       @submission = @art.new_submission
       render :show
     end
