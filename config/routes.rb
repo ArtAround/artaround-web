@@ -13,16 +13,15 @@ Artaround::Application.routes.draw do
     end
   end
   
-  scope "api/v1" do
-    post "arts" => "arts#logger"
-    put  "arts/:id" => "arts#logger"
-    post "arts(/:id)/photos" => "arts#logger"
-    post "arts(/:id)/comments" => "arts#logger"
-  end
-
   namespace :api do
     scope '/v1' do
-      resources :arts
+      resources :arts, :except => [:new, :show, :edit] do
+        member do 
+          post :photos
+          post :comments
+        end
+      end
+
       match "/neighborhoods" => "arts#neighborhoods_api"
       match "/categories" => "arts#categories_api"
     end
