@@ -8,11 +8,11 @@ class ApplicationController < ActionController::Base
   end
   
   def upload_photo(art, path)
-    tags = [@art.slug, "dc"]
-    tags << @art.category.downcase if @art.category.present?
+    tags = [art.slug, "dc"]
+    tags << art.category.downcase if art.category.present?
     
     Fleakr.upload path, {
-        :title => @art.title,
+        :title => art.title,
         :tags => tags,
         :viewable_by => flickr[:metadata][:viewable_by],
         :level => flickr[:metadata][:level],
