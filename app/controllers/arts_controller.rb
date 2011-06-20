@@ -36,6 +36,8 @@ class ArtsController < ApplicationController
         render :new
       else
       
+        Mailer.new(mailer_settings).send_new_art @art.title, @art.slug
+        
         begin
           uploads = upload_photo @art, params[:new_photo].path
         rescue Fleakr::ApiError
@@ -62,6 +64,8 @@ class ArtsController < ApplicationController
       @art.submitted_at = Time.now
       @art.save!
       
+      # Mailer.new(mailer_settings).send_new_art_info @art.title, @art.slug, params[:submission]
+      
       redirect_to art_path(@art), :notice => "Thanks for helping us fill in the gaps! We moderate submissions, so your contribution should appear shortly."
     else
       @comment = Comment.new
@@ -87,6 +91,9 @@ class ArtsController < ApplicationController
       @art.flickr_ids << uploads.first.id
       @art.save! # should not be a controversial operation
       
+      
+      Mailer.new(mailer_settings).send_new_photo @art.title, @art.slug
+      
       redirect_to art_path(@art), :notice => "Thank you for contributing your photo! It should appear in the slideshow below."
     end
   end
@@ -101,9 +108,11 @@ class ArtsController < ApplicationController
     @comment.ip_address = request.ip
     
     if @comment.save
+      Mailer.new(mailer_settings).send_new_comment @art.title, @art.slug, params[:comment]['name'], params[:comment]['text']
       redirect_to @art, :notice => "Your comment has been posted below. Thanks for contributing!"
     else
-      @art.new_submission
+      flash.now[:alert] = "Your comment couldn't be posted. Please look below and check for any missing fields or errors."
+      @submission = @art.new_submission
       render :show
     end
   end
