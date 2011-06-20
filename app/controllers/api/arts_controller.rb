@@ -4,6 +4,60 @@ class Api::ArtsController < Api::ApiController
   def index
     render :json => json_for_arts
   end
+
+  def create
+    # Drop the Rails-related parameters
+    vals = params.reject { |k, v| %w[ controller action format ].include?(k) }
+
+    # Create a new Art object with the values received from the API client.
+    # Some values are protected from mass-assignment, so they will need to
+    # be set manually.
+    art = Art.new(vals)
+
+    art.approved     = true
+    art.commissioned = false
+    art.location     = vals[:location]
+
+    respond_to do |format|
+      format.json do
+        # If the art is successfully saved, send back the JSON representation
+        # of the art. Otherwise, send back the errors and a Bad Request 
+        # status code.
+        if art.save
+          render :json => { :success => art.slug }
+        else
+          Rails.logger.info "Could not save art: #{art.errors}"
+          render :json => art.errors, :status => 400 
+        end
+      end
+    end
+  end
+
+  def photos
+    art = Art.find_by_slug(params[:id])
+
+    # Send back a 404 message if the art was not found. Since
+    # this is an API, no body is required.
+    render :json => { :success => false }, :status => 404 and return unless art
+
+    begin
+      # Upload the file to the Flickr account.
+      #
+      # This might raise a <tt>Fleakr::ApiError</tt> exception
+      # that needs to be handled properly.
+      uploads = upload_photo(art, params[:file].path)
+      
+      # Add the upload to the array of <tt>flickr_ids</tt>
+      # and save the art.
+      art.flickr_ids ||= []
+      art.flickr_ids << uploads.first.id
+      art.save!
+
+      render :json => art
+    rescue Fleakr::ApiError
+      render :json => { :success => false }, :status => 500
+    end
+  end
   
   def show
     render :json => json_for_art(@art)
