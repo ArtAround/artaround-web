@@ -62,6 +62,55 @@ class Api::ArtsController < Api::ApiController
   def show
     render :json => json_for_art(@art)
   end
+
+  def update
+    art = Art.find_by_slug(params[:id])
+    data = params.reject { |k, v| %w[ controller action format id ].include?(k) }
+
+    submission = art.submissions.build(data)
+
+    respond_to do |format|
+      format.json do
+        if submission.save
+          render :json => { :success => true }
+        else
+          Rails.logger.info "Could not save submission: #{submission.errors}"
+          render :json => { :success => false }, :status => 400
+        end
+      end
+    end
+  end
+
+  def comments
+    art = Art.find_by_slug(params[:id])
+
+    # Send back a 404 message if the art was not found. Since
+    # this is an API, no body is required.
+    head :not_found and return unless art
+
+    vals = {
+     :name => params[:name],
+     :email => params[:email],
+     :url => params[:url],
+     :text => params[:text]
+    }
+
+    comment = art.comments.build(vals)
+    comment.ip_address = request.ip
+
+    respond_to do |format|
+      format.json do
+        # Respond with 200 if the comment was posted successfully or tell the
+        # client it was a BadRequest otherwise
+        if comment.save
+          render :json => { :success => true }
+        else
+          Rails.logger.info "Comment for art #{art.id} could not be saved: #{comment.errors}"
+          render :json => { :success => false }
+        end
+      end
+    end
+  end
                     
   def neighborhoods_api
     render :json => neighborhoods.to_json
