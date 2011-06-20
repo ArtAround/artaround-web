@@ -15,7 +15,7 @@ Artaround::Application.routes.draw do
   
   namespace :api do
     scope '/v1' do
-      resources :arts, :except => [:new, :show, :edit] do
+      resources :arts, :except => [:new, :edit] do
         member do 
           post :photos
           post :comments
