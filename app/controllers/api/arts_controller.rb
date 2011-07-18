@@ -38,7 +38,7 @@ class Api::ArtsController < Api::ApiController
 
     # Send back a 404 message if the art was not found. Since
     # this is an API, no body is required.
-    render :json => { :success => false }, :status => 404 and return unless art
+    head :not_found and return unless art
 
     begin
       # Upload the file to the Flickr account.
@@ -65,6 +65,11 @@ class Api::ArtsController < Api::ApiController
 
   def update
     art = Art.find_by_slug(params[:id])
+    
+    # Send back a 404 message if the art was not found. Since
+    # this is an API, no body is required.
+    head :not_found and return unless art
+    
     data = params.reject { |k, v| %w[ controller action format id ].include?(k) }
 
     submission = art.submissions.build(data)
