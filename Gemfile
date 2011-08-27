@@ -1,28 +1,24 @@
 source 'http://rubygems.org'
 
-gem 'rails'
-#gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'rails', '3.0.10'
 
-gem 'fleakr' 
+gem 'fleakr', '0.7.1'
 
-gem 'geokit'
+gem 'geokit', '1.5.0' # todo: update to 1.6.0
 
-gem "mongo" 
-gem "mongoid" #, :git => "http://github.com/mongoid/mongoid.git" 
-gem 'mongoid_slug', :require => 'mongoid/slug'
-gem 'bson_ext'
-gem 'SystemTimer'
+gem "mongo", '1.3.1'
+gem "mongoid", '2.0.1' # update to 2.1.9
+gem 'mongoid_slug', '0.7.1', :require => 'mongoid/slug' # update to 0.8.3
+gem 'bson_ext', '1.3.1'
+gem 'SystemTimer', '1.2.3'
 
-gem "will_paginate"
+gem "will_paginate" # update to 3.0.0
 
-gem 'pony' 
-
-# for importing old data (can be removed eventually)
-gem 'fastercsv'
-
+gem 'pony', '1.1' # update to 1.3
 
 group :development do
-  gem 'wirble'
-  gem 'capistrano'
-  gem 'unicorn'
+  gem 'wirble', '0.1.3'
+  gem 'capistrano', '2.5.21' # update to 2.8.0
+  gem 'rack', '1.2.1'
+  gem 'unicorn', '4.1.1'
 end
