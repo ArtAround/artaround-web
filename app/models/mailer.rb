@@ -6,8 +6,8 @@ class Mailer
     self.settings = settings
   end
   
-  def send(subject, body)
-    Pony.mail settings.merge(:body => body, :subject => subject)
+  def send(subject, body, options = {})
+    Pony.mail settings.merge(:body => body, :subject => subject).merge(options)
   end
   
   def art_url(slug)
