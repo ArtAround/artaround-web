@@ -1,10 +1,14 @@
-:via: smtp
-:to:
-  - 
-:from: 
-:via_options:
-  :address: 
-  :user_name: 
-  :password: 
-  :auth: 
-  :port: 
+:pony:
+  :via: smtp
+  :to:
+    - 
+  :from: 
+  :via_options:
+    :address: 
+    :user_name: 
+    :password: 
+    :auth: 
+    :port: 
+
+:mailer:
+  :domain: "localhost:8080"

@@ -7,11 +7,13 @@ class Mailer
   end
   
   def send(subject, body, options = {})
-    Pony.mail settings.merge(:body => body, :subject => subject).merge(options)
+    if settings[:pony][:to] and settings[:pony][:to].any?
+      Pony.mail settings[:pony].merge(:body => body, :subject => subject).merge(options)
+    end
   end
   
   def art_url(slug)
-    "http://theartaround.us/arts/#{slug}"
+    "http://#{settings[:mailer][:domain]}/arts/#{slug}"
   end
   
   # specific mailers
