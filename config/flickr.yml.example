@@ -12,3 +12,5 @@
   :viewable_by: :everyone # possible values: :everyone, :friends, :family, [:friends, :family]
   :level: :safe # possible values: :safe, :moderate, :restricted
   :type: :photo # possible values :photo, :screenshot, :other
+  :extra_tags: # use these in non-production environments to tag extraneous photos
+    - 

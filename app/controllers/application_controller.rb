@@ -11,9 +11,13 @@ class ApplicationController < ActionController::Base
     tags = [art.slug, "dc"]
     tags << art.category.downcase if art.category.present?
     
+    if flickr[:metadata][:extra_tags].is_a?(Array)
+      tags << flickr[:metadata][:extra_tags]
+    end
+    
     Fleakr.upload path, {
         :title => art.title,
-        :tags => tags,
+        :tags => tags.compact.uniq,
         :viewable_by => flickr[:metadata][:viewable_by],
         :level => flickr[:metadata][:level],
         :type => flickr[:metadata][:type]
