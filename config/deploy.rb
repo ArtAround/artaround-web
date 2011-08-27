@@ -1,15 +1,10 @@
-
-
+# set 'target=production' in the command line to trigger production deploy
 set :environment, (ENV['target'] || 'staging')
 
 set :user, 'dotthei'
 set :application, 'artaround'
 
-if environment == 'production'
-  set :deploy_to, "/home/#{user}/webapps/artaround/artaround"
-else
-  set :deploy_to, "/home/#{user}/webapps/artaround_staging/artaround"
-end
+set :deploy_to, "/home/#{user}/webapps/artaround_#{environment}/artaround"
 
 # both production and staging environments are on the same box
 set :domain, 'theartaround.us'
