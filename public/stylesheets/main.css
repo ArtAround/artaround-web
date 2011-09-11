@@ -90,7 +90,33 @@ fieldset { border-bottom: 1px solid #B4B2AD; margin-bottom: 10px; padding-bottom
 #filterForm ul { margin-top: 10px;}
 #filterForm label {text-transform: none;}
 #categoryScroll, #neighborhoodScroll, #museumScroll { max-height: 200px; overflow-x: hidden; overflow-y: auto; }
-#categoryScroll {max-height: 300px;}
+
+#categoryScroll {
+    max-height: 200px;
+}
+
+.searchBtn {
+    display: inline;
+    width: 35px
+}
+
+ul#location .searchBtn {
+  display: inline;
+  background: 
+}
+
+ul#location #id_location {
+  width: 128px;
+}
+
+ul#location button, ul#location a.buttonLink {
+  text-indent: 0;
+}
+
+ul#location label, #filterForm select {
+  width: 180px;
+}
+
 
 input, textarea { -moz-border-radius: 3px; -webkit-border-radius: 3px; background-color: #FFFFFF; border: 1px dotted #E0DBD3; color: #585755; padding: 5px; width: 400px; }
 input.checkbox, input.radio { margin-right: 10px; width: 15px; }
@@ -120,8 +146,8 @@ dt { float: left; font-family: Georgia,"Times New Roman",Times,serif; font-weigh
 
 #commissioned { text-indent: -9999em; display: block; width: 38px; height: 30px; background: url(/images/icon_commissioned.png) top left no-repeat; float: left; margin-left: 20px;}
 
-.showCategory, .showNeighborhood, .showMuseum, .showCommissioned { display: none; }
-.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned { float: right; }
+.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .showLocation { display: none; }
+.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .showLocation, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned, .hideLocation { float: right; }
 
 .errors { margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; background-color: #edaa95; border: 2px solid #9d0101; color: #fff; font-size: 110%;}
 #editInformation { background-color: #e4e593; margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; border: 2px solid #c5c708;}

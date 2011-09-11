@@ -25,6 +25,7 @@
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
+        ward: "<%= art.ward %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
         flickr_id: "<%= (art.flickr_ids || []).first %>",
@@ -57,12 +58,10 @@
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
         
-        //TODO:
-        // set the category and commissioned flag for each marker on the marker itself
-        // store the marker in the markers array
         marker.filters = {
           category: (art.category || "Unknown").toLowerCase(), 
-          commissioned: art.commissioned
+          commissioned: art.commissioned,
+          ward: art.ward
         };
         markers.push(marker);
         
@@ -70,8 +69,8 @@
       });
       
       geocoder = new google.maps.Geocoder();
-      $("button.searchBtn").click(function() {
-        var query = $("#id_mapsearch").val();
+      $("ul#location button.searchBtn").click(function() {
+        var query = $("ul#location #id_location").val();
         geocoder.geocode({
           address: query,
           region: "us"
@@ -93,7 +92,6 @@
       
       var html = '<div class="mapBubble">' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-        //'<a href="#">Close</a>' +
         '<div class="bubbleMetaData">' +
             '<dl>' +
                 '<dt>Title</dt>' +
@@ -137,9 +135,65 @@
       return marker;
     }
     
-    // arm the filter checkboxes
+    function recalculateFilter() {
+        clearWindow();
+        
+        // figure out commission filter
+        var ensure_commissioned;
+        if ($("#filter_commissioned_all")[0].checked)
+          ensure_commissioned = false;
+        else if ($("#filter_commissioned_only")[0].checked)
+          ensure_commissioned = true;
+          
+          
+        var all_categories = $("#filter_category_all")[0].checked;
+        var just_museum = $("#filter_category_museum")[0].checked;
+        var just_gallery = $("#filter_category_gallery")[0].checked;
+        
+        var just_public = $("#filter_category_public")[0].checked;
+        var allowed_categories = [];
+        if (just_public) {
+          $("input.filter.public").each(function(i, element) {
+            if (element.checked)
+              allowed_categories.push($(this).next("span.category").html().toLowerCase());
+          });
+        }
+        
+        var specific_ward = $("#id_wards").val();
+          
+        // go through each marker and ensure it passes the test
+        $.each(markers, function(i, marker) {
+          var passed_commission;
+          var passed_category;
+          var passed_ward;
+          
+          // examine for commissioned status
+          passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
+          
+          if (all_categories)
+            passed_category = true;
+          else if (just_museum)
+            passed_category = (marker.filters.category == "museum");
+          else if (just_gallery)
+            passed_category = (marker.filters.category == "gallery");
+          else if (just_public)
+            passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
+          else
+            passed_category = false;
+          
+          passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
+          
+          marker.setVisible(passed_commission && passed_category && passed_wards);
+        });
+      }
+    
     $(function() {
       
+      // filter checkboxes/radio/select widgets
+      $("input.filter").click(recalculateFilter);
+      $("select#id_wards").change(recalculateFilter);
+      
+      // hide/show links
       $(".hideCategory").click(
         function() {
           $("#categoryScroll").slideUp();
@@ -176,54 +230,23 @@
         }
       );
       
-      
-      $("input.filter").click(function() {
-        clearWindow();
-        
-        // figure out commission filter
-        var ensure_commissioned;
-        if ($("#filter_commissioned_all")[0].checked)
-          ensure_commissioned = false;
-        else if ($("#filter_commissioned_only")[0].checked)
-          ensure_commissioned = true;
-          
-          
-        var all_categories = $("#filter_category_all")[0].checked;
-        var just_museum = $("#filter_category_museum")[0].checked;
-        var just_gallery = $("#filter_category_gallery")[0].checked;
-        
-        var just_public = $("#filter_category_public")[0].checked;
-        var allowed_categories = [];
-        if (just_public) {
-          $("input.filter.public").each(function(i, element) {
-            if (element.checked)
-              allowed_categories.push($(this).next("span.category").html().toLowerCase());
-          });
+      $(".hideLocation").click(
+        function() {
+          $("#location").slideUp();
+          $(".hideLocation").hide();
+          $(".showLocation").show();
+          return false;
         }
-          
-        // go through each marker and ensure it passes the test
-        $.each(markers, function(i, marker) {
-          var passed_commission;
-          var passed_category;
-          
-          // examine for commissioned status
-          passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
-          
-          if (all_categories)
-            passed_category = true;
-          else if (just_museum)
-            passed_category = (marker.filters.category == "museum");
-          else if (just_gallery)
-            passed_category = (marker.filters.category == "gallery");
-          else if (just_public)
-            passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
-          else
-            passed_category = false;
-          
-          marker.setVisible(passed_commission && passed_category);
-        });
-      });
+      );
       
+      $(".showLocation").click(
+        function() {
+          $("#location").slideDown();
+          $(".showLocation").hide();
+          $(".hideLocation").show();
+          return false;
+        }
+      );
     });
     
     function clearWindow() {
@@ -261,7 +284,7 @@
 </div>
 
 <div id="mapContainer">
-  <form id="filterForm" action="." method="get">
+  <form id="filterForm" action="." method="get" onsubmit="return false">
     <fieldset>
       <legend>Look for</legend>
       <a class="hideCategory" href="#">Hide</a>
@@ -334,6 +357,39 @@
           </label>
         </li>
       </ul>
+    </fieldset>
+    
+    <fieldset>
+      <legend>Located In</legend>
+      <a href="#" class="hideLocation">Hide</a>
+      <a href="#" class="showLocation">Show</a>
+      <div class="clear"></div>
+      
+      <ul id="location">
+        <li> 
+          <label>Zoom to an address or zip</label>
+          <input type="text" id="id_location" />
+          <button type="submit" class="searchBtn">
+              <span>Go</span>
+          </button>
+        </li>
+        
+        <li>
+          <label for="id_wards">DC Wards</label> 
+          <select id="id_wards" name="wards">
+              <option selected="selected" value="">---------</option>
+              <option value="1">Ward 1</option>
+              <option value="2">Ward 2</option>
+              <option value="3">Ward 3</option>
+              <option value="4">Ward 4</option>
+              <option value="5">Ward 5</option>
+              <option value="6">Ward 6</option>
+              <option value="7">Ward 7</option>
+              <option value="8">Ward 8</option>
+          </select>
+        </li>
+      </ul>
+
     </fieldset>
 
   </form>
