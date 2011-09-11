@@ -61,7 +61,9 @@
         marker.filters = {
           category: (art.category || "Unknown").toLowerCase(), 
           commissioned: art.commissioned,
-          ward: art.ward
+          ward: art.ward,
+          title: art.title,
+          artist: art.artist
         };
         markers.push(marker);
         
@@ -160,12 +162,16 @@
         }
         
         var specific_ward = $("#id_wards").val();
+        
+        var keyword = $("#mapsearch_value").val();
+        
           
         // go through each marker and ensure it passes the test
         $.each(markers, function(i, marker) {
           var passed_commission;
           var passed_category;
           var passed_ward;
+          var passed_keyword;
           
           // examine for commissioned status
           passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
@@ -183,7 +189,14 @@
           
           passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
           
-          marker.setVisible(passed_commission && passed_category && passed_wards);
+          if (!keyword)
+            passed_keyword = true;
+          else {
+            var pattern = new RegExp(keyword, "i");
+            passed_keyword = (pattern.test(marker.filters.title) || pattern.test(marker.filters.artist));
+          }
+          
+          marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword);
         });
       }
     
@@ -192,6 +205,11 @@
       // filter checkboxes/radio/select widgets
       $("input.filter").click(recalculateFilter);
       $("select#id_wards").change(recalculateFilter);
+      $("form#mapsearch_form").submit(function() {
+        $("input#mapsearch_value").val($("input#mapsearch").val());
+        recalculateFilter();
+        return false;
+      });
       
       // hide/show links
       $(".hideCategory").click(
@@ -273,9 +291,10 @@
 
 <div id="mapSearchWrapper">
   <div id="mapSearch">
-    <form action="#" onsubmit="return false">
-      <label>Zoom me down to an address or zip in DC</label>
-      <input id="id_mapsearch" type="text" />
+    <form action="#" id="mapsearch_form">
+      <label>Search by artist or title</label>
+      <input id="mapsearch" type="text" />
+      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
       <button class="searchBtn" type="submit">
           <span>Search</span>
       </button>
