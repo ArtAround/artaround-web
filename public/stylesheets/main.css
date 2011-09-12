@@ -70,8 +70,47 @@ ul.new-art {margin-top: -10px;}
 button, a.buttonLink { text-indent: -9999em; display: block; border: none; cursor: pointer;}
 #curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 141px; height: 45px;}
 #curateButton:hover { background: url(/images/btn_curate.png) bottom left no-repeat; }
-.searchBtn { background: url(/images/btn_search.png) top left no-repeat; width: 77px; height: 23px;}
-.searchBtn:hover { background: url(/images/btn_search.png) bottom left no-repeat; }
+
+
+.searchBtn{
+    background: #a5ad08; /* Old browsers */
+    background: -moz-linear-gradient(top, #a5ad08 0%, #c5c708 50%, #b4b709 51%, #c5c708 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a5ad08), color-stop(50%,#c5c708), color-stop(51%,#b4b709), color-stop(100%,#c5c708)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #a5ad08 0%,#c5c708 50%,#b4b709 51%,#c5c708 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #a5ad08 0%,#c5c708 50%,#b4b709 51%,#c5c708 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #a5ad08 0%,#c5c708 50%,#b4b709 51%,#c5c708 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a5ad08', endColorstr='#c5c708',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #a5ad08 0%,#c5c708 50%,#b4b709 51%,#c5c708 100%); /* W3C */
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    text-indent: 0;  
+    
+    display: inline;
+    width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.searchBtn:hover{
+    background: #a4af08; /* Old browsers */
+    background: -moz-linear-gradient(top, #a4af08 0%, #b4b709 50%, #a4af08 51%, #b4b709 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a4af08), color-stop(50%,#b4b709), color-stop(51%,#a4af08), color-stop(100%,#b4b709)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #a4af08 0%,#b4b709 50%,#a4af08 51%,#b4b709 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #a4af08 0%,#b4b709 50%,#a4af08 51%,#b4b709 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #a4af08 0%,#b4b709 50%,#a4af08 51%,#b4b709 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a4af08', endColorstr='#b4b709',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #a4af08 0%,#b4b709 50%,#a4af08 51%,#b4b709 100%); /* W3C */
+}
+
+.searchBtn span{
+    margin-top: -3px;
+    display: block
+}
+
+
 .submitBtn { background: url(/images/btn_submit.png) top left no-repeat; width: 89px; height: 45px; margin-left: 120px; margin-top: 45px;}
 .submitBtn:hover { background: url(/images/btn_submit.png) bottom left no-repeat; }
 .cancelBtn { background: url(/images/btn_cancel.png) top left no-repeat; width: 89px; height: 45px; margin-top: 45px;}
