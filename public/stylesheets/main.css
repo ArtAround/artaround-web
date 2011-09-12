@@ -92,7 +92,10 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
     width: 0;
     padding-left: 8px;
     padding-right: 8px;
+    height: 22px;
 }
+
+#location li{margin-bottom: 0;}
 
 .searchBtn:hover{
     background: #a4af08; /* Old browsers */
