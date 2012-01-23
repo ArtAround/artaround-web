@@ -36,7 +36,7 @@ class ArtsController < ApplicationController
         render :new
       else
       
-        Mailer.new(mailer_settings).send_new_art @art.title, @art.slug
+        AdminMailer.new_art(@art).deliver
         
         begin
           uploads = upload_photo @art, params[:new_photo].path
@@ -46,7 +46,9 @@ class ArtsController < ApplicationController
           render :new
         else
           @art.flickr_ids ||= []
-          @art.flickr_ids << uploads.first.id
+          if uploads.any?
+            @art.flickr_ids << uploads.first.id
+          end
           @art.save! # should not be a controversial operation
           
           redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"

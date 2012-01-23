@@ -14,14 +14,20 @@ class ApplicationController < ActionController::Base
     if flickr[:metadata][:extra_tags].is_a?(Array)
       tags << flickr[:metadata][:extra_tags]
     end
-    
-    Fleakr.upload path, {
+
+    if Fleakr.api_key.present?
+
+      Fleakr.upload path, {
         :title => art.title,
         :tags => tags.compact.uniq,
         :viewable_by => flickr[:metadata][:viewable_by],
         :level => flickr[:metadata][:level],
         :type => flickr[:metadata][:type]
       }
+
+    else
+      []
+    end
   end
   
   helper_method :admin?
