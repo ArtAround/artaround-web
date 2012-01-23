@@ -66,7 +66,7 @@ class ArtsController < ApplicationController
       @art.submitted_at = Time.now
       @art.save!
       
-      # Mailer.new(mailer_settings).send_new_art_info @art.title, @art.slug, params[:submission]
+      AdminMailer.new_art_info @art, @submission
       
       redirect_to art_path(@art), :notice => "Thanks for helping us fill in the gaps! We moderate submissions, so your contribution should appear shortly."
     else

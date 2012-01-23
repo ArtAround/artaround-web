@@ -23,4 +23,10 @@ class AdminMailer < ActionMailer::Base
     @text = text
     mail :subject => "Contact form submission from #{@name} [#{@email}]"
   end
+
+  def new_art_info(art, submission)
+    @art = art
+    @submission = submission
+    mail :subject => "Art info correction submitted for #{@art.title}"
+  end
 end
