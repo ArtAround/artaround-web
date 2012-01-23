@@ -1,0 +1,10 @@
+:hostname: "localhost:8080"
+:to:
+  - 
+:from: 
+:smtp:
+  :address: 
+  :user_name: 
+  :password: 
+  :auth: 
+  :port: 

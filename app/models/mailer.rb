@@ -26,10 +26,6 @@ class Mailer
     send "New art submission: #{title}", art_url(slug)
   end
   
-  def send_new_comment(title, slug, commenter, comment_body)
-    send "New comment by #{commenter} on #{title}", "#{art_url(slug)}\n\n#{comment_body}"
-  end
-  
   def send_new_photo(title, slug)
     send "New photo on #{title}", art_url(slug)
   end

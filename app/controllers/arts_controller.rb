@@ -108,7 +108,7 @@ class ArtsController < ApplicationController
     @comment.ip_address = request.ip
     
     if @comment.save
-      Mailer.new(mailer_settings).send_new_comment @art.title, @art.slug, params[:comment]['name'], params[:comment]['text']
+      AdminMailer.new_comment(@art, params[:comment]['name'], params[:comment]['text']).deliver
       redirect_to @art, :notice => "Your comment has been posted below. Thanks for contributing!"
     else
       flash.now[:alert] = "Your comment couldn't be posted. Please look below and check for any missing fields or errors."
