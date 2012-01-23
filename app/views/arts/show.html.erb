@@ -163,7 +163,7 @@
         <dd><%= known @art.description %></dd>
       </dl>
       
-      <% form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
+      <%= form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
         <ul>
         
           <li>
@@ -258,7 +258,7 @@
     <div class="module">
       <h3>Leave a Comment</h3>
       
-      <% form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
+      <%= form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
         <ul>
           <li>
             <%= f.label :name %>

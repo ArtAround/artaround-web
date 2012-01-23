@@ -58,7 +58,7 @@
       </div>
     <% end %>
 
-    <% form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
+    <%= form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
       <ul class="new-art">
         <li>
           <strong>If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.</strong>
