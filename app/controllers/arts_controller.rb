@@ -96,7 +96,7 @@ class ArtsController < ApplicationController
       @art.save! # should not be a controversial operation
       
       
-      Mailer.new(mailer_settings).send_new_photo @art.title, @art.slug
+      AdminMailer.new_photo(@art).deliver
       
       redirect_to art_path(@art), :notice => "Thank you for contributing your photo! It should appear in the slideshow below."
     end

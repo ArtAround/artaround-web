@@ -21,9 +21,5 @@ class Mailer
   def send_contact_form(name, email, text)
     send "Contact form submission from #{name} [#{email}]", text
   end
-  
-  def send_new_photo(title, slug)
-    send "New photo on #{title}", art_url(slug)
-  end
     
 end
