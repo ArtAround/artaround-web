@@ -11,4 +11,9 @@ class AdminMailer < ActionMailer::Base
     @art = art
     mail :subject => "New art submission: #{@art.title}"
   end
+
+  def new_photo(art)
+    @art = art
+    mail :subject => "New photo on #{@art.title}"
+  end
 end

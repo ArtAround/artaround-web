@@ -90,7 +90,9 @@ class ArtsController < ApplicationController
       redirect_to art_path(@art), :alert => "There was a problem uploading your photo. If you don't mind, please try it again."
     else
       @art.flickr_ids ||= []
-      @art.flickr_ids << uploads.first.id
+      if uploads.any?
+        @art.flickr_ids << uploads.first.id
+      end
       @art.save! # should not be a controversial operation
       
       
