@@ -16,4 +16,11 @@ class AdminMailer < ActionMailer::Base
     @art = art
     mail :subject => "New photo on #{@art.title}"
   end
+
+  def contact_form(name, email, text)
+    @name = name
+    @email = email
+    @text = text
+    mail :subject => "Contact form submission from #{@name} [#{@email}]"
+  end
 end

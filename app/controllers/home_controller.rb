@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   def send_contact
     if params[:name].present? and params[:email].present? and params[:text].present?
       begin
-        Mailer.new(mailer_settings).send_contact_form params[:name], params[:email], params[:text]
+        AdminMailer.contact_form(params[:name], params[:email], params[:text]).deliver
         redirect_to contact_path, :notice => "Thanks for your comments!"
       rescue Exception => ex
         Rails.logger.info "ERROR sending mail: #{ex.message}"
