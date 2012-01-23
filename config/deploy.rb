@@ -53,6 +53,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/flickr.yml #{release_path}/config/flickr.yml"
     run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
     run "ln -nfs #{shared_path}/config/pony.yml #{release_path}/config/pony.yml"
+    run "ln -nfs #{shared_path}/config/email.yml #{release_path}/config/email.yml"
     run "rm #{File.join release_path, 'log'}"
     run "ln -nfs #{shared_path}/log #{release_path}/log"
   end
