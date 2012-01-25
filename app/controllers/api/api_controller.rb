@@ -14,7 +14,10 @@ class Api::ApiController < ApplicationController
     total_count = arts.count
     pagination = paginate_options
     
-    results = arts.paginate(pagination).map {|art| clean art.attributes}
+    skip = pagination[:per_page] * (pagination[:page]-1)
+    limit = pagination[:per_page]
+
+    results = arts.skip(skip).limit(limit).map {|art| clean art.attributes}
     {
       :arts => results,
       :page => pagination.merge(:count => results.size),
