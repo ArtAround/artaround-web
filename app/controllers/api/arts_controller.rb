@@ -24,6 +24,7 @@ class Api::ArtsController < Api::ApiController
         # of the art. Otherwise, send back the errors and a Bad Request 
         # status code.
         if art.save
+          AdminMailer.new_art(art).deliver
           render :json => { :success => art.slug }
         else
           Rails.logger.info "Could not save art: #{art.errors}"
@@ -53,6 +54,8 @@ class Api::ArtsController < Api::ApiController
       art.flickr_ids << uploads.first.id
       art.save!
 
+      AdminMailer.new_photo(art).deliver
+
       render :json => art
     rescue Fleakr::ApiError
       render :json => { :success => false }, :status => 500
@@ -77,6 +80,7 @@ class Api::ArtsController < Api::ApiController
     respond_to do |format|
       format.json do
         if submission.save
+          AdminMailer.new_art_info(art, submission).deliver
           render :json => { :success => true }
         else
           Rails.logger.info "Could not save submission: #{submission.errors}"
@@ -108,6 +112,7 @@ class Api::ArtsController < Api::ApiController
         # Respond with 200 if the comment was posted successfully or tell the
         # client it was a BadRequest otherwise
         if comment.save
+          AdminMailer.new_comment(art, params[:name], params[:text]).deliver
           render :json => { :success => true }
         else
           Rails.logger.info "Comment for art #{art.id} could not be saved: #{comment.errors}"
