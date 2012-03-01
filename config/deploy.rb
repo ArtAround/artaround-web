@@ -26,6 +26,7 @@ role :web, domain
 after "deploy", "deploy:cleanup"
 after "deploy:update_code", "deploy:shared_links"
 after "deploy:update_code", "deploy:bundle_install"
+after "deploy:update_code", "deploy:create_indexes"
 
 namespace :deploy do
   task :start do ; end
@@ -37,11 +38,10 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
-  # Todo later, a good idea:
-#   desc "Create indexes"
-#   task :create_indexes, :roles => :app, :except => {:no_release => true} do
-#     run "cd #{release_path} && rake create_indexes"
-#   end
+  desc "Create indexes"
+  task :create_indexes, :roles => :app, :except => {:no_release => true} do
+    run "cd #{release_path} && rake db:mongoid:create_indexes"
+  end
   
   task :bundle_install, :roles => :app, :except => {:no_release => true} do
     run "cd #{release_path} && bundle install --local"
