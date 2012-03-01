@@ -105,6 +105,8 @@ class ArtsController < ApplicationController
   def show
     @comment = Comment.new
     @submission = @art.new_submission
+    @art.inc :web_visits, 1
+    @art.inc :total_visits, 1
   end
   
   def comment

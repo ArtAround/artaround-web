@@ -45,6 +45,11 @@ class Art
   
   # last submitted at
   field :submitted_at, :type => DateTime
+
+  # count of visits, very naive
+  field :web_visits
+  field :api_visits
+  field :total_visits # sum of the previous two, duplicated to make filtering easy
   
   index [[:location, Mongo::GEO2D]]
   index :commissioned
@@ -52,6 +57,9 @@ class Art
   index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
   index :approved
   index :slug
+  index :total_visits
+  index :web_visits
+  index :api_visits
   
   scope :commissioned, :where => {:commissioned => true}
   scope :uncommissioned, :where => {:commissioned => false}
