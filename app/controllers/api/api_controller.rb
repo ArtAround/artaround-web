@@ -9,6 +9,10 @@ class Api::ApiController < ApplicationController
 
   def json_for_arts
     arts = Art.only(art_fields).approved
+
+    if params[:order] == 'hotness'
+      arts = arts.desc :total_visits
+    end
     
     # get it from the criteria before the content is lazily loaded
     total_count = arts.count
