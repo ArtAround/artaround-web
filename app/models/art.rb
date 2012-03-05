@@ -47,9 +47,10 @@ class Art
   field :submitted_at, :type => DateTime
 
   # count of visits, very naive
-  field :web_visits
-  field :api_visits
-  field :total_visits # sum of the previous two, duplicated to make filtering easy
+  field :web_visits, :type => Integer
+  field :api_visits, :type => Integer
+  field :total_visits, :type => Integer # sum of the previous two, duplicated to make filtering easy
+  field :ranking, :type => Integer
   
   index [[:location, Mongo::GEO2D]]
   index :commissioned
