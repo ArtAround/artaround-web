@@ -50,7 +50,7 @@ class Api::ApiController < ApplicationController
   
   
   def art_fields
-    [:slug, :description, :location_description, :artist, :location, :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, :year, :neighborhood, :ward, :commissioned]
+    [:slug, :description, :location_description, :artist, :location, :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, :year, :neighborhood, :ward, :commissioned, :ranking]
   end
   
   def comment_fields
