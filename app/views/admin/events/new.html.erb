@@ -1,0 +1,27 @@
+<div id="pageMain" class="admin">
+
+<div id="fullColumn">
+  <div id="titleContent">
+    <h2>New Event</h2>
+  </div>
+</div>
+
+<div id="ltColumn">
+
+  <%= form_for @event, :url => admin_events_path do |f| %>
+    <%= render "admin/events/form", :event => @event, :f => f %>
+  <% end %>
+
+</div>
+
+<div id="rtColumn">
+  <div id="search_box">
+    <input type="text" id="search_text" />
+    <input type="submit" id="search_button" value="Search" />
+  </div>
+  <div id="map_canvas"></div>
+</div>
+
+<div class="clear"></div>
+
+</div>

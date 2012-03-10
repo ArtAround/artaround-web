@@ -4,13 +4,14 @@ Artaround::Application.routes.draw do
     post :submit, :on => :member
     post :add_photo, :on => :member
   end
-  
+
   namespace :admin do
     resources :arts do
       resources :comments do
         post :unapprove, :on => :member
       end
     end
+    resources :events
   end
   
   namespace :api do
@@ -27,7 +28,7 @@ Artaround::Application.routes.draw do
     end
   end
   
-  match "/admin" => "admin/arts#login", :as => "admin"
+  match "/admin" => "admin/arts#index", :as => "admin"
   
   match "/contact" => "home#contact"
   match "/about" => "home#about"

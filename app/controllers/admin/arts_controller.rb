@@ -1,9 +1,9 @@
 class Admin::ArtsController < Admin::AdminController
   before_filter :load_art, :only => [:show, :update]
   
-  def login
-    # will only get here if they get through the admin_only filter
-    redirect_to root_path, :notice => "You're logged in as an administrator."
+  def index
+    @arts = Art.all
+    @events = Event.all
   end
   
   def show

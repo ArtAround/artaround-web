@@ -1,0 +1,36 @@
+<div id="pageMain" class="admin">
+
+<div id="fullColumn">
+    <div id="titleContent">
+        <h2>Admin Area</h2>
+    </div>
+</div>
+
+<div id="ltColumn">
+    <h3>Art pieces</h3>
+    <ul>
+        <% @arts.each do |art| %>
+            <li>
+                <%= link_to art.title, admin_art_path(art) %>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+<div id="rtColumn">
+    <h3>
+        Events
+        (<%= link_to "New", new_admin_event_path %>)
+    </h3>
+    <ul>
+        <% @events.each do |event| %>
+            <li>
+                <%= link_to event.name, admin_event_path(event) %>
+            </li>
+        <% end %>
+    </ul>
+</div>
+
+<div class="clear"></div>
+
+</div>

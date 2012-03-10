@@ -4,8 +4,10 @@ class Art
   include Mongoid::Slug
   include Mongoid::MultiParameterAttributes
   
-  references_many :comments
+  has_many :comments
+  belongs_to :event
   embeds_many :submissions
+
   
   attr_protected :_id, :commissioned, :approved, :location, :flickr_ids
   

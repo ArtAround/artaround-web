@@ -1,0 +1,35 @@
+<% if event.errors.any? %>
+  <% event.errors.full_messages.each do |message| %>
+    <div class="errors">
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<ul>
+  <li>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </li>
+  <li>
+    <%= f.label :website %>
+    <%= f.text_field :website %>
+  </li>
+  <li>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </li>
+  <li>
+    <%= f.label :starts_at %>
+    <%= f.date_select :starts_at, :include_blank => true %>
+  </li>
+  <li>
+    <%= f.label :ends_at %>
+    <%= f.date_select :ends_at, :include_blank => true %>
+  </li>
+  <li>
+    <button class="submitBtn" type="submit">
+        <span>Submit</span>
+    </button>
+  </li>
+</ul>
