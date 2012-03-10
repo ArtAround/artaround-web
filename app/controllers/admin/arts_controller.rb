@@ -39,6 +39,7 @@ class Admin::ArtsController < Admin::AdminController
     unless params[:id] and (@art = Art.where(:slug => params[:id]).first)
       head :not_found and return false
     end
+    @events = Event.all
   end
   
 end

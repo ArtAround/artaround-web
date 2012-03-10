@@ -54,13 +54,7 @@ class Art
   field :api_visits, :type => Integer
   field :total_visits, :type => Integer # sum of the previous two, duplicated to make filtering easy
   field :ranking, :type => Integer
-
-  # denoting an event
-  field :event, :type => Boolean, :default => false
-  field :event_starts_at, :type => DateTime
-  field :event_ends_at, :type => DateTime
   
-  index :event
   index [[:location, Mongo::GEO2D]]
   index :commissioned
   index :category

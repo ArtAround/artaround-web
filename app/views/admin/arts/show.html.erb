@@ -91,6 +91,14 @@
 <div id="ltColumn">
 
   <%= form_for @art, :url => admin_art_path(@art) do |f| %>
+    <% if @art.errors.any? %>
+      <% @art.errors.full_messages.each do |message| %>
+        <div class="errors">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+
     <ul>
       <li>
         <%= f.label :commissioned %>
@@ -145,16 +153,8 @@
         <%= f.text_area :description %>
       </li>
       <li>
-        <%= f.label :event %>
-        <%= f.check_box :event %>
-      </li>
-      <li>
-        <%= f.label "Event begins on" %>
-        <%= f.date_select :event_starts_at, :include_blank => true %>
-      </li>
-      <li>
-        <%= f.label "Event ends on" %>
-        <%= f.date_select :event_ends_at, :include_blank => true %>
+        <%= f.label :event_id %>
+        <%= f.collection_select :event_id, @events, :id, :name, :include_blank => "----" %>
       </li>
       <li>
         <button class="submitBtn" type="submit">
