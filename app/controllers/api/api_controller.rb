@@ -4,7 +4,7 @@ class Api::ApiController < ApplicationController
     hash = art.as_json :include => :event
     hash = clean hash, art_fields
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
-    hash[:event] = clean(hash[:event], event_fields)
+    hash[:event] = clean(hash['event'], event_fields)
     hash
   end
 
@@ -25,7 +25,7 @@ class Api::ApiController < ApplicationController
     results = arts.skip(skip).limit(limit).map do |art| 
       hash = art.as_json :include => :event
       hash = clean hash, art_fields
-      hash[:event] = clean(hash[:event], event_fields)
+      hash[:event] = clean(hash['event'], event_fields)
       hash
     end
     {
@@ -66,7 +66,7 @@ class Api::ApiController < ApplicationController
 
   def event_fields
     [
-      :name, :url, :description, :starts_at, :ends_at
+      :name, :website, :description, :starts_at, :ends_at, :slug
     ]
   end
 
