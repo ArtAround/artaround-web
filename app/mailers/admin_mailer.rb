@@ -29,4 +29,11 @@ class AdminMailer < ActionMailer::Base
     @submission = submission
     mail :subject => "Art info correction submitted for #{@art.title}"
   end
+
+  def art_flagged(art, text, source)
+    @art = art
+    @text = text
+    @source = source
+    mail :subject => "Art piece flagged (#{@source})"
+  end
 end

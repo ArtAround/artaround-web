@@ -1,5 +1,5 @@
 class ArtsController < ApplicationController
-  before_filter :load_art, :only => [:show, :comment, :submit, :add_photo]
+  before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
   
   def new
     @art = Art.new
@@ -123,13 +123,9 @@ class ArtsController < ApplicationController
     end
   end
 
-  def logger
-    Rails.logger.info "#{params.inspect}"
-
-    respond_to do |format|
-      format.json { render :json => { :success => true } }
-      format.html { render :text => "OK" }
-    end
+  def flag
+    AdminMailer.art_flagged(@art, params[:text], params[:source]).deliver
+    head 201
   end
   
   protected

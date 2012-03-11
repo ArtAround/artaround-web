@@ -3,6 +3,7 @@ Artaround::Application.routes.draw do
     post :comment, :on => :member
     post :submit, :on => :member
     post :add_photo, :on => :member
+    post :flag, :on => :member
   end
 
   namespace :admin do
