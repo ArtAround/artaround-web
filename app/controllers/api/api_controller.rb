@@ -1,14 +1,15 @@
 class Api::ApiController < ApplicationController
   
   def json_for_art(art)
-    
-    {
-      :art => clean(art.attributes).merge(:comments => json_for_comments(art))
-    }
+    hash = art.as_json :include => :event
+    hash = clean hash, art_fields
+    hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
+    hash[:event] = clean(hash[:event], event_fields)
+    hash
   end
 
   def json_for_arts
-    arts = Art.only(art_fields).approved
+    arts = Art.approved
 
     if params[:order] == 'hotness'
       arts = arts.desc :total_visits
@@ -21,7 +22,12 @@ class Api::ApiController < ApplicationController
     skip = pagination[:per_page] * (pagination[:page]-1)
     limit = pagination[:per_page]
 
-    results = arts.skip(skip).limit(limit).map {|art| clean art.attributes}
+    results = arts.skip(skip).limit(limit).map do |art| 
+      hash = art.as_json :include => :event
+      hash = clean hash, art_fields
+      hash[:event] = clean(hash[:event], event_fields)
+      hash
+    end
     {
       :arts => results,
       :page => pagination.merge(:count => results.size),
@@ -30,11 +36,12 @@ class Api::ApiController < ApplicationController
   end
   
   def json_for_comments(art)
-    art.comments.only(comment_fields).approved.all.map {|comment| clean comment.attributes}
+    
   end
   
-  def clean(attributes)
-    [:_id, :updated_at].each {|key| attributes.delete(key)}
+  def clean(attributes, whitelist)
+    return nil unless attributes
+    attributes.keys.each {|key| attributes.delete(key) unless whitelist.include?(key.to_sym)}
     attributes
   end
   
@@ -50,10 +57,22 @@ class Api::ApiController < ApplicationController
   
   
   def art_fields
-    [:slug, :description, :location_description, :artist, :location, :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, :year, :neighborhood, :ward, :commissioned, :ranking, :event, :event_starts_at, :event_ends_at]
+    [
+      :slug, :description, :location_description, :artist, :location, 
+      :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, 
+      :year, :neighborhood, :ward, :commissioned, :ranking, :event
+    ]
   end
-  
+
+  def event_fields
+    [
+      :name, :url, :description, :starts_at, :ends_at
+    ]
+  end
+
   def comment_fields
-    [:name, :created_at, :url, :text]
+    [
+      :name, :created_at, :url, :text
+    ]
   end
 end
