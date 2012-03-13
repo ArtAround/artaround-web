@@ -2,8 +2,8 @@ class Admin::ArtsController < Admin::AdminController
   before_filter :load_art, :only => [:show, :update]
   
   def index
-    @arts = Art.all
-    @events = Event.all
+    @arts = Art.desc(:created_at).all
+    @events = Event.desc(:created_at).all
   end
   
   def show
