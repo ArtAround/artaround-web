@@ -16,14 +16,19 @@ class Api::ArtsController < Api::ApiController
 
     art.approved     = true
     art.commissioned = false
-    art.location     = vals[:location]
+
+    if vals[:location]
+      latitude = vals[:location][0].to_f
+      longitude = vals[:location][1].to_f
+      art.location = [latitude, longitude]
+    end
 
     respond_to do |format|
       format.json do
         # If the art is successfully saved, send back the JSON representation
         # of the art. Otherwise, send back the errors and a Bad Request 
         # status code.
-        if art.save
+        if art.safely.save
           AdminMailer.new_art(art).deliver
           render :json => { :success => art.slug }
         else
