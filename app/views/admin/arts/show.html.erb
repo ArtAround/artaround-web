@@ -73,17 +73,28 @@
         $("input#art_latitude").val("Click on Map");
       if ($("input#art_longitude").val() == "")
         $("input#art_longitude").val("Click on Map");
+
+      $("a.delete.art").click(function() {
+        if (confirm("Delete this art piece FOREVER? (You will still need to delete the attached photos from Flickr manually.)")) 
+          $("form.delete.art").submit();
+        return false;
+      });
     });
   </script>
 <% end %>
 
 <div id="pageMain" class="admin">
 
+<form class="art delete form" action="<%= admin_art_path @art %>" method="post">
+  <input type="hidden" name="_method" value="delete" />
+</form>
+
 <div id="fullColumn">
   <div id="titleContent">
     <h2><%= @art.title %></h2>
     <div class="admin_landing_link">
       <%= link_to "Landing page", art_path(@art) %>
+      <%= link_to "Delete this art", "#", :class => "art delete" %>
     </div>
   </div>
 </div>
@@ -100,6 +111,10 @@
     <% end %>
 
     <ul>
+      <li>
+        <%= f.label :featured %>
+        <%= f.check_box :featured %>
+      </li>
       <li>
         <%= f.label :commissioned %>
         <%= f.check_box :commissioned %>

@@ -1,5 +1,5 @@
 class Admin::ArtsController < Admin::AdminController
-  before_filter :load_art, :only => [:show, :update]
+  before_filter :load_art, :only => [:show, :update, :destroy]
   
   def index
     @arts = Art.desc(:created_at).all
@@ -7,6 +7,11 @@ class Admin::ArtsController < Admin::AdminController
   end
   
   def show
+  end
+
+  def destroy
+    @art.destroy
+    redirect_to admin_path
   end
   
   def update
