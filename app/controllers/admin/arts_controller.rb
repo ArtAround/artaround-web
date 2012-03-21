@@ -18,7 +18,13 @@ class Admin::ArtsController < Admin::AdminController
     # some attributes are protected from mass assignment, pluck them out
     @art.commissioned = params[:art].delete 'commissioned'
     @art.approved = params[:art].delete 'approved'
-    @art.slug = params[:art].delete 'slug'
+    
+    # special case - slug
+    # can't do a validates_presence_of for weird reasons, so validate here
+    slug = params[:art].delete 'slug'
+    if slug.present?
+      @art.slug = slug
+    end
     
     # filter out any blank flickr_ids
     #@art.flickr_ids = params[:art].delete('flickr_ids').select {|id| id.present?}
