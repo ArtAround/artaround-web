@@ -37,21 +37,38 @@
     <div id="headerWrapper">
       <div id="header">
         <h1><a href="/">Art Around</a></h1>
-        <div id="nav">
-          <ul>
-            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
-            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
-            <li><a href="<%= contact_path %>">Contact Us</a></li>
-          </ul>
-          <div class="clear"></div> 
-        </div>
+		  <div id="mapSearch">
+		    <form action="#" id="mapsearch_form">
+		      <label>Search by artist or title</label>
+		      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
+		      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
+		      <button class="searchBtn" type="submit">
+		          <span>Go</span>
+		      </button>
+		    </form>
+		  </div>  
       </div>  
     </div>
     
     <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
     
     <%= yield %>
-    
+	<div id="footerWrap">
+	  <footer>
+			<small class="cclicense">
+				<span class="ccicons"></span>
+				All photos are licensed with a Creative Commons Attribution-NonCommercial license and tagged appropriately.
+			</small>
+			<div class="nav">
+	          <ul>
+	            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
+	            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
+	            <li><a href="<%= contact_path %>">Contact Us</a></li>
+	          </ul>
+	          <div class="clear"></div> 
+	        </footer>
+	  </div>
+	</div>
     <%= yield :footer %>
     
     <% if Rails.env == "production" %>
