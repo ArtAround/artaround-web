@@ -4,6 +4,10 @@ class HomeController < ApplicationController
     @arts = Art.approved.all
   end
   
+  def map
+    @arts = Art.approved.all
+  end
+
   def send_contact
     if params[:name].present? and params[:email].present? and params[:text].present?
       begin

@@ -37,5 +37,7 @@ Artaround::Application.routes.draw do
   
   match "/contact/send" => "home#send_contact", :via => [:post], :as => "send_contact"
   
+  match "/map" => "home#map"
+
   root :to => "home#index"
 end
