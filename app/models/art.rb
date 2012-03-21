@@ -45,6 +45,7 @@ class Art
   # flags
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
+  field :featured, :type => Boolean, :default => false
   
   # last submitted at
   field :submitted_at, :type => DateTime
@@ -69,6 +70,7 @@ class Art
   scope :uncommissioned, :where => {:commissioned => false}
   scope :approved, :where => {:approved => true}
   scope :unapproved, :where => {:approved => false}
+  scope :featured, :where => {:featured => true}
   
   scope :inbox, :where => {:approved => false}, :order_by => :created_at.desc
   scope :submitted, :order_by => :submitted_at.desc
