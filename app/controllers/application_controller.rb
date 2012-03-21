@@ -2,12 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "application"
   
-  
-  def mailer_settings
-    @mailer_settings ||= YAML.load_file "#{Rails.root}/config/pony.yml"
-  end
-  
-  def upload_photo(art, path)
+  def upload_photo(art, path, username = nil)
     tags = [art.slug, "dc"]
     tags << art.category.downcase if art.category.present?
     
@@ -15,19 +10,30 @@ class ApplicationController < ActionController::Base
       tags << flickr[:metadata][:extra_tags]
     end
 
+    description = username ? "Uploaded by http://flickr.com/photos/#{username}" : ""
+
+
     if Fleakr.api_key.present?
 
-      Fleakr.upload path, {
+      results = Fleakr.upload path, {
         :title => art.title,
+        :description => description,
         :tags => tags.compact.uniq,
         :viewable_by => flickr[:metadata][:viewable_by],
         :level => flickr[:metadata][:level],
         :type => flickr[:metadata][:type]
       }
 
+      results.map &:id
+
     else
-      []
+      ["not-really-uploaded"]
     end
+  end
+
+  helper_method :flickr
+  def flickr
+    @flickr ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
   end
   
   helper_method :admin?
@@ -43,11 +49,6 @@ class ApplicationController < ActionController::Base
   helper_method :categories
   def categories
     @categories ||= ["Architecture", "Gallery", "Market", "Memorial", "Mosaic", "Mural", "Museum", "Painting", "Paste", "Sculpture", "Statue", "Temporary"]
-  end
-  
-  helper_method :flickr
-  def flickr
-    @flickr ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
   end
   
   helper_method :neighborhoods

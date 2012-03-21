@@ -7,6 +7,7 @@ class Art
   has_many :comments
   belongs_to :event
   embeds_many :submissions
+  has_many :photos
 
   
   attr_protected :_id, :commissioned, :approved, :location, :flickr_ids, :slug
@@ -79,7 +80,6 @@ class Art
   
   validates_presence_of :title
   validates_presence_of :category
-  validates_presence_of :slug
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_location, :on => :create

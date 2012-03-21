@@ -47,17 +47,17 @@ class Api::ArtsController < Api::ApiController
     head :not_found and return unless art
 
     begin
-      # Upload the file to the Flickr account.
-      #
-      # This might raise a <tt>Fleakr::ApiError</tt> exception
-      # that needs to be handled properly.
-      uploads = upload_photo(art, params[:file].path)
+      uploads = upload_photo art, params[:file].path, params[:new_photo_username]
       
-      # Add the upload to the array of <tt>flickr_ids</tt>
-      # and save the art.
       art.flickr_ids ||= []
-      art.flickr_ids << uploads.first.id
+      art.flickr_ids << uploads.first
       art.save!
+
+      photo = art.photos.new(
+        :flickr_id => uploads.first,
+        :flickr_username => params[:new_photo_username]
+      )
+      photo.save! # also not controversial
 
       AdminMailer.new_photo(art).deliver
 
