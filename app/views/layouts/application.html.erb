@@ -35,19 +35,34 @@
   <body class="<%= content_for :body_class %>">
   
     <div id="headerWrapper">
-      <div id="header">
-        <h1><a href="/">Art Around</a></h1>
-		  <div id="mapSearch">
-		    <form action="#" id="mapsearch_form">
-		      <label>Search by artist or title</label>
-		      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
-		      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
-		      <button class="searchBtn" type="submit">
-		          <span>Go</span>
-		      </button>
-		    </form>
-		  </div>  
-      </div>  
+      <header>
+        <h1><a href="/">Art Around</a>
+		</h1>
+		<h2 id="cityView">
+			Washington DC
+		</h2>
+	    <form action="#" id="mapsearch_form">
+	      <label>Search by artist or title</label>
+	      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
+	      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
+	      <button class="searchBtn" type="submit">
+	          <span>Go</span>
+	      </button>
+	    </form>
+		  <nav>
+			<ul>
+				<li id="exhibits_link">
+					<a href="#">Exhibits</a>
+				</li>
+				<li id="allArt_link">
+					<a href="#">All Art</a>
+				</li>
+				<li id="addArt_link">
+					<a href="#">Add Art</a>
+				</li>
+			</ul>
+		  </nav>
+      </header>  
     </div>
     
     <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
@@ -59,15 +74,16 @@
 				<span class="ccicons"></span>
 				All photos are licensed with a Creative Commons Attribution-NonCommercial license and tagged appropriately.
 			</small>
-			<div class="nav">
+			<nav>
 	          <ul>
 	            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
 	            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
 	            <li><a href="<%= contact_path %>">Contact Us</a></li>
 	          </ul>
-	          <div class="clear"></div> 
-	        </footer>
-	  </div>
+	          <div class="clear"></div>
+		    </nav>
+	
+        </footer>
 	</div>
     <%= yield :footer %>
     
