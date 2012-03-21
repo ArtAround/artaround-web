@@ -91,7 +91,10 @@
 
 <div id="fullColumn">
   <div id="titleContent">
-    <h2><%= @art.title %></h2>
+    <h2>
+      <%= @art.title %>
+      <a style="float: right" href="<%= admin_path %>">&laquo; Back</a>
+    </h2>
     <div class="admin_landing_link">
       <%= link_to "Landing page", art_path(@art) %>
       <%= link_to "Delete this art", "#", :class => "art delete" %>

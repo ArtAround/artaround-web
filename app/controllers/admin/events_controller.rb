@@ -19,6 +19,11 @@ class Admin::EventsController < Admin::AdminController
   # doubles as an edit page
   def show
   end
+
+  def destroy
+    @event.destroy
+    redirect_to admin_path
+  end
   
   def update
     @event.attributes = params[:event]

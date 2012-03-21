@@ -1,8 +1,29 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    $(function() {
+        $("a.delete.event").click(function() {
+            if (confirm("Delete this event FOREVER?")) 
+                $("form.delete.event").submit();
+            return false;
+        });
+    });
+  </script>
+<% end %>
+
 <div id="pageMain" class="admin">
 
+<form class="event delete form" action="<%= admin_event_path @event %>" method="post">
+  <input type="hidden" name="_method" value="delete" />
+</form>
 <div id="fullColumn">
   <div id="titleContent">
-    <h2><%= @event.name %></h2>
+    <h2>
+        <%= @event.name %>
+        <a style="float: right" href="<%= admin_path %>">&laquo; Back</a>
+    </h2>
+    <div class="admin_landing_link">
+      <%= link_to "Delete this event", "#", :class => "event delete" %>
+    </div>
   </div>
 </div>
 
