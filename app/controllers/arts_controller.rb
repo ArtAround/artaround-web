@@ -10,8 +10,10 @@ class ArtsController < ApplicationController
     longitude = params[:art].delete 'longitude'
     
     # remove special case
-    latitude = ["Click on Map", nil].include?(latitude) ? nil : latitude.to_f
-    longitude = ["Click on Map", nil].include?(longitude) ? nil : longitude.to_f
+    latitude = (latitude || "").strip
+    longitude = (longitude || "").strip
+    latitude = ["Click on Map", ""].include?(latitude) ? nil : latitude.to_f
+    longitude = ["Click on Map", ""].include?(longitude) ? nil : longitude.to_f
     
     @art = Art.new params[:art]
     
