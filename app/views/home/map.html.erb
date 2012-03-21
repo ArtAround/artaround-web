@@ -275,144 +275,117 @@
 <% end %>
 
 
-<div id="featureBoxWrapper">       
-  <div id="featureBox">
-    <div id="mainText">
-      <h2>Discover the art around us</h2>
-      <span>find and map the graffiti you love to the mural we missed</span>
-    </div>
-    <div id="curateBox">
-      <span>Know of some art around you?</span>
-      <a class="buttonLink" id="curateButton" href="/arts/new">Curate it now!</a>
-    </div>  
-    <div class="clear"></div>
-  </div>
-</div>
-
-<div id="mapSearchWrapper">
-  <div id="mapSearch">
-    <form action="#" id="mapsearch_form">
-      <label>Search by artist or title</label>
-      <input id="mapsearch" type="text" />
-      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
-      <button class="searchBtn" type="submit">
-          <span>Go</span>
-      </button>
-    </form>
-  </div>  
-</div>
-
 <div id="mapContainer">
-  <form id="filterForm" action="." method="get" onsubmit="return false">
-    <fieldset>
-      <legend>Look for</legend>
-      <a class="hideCategory" href="#">Hide</a>
-      <a class="showCategory" href="#">Show</a>
+  <div id="filterForm">
+	<div id="mapTitle">
+		<h3>Current Art</h3>
+		<span class="dateRange">March 2012 - August 2012</span>
+	</div>
+	<form  action="." method="get" onsubmit="return false">
+	    <fieldset>
+	      <legend>Look for</legend>
+	      <a class="hideCategory" href="#">Hide</a>
+	      <a class="showCategory" href="#">Show</a>
       
-      <div class="clear"></div>
+	      <div class="clear"></div>
       
-      <ul id="categoryScroll">
-        <li>
-          <label>
-            <input class="filter radio" type="radio" name="category" id="filter_category_all" checked />
-            <span>all</span>
-          </label>
-        </li>
+	      <ul id="categoryScroll">
+	        <li>
+	          <label>
+	            <input class="filter radio" type="radio" name="category" id="filter_category_all" checked />
+	            <span>all</span>
+	          </label>
+	        </li>
+      
+	        <li>
+	          <label>
+	            <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
+	            <span>museum</span>
+	          </label>
+	        </li>
         
-        <li>
-          <label>
-            <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
-            <span>museum</span>
-          </label>
-        </li>
+	        <li>
+	          <label>
+	            <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
+	            <span>gallery</span>
+	          </label>
+	        </li>
         
-        <li>
-          <label>
-            <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
-            <span>gallery</span>
-          </label>
-        </li>
-        
-        <li>
-          <label>
-            <input class="filter radio" name="category" type="radio" id="filter_category_public" />
-            <span>public</span>
-          </label>
+	        <li>
+	          <label>
+	            <input class="filter radio" name="category" type="radio" id="filter_category_public" />
+	            <span>public</span>
+	          </label>
           
-          <div class="clear"></div>
+	          <div class="clear"></div>
           
-          <ul id="publicSubset">
-            <% categories.reject {|c| ["Museum", "Gallery"].include? c}.each do |category| %>
-              <li>
-                <label>
-                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
-                  <span class="category"><%= category.downcase %></span>
-                </label>
-              </li>
-            <% end %>
-          </ul>
+	          <ul id="publicSubset">
+	            <% categories.reject {|c| ["Museum", "Gallery"].include? c}.each do |category| %>
+	              <li>
+	                <label>
+	                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
+	                  <span class="category"><%= category.downcase %></span>
+	                </label>
+	              </li>
+	            <% end %>
+	          </ul>
           
-        </li>
-      </ul>
-    </fieldset>
+	        </li>
+	      </ul>
+	    </fieldset>
     
-    <fieldset>
-      <legend>Funded By</legend>
-      <a class="hideCommissioned" href="#">Hide</a>
-      <a class="showCommissioned" href="#">Show</a>
-      <div class="clear"></div>
-      
-      <ul id="commissionedScroll">
-        <li>
-          <label>
-            <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
-            <span>anyone</span>
-          </label>
-        </li>
-        <li>
-          <label>
-            <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
-            <span>the District</span>
-          </label>
-        </li>
-      </ul>
-    </fieldset>
+	    <fieldset>
+	      <legend>Funded By</legend>
+	      <div class="clear"></div>
+	
+	      <ul id="commissionedScroll">
+	        <li>
+	          <label>
+	            <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
+	            <span>anyone</span>
+	          </label>
+	        </li>
+	        <li>
+	          <label>
+	            <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
+	            <span>the District</span>
+	          </label>
+	        </li>
+	      </ul>
+	    </fieldset>
     
-    <fieldset>
-      <legend>Located In</legend>
-      <a href="#" class="hideLocation">Hide</a>
-      <a href="#" class="showLocation">Show</a>
-      <div class="clear"></div>
-      
-      <ul id="location">
-        <li> 
-          <label>Zoom to an address or zip</label>
-          <input type="text" id="id_location" />
-          <button type="submit" class="searchBtn">
-              <span>Go</span>
-          </button>
-        </li>
+	    <fieldset>
+	      <legend>Located In</legend>
+	      <ul id="location">
+	        <li> 
+	          <label>Zoom to an address or zip</label>
+	          <input type="text" id="id_location" />
+	          <button type="submit" class="searchBtn">
+	              <span>Go</span>
+	          </button>
+	        </li>
         
-        <li>
-          <label for="id_wards">DC Wards</label> 
-          <select id="id_wards" name="wards">
-              <option selected="selected" value="">---------</option>
-              <option value="1">Ward 1</option>
-              <option value="2">Ward 2</option>
-              <option value="3">Ward 3</option>
-              <option value="4">Ward 4</option>
-              <option value="5">Ward 5</option>
-              <option value="6">Ward 6</option>
-              <option value="7">Ward 7</option>
-              <option value="8">Ward 8</option>
-          </select>
-        </li>
-      </ul>
+	        <li>
+	          <label for="id_wards">DC Wards</label> 
+	          <select id="id_wards" name="wards">
+	              <option selected="selected" value="">---------</option>
+	              <option value="1">Ward 1</option>
+	              <option value="2">Ward 2</option>
+	              <option value="3">Ward 3</option>
+	              <option value="4">Ward 4</option>
+	              <option value="5">Ward 5</option>
+	              <option value="6">Ward 6</option>
+	              <option value="7">Ward 7</option>
+	              <option value="8">Ward 8</option>
+	          </select>
+	        </li>
+	      </ul>
 
-    </fieldset>
+	    </fieldset>
 
-  </form>
+	  </form>
+	</div>
   
-  <div id="map_canvas"></div>
+  <div id="map_canvas" style="width: 100%; height: 100%"></div>
   
 </div>
