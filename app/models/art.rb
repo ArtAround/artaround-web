@@ -9,11 +9,13 @@ class Art
   embeds_many :submissions
 
   
-  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids
+  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids, :slug
   
+  # required field, used for slug
   field :title
   slug :title
   
+  # (kept, currently undisplayed)
   field :website
   
   # fields doubled on submissions
@@ -77,6 +79,7 @@ class Art
   
   validates_presence_of :title
   validates_presence_of :category
+  validates_presence_of :slug
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_location, :on => :create

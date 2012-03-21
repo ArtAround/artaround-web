@@ -18,6 +18,7 @@ class Admin::ArtsController < Admin::AdminController
     # some attributes are protected from mass assignment, pluck them out
     @art.commissioned = params[:art].delete 'commissioned'
     @art.approved = params[:art].delete 'approved'
+    @art.slug = params[:art].delete 'slug'
     
     # filter out any blank flickr_ids
     #@art.flickr_ids = params[:art].delete('flickr_ids').select {|id| id.present?}
@@ -34,6 +35,8 @@ class Admin::ArtsController < Admin::AdminController
     if @art.save
       redirect_to admin_art_path(@art), :notice => "Successfully updated art piece."
     else
+      # always reset the slug so that URLs don't get messed up
+      @art.slug = params[:id]
       render :show
     end
   end
