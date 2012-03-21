@@ -19,6 +19,13 @@ class Admin::ArtsController < Admin::AdminController
     @art.commissioned = params[:art].delete 'commissioned'
     @art.approved = params[:art].delete 'approved'
     
+    # special case - slug
+    # can't do a validates_presence_of for weird reasons, so validate here
+    slug = params[:art].delete 'slug'
+    if slug.present?
+      @art.slug = slug
+    end
+    
     # filter out any blank flickr_ids
     #@art.flickr_ids = params[:art].delete('flickr_ids').select {|id| id.present?}
     
@@ -34,6 +41,8 @@ class Admin::ArtsController < Admin::AdminController
     if @art.save
       redirect_to admin_art_path(@art), :notice => "Successfully updated art piece."
     else
+      # always reset the slug so that URLs don't get messed up
+      @art.slug = params[:id]
       render :show
     end
   end

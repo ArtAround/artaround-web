@@ -39,17 +39,21 @@ class ArtsController < ApplicationController
         AdminMailer.new_art(@art).deliver
         
         begin
-          uploads = upload_photo @art, params[:new_photo].path
+          uploads = upload_photo @art, params[:new_photo].path, params[:new_photo_username]
         rescue Fleakr::ApiError
           @art.destroy
           flash.now[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
           render :new
         else
           @art.flickr_ids ||= []
-          if uploads.any?
-            @art.flickr_ids << uploads.first.id
-          end
+          @art.flickr_ids << uploads.first
           @art.save! # should not be a controversial operation
+
+          photo = @art.photos.new(
+            :flickr_id => uploads.first,
+            :flickr_username => params[:new_photo_username]
+          )
+          photo.save! # also not controversial
           
           redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
         end
@@ -85,17 +89,21 @@ class ArtsController < ApplicationController
     end
     
     begin
-      uploads = upload_photo @art, params[:new_photo].path
+      uploads = upload_photo @art, params[:new_photo].path, params[:new_photo_username]
     rescue Fleakr::ApiError
       redirect_to art_path(@art), :alert => "There was a problem uploading your photo. If you don't mind, please try it again."
     else
       @art.flickr_ids ||= []
-      if uploads.any?
-        @art.flickr_ids << uploads.first.id
-      end
+      @art.flickr_ids << uploads.first
+      
       @art.save! # should not be a controversial operation
       
-      
+      photo = @art.photos.new(
+        :flickr_id => uploads.first,
+        :flickr_username => params[:new_photo_username]
+      )
+      photo.save! # also not controversial
+
       AdminMailer.new_photo(@art).deliver
       
       redirect_to art_path(@art), :notice => "Thank you for contributing your photo! It should appear in the slideshow below."

@@ -7,13 +7,16 @@ class Art
   has_many :comments
   belongs_to :event
   embeds_many :submissions
+  has_many :photos
 
   
-  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids
+  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids, :slug
   
+  # required field, used for slug
   field :title
   slug :title
   
+  # (kept, currently undisplayed)
   field :website
   
   # fields doubled on submissions

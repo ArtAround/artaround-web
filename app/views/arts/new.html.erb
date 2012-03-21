@@ -46,15 +46,21 @@
   </div>
 
   <div id="ltColumn">
-    <% if @art.errors[:location].present? %>
+    <% if @art.errors.delete(:location).present? %>
       <div class="errors">
         Please click on the map to choose a latitude or longitude, or enter an address.
       </div>
     <% end %>
     
-    <% if @art.errors[:geocode].present? %>
+    <% if @art.errors.delete(:geocode).present? %>
       <div class="errors">
         We couldn't locate the address you gave. Please give a more specific address so that we can locate the art.
+      </div>
+    <% end %>
+
+    <% @art.errors.full_messages.each do |msg| %>
+      <div class="errors">
+        <%= msg %>
       </div>
     <% end %>
 
@@ -134,6 +140,7 @@
           <label>photo<sup>*</sup></label>
           <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
           <%= file_field_tag 'new_photo' %>
+          Flickr Username <%= text_field_tag 'new_photo_username' %>
           <div id="uploading_photo" style="display: none">
             <p>Uploading photo, please wait...</p>
           </div>
