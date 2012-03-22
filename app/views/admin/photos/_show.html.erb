@@ -14,6 +14,10 @@
     <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
         <%= f.label :flickr_username %>
         <%= f.text_field :flickr_username %>
+        <br/><br/>
+        <%= f.label :primary %>
+        <%= f.check_box :primary %>
+        <br/><br/>
         <%= f.submit "Update" %>
     <% end %>
 

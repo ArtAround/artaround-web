@@ -5,9 +5,14 @@ class Admin::PhotosController < Admin::AdminController
   def update
     flickr_username = params[:photo][:flickr_username]
 
+    if params[:photo][:primary] == "1"
+      @art.photos.update_all :primary => false
+      @photo.primary = true
+    end
+
     @photo.flickr_username = flickr_username
     @photo.save!
-    redirect_to admin_art_path(@art), :notice => "Successfully updated photo's flickr username. You may want to go update the description in Flickr to reflect this. (The site does not update the description automatically, to avoid overwriting manually updated descriptions.)"
+    redirect_to admin_art_path(@art), :notice => "Successfully updated photo's details."
   end
 
   def destroy

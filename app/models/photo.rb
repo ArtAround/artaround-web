@@ -8,6 +8,7 @@ class Photo
 
   field :flickr_id, :type => Integer
   field :flickr_username
+  field :primary, :type => Boolean, :default => false
 
   validates_presence_of :flickr_id
 end
