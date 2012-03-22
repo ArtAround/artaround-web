@@ -401,3 +401,70 @@ div.delete_comment {float: right;}
 div.admin input {width: auto;}
 div.admin input[type=submit] {background-color: #fff; color: auto;}
 div.admin div#map_canvas {margin-top: 20px;}
+
+
+
+/** new index styles **/
+
+
+.contentBg { 
+	background: url('../images/bg_spash.png') center -15px no-repeat; 
+	}
+.contentWrapper{
+	width: 960px;
+	margin: 0 auto;
+}
+
+.ltCol{
+	float: left;
+	width: 419px;
+}
+.rtCol{
+	float: left;
+	width: 541px;
+	margin-top: 22px;
+}
+
+.splashIntro h3{
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	font-size: 300%;
+	font-weight: 700;
+	text-transform: uppercase;
+	-moz-transform: scale(1) rotate(-6deg) translate(0px, 0px) skew(0deg, 0deg);
+	-webkit-transform: scale(1) rotate(-6deg) translate(0px, 0px) skew(0deg, 0deg);
+	-o-transform: scale(1) rotate(-6deg) translate(0px, 0px) skew(0deg, 0deg);
+	-ms-transform: scale(1) rotate(-6deg) translate(0px, 0px) skew(0deg, 0deg);
+	transform: scale(1) rotate(-6deg) translate(0px, 0px) skew(0deg, 0deg);
+} 
+
+.splashIntro{
+	margin-top: 84px;
+	color: #ffffff;
+}
+.splashIntro span{
+	display: block;
+	margin: 42px 0 0 40px;
+	font-weight: 200;
+	font-size: 200%;
+	font-family: "helvetica neue", arial, sans-serif;
+	width: 300px;
+	line-height: 1.3;
+}
+.splashIntro a{
+	display: block;
+	width: 100px;
+	height: 30px;
+	background-color: #65BAAB;
+	float: left;
+}
+
+.rtCol img{
+	border: 4px solid #ffffff;
+}
+
+.featureShadow{
+	background: url('../images/imgshadow.png') left top repeat-y;
+	padding-left: 10px;
+}
+
+
