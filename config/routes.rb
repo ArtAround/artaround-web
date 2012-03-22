@@ -11,6 +11,7 @@ Artaround::Application.routes.draw do
       resources :comments do
         post :unapprove, :on => :member
       end
+      resources :photos
     end
     resources :events
   end

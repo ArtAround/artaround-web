@@ -286,7 +286,7 @@
       <div class="module" id="artworkPhoto">
       
         <% if @art.flickr_ids.size > 1 %>
-          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
         <% else %>
           <script type="text/javascript">
             var photo_id = "<%= @art.flickr_ids.first %>";

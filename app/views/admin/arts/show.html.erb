@@ -186,6 +186,10 @@
     </ul>
   <% end %>
 
+  <% @art.photos.each do |photo| %>
+    <%= render "admin/photos/show", :art => @art, :photo => photo %>
+  <% end %>
+
 </div>
 
 <div id="rtColumn">

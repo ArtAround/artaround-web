@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.0'
 
-gem 'fleakr', '0.7.1'
+gem 'flickraw', '0.9.5'
 
 gem 'geokit', '1.5.0' # todo: update to 1.6.0
 

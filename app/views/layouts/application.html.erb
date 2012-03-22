@@ -12,8 +12,8 @@
     <%= javascript_include_tag 'flickr' %>
     
     <script type="text/javascript">
-      Flickr.api_key = "<%= flickr[:account][:api_key] %>";
-      Flickr.username = "<%= flickr[:account][:username] %>";
+      Flickr.api_key = "<%= flickr_details[:account][:api_key] %>";
+      Flickr.username = "<%= flickr_details[:account][:username] %>";
       
       $(function() {
         <% recent_art.each do |art| %>
