@@ -65,9 +65,12 @@ header nav a{
 	background-color: #3a3233;
 	height: 26px;
 }
+header nav li.active a{
+	background:url(/images/nav_active.png) center top no-repeat ;
+	height: 26px;
+}
 header nav { float: left; }
 header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decoration: none;}
-header nav a:hover { text-decoration: underline;}
 
 
 body { background: url(/images/bg_main.jpg) center top repeat;}
@@ -166,21 +169,68 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	 float: left; width: 175px; padding: 3px; border: none; height: 20px}
 #mapsearch_form label { text-indent: -9999em;}
 
+#eventsWrapper{
+	width: 960px;
+	margin: 0 auto;
+	position: relative;
+}
+#eventsMenu{
+	margin: 10px 0 0 0; 
+	height: 150px; 
+	position: absolute; 
+	right: 10px; 
+	z-index: 9;
+	border: 1px solid #b7b4b4;
+	opacity: 0.9 !important;
+	background-color: #dedada;
+}
+.moreEvents{
+	display: block;
+	width: 30px;
+	background-color: #747474;
+	height: 150px;
+	float: left;
+}
+.moreEvents:hover{
+	background-color: #65baab;
+}
+.moreEvents.left{
+	background-image: ;
+}
+.moreEvents.right{
+	background-image: ;
+}
+#eventsMenu ul{
+	float: left;
+}
+#eventsMenu li{
+	display: block;
+	float: left;
+	height: 150px;
+	padding: 0 5px;
+	border-left: ;
+	border-right: ;
+}
+#eventsMenu img{
+	border: 4px solid #ffffff;
+}
 
 
-#filterForm {margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
+
+#filterForm { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
+#filterForm.collapsed { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
+
+#filterForm.collapsed #mapTitle, #filterForm.collapsed form{display: none;}
+#filterForm.collapsed {width: 100px;}
+#filterForm.collapsed #filterSettings {display: block; width: 100px; height: 50px; background-color: #dedada;}
+
 #filterForm #mapTitle{
 	height: 47px;
 	padding: 10px 10px 0 10px; 
 	background-color: #d5d201;
 	color: #ffffff;
 }
-#filterForm #mapTitle h3{
-}
 
-#filterForm h3 {
-	
-}
 #filterForm .dateRange { font-size: 80%}
 #filterForm form{
 	padding: 10px 10px 0 10px;
@@ -319,7 +369,22 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 
 .mapBubble .bubbleMetaData { width: 300px; float: left;}
 .bubbleMetaData a { margin-top: 10px; display: block;}
-.bubbleimg { margin-right: 20px; float: left; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
+.mapBubble .bubbleMetaData { width: 300px; float: left;}
+.bubbleMetaData dt { display: none;}
+.bubbleMetaData dd {float: left;}
+.mapBubble p{
+	float: left;
+	width: 300px;
+}
+.mapBubble h4{
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	font-weight: normal;
+	font-size: 120%;
+	
+	
+}
+
+.bubbleimg { margin-right: 20px; float: left; clear: both; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
 
 .addthis_toolbox { float: right; margin-top: 10px;}
 
