@@ -26,6 +26,7 @@
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
+        description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
         flickr_id: "<%= (art.flickr_ids || []).first %>",
@@ -93,23 +94,25 @@
       var location = new google.maps.LatLng(art.latitude, art.longitude);
       
       var html = '<div class="mapBubble">' +
-        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-        '<div class="bubbleMetaData">' +
+        '<h4>' + art.title + '</h4>' +
+		'<div class="icons"><a class="eventIcon">5x5</a><a class="popularIcon">Popular Artwork</a><a class="commissionedIcon">DC Arts</a></div>' +
+        
+		'<div class="bubbleMetaData">' +
             '<dl>' +
-                '<dt>Title</dt>' +
-                '<dd>' + art.title + '</dd>' +
-            
+	            '<dt>Category</dt>' +
+	            '<dd>' + (art.category || "Unknown") + '</dd>' +
+	
                 '<dt>Artist</dt>' +
                 '<dd>' + (art.artist || "Unknown") + '</dd>' +
             
                 '<dt>Erected</dt>' +
                 '<dd>' + (art.year || "Unknown") + '</dd>' +
-            
-                '<dt>Neighborhood</dt>' +
-                '<dd>' + (art.neighborhood || "Unknown") + '</dd>' +
+       
             '</dl>' +
-            '<a href="/arts/' + art.id + '" target="_blank">More Information</a>' +
         '</div>' +
+        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
+		'<p>' + (art.description || "(no description)") + '<a href="/arts/' + art.id + '" target="_blank">More Information</a></p>' +
+        
       '</div>';
       
       var icon = (art.category == 'Museum' || art.category == 'Gallery' || art.category == 'Market') ? icons.museum : icons.red;
@@ -276,7 +279,7 @@
 
 
 <div id="mapContainer">
-  <div id="filterForm">
+  <div id="filterForm" class="collapsed">
 	<div id="mapTitle">
 		<h3>Current Art</h3>
 		<span class="dateRange">March 2012 - August 2012</span>
@@ -384,6 +387,38 @@
 	    </fieldset>
 
 	  </form>
+	  <div id="filterSettings">
+		<img src="" alt="" /><a href="">filters</a>
+	  </div>
+	</div>
+	<div id="eventsWrapper">
+		<div id="eventsMenu">
+			<a class="moreEvents left"></a>
+			<ul>
+				<li>
+					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
+					<a href=""><h4>5x5</h4></a>
+					<div class="dateRange">Mar 2012 - Aug 2012</div>
+				</li>
+				<li>
+					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
+					<a href=""><h4>5x5</h4></a>
+					<div class="dateRange">Mar 2012 - Aug 2012</div>
+				</li>
+				<li>
+					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
+					<a href=""><h4>5x5</h4></a>
+					<div class="dateRange">Mar 2012 - Aug 2012</div>
+				</li>
+				<li>
+					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
+					<a href=""><h4>5x5</h4></a>
+					<div class="dateRange">Mar 2012 - Aug 2012</div>
+				</li>
+			</ul>
+			<a class="moreEvents left"></a>
+			<div class="clear"></div>
+		</div>
 	</div>
   
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
