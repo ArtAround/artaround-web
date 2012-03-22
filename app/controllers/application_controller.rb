@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
       tags << flickr_details[:metadata][:extra_tags]
     end
 
-    description = username ? flickr_description(username) : ""
+    description = username.present? ? flickr_description(username) : ""
 
     if FlickRaw.api_key.present?
 
