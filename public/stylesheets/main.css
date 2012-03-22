@@ -401,3 +401,8 @@ div.delete_comment {float: right;}
 div.admin input {width: auto;}
 div.admin input[type=submit] {background-color: #fff; color: auto;}
 div.admin div#map_canvas {margin-top: 20px;}
+
+div.admin.photo {
+    padding: 30px; border: 1px solid #336699;
+    margin: 20px;
+}
