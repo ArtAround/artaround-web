@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
       results.map &:id
 
     else
+      # only happens in a testing environment, when the API key is left out of the config
       ["not-really-uploaded"]
     end
   end
