@@ -1,0 +1,25 @@
+<div class="photo admin" id="art-<%= art.id %>">
+    <script type="text/javascript">
+        var photo_id = "<%= photo.flickr_id %>";
+        var art_id = "<%= art.id %>";
+        Flickr.getThumbnail(photo_id, "Small", function(thumbnail) {
+          if (thumbnail) {
+            var image = "<img src=\"" + thumbnail.source + "\" />";
+            var html = "<a href=\"" + Flickr.photoUrl(photo_id) + "\">" + image + "</a>";
+            $("#art-" + art_id).prepend(html);
+          }
+        });
+    </script>
+
+    <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
+        <%= f.label :flickr_username %>
+        <%= f.text_field :flickr_username %>
+        <%= f.submit "Update" %>
+    <% end %>
+
+    <form class="photo delete form" action="<%= admin_art_photo_path art, photo %>" method="post">
+      <input type="hidden" name="_method" value="delete" />
+      <%= link_to "Delete this photo", "#", :class => "photo delete" %>
+    </form>
+
+</div>

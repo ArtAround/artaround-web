@@ -79,6 +79,12 @@
           $("form.delete.art").submit();
         return false;
       });
+
+      $("a.delete.photo").click(function() {
+        if (confirm("Delete this photo FOREVER?"))
+          $(this).parents("form.photo.delete").submit();
+        return false;
+      })
     });
   </script>
 <% end %>
