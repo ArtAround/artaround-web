@@ -162,7 +162,7 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	box-sizing: border-box;         /* Opera/IE 8+ */ 
 	border-bottom: 4px solid #B4B2AD; border-top: 1px solid #B4B2AD; margin-bottom:50px; height: 100%}
 
-#mapsearch_form {margin-top: 56px; float: left; margin-left: 35px }
+#mapsearch_form {margin-top: 56px; float: left; margin-left: 31px }
 #mapsearch_form input { background-color: #484242;
 	-webkit-box-shadow: inset 1px 1px 7px #332c2c;
 	-moz-box-shadow: inset 1px 1px 7px #332c2c;
