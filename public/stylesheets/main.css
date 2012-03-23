@@ -221,16 +221,17 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 #filterForm { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
 #filterForm.collapsed { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
 
-#filterForm.collapsed #mapTitle, #filterForm.collapsed form{display: none;}
+#filterForm.collapsed .mapTitle, #filterForm.collapsed form{display: none;}
 #filterForm.collapsed {width: 100px;}
 #filterForm.collapsed #filterSettings {display: block; width: 100px; height: 50px; background-color: #dedada;}
 
-#filterForm #mapTitle{
+#filterForm .mapTitle {
 	height: 47px;
 	padding: 10px 10px 0 10px; 
 	background-color: #d5d201;
 	color: #ffffff;
 }
+#filterForm .mapTitle.event {display: none;}
 
 #filterForm .dateRange { font-size: 80%}
 #filterForm form{
