@@ -1,16 +1,54 @@
-Index page is here
+<div class="contentBg">
+<div class="contentWrapper">
+	<div class="ltCol">
+		<div class="splashIntro">
+			<h3>Discover the Art Around Us</h3>
+			<span>From parks to allies, find and map your favorite art.</span>
+			<a href="/map"> Explore Your City</a>
+			<a href="/arts/new">Add Art</a>
+			<div class="clear"></div>
+		</div>
+		<p>
+			Are you looking for art in your neighborhood? Do you want to know more about that statue downtown? Maybe you're just visiting DC for the first time and want to explore our museums and galleries. Whatever you’re looking for, we’re here to help: ArtAround is your guide to finding -- and sharing --  public art in Washington, DC. Get the scoop on everything from murals, monuments, and street art to galleries, museums, and festivals - and share what you know, too.
+		</p>
+		<div class="mobileAd">
+			<a class="iphone" href="https://play.google.com/store/apps/details?id=us.artaround&feature=search_result#?t=W251bGwsMSwyLDEsInVzLmFydGFyb3VuZCJd">Available on the app store</a>
+			<a class="android" href="">Available in the Android market</a>
+		</div>
+	</div>
+	<div class="rtCol">
+		<div class="featureShadow">
+			<img class="featuredImage" src="/images/featuredimg_placeholder.png" alt="" />
+		</div>
+		<h4>Recently Uploaded</h4>
+		<ul class="recentlyAdded">
+	      <% recent_art.each_with_index do |art, i| %>
+	        <li class="artwork<%= i + 1 %>">
+	          <a href="<%= art_path art %>" id="art-thumbnail-<%= art.slug %>"></a>
+	        </li>
+	      <% end %>
+		</ul>
+		<div class="clear"></div>
+		<h4>Events</h4>
+			<ul class="events">
+				<li><a href="">5x5</a><span class="dateRange">March 2012 to August 2012</span></li>
+			</ul>
+			<div class="clear"></div>
+		<h4>Popular Now</h4>
+		<ul class="popularNowList">
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+			<li><a href="">Name of artwork</a></li>
+		</ul>
+	</div>
+	<div class="clear"></div>
+</div>
 
-<div id="footerWrapper">
-  <div id="footer">
-    <h3>Recent Additions</h3>
-    <ul>
-      <% recent_art.each_with_index do |art, i| %>
-        <li class="artwork<%= i + 1 %>">
-          <a href="<%= art_path art %>" id="art-thumbnail-<%= art.slug %>"></a>
-        </li>
-      <% end %>
-    </ul>
-	<a class="buttonLink" id="curateButton" href="/arts/new">Curate it now!</a>
-
-  </div>
 </div>
