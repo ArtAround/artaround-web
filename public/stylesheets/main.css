@@ -45,11 +45,14 @@ span.blue {color: #046F8C;}
 span.small {font-size: 80%;}
 sup {color: #046F8C; margin-left: 3px; margin-right: 3px;}
 
-#headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 82px;}
-header { background: url(/images/bg_header.jpg) center top no-repeat;}
+#headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 82px; z-index: 100;}
+header { background: url(/images/bg_header.jpg) center top no-repeat; position: relative;}
 header, #featureBox, #mapSearch, #pageMain, footer { width: 940px; padding: 0 10px; margin: 0 auto;}
 header nav{
 	margin-top: 56px;
+	position: absolute;
+	z-index: 100;
+	right: 0;
 }
 header nav li{
 	float: left;
@@ -67,7 +70,7 @@ header nav a{
 }
 header nav li.active a{
 	background:url(/images/nav_active.png) center top no-repeat ;
-	height: 26px;
+	height: 38px;
 }
 header nav { float: left; }
 header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decoration: none;}
