@@ -52,6 +52,7 @@
   		  <nav>
     			<ul class="main_nav">
     				<% tabs = yield(:tabs) %>
+            
             <% if tabs.present? %>
               <%= tabs %>
             <% else %>
@@ -59,6 +60,7 @@
       					<a id="map" href="/map" href="#">Map</a>
       				</li>
             <% end %>
+
     				<li id="addArt_link">
     					<a id="addArt" href="/arts/new" href="#">Add Art</a>
     				</li>
