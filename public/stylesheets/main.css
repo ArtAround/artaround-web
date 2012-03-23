@@ -233,7 +233,10 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	background-color: #d5d201;
 	color: #ffffff;
 }
-#filterForm .mapTitle.event {display: none;}
+
+/* only show objects in the filterForm that are meant for that type of filter set */
+#filterForm.allArt .event {display: none;}
+#filterForm.event .allArt {display: none;}
 
 #filterForm .dateRange { font-size: 80%}
 #filterForm form{
