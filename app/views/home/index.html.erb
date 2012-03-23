@@ -12,8 +12,8 @@
 			Are you looking for art in your neighborhood? Do you want to know more about that statue downtown? Maybe you're just visiting DC for the first time and want to explore our museums and galleries. Whatever you’re looking for, we’re here to help: ArtAround is your guide to finding -- and sharing --  public art in Washington, DC. Get the scoop on everything from murals, monuments, and street art to galleries, museums, and festivals - and share what you know, too.
 		</p>
 		<div class="mobileAd">
-			<a class="iphone" href="https://play.google.com/store/apps/details?id=us.artaround&feature=search_result#?t=W251bGwsMSwyLDEsInVzLmFydGFyb3VuZCJd">Available on the app store</a>
-			<a class="android" href="">Available in the Android market</a>
+			<a class="iphone" href="http://itunes.apple.com/us/app/artaround/id463678249">Available on the app store</a>
+			<a class="android" href="https://play.google.com/store/apps/details?id=us.artaround">Available in the Android market</a>
 		</div>
 	</div>
 	<div class="rtCol">
@@ -52,3 +52,12 @@
 </div>
 
 </div>
+
+<script type="text/javascript">
+	<% if @featured and @featured.primary_photo %>
+		// Flickr.getThumbnail("<%= @featured.primary_photo.flickr_id %>", "Large", function(thumbnail) {
+  //         if (thumbnail)
+  //           $("img.featuredImage").prop("src", thumbnail.source);
+  //       });
+    <% end %>
+</script>
