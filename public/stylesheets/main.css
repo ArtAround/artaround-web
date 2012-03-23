@@ -75,7 +75,7 @@ header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decorati
 
 body { background: url(/images/bg_main.jpg) center top repeat;}
 
-#pageMain { padding-top: 40px;}
+#pageMain { padding-top: ;}
 div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 25px; width: 285px; }
 div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 605px; }
 
@@ -96,14 +96,16 @@ h2#cityView{
 	margin-top: 53px;
 }
 
-#titleContent { padding-bottom: 5px; border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px; }
-#titleContent h2, #featureBox h2 { padding-bottom: 0px; border-bottom: none; margin-bottom: 0px; }
+#titleContent { background: url(/images/bg_artTitle.png) center top no-repeat; height: 83px; padding: 24px 10px 0 10px;border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px; }
+#titleContent h2{ 
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	padding-bottom: 0px; 
+	border-bottom: none; 
+	margin-bottom: 0px;
+	color: white;
+	font-size: 200%;
+}
 
-
-
-
-#featureBox { background: url(/images/bg_feature.jpg) center top no-repeat; height: 229px;}
-#featureBoxWrapper { background: url(/images/bg_featureWrapper.jpg) center top repeat-x; height: 229px;}
 
 #mainText { float: left; width: 466px; height: 202px; display: block; background: url(/images/bg_featureText.png) top left no-repeat; margin: 26px 0 0 130px;}
 #mainText h2, #mainText span { text-indent: -9999em; display: block;}
@@ -385,8 +387,6 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-weight: normal;
 	font-size: 120%;
-	
-	
 }
 
 .bubbleimg { margin-right: 20px; float: left; clear: both; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
