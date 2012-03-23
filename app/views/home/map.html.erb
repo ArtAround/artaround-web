@@ -10,6 +10,7 @@
     var geocoder;
     
     var arts = [];
+    var events = {};
     var icons = {};
     
     var searchMarker;
@@ -19,9 +20,20 @@
   
     var currentInfoWindow;
     
+    <% @events.each do |event| %>
+      events["<%= event.slug %>"] = {
+        id: "<%= event.to_param %>",
+        name: "<%= escape_javascript event.name %>",
+        description: "<%= escape_javascript event.description %>",
+        starts_at: "<%= just_day event.starts_at %>",
+        ends_at: "<%= just_day event.ends_at %>"
+      };
+    <% end %>
+
     <% @arts.each do |art| %>
       arts.push({
         id: "<%= art.to_param %>",
+        event_id: "<%= art.event_id %>",
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
@@ -64,7 +76,8 @@
           commissioned: art.commissioned,
           ward: art.ward,
           title: art.title,
-          artist: art.artist
+          artist: art.artist,
+          event_id: art.event_id
         };
         markers.push(marker);
         
@@ -224,50 +237,17 @@
         }
       );
       
-      $(".showCategory").click(
-        function() {
-          $("#categoryScroll").slideDown();
-          $(".showCategory").hide();
-          $(".hideCategory").show();
-          return false;
-        }
-      );
-      
-      $(".hideCommissioned").click(
-        function() {
-          $("#commissionedScroll").slideUp();
-          $(".hideCommissioned").hide();
-          $(".showCommissioned").show();
-          return false;
-        }
-      );
-      
-      $(".showCommissioned").click(
-        function() {
-          $("#commissionedScroll").slideDown();
-          $(".showCommissioned").hide();
-          $(".hideCommissioned").show();
-          return false;
-        }
-      );
-      
-      $(".hideLocation").click(
-        function() {
-          $("#location").slideUp();
-          $(".hideLocation").hide();
-          $(".showLocation").show();
-          return false;
-        }
-      );
-      
-      $(".showLocation").click(
-        function() {
-          $("#location").slideDown();
-          $(".showLocation").hide();
-          $(".hideLocation").show();
-          return false;
-        }
-      );
+
+      $("li.event").each(function(i, elem) {
+        var flickr_id = $(elem).data("flickr_id");
+        var id = $(elem).data("id");
+
+        Flickr.getThumbnail(flickr_id, "Small", function(thumbnail) {
+          if (thumbnail)
+            $("#event-" + id + " img").prop("src", thumbnail.source);
+        });
+      });
+
     });
     
     function clearWindow() {
@@ -279,16 +259,19 @@
 
 
 <div id="mapContainer">
-  <div id="filterForm" class="collapsed">
+  
+  <div id="filterForm">
+
 	<div id="mapTitle">
 		<h3>Current Art</h3>
 		<span class="dateRange">March 2012 - August 2012</span>
 	</div>
-	<form  action="." method="get" onsubmit="return false">
+
+	<form action="." method="get" onsubmit="return false">
 	    <fieldset>
 	      <legend>Look for</legend>
-	      <a class="hideCategory" href="#">Hide</a>
-	      <a class="showCategory" href="#">Show</a>
+	      <a class="hideFilter" href="#">Hide</a>
+	      <a class="showFilter" href="#">Show</a>
       
 	      <div class="clear"></div>
       
@@ -393,30 +376,26 @@
 	</div>
 	<div id="eventsWrapper">
 		<div id="eventsMenu">
-			<a class="moreEvents left"></a>
+			<!--<a class="moreEvents left"></a>-->
 			<ul>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
+        <% @events.each do |event| %>
+  				<li class="event" 
+            id="event-<%= event.id %>"
+            data-flickr_id="<%= event.arts.first.photos.first.flickr_id %>"
+            data-id="<%= event.id %>"
+            >
+  					<a href="#">
+              <img width="109" height="60" alt="<%= event.name %>">
+            </a>
+  					<a href="#"><h4><%= event.name %></h4></a>
+  					<div class="dateRange">
+              <%= just_day event.starts_at %> - <%= just_day event.ends_at %>
+            </div>
+  				</li>
+        <% end %>
 			</ul>
-			<a class="moreEvents left"></a>
+
+			<!-- <a class="moreEvents right"></a> -->
 			<div class="clear"></div>
 		</div>
 	</div>
