@@ -167,6 +167,7 @@
         var all_categories = $("#filter_category_all")[0].checked;
         var just_museum = $("#filter_category_museum")[0].checked;
         var just_gallery = $("#filter_category_gallery")[0].checked;
+        var just_market = $("#filter_category_market")[0].checked;
         
         var just_public = $("#filter_category_public")[0].checked;
         var allowed_categories = [];
@@ -198,6 +199,8 @@
             passed_category = (marker.filters.category == "museum");
           else if (just_gallery)
             passed_category = (marker.filters.category == "gallery");
+          else if (just_market)
+            passed_category = (marker.filters.category == "market");
           else if (just_public)
             passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           else
@@ -296,6 +299,13 @@
 	            <span>gallery</span>
 	          </label>
 	        </li>
+
+          <li>
+            <label>
+              <input class="filter category radio" name="category" type="radio" id="filter_category_market" />
+              <span>market</span>
+            </label>
+          </li>
         
 	        <li>
 	          <label>
@@ -306,7 +316,7 @@
 	          <div class="clear"></div>
           
 	          <ul id="publicSubset">
-	            <% categories.reject {|c| ["Museum", "Gallery"].include? c}.each do |category| %>
+	            <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
 	              <li>
 	                <label>
 	                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
