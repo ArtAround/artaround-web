@@ -6,35 +6,36 @@ class ApplicationController < ActionController::Base
     tags = [art.slug, "dc"]
     tags << art.category.downcase if art.category.present?
     
-    if flickr[:metadata][:extra_tags].is_a?(Array)
-      tags << flickr[:metadata][:extra_tags]
+    if flickr_details[:metadata][:extra_tags].is_a?(Array)
+      tags << flickr_details[:metadata][:extra_tags]
     end
 
-    description = username ? "Uploaded by http://flickr.com/photos/#{username}" : ""
+    description = username.present? ? flickr_description(username) : ""
 
+    if FlickRaw.api_key.present?
 
-    if Fleakr.api_key.present?
-
-      results = Fleakr.upload path, {
+      flickr.upload_photo path, {
         :title => art.title,
         :description => description,
-        :tags => tags.compact.uniq,
-        :viewable_by => flickr[:metadata][:viewable_by],
-        :level => flickr[:metadata][:level],
-        :type => flickr[:metadata][:type]
+        :tags => tags.compact.uniq.join(","),
+        :viewable_by => flickr_details[:metadata][:viewable_by],
+        :level => flickr_details[:metadata][:level],
+        :type => flickr_details[:metadata][:type]
       }
-
-      results.map &:id
 
     else
       # only happens in a testing environment, when the API key is left out of the config
-      ["not-really-uploaded"]
+      "not-really-uploaded"
     end
   end
 
-  helper_method :flickr
-  def flickr
-    @flickr ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
+  def flickr_description(username)
+    "Uploaded by http://flickr.com/photos/#{username}"
+  end
+
+  helper_method :flickr_details
+  def flickr_details
+    @flickr_details ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
   end
   
   helper_method :admin?

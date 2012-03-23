@@ -8,6 +8,7 @@ class HomeController < ApplicationController
   
   def map
     @arts = Art.approved.all
+    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
   end
 
   def send_contact

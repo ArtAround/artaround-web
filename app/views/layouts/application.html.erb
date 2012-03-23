@@ -13,8 +13,8 @@
     <%= javascript_include_tag 'flickr' %>
     
     <script type="text/javascript">
-      Flickr.api_key = "<%= flickr[:account][:api_key] %>";
-      Flickr.username = "<%= flickr[:account][:username] %>";
+      Flickr.api_key = "<%= flickr_details[:account][:api_key] %>";
+      Flickr.username = "<%= flickr_details[:account][:username] %>";
       
       $(function() {
         <% recent_art.each do |art| %>
@@ -37,33 +37,32 @@
   
     <div id="headerWrapper">
       <header>
-        <h1><a href="/">Art Around</a>
-		</h1>
-		<h2 id="cityView">
-			Washington DC
-		</h2>
-	    <form action="#" id="mapsearch_form">
-	      <label>Search by artist or title</label>
-	      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
-	      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
-	      <button class="searchBtn" type="submit">
-	          <span>Go</span>
-	      </button>
-	    </form>
-		  <nav>
-			<ul>
-				<li id="events_link">
-					<a href="#">Events</a>
-				</li>
-				<li id="allArt_link">
-					<a href="#">All Art</a>
-				</li>
-				<li id="addArt_link">
-					<a id="addArt" href="/arts/new">Add Art</a>
-				</li>
-			</ul>
-		  </nav>
-      </header>  
+        <h1><a href="/">Art Around</a></h1>
+    		<h2 id="cityView">
+    			Washington DC
+    		</h2>
+  	    <form action="#" id="mapsearch_form">
+  	      <label>Search by artist or title</label>
+  	      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
+  	      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
+  	      <button class="searchBtn" type="submit">
+  	          <span>Go</span>
+  	      </button>
+  	    </form>
+  		  <nav>
+    			<ul class="main_nav">
+    				<% tabs = yield(:tabs) %>
+            <% if tabs.present? %>
+              <%= tabs %>
+            <% else %>
+
+            <% end %>
+    				<li id="addArt_link">
+    					<a id="addArt" href="/arts/new" href="#">Add Art</a>
+    				</li>
+    			</ul>
+  		  </nav>
+      </header>
     </div>
     
     <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>

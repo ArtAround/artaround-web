@@ -2,6 +2,14 @@
 <% content_for :footer do %>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMap"></script>
 <% end %>
+<% content_for :tabs do %>
+  <li id="events_link" class="map">
+    <a href="#">Events</a>
+  </li>
+  <li id="allArt_link" class="map active">
+    <a href="#">All Art</a>
+  </li>
+<% end %>
 
 <% content_for :head do %>
 
@@ -10,6 +18,7 @@
     var geocoder;
     
     var arts = [];
+    var events = {};
     var icons = {};
     
     var searchMarker;
@@ -19,9 +28,20 @@
   
     var currentInfoWindow;
     
+    <% @events.each do |event| %>
+      events["<%= event.slug %>"] = {
+        id: "<%= event.to_param %>",
+        name: "<%= escape_javascript event.name %>",
+        description: "<%= escape_javascript event.description %>",
+        starts_at: "<%= just_day event.starts_at %>",
+        ends_at: "<%= just_day event.ends_at %>"
+      };
+    <% end %>
+
     <% @arts.each do |art| %>
       arts.push({
         id: "<%= art.to_param %>",
+        event_id: "<%= art.event_id %>",
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
@@ -64,7 +84,8 @@
           commissioned: art.commissioned,
           ward: art.ward,
           title: art.title,
-          artist: art.artist
+          artist: art.artist,
+          event_id: art.event_id
         };
         markers.push(marker);
         
@@ -154,6 +175,7 @@
         var all_categories = $("#filter_category_all")[0].checked;
         var just_museum = $("#filter_category_museum")[0].checked;
         var just_gallery = $("#filter_category_gallery")[0].checked;
+        var just_market = $("#filter_category_market")[0].checked;
         
         var just_public = $("#filter_category_public")[0].checked;
         var allowed_categories = [];
@@ -185,6 +207,8 @@
             passed_category = (marker.filters.category == "museum");
           else if (just_gallery)
             passed_category = (marker.filters.category == "gallery");
+          else if (just_market)
+            passed_category = (marker.filters.category == "market");
           else if (just_public)
             passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           else
@@ -224,50 +248,27 @@
         }
       );
       
-      $(".showCategory").click(
-        function() {
-          $("#categoryScroll").slideDown();
-          $(".showCategory").hide();
-          $(".hideCategory").show();
-          return false;
-        }
-      );
-      
-      $(".hideCommissioned").click(
-        function() {
-          $("#commissionedScroll").slideUp();
-          $(".hideCommissioned").hide();
-          $(".showCommissioned").show();
-          return false;
-        }
-      );
-      
-      $(".showCommissioned").click(
-        function() {
-          $("#commissionedScroll").slideDown();
-          $(".showCommissioned").hide();
-          $(".hideCommissioned").show();
-          return false;
-        }
-      );
-      
-      $(".hideLocation").click(
-        function() {
-          $("#location").slideUp();
-          $(".hideLocation").hide();
-          $(".showLocation").show();
-          return false;
-        }
-      );
-      
-      $(".showLocation").click(
-        function() {
-          $("#location").slideDown();
-          $(".showLocation").hide();
-          $(".hideLocation").show();
-          return false;
-        }
-      );
+
+      $("li.event").each(function(i, elem) {
+        var flickr_id = $(elem).data("flickr_id");
+        var id = $(elem).data("id");
+
+        Flickr.getThumbnail(flickr_id, "Small", function(thumbnail) {
+          if (thumbnail)
+            $("#event-" + id + " img").prop("src", thumbnail.source);
+        });
+      });
+
+      $("ul.main_nav li#events_link").click(function() {
+        $("#eventsWrapper").toggle();
+        return false;
+      });
+
+      $("#filterForm #events_filter_toggle").click(function() {
+        $("#eventsWrapper").toggle();
+        return false;
+      });
+
     });
     
     function clearWindow() {
@@ -279,16 +280,23 @@
 
 
 <div id="mapContainer">
-  <div id="filterForm" class="collapsed">
-	<div id="mapTitle">
-		<h3>Current Art</h3>
-		<span class="dateRange">March 2012 - August 2012</span>
+  
+  <div id="filterForm">
+
+	<div class="mapTitle allArt">
+		<h3>All Art</h3>
 	</div>
-	<form  action="." method="get" onsubmit="return false">
+
+  <div class="mapTitle event">
+    <h3></h3>
+    <span class="dateRange"></span>
+  </div>
+
+	<form action="." method="get" onsubmit="return false">
 	    <fieldset>
 	      <legend>Look for</legend>
-	      <a class="hideCategory" href="#">Hide</a>
-	      <a class="showCategory" href="#">Show</a>
+	      <a class="hideFilter" href="#">Hide</a>
+	      <a class="showFilter" href="#">Show</a>
       
 	      <div class="clear"></div>
       
@@ -313,17 +321,28 @@
 	            <span>gallery</span>
 	          </label>
 	        </li>
+
+          <li>
+            <label>
+              <input class="filter category radio" name="category" type="radio" id="filter_category_market" />
+              <span>market</span>
+            </label>
+          </li>
+
+          <li>
+            <a href="#" id="events_filter_toggle">Events</a>
+          </li>
         
-	        <li>
-	          <label>
-	            <input class="filter radio" name="category" type="radio" id="filter_category_public" />
-	            <span>public</span>
-	          </label>
+          <li>
+            <label>
+              <input class="filter radio" name="category" type="radio" id="filter_category_public" />
+              <span>public</span>
+            </label>
           
 	          <div class="clear"></div>
           
 	          <ul id="publicSubset">
-	            <% categories.reject {|c| ["Museum", "Gallery"].include? c}.each do |category| %>
+	            <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
 	              <li>
 	                <label>
 	                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
@@ -393,30 +412,26 @@
 	</div>
 	<div id="eventsWrapper">
 		<div id="eventsMenu">
-			<a class="moreEvents left"></a>
+			<!--<a class="moreEvents left"></a>-->
 			<ul>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
-				<li>
-					<a href=""><img src="/images/eventimage_placeholder.png" width="109" height="60" alt="Eventimage Placeholder"></a>
-					<a href=""><h4>5x5</h4></a>
-					<div class="dateRange">Mar 2012 - Aug 2012</div>
-				</li>
+        <% @events.each do |event| %>
+  				<li class="event" 
+            id="event-<%= event.id %>"
+            data-flickr_id="<%= event.arts.first.photos.first.flickr_id %>"
+            data-id="<%= event.id %>"
+            >
+  					<a href="#">
+              <img width="109" height="60" alt="<%= event.name %>">
+            </a>
+  					<a href="#"><h4><%= event.name %></h4></a>
+  					<div class="dateRange">
+              <%= just_day event.starts_at %> - <%= just_day event.ends_at %>
+            </div>
+  				</li>
+        <% end %>
 			</ul>
-			<a class="moreEvents left"></a>
+
+			<!-- <a class="moreEvents right"></a> -->
 			<div class="clear"></div>
 		</div>
 	</div>

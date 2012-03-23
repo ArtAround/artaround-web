@@ -173,6 +173,7 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	width: 960px;
 	margin: 0 auto;
 	position: relative;
+    display: none;
 }
 #eventsMenu{
 	margin: 10px 0 0 0; 
@@ -220,16 +221,17 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 #filterForm { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
 #filterForm.collapsed { margin: 35px 0 0 0; max-height: 522px; position: absolute; right: 0; width: 222px; z-index: 9;}
 
-#filterForm.collapsed #mapTitle, #filterForm.collapsed form{display: none;}
+#filterForm.collapsed .mapTitle, #filterForm.collapsed form{display: none;}
 #filterForm.collapsed {width: 100px;}
 #filterForm.collapsed #filterSettings {display: block; width: 100px; height: 50px; background-color: #dedada;}
 
-#filterForm #mapTitle{
+#filterForm .mapTitle {
 	height: 47px;
 	padding: 10px 10px 0 10px; 
 	background-color: #d5d201;
 	color: #ffffff;
 }
+#filterForm .mapTitle.event {display: none;}
 
 #filterForm .dateRange { font-size: 80%}
 #filterForm form{
@@ -309,8 +311,7 @@ dt { float: left; font-weight: bold; text-transform: lowercase; width: 120px; }
 
 #commissioned { text-indent: -9999em; display: block; width: 38px; height: 30px; background: url(/images/icon_commissioned.png) top left no-repeat; float: left; margin-left: 20px;}
 
-.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .showLocation { display: none; }
-.showCategory, .showNeighborhood, .showMuseum, .showCommissioned, .showLocation, .hideCategory, .hideNeighborhood, .hideMuseum, .hideCommissioned, .hideLocation { float: right; }
+.showFilter, .hideFilter { float: right; }
 
 .errors { margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; background-color: #edaa95; border: 2px solid #9d0101; color: #fff; font-size: 110%;}
 #editInformation { background-color: #e4e593; margin-bottom: 20px; -moz-border-radius: 3px; -webkit-border-radius: 3px; padding: 10px 20px; border: 2px solid #c5c708;}
@@ -402,7 +403,10 @@ div.admin input {width: auto;}
 div.admin input[type=submit] {background-color: #fff; color: auto;}
 div.admin div#map_canvas {margin-top: 20px;}
 
-
+div.admin.photo {
+    padding: 30px; border: 1px solid #336699;
+    margin: 20px;
+}
 
 /** new index styles **/
 
@@ -553,4 +557,3 @@ ul.recentlyAdded{
 	-webkit-column-count: 2;
 	column-count: 2;
 }
-

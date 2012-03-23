@@ -85,6 +85,10 @@ class Art
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
   
+  def primary_photo
+    photos.desc(:primary).first
+  end
+
   def latitude
     self.location ||= []
     location[0]

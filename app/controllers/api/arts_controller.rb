@@ -47,14 +47,14 @@ class Api::ArtsController < Api::ApiController
     head :not_found and return unless art
 
     begin
-      uploads = upload_photo art, params[:file].path, params[:new_photo_username]
+      flickr_id = upload_photo art, params[:file].path, params[:new_photo_username]
       
       art.flickr_ids ||= []
-      art.flickr_ids << uploads.first
+      art.flickr_ids << flickr_id
       art.save!
 
       photo = art.photos.new(
-        :flickr_id => uploads.first,
+        :flickr_id => flickr_id,
         :flickr_username => params[:new_photo_username]
       )
       photo.save! # also not controversial
@@ -62,7 +62,7 @@ class Api::ArtsController < Api::ApiController
       AdminMailer.new_photo(art).deliver
 
       render :json => art
-    rescue Fleakr::ApiError
+    rescue FlickRaw::FailedResponse
       render :json => { :success => false }, :status => 500
     end
   end
