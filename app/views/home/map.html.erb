@@ -239,11 +239,17 @@
       });
       
       // hide/show links
-      $(".hideCategory").click(
+      $(".hideFilter").click(
         function() {
-          $("#categoryScroll").slideUp();
-          $(".hideCategory").hide();
-          $(".showCategory").show();
+          $("#filterForm").hide();
+          $("#filterSettings").show();
+          return false;
+        }
+      );
+      $("#filterSettings a").click(
+        function() {
+          $("#filterSettings").hide();
+          $("#filterForm").show();
           return false;
         }
       );
@@ -296,7 +302,6 @@
 	    <fieldset>
 	      <legend>Look for</legend>
 	      <a class="hideFilter" href="#">Hide</a>
-	      <a class="showFilter" href="#">Show</a>
       
 	      <div class="clear"></div>
       
@@ -407,7 +412,7 @@
 
 	  </form>
 	  <div id="filterSettings">
-		<img src="" alt="" /><a href="">filters</a>
+		  <img src="" alt="" /><a href="">filters</a>
 	  </div>
 	</div>
 	<div id="eventsWrapper">
