@@ -30,7 +30,7 @@
     
     <% @events.each do |event| %>
       events["<%= event.slug %>"] = {
-        id: "<%= event.to_param %>",
+        id: "<%= event.id %>",
         name: "<%= escape_javascript event.name %>",
         description: "<%= escape_javascript event.description %>",
         starts_at: "<%= just_day event.starts_at %>",
@@ -156,76 +156,127 @@
               $("#bubbleimg-" + art.id).css("background-image", "url(\"" + thumbnail.source + "\")");
           });
         }
+
       });
       
       return marker;
     }
+
+    function selectAllArt() {
+      resetFilter();
+      $("#eventsWrapper").hide();
+      $("#filterForm").removeClass("event").addClass("allArt");
+      $("ul.main_nav li").removeClass("active");
+      $("ul.main_nav li#allArt_link").addClass("active");
+      recalculateFilter();
+    }
+
+    function selectEvent(slug) {
+      resetFilter();
+
+      var event = events[slug];
+      
+      // populate the event details into the filter pane
+      var container = $(".mapTitle.event");
+      container.find("h3").html(event.name);
+      container.find("span").html(event.starts_at + " - " + event.ends_at);
+      $("p.description.event").html(event.description);
+
+      // switch the filter pane into event mode
+      $("#filterForm").removeClass("allArt").addClass("event");
+      $("ul.main_nav li").removeClass("active");
+      $("ul.main_nav li#events_link").addClass("active");
+
+      // set the event as a filter (hidden input field)
+      $("#filter_event_id").val(event.id);
+
+      recalculateFilter();
+    }
+
+    // reset filters in filter pane
+    function resetFilter() {
+      clearWindow();
+
+      $("#filter_commissioned_all").prop("checked", "checked");
+      $("#filter_category_all").prop("checked", "checked");
+      $("input.filter.public").prop("checked", "checked");
+      $("#id_wards").val("");
+      $("#filter_event_id").val("");
+    }
     
     function recalculateFilter() {
-        clearWindow();
+      clearWindow();
+      
+      // figure out commission filter
+      var ensure_commissioned;
+      if ($("#filter_commissioned_all")[0].checked)
+        ensure_commissioned = false;
+      else if ($("#filter_commissioned_only")[0].checked)
+        ensure_commissioned = true;
         
-        // figure out commission filter
-        var ensure_commissioned;
-        if ($("#filter_commissioned_all")[0].checked)
-          ensure_commissioned = false;
-        else if ($("#filter_commissioned_only")[0].checked)
-          ensure_commissioned = true;
-          
-          
-        var all_categories = $("#filter_category_all")[0].checked;
-        var just_museum = $("#filter_category_museum")[0].checked;
-        var just_gallery = $("#filter_category_gallery")[0].checked;
-        var just_market = $("#filter_category_market")[0].checked;
         
-        var just_public = $("#filter_category_public")[0].checked;
-        var allowed_categories = [];
-        if (just_public) {
-          $("input.filter.public").each(function(i, element) {
-            if (element.checked)
-              allowed_categories.push($(this).next("span.category").html().toLowerCase());
-          });
-        }
-        
-        var specific_ward = $("#id_wards").val();
-        
-        var keyword = $("#mapsearch_value").val();
-        
-          
-        // go through each marker and ensure it passes the test
-        $.each(markers, function(i, marker) {
-          var passed_commission;
-          var passed_category;
-          var passed_ward;
-          var passed_keyword;
-          
-          // examine for commissioned status
-          passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
-          
-          if (all_categories)
-            passed_category = true;
-          else if (just_museum)
-            passed_category = (marker.filters.category == "museum");
-          else if (just_gallery)
-            passed_category = (marker.filters.category == "gallery");
-          else if (just_market)
-            passed_category = (marker.filters.category == "market");
-          else if (just_public)
-            passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
-          else
-            passed_category = false;
-          
-          passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
-          
-          if (!keyword)
-            passed_keyword = true;
-          else {
-            var pattern = new RegExp(keyword, "i");
-            passed_keyword = (pattern.test(marker.filters.title) || pattern.test(marker.filters.artist));
-          }
-          
-          marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword);
+      var all_categories = $("#filter_category_all")[0].checked;
+      var just_museum = $("#filter_category_museum")[0].checked;
+      var just_gallery = $("#filter_category_gallery")[0].checked;
+      var just_market = $("#filter_category_market")[0].checked;
+      
+      var just_public = $("#filter_category_public")[0].checked;
+      var allowed_categories = [];
+      if (just_public) {
+        $("input.filter.public").each(function(i, element) {
+          if (element.checked)
+            allowed_categories.push($(this).next("span.category").html().toLowerCase());
         });
       }
+      
+      var specific_ward = $("#id_wards").val();
+      
+      var keyword = $("#mapsearch_value").val();
+
+      var event_id = $("#filter_event_id").val();
+      
+        
+      // go through each marker and ensure it passes the test
+      $.each(markers, function(i, marker) {
+        var passed_commission;
+        var passed_category;
+        var passed_ward;
+        var passed_keyword;
+        var passed_event;
+        
+        // examine for commissioned status
+        passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
+        
+        if (all_categories)
+          passed_category = true;
+        else if (just_museum)
+          passed_category = (marker.filters.category == "museum");
+        else if (just_gallery)
+          passed_category = (marker.filters.category == "gallery");
+        else if (just_market)
+          passed_category = (marker.filters.category == "market");
+        else if (just_public)
+          passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
+        else
+          passed_category = false;
+        
+        passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
+        
+        if (!keyword)
+          passed_keyword = true;
+        else {
+          var pattern = new RegExp(keyword, "i");
+          passed_keyword = (pattern.test(marker.filters.title) || pattern.test(marker.filters.artist));
+        }
+
+        if (!event_id)
+          passed_event = true;
+        else
+          passed_event = (marker.filters.event_id == event_id);
+        
+        marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword && passed_event);
+      });
+    }
     
     $(function() {
       
@@ -265,6 +316,16 @@
         });
       });
 
+      $("li.event a").click(function() {
+        selectEvent($(this).parents("li").data("slug"));
+        return false;
+      });
+
+      $("#allArt_link").click(function() {
+        selectAllArt();
+        return false;
+      });
+
       $("ul.main_nav li#events_link").click(function() {
         $("#eventsWrapper").toggle();
         return false;
@@ -285,47 +346,56 @@
 <% end %>
 
 
-<div id="mapContainer">
-  
-  <div id="filterForm">
+<div id="mapContainer" >
 
-	<div class="mapTitle allArt">
-		<h3>All Art</h3>
-	</div>
+  <!-- the #filterForm will switch its "allArt" class to "event" when an event is selected -->  
+  <div id="filterForm" class="allArt">
 
-  <div class="mapTitle event">
-    <h3></h3>
-    <span class="dateRange"></span>
-  </div>
+  	<div class="mapTitle allArt">
+  		<h3>All Art</h3>
+  	</div>
 
-	<form action="." method="get" onsubmit="return false">
-	    <fieldset>
-	      <legend>Look for</legend>
-	      <a class="hideFilter" href="#">Hide</a>
+    <div class="mapTitle event">
+      <h3></h3>
+      <span class="dateRange"></span>
+    </div>
+
+    <a class="hideFilter" href="#">Hide</a>
+
+    <p class="description event">
       
-	      <div class="clear"></div>
+    </p>
+
+  	<form action="." method="get" onsubmit="return false">
+      <fieldset class="allArt">
+        <legend>Look for</legend>
       
-	      <ul id="categoryScroll">
-	        <li>
-	          <label>
-	            <input class="filter radio" type="radio" name="category" id="filter_category_all" checked />
-	            <span>all</span>
-	          </label>
-	        </li>
+        <div class="clear"></div>
       
-	        <li>
-	          <label>
-	            <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
-	            <span>museum</span>
-	          </label>
-	        </li>
+        <!-- hidden filter for event ID -->
+        <input type="hidden" class="filter hidden" id="filter_event_id" name="event_id" />
+
+        <ul id="categoryScroll">
+          <li>
+            <label>
+              <input class="filter radio" type="radio" name="category" id="filter_category_all" checked />
+              <span>all</span>
+            </label>
+          </li>
+      
+          <li>
+            <label>
+              <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
+              <span>museum</span>
+            </label>
+          </li>
         
-	        <li>
-	          <label>
-	            <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
-	            <span>gallery</span>
-	          </label>
-	        </li>
+          <li>
+            <label>
+              <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
+              <span>gallery</span>
+            </label>
+          </li>
 
           <li>
             <label>
@@ -344,77 +414,78 @@
               <span>public</span>
             </label>
           
-	          <div class="clear"></div>
+            <div class="clear"></div>
           
-	          <ul id="publicSubset">
-	            <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
-	              <li>
-	                <label>
-	                  <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
-	                  <span class="category"><%= category.downcase %></span>
-	                </label>
-	              </li>
-	            <% end %>
-	          </ul>
+            <ul id="publicSubset">
+              <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
+                <li>
+                  <label>
+                    <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
+                    <span class="category"><%= category.downcase %></span>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
           
-	        </li>
-	      </ul>
-	    </fieldset>
+          </li>
+        </ul>
+      </fieldset>
     
-	    <fieldset>
-	      <legend>Funded By</legend>
-	      <div class="clear"></div>
-	
-	      <ul id="commissionedScroll">
-	        <li>
-	          <label>
-	            <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
-	            <span>anyone</span>
-	          </label>
-	        </li>
-	        <li>
-	          <label>
-	            <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
-	            <span>the District</span>
-	          </label>
-	        </li>
-	      </ul>
-	    </fieldset>
+      <fieldset>
+        <legend>Funded By</legend>
+        <div class="clear"></div>
+
+        <ul id="commissionedScroll">
+          <li>
+            <label>
+              <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
+              <span>anyone</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
+              <span>the District</span>
+            </label>
+          </li>
+        </ul>
+      </fieldset>
     
-	    <fieldset>
-	      <legend>Located In</legend>
-	      <ul id="location">
-	        <li> 
-	          <label>Zoom to an address or zip</label>
-	          <input type="text" id="id_location" />
-	          <button type="submit" class="searchBtn">
-	              <span>Go</span>
-	          </button>
-	        </li>
+      <fieldset>
+        <legend>Located In</legend>
+        <ul id="location">
+          <li> 
+            <label>Zoom to an address or zip</label>
+            <input type="text" id="id_location" />
+            <button type="submit" class="searchBtn">
+                <span>Go</span>
+            </button>
+          </li>
         
-	        <li>
-	          <label for="id_wards">DC Wards</label> 
-	          <select id="id_wards" name="wards">
-	              <option selected="selected" value="">---------</option>
-	              <option value="1">Ward 1</option>
-	              <option value="2">Ward 2</option>
-	              <option value="3">Ward 3</option>
-	              <option value="4">Ward 4</option>
-	              <option value="5">Ward 5</option>
-	              <option value="6">Ward 6</option>
-	              <option value="7">Ward 7</option>
-	              <option value="8">Ward 8</option>
-	          </select>
-	        </li>
-	      </ul>
+          <li class="allArt">
+            <label for="id_wards">DC Wards</label> 
+            <select id="id_wards" name="wards">
+                <option selected="selected" value="">---------</option>
+                <option value="1">Ward 1</option>
+                <option value="2">Ward 2</option>
+                <option value="3">Ward 3</option>
+                <option value="4">Ward 4</option>
+                <option value="5">Ward 5</option>
+                <option value="6">Ward 6</option>
+                <option value="7">Ward 7</option>
+                <option value="8">Ward 8</option>
+            </select>
+          </li>
+        </ul>
 
-	    </fieldset>
+      </fieldset>
 
-	  </form>
-	  <div id="filterSettings">
-		  <img src="" alt="" /><a href="">filters</a>
-	  </div>
+    </form>
+    <div id="filterSettings">
+  	  <img src="" alt="" /><a href="">filters</a>
+    </div>
 	</div>
+
 	<div id="eventsWrapper">
 		<div id="eventsMenu">
 			<!--<a class="moreEvents left"></a>-->
@@ -424,6 +495,7 @@
             id="event-<%= event.id %>"
             data-flickr_id="<%= event.arts.first.photos.first.flickr_id %>"
             data-id="<%= event.id %>"
+            data-slug="<%= event.slug %>"
             >
   					<a href="#">
               <img width="109" height="60" alt="<%= event.name %>">
