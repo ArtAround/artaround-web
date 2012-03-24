@@ -571,6 +571,9 @@ background-color: #dedada;
 
 #filterForm form .publicItem{
 	break-before: column;
+	-webkit-column-break-before:always;
+	-moz-column-break-before:always;
+	column-break-before:always;
 }
 #filterForm label{
 	text-transform: capitalize;
