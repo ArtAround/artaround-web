@@ -344,7 +344,9 @@ dt { float: left; font-weight: bold; text-transform: lowercase; width: 120px; }
 
 /** Footer **/
 
-#footerWrap { background: #3a3233; height: 42px; position: absolute; bottom: 0; width: 100%; z-index: 10;}
+.home #footerWrap { background: #3a3233; height: 42px; position: absolute; bottom: 0; width: 100%; z-index: 10;}
+#footerWrap { background: #3a3233; height: 42px; width: 100%; z-index: 10;}
+
 footer small{color: #c2b4b5; float: left;}
 footer a:link { outline: none; color: #c2b4b5;}
 footer a:visited { outline: none; color: #c2b4b5; }
