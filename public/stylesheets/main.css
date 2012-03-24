@@ -362,7 +362,23 @@ dt { float: left; font-weight: bold; text-transform: uppercase; width: 120px; }
 .withIcon { float: left; }
 #edit_artworkMetaData .cancelBtn, #edit_artworkMetaData .submitBtn { float: left; margin: 15px 20px 20px 0; }
 
-#commissioned { text-indent: -9999em; display: block; width: 38px; height: 30px; background: url(/images/icon_commissioned.png) top left no-repeat; float: left; margin-left: 20px;}
+#commissionedIcon, #popularIcon, #eventIcon { 
+	text-indent: -9999em; 
+	display: block; 
+	width: 38px; 
+	height: 30px; 
+	float: left; 
+	margin-left: 20px;
+}
+#commissionedIcon{
+	background: url(/images/icon_commissioned.png) top left no-repeat; 
+}
+#popularIcon{
+}
+#eventIcon{
+}
+
+
 
 .showFilter, .hideFilter { float: right; }
 #filterSettings {display: none;}
