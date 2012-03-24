@@ -568,6 +568,24 @@ background-color: #dedada;
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 }
+
+#filterForm p{
+	font-size: 85%;
+	line-height: 1.6;
+}
+
+#filterForm form .publicItem{
+	break-before: column;
+	-webkit-column-break-before:always;
+	-moz-column-break-before:always;
+	column-break-before:always;
+}
+#filterForm label{
+	text-transform: capitalize;
+	font-weight: 400;
+	margin-top: 0;
+}
+
 fieldset {
 margin-bottom: 10px;
 }
@@ -925,8 +943,6 @@ color: red;
 div.flash {
 	font-size: 110%;
 	margin: 10px 0;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
 	width: 940px;
 	margin: 10px auto;
 	color: #fff;
@@ -934,7 +950,6 @@ div.flash {
 }
 div.flash.alert {
 	background-color: #edaa95;
-	border: 2px solid #9d0101;
 }
 div.flash.notice {
 	background-color: #beda03;

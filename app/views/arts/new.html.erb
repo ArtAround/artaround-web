@@ -44,6 +44,8 @@
       <h2 class="withSubtext">Add a New Point</h2>
     </div>
   </div>
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+    
 
   <div id="ltColumn">
     <% if @art.errors.delete(:location).present? %>

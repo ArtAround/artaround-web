@@ -6,6 +6,8 @@
       <div class="clear"></div>
 
     </div>
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+    
   <div id="ltColumn" class="oneCol">
     <%= form_tag send_contact_path do %>
       <ul>
