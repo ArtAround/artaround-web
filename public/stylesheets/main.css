@@ -569,6 +569,11 @@ background-color: #dedada;
 	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
+#filterForm p{
+	font-size: 85%;
+	line-height: 1.6;
+}
+
 #filterForm form .publicItem{
 	break-before: column;
 	-webkit-column-break-before:always;
