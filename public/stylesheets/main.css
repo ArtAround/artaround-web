@@ -1277,7 +1277,7 @@ column-count: 2;
 
 .overlay .light.white {
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 25%;
 	left: 32%;
 	width: 36%;
@@ -1291,7 +1291,7 @@ column-count: 2;
 
 .overlay .fade.black {
 	display: block;
-	position: absolute;
+	position: fixed;
 	top: 0%;
 	left: 0%;
 	width: 100%;
