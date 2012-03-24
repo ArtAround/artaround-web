@@ -229,12 +229,15 @@ font-size: 130%;
 }
 
 h2#cityView {
-font-weight: bold;
+font-weight: 400;
 text-transform: uppercase;
 float: left;
-color: #c2b4b5;
+color: #7f7b7b;
 margin-left: 30px;
-margin-top: 53px;
+margin-top: 57px;
+font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+font-size: 150%;
+
 }
 
 #titleContent {
@@ -390,7 +393,7 @@ width: 100%;
 .home #mapsearch_form {
 margin-top: 56px;
 float: left;
-margin-left: 171px
+margin-left: 215px
 }
 
 #mapsearch_form {
