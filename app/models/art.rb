@@ -89,6 +89,10 @@ class Art
     photos.desc(:primary).first
   end
 
+  def venue?
+    ['Museum', 'Gallery', 'Market'].include? category
+  end
+
   def latitude
     self.location ||= []
     location[0]
