@@ -235,8 +235,8 @@
       container.find("h3").html(event.name);
       container.find("span").html(event.starts_at + " - " + event.ends_at);
       var description = event.description;
-      if (description.length > 210)
-        description = description.substr(0, 205) + "..."
+      if (description.length > 500)
+        description = description.substr(0, 495) + "..."
       $("p.description.event").html(description);
 
       // switch the filter pane into event mode
