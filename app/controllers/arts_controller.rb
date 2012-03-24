@@ -134,8 +134,13 @@ class ArtsController < ApplicationController
   end
 
   def flag
+    @art.update_attributes :flagged_at => Time.now
     AdminMailer.art_flagged(@art, params[:text], params[:source]).deliver
-    head 201
+    if params[:source] == "web"
+      redirect_to art_path(@art), :notice => "Thanks for the report!"
+    else
+      head 201
+    end
   end
   
   protected

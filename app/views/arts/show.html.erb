@@ -52,7 +52,7 @@
 
   $(function() {
 
-    $("#editInformation a").click(
+    $("#edit").click(
       function() {
         $("#artworkMetaData").hide();
         $("#edit_artworkMetaData").show();
@@ -87,6 +87,21 @@
       });
     <% end %>
 
+    $(".overlay a.close").click(function() {
+      $(this).parents(".overlay").hide();
+      return false;
+    });
+
+    $("a#flagIt").click(function() {
+      $(".flag.overlay").show();
+      return false;
+    });
+
+    $("a.upload_link").click(function() {
+      $(".addArt.overlay").show();
+      return false;
+    });
+
   });
 </script>
 
@@ -106,10 +121,9 @@
 		  <a id="edit" href="#">Edit</a>
 		  <a id="flagIt" href="#">Flag this art</a>
 		
-      
-	      <% if admin? %>
-	          <%= link_to "Admin", admin_art_path(@art) %>
-	      <% end %>
+      <% if admin? %>
+          <%= link_to "Admin", admin_art_path(@art) %>
+      <% end %>
 		</div>
       
       <div class="clear"></div>
@@ -302,60 +316,70 @@
     
     <div class="module">
       <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
-	  <a href="#">Upload</a>
+	    <a class="upload_link" href="#">Upload</a>
     </div>
     
     <div id="map_canvas" class="smMap module"></div>
     <!--<div name="pano" id="pano" class="module"></div>/-->
   </div>
-  <div class="flagOverlay">
+
+  <div class="flag overlay">
 	  <div class="clear"></div>
-	  	<div id="light" class="white_content">
+	  <div class="light white">
+
 			<a class="close" href="#">Close</a>
 			<div class="clear"></div>
+
 			<h2>Something wrong with this page?</h2>
-	      <small>Let us know and we'll look into it.</small>
-			<form action="/contact/" method="post" id="flagForm" class="normalForm">
-			    <ul>
+	    <small>Let us know and we'll look into it.</small>
+			<form action="<%= flag_art_path(@art) %>" method="post" id="flagForm" class="normalForm">
+        <input type="hidden" name="source" value="web" />
+        <ul>
 					<li>
-						<label for="id_comment"></label>
-						<textarea name="comment" id="id_comment"></textarea>
+						<label for="text"></label>
+            <%= text_area_tag :text %>
 					</li>
-				    <li class="button">
-			            <button class="submitBtn" type="submit">
-			              <span>Submit</span>
-			            </button>
-				    </li>
+				  <li class="button">
+            <button class="submitBtn" type="submit">
+              <span>Submit</span>
+            </button>
+				  </li>
 				</ul>
 			</form>
+
 			<div class="thankyou">
 				<small>Thanks for sending us feedback!</small>
 			</div>
 
 		</div>
-		<div id="fade" class="black_overlay"></div>	
+		<div class="fade black"></div>	
 	</div>
-	<div class="addArtOverlay">
+
+	<div class="addArt overlay">
 	  <div class="clear"></div>
-	  	<div id="light" class="white_content">
+	  <div class="light white">
+
 			<a class="close" href="#">Close</a>
 			<div class="clear"></div>
+
 			<h2>Photo Upload</h2>
-	      <small>All the photos you submit to ArtAround will be posted (with attribution) to Flickr and contributes to making the world a better place.</small>
-		      <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
-		        <%= file_field_tag 'new_photo' %>
-		        <label for="new_photo_username">Flickr Username (optional)</label>
-		        <%= text_field_tag 'new_photo_username' %>
-		        <%= submit_tag "Submit" %>
-		      <% end %>
+      <small>All the photos you submit to ArtAround will be posted (with attribution) to Flickr and contributes to making the world a better place.</small>
+      
+      <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
+        <%= file_field_tag 'new_photo' %>
+        <label for="new_photo_username">Flickr Username (optional)</label>
+        <%= text_field_tag 'new_photo_username' %>
+        <%= submit_tag "Submit" %>
+      <% end %>
+
 			<div class="thankyou">
-				<small>Thanks for sending us feedback!</small>
+				<small>Thanks for the photo!</small>
 			</div>
 
 		</div>
-		<div id="fade" class="black_overlay"></div>	
+		<div class="fade black"></div>	
 	</div>
+
 	<div class="clear"></div>
-	
 
 </div>
