@@ -348,7 +348,7 @@ dd {
 	float: left;
 	width: 300px;
 }
-dt {
+.module dt {
 	clear: both;
 }
 dt { float: left; font-weight: bold; text-transform: uppercase; width: 120px; }
@@ -377,7 +377,12 @@ dt { float: left; font-weight: bold; text-transform: uppercase; width: 120px; }
 }
 #eventIcon{
 }
-
+.mapBubble .icons{
+	margin-right: 5px;
+}
+.mapBubble .icons img{
+	margin-right: 5px;
+}
 
 
 .showFilter, .hideFilter { float: right; }
@@ -457,7 +462,7 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 .bubbleMetaData a { margin-top: 10px; display: block;}
 .mapBubble .bubbleMetaData { width: 300px; float: left;}
 .bubbleMetaData dt { display: none;}
-.bubbleMetaData dd {float: left;}
+.bubbleMetaData dd {float: left; width: auto; margin-right: 10px}
 .mapBubble p{
 	float: left;
 	width: 300px;
@@ -465,10 +470,31 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 .mapBubble h4{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-weight: normal;
-	font-size: 120%;
+	font-size: 150%;
+	text-transform: uppercase;
+}
+.mapBubble .icons{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.mapBubble .category{
+	text-transform: uppercase;
+}
+.mapBubble .artist{
+	
+}
+.mapBubble .year{
+	
+}
+.mapBubble .moreInfo{
+	text-transform: uppercase;
+	font-size: 90%;
+	margin-left: 10px;
 }
 
-.bubbleimg { margin-right: 20px; float: left; clear: both; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
+
+.bubbleimg { margin-right: 20px; float: left; clear: both; width: 109px; height: 109px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
 
 .addthis_toolbox { float: right; margin-top: 2px;}
 .stButton .chicklets {text-indent: -9999em }
@@ -618,6 +644,7 @@ div.admin.photo {
 }
 .featuredImage{
 	width: 541px;
+	
 }
 
 .rtCol h4, .rtCol ul{

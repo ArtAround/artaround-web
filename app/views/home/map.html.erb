@@ -155,19 +155,19 @@
             
     		'<div class="bubbleMetaData">' +
             '<dl>' +
-	            '<dt>Category</dt>' +
-	            '<dd>' + (art.category || "Unknown") + '</dd>' +
+	            '<dt class="category">Category</dt>' +
+	            '<dd  class="category">' + (art.category || "Unknown") + '</dd>' +
 	
                 '<dt>Artist</dt>' +
-                '<dd>' + (art.artist || "Unknown") + '</dd>' +
+                '<dd class="artist">' + (art.artist || "Unknown") + '</dd>' +
             
                 '<dt>Erected</dt>' +
-                '<dd>' + (art.year || "Unknown") + '</dd>' +
+                '<dd class="year">- ' + (art.year || "Unknown") + '</dd>' +
        
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		    '<p>' + (art.description || "(no description)") + '<a href="/arts/' + art.id + '" target="_blank">More Information</a></p>' +
+		    '<p>' + (art.description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
         
       '</div>';
       
