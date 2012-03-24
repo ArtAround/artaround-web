@@ -375,13 +375,18 @@ dt { float: left; font-weight: bold; text-transform: uppercase; width: 120px; }
 .home #footerWrap { background: #3a3233; height: 42px; position: absolute; bottom: 0; width: 100%; z-index: 10;}
 #footerWrap { background: #3a3233; height: 42px; width: 100%; z-index: 10;}
 
+footer { padding-top: 10px;}
 footer small{color: #c2b4b5; float: left;}
-footer a:link { outline: none; color: #c2b4b5;}
-footer a:visited { outline: none; color: #c2b4b5; }
+footer a:link { outline: none; color: #e9e0e1;}
+footer a:visited { outline: none; color: #e9e0e1; }
 footer a:hover { outline: none; color: #ffffff; }
-footer a:active { outline: none; color: #c2b4b5; }
+footer a:active { outline: none; color: #e9e0e1; }
 footer nav {float: right; width: 248px;}
-footer .nav_link {float: right; margin-right: 20px; padding-right: 20px;}
+footer .nav_link {float: right; margin-right: 20px; font-size: 83%;}
+.cclicense{
+	background:url(/images/cc_icons.png) left top no-repeat ;
+	padding-left: 50px;
+}
 
 #artworkPhoto img { border: 4px solid #ffffff; width: 484px; }
 
@@ -587,8 +592,16 @@ div.admin.photo {
 	width: 362px;
 }
 
-.rtCol img, .recentlyAdded a{
+.imgContainer, .recentlyAdded a{
 	border: 4px solid #ffffff;
+}
+.imgContainer{
+	width: 541px;
+	height: 295px;
+	overflow: hidden;
+}
+.featuredImage{
+	width: 541px;
 }
 
 .rtCol h4, .rtCol ul{
@@ -611,6 +624,7 @@ ul.recentlyAdded{
 	background: url('../images/imgshadow.png') left top repeat-y;
 	padding-left: 10px;
 }
+
 .recentlyAdded li{
 	float: left;
 	margin: 0 2px;
@@ -639,7 +653,7 @@ ul.recentlyAdded{
 	display: none;
 }
 
-.flagOverlay.active, .addArtOverlay.active{
+.flagOverlay.active, .addArtOverlay{
 	display: block;
 }
 
