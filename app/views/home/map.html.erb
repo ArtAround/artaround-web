@@ -29,8 +29,9 @@
     var currentInfoWindow;
     
     <% @events.each do |event| %>
-      events["<%= event.slug %>"] = {
+      events["<%= event.id %>"] = {
         id: "<%= event.id %>",
+        slug: "<%= event.slug %>",
         name: "<%= escape_javascript event.name %>",
         description: "<%= escape_javascript event.description %>",
         starts_at: "<%= just_day event.starts_at %>",
@@ -42,10 +43,15 @@
       arts.push({
         id: "<%= art.to_param %>",
         event_id: "<%= art.event_id %>",
+        <% if @events.include?(art.event) %>
+        event_name: events["<%= art.event_id %>"].name,
+        event_slug: events["<%= art.event_id %>"].slug,
+        <% end %>
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
+        popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
@@ -72,9 +78,12 @@
       wards.setMap(map);
       
       // icon types
-      icons.blue = new google.maps.MarkerImage("/images/marker_blue.png");
-      icons.red = new google.maps.MarkerImage("/images/art.png");
-      icons.museum = new google.maps.MarkerImage("/images/venue.png");
+      icons.art = new google.maps.MarkerImage("/images/pins/art.png");
+      icons.art_popular = new google.maps.MarkerImage("/images/pins/artPop.png");
+      icons.venue = new google.maps.MarkerImage("/images/pins/venue.png");
+      icons.venue_popular = new google.maps.MarkerImage("/images/pins/venuePop.png");
+      icons.event = new google.maps.MarkerImage("/images/pins/event.png");
+      icons.event_popular = new google.maps.MarkerImage("/images/pins/eventPop.png");
       
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
@@ -114,11 +123,38 @@
     function markerFor(art, map) {
       var location = new google.maps.LatLng(art.latitude, art.longitude);
       
+      var eventIcon = "";
+      if (art.event_name) {
+       eventIcon = '' +
+        '<span class="eventIcon">' + 
+          '<img src="/images/5x5.png" title="' + art.event_name + '"/>'
+        '</span>'
+      }
+      var popularIcon = "";
+      if (art.popular) {
+        popularIcon = '' +
+        '<span class="popularIcon">' + 
+          '<img src="/images/popular.png" title="Popular Artwork"/>'
+        '</span>'
+      }
+
+      var commissionedIcon = "";
+      if (art.commissioned) {
+        commissionedIcon = '' +
+        '<span class="commissionedIcon">' + 
+          '<img src="/images/icon_commissioned.png" title="DC Arts"/>'
+        '</span>'
+      }
+
       var html = '<div class="mapBubble">' +
         '<h4>' + art.title + '</h4>' +
-		'<div class="icons"><a class="eventIcon">5x5</a><a class="popularIcon">Popular Artwork</a><a class="commissionedIcon">DC Arts</a></div>' +
-        
-		'<div class="bubbleMetaData">' +
+    		'<div class="icons">' + 
+          eventIcon + 
+          popularIcon + 
+          commissionedIcon +
+        '</div>' +
+            
+    		'<div class="bubbleMetaData">' +
             '<dl>' +
 	            '<dt>Category</dt>' +
 	            '<dd>' + (art.category || "Unknown") + '</dd>' +
@@ -132,11 +168,21 @@
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		'<p>' + (art.description || "(no description)") + '<a href="/arts/' + art.id + '" target="_blank">More Information</a></p>' +
+		    '<p>' + (art.description || "(no description)") + '<a href="/arts/' + art.id + '" target="_blank">More Information</a></p>' +
         
       '</div>';
       
-      var icon = (art.category == 'Museum' || art.category == 'Gallery' || art.category == 'Market') ? icons.museum : icons.red;
+      var icon;
+      var isVenue = (art.category == 'Museum' || art.category == 'Gallery' || art.category == 'Market');
+      var isPopular = art.popular;
+      var isEvent = !!art.event_id;
+      
+      if (isEvent)
+        icon = (isPopular ? icons.event_popular : icons.event);
+      else if (isVenue)
+        icon = (isPopular ? icons.venue_popular : icons.venue);
+      else
+        icon = (isPopular ? icons.art_popular : icons.art);
       
       var marker = new google.maps.Marker({
         position: location,
@@ -171,11 +217,11 @@
       recalculateFilter();
     }
 
-    function selectEvent(slug) {
+    function selectEvent(id) {
       resetFilter();
       $("#eventsWrapper").hide();
 
-      var event = events[slug];
+      var event = events[id];;
       
       // populate the event details into the filter pane
       var container = $(".mapTitle.event");
@@ -318,7 +364,7 @@
       });
 
       $("li.event a").click(function() {
-        selectEvent($(this).parents("li").data("slug"));
+        selectEvent($(this).parents("li").data("id"));
         return false;
       });
 

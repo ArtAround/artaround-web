@@ -17,6 +17,8 @@ class Admin::PhotosController < Admin::AdminController
 
   def destroy
     @photo.destroy
+    @art.flickr_ids = @art.reload.photos.map &:flickr_id
+    @art.save!
     begin
       flickr.photos.delete :photo_id => @photo.flickr_id
     rescue FlickRaw::FailedResponse
