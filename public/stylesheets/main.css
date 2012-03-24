@@ -463,7 +463,7 @@ span.or {font-weight: bold; font-size: 150%;}
 }
 #flagIt{
 	text-indent: -9999em;
-	background: url('../images/FlagIt.png') left top no-repeat; 
+	background: url(/images/flagIt.png) left top no-repeat; 
 	display: block;
 	width: 17px;
 	height: 13px;
@@ -489,8 +489,8 @@ div.admin.photo {
 
 
 .contentBg { 
-	background: url('../images/bg_spash.png') center -15px no-repeat; 
-	}
+	background: url(/images/bg_spash.png) center -15px no-repeat; 
+}
 .contentWrapper{
 	width: 960px;
 	margin: 0 auto;
@@ -549,14 +549,14 @@ div.admin.photo {
 	text-transform: uppercase;
 }
 .mobileAd{
-	background: url('../images/mobileAd.png') left top no-repeat;
+	background: url(/images/mobileAd.png) left top no-repeat;
 	width: 332px;
 	height: 278px;
 	padding-top: 95px;
 	padding-left: 200px;
 }
 .iphone{
-	background: url('../images/button-app-store.png') left top no-repeat;
+	background: url(/images/button-app-store.png) left top no-repeat;
 	text-indent: -9999em;
 	width: 141px;
 	height: 50px;
@@ -567,7 +567,7 @@ div.admin.photo {
 }
 
 .android{
-	background: url('../images/button-android-market.png') left top no-repeat;
+	background: url(/images/button-android-market.png) left top no-repeat;
 	text-indent: -9999em;
 	width: 141px;
 	height: 50px;
@@ -608,7 +608,7 @@ ul.recentlyAdded{
 }
 
 .featureShadow{
-	background: url('../images/imgshadow.png') left top repeat-y;
+	background: url(/images/imgshadow.png) left top repeat-y;
 	padding-left: 10px;
 }
 .recentlyAdded li{
