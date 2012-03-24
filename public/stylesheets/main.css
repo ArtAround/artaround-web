@@ -1354,4 +1354,4 @@ input#new_photo{
 	top: 300px;
 }
 
-
+div.popupError {display: none; margin-top: 5px;}

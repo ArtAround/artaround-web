@@ -102,6 +102,28 @@
       return false;
     });
 
+    // make popups disappear when you click outside them
+    $(".overlay .fade.black").click(function() {
+      $(this).parents(".overlay").hide();
+    });
+
+    // client-side validation on two popup forms
+    $("form#flagForm").submit(function() {
+      if (!$("#flag_text").val()) {
+        $(this).parents(".overlay").find(".popupError").show();
+        return false;
+      }
+      return true;
+    });
+
+    $("form#new_photo_form").submit(function() {
+      if (!$("#new_photo").val()) {
+        $(this).parents(".overlay").find(".popupError").show();
+        return false;
+      }
+      return true;
+    });
+
   });
 </script>
 
@@ -351,7 +373,7 @@
         <ul>
 					<li>
 						<label for="text"></label>
-            <%= text_area_tag :text %>
+            <%= text_area_tag :text, "", :id => "flag_text" %>
 					</li>
 				  <li class="button">
             <button class="submitBtn" type="submit">
@@ -361,7 +383,7 @@
 				</ul>
 			</form>
 
-			<div class="popUpError">
+			<div class="popupError">
 				<small>Are you sure you don't want to let us know about something?</small>
 			</div>
 
@@ -382,12 +404,12 @@
       <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
         <%= file_field_tag 'new_photo' %>
         <label for="new_photo_username">Flickr Username (optional)</label>
-        <%= text_field_tag 'new_photo_username' %>
+        <%= text_field_tag 'new_photo_username', "", :id => "new_photo_text" %>
         <%= submit_tag "Submit", :class => "submitBtn" %>
       <% end %>
 
-			<div class="popUpError">
-				<small>Whoops! You forgot to upload and image.</small>
+			<div class="popupError">
+				<small>Whoops! You forgot to upload an image.</small>
 			</div>
 
 		</div>
