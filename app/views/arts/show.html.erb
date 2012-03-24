@@ -95,14 +95,11 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-      
-      <% if @art.commissioned %>
-        <a href="http://dcarts.dc.gov/DC/DCARTS/">
-          <span id="commissioned" title="Commissioned by the District">
-            Commissioned by the city
-          </span>
-        </a>
+	  <% if @art.website.present? %>
+          <a><%= link_to @art.website, @art.website %></a>
       <% end %>
+          <a id="edit" href="#">Edit it now!</a>
+      
       
       <%= render :partial => "layouts/addthis" %>
       
@@ -117,19 +114,6 @@
 
   <div id="ltColumn">
     <div class="module">
-      <% if @art.website.present? %>
-        <dl id="artworkData">
-          <dt>Artist's Website</dt>
-          <dd><%= link_to @art.website, @art.website %></dd>
-        </dl>
-      <% end %>
-        
-      <div id="editInformation">
-        <span class="callout">
-          Know more information about this piece?
-          <a href="#">Edit it now!</a>
-        </span>
-      </div>
       
       <dl id="artworkMetaData">
         <dt>Category</dt> 
@@ -203,7 +187,13 @@
         </ul>
       <% end %>
       <div class="clear"></div>
-      
+      <% if @art.commissioned %>
+        <a href="http://dcarts.dc.gov/DC/DCARTS/">
+          <span id="commissioned" title="Commissioned by the District">
+            Commissioned by the city
+          </span>
+        </a>
+      <% end %>
     </div>
     
     <% if @art.comments.approved.any? %>

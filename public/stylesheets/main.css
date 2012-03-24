@@ -78,8 +78,8 @@ header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decorati
 body { background: url(/images/bg_main.jpg) center top repeat;}
 
 #pageMain { padding-top: ;}
-div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 25px; width: 285px; }
-div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 605px; }
+div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 25px; width: 460px; }
+div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 430px; }
 
 .tip { color: #86827a; font-size: 95%; margin-top: 15px; font-style: oblique;}
 
