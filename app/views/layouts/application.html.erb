@@ -32,14 +32,18 @@
     		<h2 id="cityView">
     			Washington, DC
     		</h2>
-  	    <form action="#" id="mapsearch_form">
+  	    <form action="/map" method="geT" id="mapsearch_form">
   	      <label>Search by artist or title</label>
-  	      <input id="mapsearch" type="text" placeholder="Search by artist or title"/>
-  	      <input id="mapsearch_value" type="hidden" name="mapsearch_value" value="" />
+  	      <input id="mapsearch" type="text" name="q" placeholder="Search by artist or title"
+            <% if params[:q].present? %>
+              value="<%= params[:q] %>"
+            <% end %>
+            />
   	      <button class="searchBtn" type="submit">
   	          <span>Go</span>
   	      </button>
   	    </form>
+        
   		  <nav>
     			<ul class="main_nav">
     				<% tabs = yield(:tabs) %>
