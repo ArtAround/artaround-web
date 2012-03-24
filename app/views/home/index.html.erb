@@ -19,7 +19,9 @@
 	<div class="rtCol">
 		<div class="featureShadow">
 			<div class="imgContainer">
-				<img class="featuredImage" src="" alt="" />
+				<a href="#">
+					<img class="featuredImage" src="" alt="" />
+				</a>
 			</div>
 		</div>
 		<h4>Recently Uploaded</h4>
@@ -63,9 +65,12 @@
 
 <script type="text/javascript">
 	<% if @featured and @featured.primary_photo %>
+		var art_path = "<%= art_path @featured %>";
 		Flickr.getThumbnail("<%= @featured.primary_photo.flickr_id %>", "Large", function(thumbnail) {
-          if (thumbnail)
+          if (thumbnail) {
             $("img.featuredImage").prop("src", thumbnail.source);
+            $("img.featuredImage").parent("a").prop("href", art_path);
+          }
         });
     <% end %>
 
