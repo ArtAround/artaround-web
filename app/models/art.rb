@@ -49,6 +49,9 @@ class Art
   field :commissioned, :type => Boolean
   field :approved, :type => Boolean
   field :featured, :type => Boolean, :default => false
+
+  # when an art piece was last flagged by a user
+  field :flagged_at, :type => DateTime
   
   # last submitted at
   field :submitted_at, :type => DateTime
