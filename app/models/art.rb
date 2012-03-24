@@ -77,6 +77,8 @@ class Art
   
   scope :inbox, :where => {:approved => false}, :order_by => :created_at.desc
   scope :submitted, :order_by => :submitted_at.desc
+
+  scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
   
   validates_presence_of :title
   validates_presence_of :category
@@ -87,6 +89,10 @@ class Art
   
   def primary_photo
     photos.desc(:primary).first
+  end
+
+  def venue?
+    ['Museum', 'Gallery', 'Market'].include? category
   end
 
   def latitude

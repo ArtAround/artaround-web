@@ -31,21 +31,27 @@
 		<div class="clear"></div>
 		<h4>Events</h4>
 			<ul class="events">
-				<li><a href="">5x5</a><span class="dateRange">March 2012 to August 2012</span></li>
+				<% @events.each do |event| %>
+					<li>
+						<a href="/events/<%= event.slug %>"><%= event.name %></a>
+						<span class="dateRange">
+							<%= event_time_home event.starts_at %>
+							to
+							<%= event_time_home event.ends_at %>
+						</span>
+					</li>
+				<% end %>
 			</ul>
 			<div class="clear"></div>
 		<h4>Popular Now</h4>
 		<ul class="popularNowList">
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
-			<li><a href="">Name of artwork</a></li>
+			<% @popular.each do |art| %>
+				<li>
+					<a href="<%= art_path art %>">
+						<%= art.title %>
+					</a>
+				</li>
+			<% end %>
 		</ul>
 	</div>
 	<div class="clear"></div>
@@ -55,9 +61,22 @@
 
 <script type="text/javascript">
 	<% if @featured and @featured.primary_photo %>
-		// Flickr.getThumbnail("<%= @featured.primary_photo.flickr_id %>", "Large", function(thumbnail) {
-  //         if (thumbnail)
-  //           $("img.featuredImage").prop("src", thumbnail.source);
-  //       });
+		Flickr.getThumbnail("<%= @featured.primary_photo.flickr_id %>", "Large", function(thumbnail) {
+          if (thumbnail)
+            $("img.featuredImage").prop("src", thumbnail.source);
+        });
     <% end %>
+
+    <% recent_art.each do |art| %>
+	  <% if art.flickr_ids and art.flickr_ids.any? %>
+	    (function() {
+	    	Flickr.getThumbnail("<%= art.flickr_ids.first %>", "Small", function(thumbnail) {
+		      if (thumbnail) {
+		        $("#art-thumbnail-<%= art.slug %>").css("background-image", "url(\"" + thumbnail.source + "\")");
+		      }
+		    });
+		})();
+	  <% end %>
+	<% end %>
+
 </script>

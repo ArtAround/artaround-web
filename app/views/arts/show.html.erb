@@ -11,14 +11,10 @@
   var state = "<%= @art.state %>";
   var zip = "<%= @art.zip %>";
 
-  // street view, point of view
-  var heading = <%= @art.header || -1 %>;
-  var pitch = <%= @art.pitch || -1 %>;
-  var zoom = <%= @art.zoom || -1 %>;
-
   function loadMaps() {
     
     var location = new google.maps.LatLng(latitude, longitude);
+
     // regular map
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
       zoom: 15,
@@ -32,6 +28,10 @@
     });
     marker.setMap(map);
     
+    // street view, point of view
+    // var heading = <%= @art.header || -1 %>;
+    // var pitch = <%= @art.pitch || -1 %>;
+    // var zoom = <%= @art.zoom || -1 %>;
     // street view map
     // if (heading >= 0 && pitch >= 0 && zoom >= 0) {
       // var street = new google.maps.StreetViewPanorama(document.getElementById("pano"), {
@@ -123,7 +123,7 @@
         <dt>Category</dt> 
         <dd><%= known @art.category %></dd>
 
-        <dt>Artist(s)</dt>  
+        <dt><%= artist_type_for @art %></dt>  
         <dd><%= known @art.artist %></dd>
 
         <dt>Year</dt> 
