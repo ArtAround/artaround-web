@@ -234,7 +234,10 @@
       var container = $(".mapTitle.event");
       container.find("h3").html(event.name);
       container.find("span").html(event.starts_at + " - " + event.ends_at);
-      $("p.description.event").html(event.description);
+      var description = event.description;
+      if (description.length > 210)
+        description = description.substr(0, 205) + "..."
+      $("p.description.event").html(description);
 
       // switch the filter pane into event mode
       $("#filterForm").removeClass("allArt").addClass("event");
