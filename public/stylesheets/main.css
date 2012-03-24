@@ -1328,6 +1328,7 @@ input#new_photo{
 	-moz-box-shadow: none;
 	box-shadow: none;
 	border: 0;
+	cursor: pointer;
 }
 .overlay .light.white h2{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
@@ -1344,6 +1345,11 @@ input#new_photo{
 }
 .overlay .light.white input.submitBtn{
 	width: 150px;
+	cursor: pointer;
+}
+
+.overlay .light.white input, textarea{
+	border: 0;
 }
 
 .overlay .light.white small{
