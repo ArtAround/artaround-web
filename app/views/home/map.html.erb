@@ -341,6 +341,10 @@
       // if the search is pre-populated on page load, perform the filter
       if ($("input#mapsearch").val())
         $("form#mapsearch_form").submit();
+
+      <% if @event %>
+        selectEvent("<%= @event.id %>");
+      <% end %>
     }
     
     $(function() {
