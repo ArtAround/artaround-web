@@ -787,21 +787,15 @@ display: none;
 
 .errors {
 margin-bottom: 20px;
--moz-border-radius: 3px;
--webkit-border-radius: 3px;
 padding: 10px 20px;
-background-color: #edaa95;
-border: 2px solid #9d0101;
+background-color: #fd9aa9;
 color: #fff;
 font-size: 110%;
 }
 #editInformation {
 background-color: #e4e593;
 margin-bottom: 20px;
--moz-border-radius: 3px;
--webkit-border-radius: 3px;
 padding: 10px 20px;
-border: 2px solid #c5c708;
 }
 
 /** Footer **/
@@ -966,17 +960,19 @@ color: red;
 div.flash {
 	font-size: 110%;
 	margin: 10px 0;
-	width: 940px;
+	width: 920px;
 	margin: 10px auto;
 	color: #fff;
 	padding: 10px 20px;
 }
 div.flash.alert {
-	background-color: #edaa95;
+	background-color: #fd9aa9;
+}
+.addNewArt div.flash{
+	width: auto;
 }
 div.flash.notice {
 	background-color: #beda03;
-	border: 2px solid #a3bb01;
 }
 
 div.about strong, div.faq strong {
@@ -1354,4 +1350,14 @@ input#new_photo{
 	top: 300px;
 }
 
-div.popupError {display: none; margin-top: 5px;}
+div.popupError {
+	display: none; 
+	margin-top: 5px;
+	font-size: 110%;
+	margin: 10px 0;
+	width: ;
+	margin: 10px auto;
+	color: #fff;
+	padding: 10px 20px;
+	background-color: #fd9aa9;
+}

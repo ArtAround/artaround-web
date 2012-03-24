@@ -44,10 +44,11 @@
       <h2 class="withSubtext">Add New Art</h2>
     </div>
   </div>
-	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
     
 
   <div id="ltColumn">
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+	
     <% if @art.errors.delete(:location).present? %>
       <div class="errors">
         Please click on the map to choose a latitude or longitude, or enter an address.
@@ -151,9 +152,7 @@
           <button class="submitBtn" name="submit" type="submit">
               <span>Submit</span>
           </button>
-		
-		<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-		
+				
 
         </li> 
       </ul>
