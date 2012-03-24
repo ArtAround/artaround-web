@@ -23,7 +23,6 @@ html {
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 100%; 
-	padding-bottom: 42px;
 	}
 body { 
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -163,7 +162,25 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */ 
-	border-bottom: 4px solid #B4B2AD; border-top: 1px solid #B4B2AD; margin-bottom:50px; height: 100%}
+	bottom:35px;
+	overflow:hidden;
+	padding-bottom:7px;
+	margin-top:82px;
+	margin-left: 0;
+	margin-right:0;
+	position:absolute;
+	top:0;
+	width:100%;
+}
+.home{
+	height:100%;
+	margin:0 auto;
+	min-height:100%;
+	overflow:hidden;
+	position:relative;
+	width:100%;
+}
+
 
 #mapsearch_form {margin-top: 56px; float: left; margin-left: 31px }
 #mapsearch_form input { background-color: #484242;
@@ -327,7 +344,7 @@ dt { float: left; font-weight: bold; text-transform: lowercase; width: 120px; }
 
 /** Footer **/
 
-#footerWrap { background: #3a3233; height: 42px; position: fixed; bottom: 0; width: 100%; z-index: 10;}
+#footerWrap { background: #3a3233; height: 42px; position: absolute; bottom: 0; width: 100%; z-index: 10;}
 footer small{color: #c2b4b5; float: left;}
 footer a:link { outline: none; color: #c2b4b5;}
 footer a:visited { outline: none; color: #c2b4b5; }
@@ -363,8 +380,16 @@ footer .nav_link {float: right; margin-right: 20px; padding-right: 20px;}
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 100%; 
-	padding-top: 82px; 
-	padding-bottom: 42px;}
+	padding-top: 0; 
+	padding-bottom: 0;
+	overflow: hidden;
+	position: relative;
+	-webkit-box-shadow: inset 0px 0px 10px 1px #000000;
+	-moz-box-shadow: inset 0px 0px 10px 1px #000000;
+	box-shadow: inset 0px 0px 10px 1px #000000;
+	bottom: 35px;
+	top: 0;
+}
 
 ul.errors li { color: red; margin: 5px 0;}
 div.field_with_errors {margin: 0; padding: 0;}
