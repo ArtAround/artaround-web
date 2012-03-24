@@ -334,7 +334,9 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 #filterForm .dateRange { font-size: 80%}
 #filterForm form{
 	padding: 10px 10px 0 10px;
-	border-left: 1px solid #b7b4b4; border-right: 1px solid #b7b4b4; border-bottom: 1px solid #b7b4b4;
+	border-left: 1px solid #b7b4b4; 
+	border-right: 1px solid #b7b4b4; 
+	border-bottom: 1px solid #b7b4b4;
 	opacity: 0.9 !important;
 	background-color: #dedada;
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -344,6 +346,19 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 fieldset { margin-bottom: 10px; }
 #filterForm legend { float: left; font-weight: bold; text-transform: uppercase; }
 #filterForm ul { margin-top: 3px;}
+
+p.description.event{
+	padding: 10px 10px 0 10px;
+	border-left: 1px solid #b7b4b4; 
+	border-right: 1px solid #b7b4b4;
+	opacity: 0.9 !important;
+	background-color: #dedada;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	margin-bottom: 0;
+	
+}
 #commissionedScroll li{
 	float: left;
 	display: block;
