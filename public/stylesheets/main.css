@@ -1319,3 +1319,19 @@ input#new_photo{
 .overlay .light.white small{
 	margin-bottom: 20px;
 }
+.addNewArt .rtColumn{
+	position: relative;
+}
+
+.addNewArt .mapWrap{
+	position: relative;
+	height: 250px;
+	width: 490px;
+}
+
+.addNewArt .mapWrap.floating{
+	position: fixed;
+	top: 20px;
+}
+
+
