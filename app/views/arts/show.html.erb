@@ -52,7 +52,7 @@
 
   $(function() {
 
-    $("#editInformation a").click(
+    $("#edit").click(
       function() {
         $("#artworkMetaData").hide();
         $("#edit_artworkMetaData").show();
@@ -121,10 +121,9 @@
 		  <a id="edit" href="#">Edit</a>
 		  <a id="flagIt" href="#">Flag this art</a>
 		
-      
-	      <% if admin? %>
-	          <%= link_to "Admin", admin_art_path(@art) %>
-	      <% end %>
+      <% if admin? %>
+          <%= link_to "Admin", admin_art_path(@art) %>
+      <% end %>
 		</div>
       
       <div class="clear"></div>
