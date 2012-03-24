@@ -2,12 +2,18 @@ class HomeController < ApplicationController
   
   def index
     @arts = Art.approved.all
+    
     all_featured = Art.featured.all.to_a
     @featured = all_featured[rand all_featured.size]
+    
+    @popular = Art.popular.limit(10)
+
+    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
   end
   
   def map
     @arts = Art.approved.all
+
     @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
   end
 
