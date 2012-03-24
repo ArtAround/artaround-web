@@ -190,6 +190,10 @@ div#ltColumn {
 	width: 420px;
 }
 
+div#ltColumn.oneCol{
+	width: 490px;
+}
+
 div#ltColumn h3{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
