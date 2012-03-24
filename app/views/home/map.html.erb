@@ -248,6 +248,10 @@
       $("input.filter.public").prop("checked", "checked");
       $("#id_wards").val("");
       $("#filter_event_id").val("");
+
+      // reset both the appearance (text field) and the hidden value
+      $("#mapsearch_value").val("");
+      $("#mapsearch").val("");
     }
     
     function recalculateFilter() {
