@@ -194,7 +194,7 @@ div#ltColumn.oneCol{
 	width: 490px;
 }
 
-div#ltColumn h3{
+div#ltColumn h3, div#rtColumn h3{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
 	font-size: 170%;
@@ -382,36 +382,37 @@ top: 0;
 width: 100%;
 }
 .home {
-height: 100%;
-margin: 0 auto;
-min-height: 100%;
-overflow: hidden;
-position: relative;
-width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	min-height: 100%;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
 }
 
 .home #mapsearch_form {
-margin-top: 56px;
-float: left;
-margin-left: 215px
+	margin-top: 56px;
+	float: left;
+	margin-left: 215px
 }
 
 #mapsearch_form {
-margin-top: 56px;
-float: left;
-margin-left: 271px
+	margin-top: 56px;
+	float: left;
+	margin-left: 315px
 }
+
 #mapsearch_form input {
-background-color: #484242;
--webkit-box-shadow: inset 1px 1px 7px #332c2c;
--moz-box-shadow: inset 1px 1px 7px #332c2c;
-box-shadow: inset 1px 1px 7px #332c2c;
-color: #b0afaf;
-float: left;
-width: 175px;
-padding: 3px;
-border: none;
-height: 20px
+	background-color: #484242;
+	-webkit-box-shadow: inset 1px 1px 7px #332c2c;
+	-moz-box-shadow: inset 1px 1px 7px #332c2c;
+	box-shadow: inset 1px 1px 7px #332c2c;
+	color: #b0afaf;
+	float: left;
+	width: 175px;
+	padding: 3px;
+	border: none;
+	height: 20px
 }
 #mapsearch_form label {
 text-indent: -9999em;
@@ -1255,36 +1256,66 @@ column-count: 2;
 }
 
 .overlay {
-display: none;
+	display: none;
 }
 
 
 .overlay .light.white {
-display: block;
-position: absolute;
-top: 25%;
-left: 25%;
-width: 50%;
-height: ;
-padding: 16px 0 16px 0;
-background-color: #F4FAF5;
-z-index: 1002;
-overflow: auto;
-font-size: 14px;
+	display: block;
+	position: absolute;
+	top: 25%;
+	left: 32%;
+	width: 36%;
+	height: ;
+	padding: 20px;
+	background: url(/images/bg_main.jpg) center top repeat;
+	z-index: 1002;
+	overflow: auto;
+	font-size: 14px;
 }
 
 .overlay .fade.black {
-display: block;
-position: absolute;
-top: 0%;
-left: 0%;
-width: 100%;
-height: 100%;
-background-color: #000000;
-z-index: 1001;
--moz-opacity: 0.5;
-opacity: .50;
-filter: alpha(opacity=50);
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	z-index: 1001;
+	-moz-opacity: 0.5;
+	opacity: .50;
+	filter: alpha(opacity=50);
+}
+.overlay .light.white input, .overlay .light.white textarea{
+	width: 98%;
+	box-sizing: border;
 }
 
+input#new_photo{
+	background-color: transparent;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border: 0;
+}
+.overlay .light.white h2{
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	text-transform: uppercase;
+	font-size: 170%;
+}
+.overlay .light.white .close{
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
+.overlay .light.white label{
+	width: 250px;
+}
+.overlay .light.white input.submitBtn{
+	width: 150px;
+}
 
+.overlay .light.white small{
+	margin-bottom: 20px;
+}

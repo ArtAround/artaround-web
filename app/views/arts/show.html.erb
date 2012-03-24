@@ -362,10 +362,6 @@
 				</ul>
 			</form>
 
-			<div class="thankyou">
-				<small>Thanks for sending us feedback!</small>
-			</div>
-
 		</div>
 		<div class="fade black"></div>	
 	</div>
@@ -384,12 +380,11 @@
         <%= file_field_tag 'new_photo' %>
         <label for="new_photo_username">Flickr Username (optional)</label>
         <%= text_field_tag 'new_photo_username' %>
-        <%= submit_tag "Submit" %>
+        <%= submit_tag "Submit", :class => "submitBtn" %>
       <% end %>
 
-			<div class="thankyou">
-				<small>Thanks for the photo!</small>
-			</div>
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+
 
 		</div>
 		<div class="fade black"></div>	
