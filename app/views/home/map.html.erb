@@ -9,6 +9,8 @@
   <li id="allArt_link" class="map active">
     <a href="#">All Art</a>
   </li>
+  <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
+  <input id="mapsearch_value" type="hidden" value="" />
 <% end %>
 
 <% content_for :head do %>
@@ -117,10 +119,16 @@
           }
         });
       });
+
+      postLoadMap();
     }
     
     function markerFor(art, map) {
       var location = new google.maps.LatLng(art.latitude, art.longitude);
+
+      var description = art.description;
+      if (description.length > 210)
+        description = description.substr(0, 205) + "..."
       
       var eventIcon = "";
       if (art.event_name) {
@@ -167,7 +175,7 @@
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		    '<p>' + (art.description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
+		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
         
       '</div>';
       
@@ -327,12 +335,21 @@
         marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword && passed_event);
       });
     }
+
+    // this has to be done after the map loads and the markers are already placed
+    function postLoadMap() {
+      // if the search is pre-populated on page load, perform the filter
+      if ($("input#mapsearch").val())
+        $("form#mapsearch_form").submit();
+    }
     
     $(function() {
       
       // filter checkboxes/radio/select widgets
       $("input.filter").click(recalculateFilter);
       $("select#id_wards").change(recalculateFilter);
+
+      // override how the form works on all the other pages
       $("form#mapsearch_form").submit(function() {
         $("input#mapsearch_value").val($("input#mapsearch").val());
         recalculateFilter();
