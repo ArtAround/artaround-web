@@ -635,15 +635,11 @@ ul.recentlyAdded{
 	column-count: 2;
 }
 
-.flagOverlay, .addArtOverlay{
+.overlay {
 	display: none;
 }
 
-.flagOverlay.active, .addArtOverlay.active{
-	display: block;
-}
-
-.active .white_content{
+.overlay .light.white {
 	display: block;
 	position: absolute;
 	top: 25%;
@@ -657,7 +653,7 @@ ul.recentlyAdded{
 	font-size: 14px;
 }
 
-.active .black_overlay {
+.overlay .fade.black {
 	display: block;
 	position: absolute;
 	top: 0%;
