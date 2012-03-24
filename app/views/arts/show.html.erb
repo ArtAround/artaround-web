@@ -33,21 +33,21 @@
     marker.setMap(map);
     
     // street view map
-    if (heading >= 0 && pitch >= 0 && zoom >= 0) {
-      var street = new google.maps.StreetViewPanorama(document.getElementById("pano"), {
-        position: location,
-        pov: {
-          heading: heading,
-          pitch: pitch,
-          zoom: zoom
-        },
-        addressControl: false,
-        navigationControlOptions: {
-          style: google.maps.NavigationControlStyle.SMALL
-        }
-      });
-    } else
-      $("#pano").hide();
+    // if (heading >= 0 && pitch >= 0 && zoom >= 0) {
+      // var street = new google.maps.StreetViewPanorama(document.getElementById("pano"), {
+        // position: location,
+        // pov: {
+          // heading: heading,
+          // pitch: pitch,
+          // zoom: zoom
+        // },
+        // addressControl: false,
+        // navigationControlOptions: {
+         //  style: google.maps.NavigationControlStyle.SMALL
+        // }
+      // });
+    // } else
+      // $("#pano").hide();
   }
 
   $(function() {
@@ -304,7 +304,7 @@
     </div>
     
     <div id="map_canvas" class="smMap module"></div>
-    <div name="pano" id="pano" class="module"></div>
+    <!--<div name="pano" id="pano" class="module"></div>/-->
   </div>
 
   <div class="clear"></div>

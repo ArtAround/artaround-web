@@ -46,7 +46,7 @@ sup {color: #046F8C; margin-left: 3px; margin-right: 3px;}
 
 #headerWrapper { background: url(/images/bg_headerWrapper.jpg) center top repeat-x; height: 82px; z-index: 100;}
 header { background: url(/images/bg_header.jpg) center top no-repeat; position: relative;}
-header, #featureBox, #mapSearch, #pageMain, footer { width: 940px; padding: 0 10px; margin: 0 auto;}
+header, #featureBox, #mapSearch, #pageMain, footer { width: 960px; padding: 0; margin: 0 auto;}
 header nav{
 	margin-top: 56px;
 	position: absolute;
@@ -78,8 +78,8 @@ header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decorati
 body { background: url(/images/bg_main.jpg) center top repeat;}
 
 #pageMain { padding-top: ;}
-div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 25px; width: 460px; }
-div#ltColumn { float: left; margin-bottom: 80px; margin-right: 25px; width: 430px; }
+div#rtColumn  { float: left; margin-bottom: 80px; margin-left: 20px; width: 490px; }
+div#ltColumn { padding-left: 10px; float: left; margin-bottom: 80px; margin-right: 20px; width: 420px; }
 
 .tip { color: #86827a; font-size: 95%; margin-top: 15px; font-style: oblique;}
 
@@ -319,7 +319,7 @@ textarea { height: 200px; }
 
 #filterForm #publicSubset { margin-left: 18px; margin-top: 0px;}
 
-#rtColumn #map_canvas { border:1px solid #B4B2AD; }
+#rtColumn #map_canvas { border:1px solid #B4B2AD;  height: 250px}
 
 #artworkData { margin-bottom: 20px;}
 dt, dd { margin-bottom: 5px; }
@@ -355,7 +355,7 @@ footer a:active { outline: none; color: #c2b4b5; }
 footer nav {float: right; width: 248px;}
 footer .nav_link {float: right; margin-right: 20px; padding-right: 20px;}
 
-#artworkPhoto img { border: 3px solid #c9c0bd; padding: 5px; width: 275px; }
+#artworkPhoto img { border: 4px solid #ffffff; width: 484px; }
 
 #comments li { margin-bottom: 35px; }
 .commentMetaData { float: left; margin-left: 25px; }
@@ -375,7 +375,7 @@ footer .nav_link {float: right; margin-right: 20px; padding-right: 20px;}
 
 /** Added by Eric **/
 
-#pano { margin-top: 35px; width: 285px; height: 200px;}
+#pano { margin-top: 35px; width: 100%; height: 250px;}
 
 #map_canvas { 
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -422,6 +422,7 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 .bubbleimg { margin-right: 20px; float: left; clear: both; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
 
 .addthis_toolbox { float: right; margin-top: 10px;}
+.stButton .chicklets {text-indent: -9999em }
 
 span.or {font-weight: bold; font-size: 150%;}
 
@@ -506,7 +507,7 @@ div.admin.photo {
 	text-transform: uppercase;
 }
 .mobileAd{
-	background: url('../images/mobileAd.png') left top repeat-y;
+	background: url('../images/mobileAd.png') left top no-repeatZ;
 	width: 332px;
 	height: 278px;
 	padding-top: 95px;
