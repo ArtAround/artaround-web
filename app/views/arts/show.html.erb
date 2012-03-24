@@ -362,6 +362,10 @@
 				</ul>
 			</form>
 
+			<div class="popUpError">
+				<small>Are you sure you don't want to let us know about something?</small>
+			</div>
+
 		</div>
 		<div class="fade black"></div>	
 	</div>
@@ -383,8 +387,9 @@
         <%= submit_tag "Submit", :class => "submitBtn" %>
       <% end %>
 
-	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-
+			<div class="popUpError">
+				<small>Whoops! You forgot to upload and image.</small>
+			</div>
 
 		</div>
 		<div class="fade black"></div>	

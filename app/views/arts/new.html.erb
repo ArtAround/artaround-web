@@ -151,6 +151,10 @@
           <button class="submitBtn" name="submit" type="submit">
               <span>Submit</span>
           </button>
+		
+		<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+		
+
         </li> 
       </ul>
     <% end %>

@@ -1324,14 +1324,11 @@ input#new_photo{
 }
 
 .addNewArt .mapWrap{
-	position: relative;
-	height: 250px;
+	position: absolute;
+	top: 0;
 	width: 490px;
 }
 
-.addNewArt .mapWrap.floating{
-	position: fixed;
-	top: 20px;
-}
+
 
 
