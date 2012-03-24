@@ -52,6 +52,9 @@ header nav{
 	position: absolute;
 	z-index: 100;
 	right: 0;
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	font-size: 150%;
+	font-weight: 700;
 }
 header nav li{
 	float: left;
@@ -65,11 +68,19 @@ header nav a{
 	display: block;
 	text-align: center;
 	background-color: #3a3233;
-	height: 26px;
+	height: 24px;
+	color: #ffffff;
+	text-transform: uppercase;
+	padding-top: 2px;
+	
+}
+header nav a:link, header nav a:hover, header nav a:visited {
+	color: #c2b4b5;
 }
 header nav li.active a{
 	background:url(/images/nav_active.png) center top no-repeat ;
 	height: 38px;
+	color: #ffffff;
 }
 header nav { float: left; }
 header nav a:link, #nav a:visited, #nav a:active { color: #c9c0bd; text-decoration: none;}
@@ -98,7 +109,7 @@ h2#cityView{
 	margin-top: 53px;
 }
 
-#titleContent { background: url(/images/bg_artTitle.png) center top no-repeat; height: 83px; padding: 24px 10px 0 10px;border-bottom: 1px dotted #c4c1ba; margin-bottom: 35px; }
+#titleContent { background: url(/images/bg_artTitle.png) center top no-repeat; height: 65px; padding: 19px 10px 0 10px; margin-bottom: 35px; }
 #titleContent h2{ 
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	padding-bottom: 0px; 
@@ -120,6 +131,15 @@ ul.new-art {margin-top: -10px;}
 button, a.buttonLink { text-indent: -9999em; display: block; border: none; cursor: pointer;}
 #curateButton { background: url(/images/btn_curate.png) top left no-repeat; width: 141px; height: 45px;}
 #curateButton:hover { background: url(/images/btn_curate.png) bottom left no-repeat; }
+.artdetails{
+	position: relative;
+}
+
+.artdetails .icons{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
 
 
 .searchBtn{
@@ -181,15 +201,16 @@ button, a.buttonLink { text-indent: -9999em; display: block; border: none; curso
 	width:100%;
 }
 
+.home #mapsearch_form {margin-top: 56px; float: left; margin-left: 171px }
 
-#mapsearch_form {margin-top: 56px; float: left; margin-left: 31px }
+#mapsearch_form {margin-top: 56px; float: left; margin-left: 271px }
 #mapsearch_form input { background-color: #484242;
 	-webkit-box-shadow: inset 1px 1px 7px #332c2c;
 	-moz-box-shadow: inset 1px 1px 7px #332c2c;
 	box-shadow: inset 1px 1px 7px #332c2c;
 	color: #b0afaf;
 	 float: left; width: 175px; padding: 3px; border: none; height: 20px}
-#mapsearch_form label { text-indent: -9999em;}
+#mapsearch_form label { text-indent: -9999em; display: none;}
 
 #eventsWrapper{
 	width: 960px;
@@ -323,7 +344,14 @@ textarea { height: 200px; }
 
 #artworkData { margin-bottom: 20px;}
 dt, dd { margin-bottom: 5px; }
-dt { float: left; font-weight: bold; text-transform: lowercase; width: 120px; }
+dd {
+	float: left;
+	width: 300px;
+}
+dt {
+	clear: both;
+}
+dt { float: left; font-weight: bold; text-transform: uppercase; width: 120px; }
 
 .module { border-bottom: 1px dashed #CECFC8; margin-bottom: 35px; padding-bottom: 35px; }
 
@@ -421,13 +449,27 @@ div.faq h4 {font-size: 140%; font-weight: bold; margin: 30px 0 10px 0;}
 
 .bubbleimg { margin-right: 20px; float: left; clear: both; width: 80px; height: 80px; background-repeat: no-repeat; background-attachment: center; background-position: center; text-indent: -9999em; display: block;}
 
-.addthis_toolbox { float: right; margin-top: 10px;}
+.addthis_toolbox { float: right; margin-top: 2px;}
 .stButton .chicklets {text-indent: -9999em }
 
 span.or {font-weight: bold; font-size: 150%;}
 
 
 /** admin styles **/
+
+.withLinks a{
+	float: left;
+	margin-right: 20px;
+}
+#flagIt{
+	text-indent: -9999em;
+	background: url('../images/FlagIt.png') left top no-repeat; 
+	display: block;
+	width: 17px;
+	height: 13px;
+	margin-top: 3px;
+	
+}
 
 div.admin input[type=checkbox] {width: auto; padding: 0; margin: 0; margin-top: 6px;}
 
@@ -507,7 +549,7 @@ div.admin.photo {
 	text-transform: uppercase;
 }
 .mobileAd{
-	background: url('../images/mobileAd.png') left top no-repeatZ;
+	background: url('../images/mobileAd.png') left top no-repeat;
 	width: 332px;
 	height: 278px;
 	padding-top: 95px;
@@ -592,3 +634,41 @@ ul.recentlyAdded{
 	-webkit-column-count: 2;
 	column-count: 2;
 }
+
+.flagOverlay, .addArtOverlay{
+	display: none;
+}
+
+.flagOverlay.active, .addArtOverlay.active{
+	display: block;
+}
+
+.active .white_content{
+	display: block;
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	width: 50%;
+	height: ;
+	padding: 16px 0 16px 0;
+	background-color: #F4FAF5;
+	z-index: 1002;
+	overflow: auto;
+	font-size: 14px;
+}
+
+.active .black_overlay {
+	display: block;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	z-index: 1001;
+	-moz-opacity: 0.5;
+	opacity: .50;
+	filter: alpha(opacity=50);
+}
+
+

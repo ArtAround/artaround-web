@@ -95,25 +95,29 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-	  <% if @art.website.present? %>
-          <a><%= link_to @art.website, @art.website %></a>
-      <% end %>
-          <a id="edit" href="#">Edit it now!</a>
+	  <%= render :partial => "layouts/addthis" %>
+	    
+	  <div class="clear"></div>
+		<div class="withLinks">
+		  <% if @art.website.present? %>
+	          <a><%= link_to @art.website, @art.website %></a>
+	      <% end %>
+	      
+		  <a id="edit" href="#">Edit</a>
+		  <a id="flagIt" href="#">Flag this art</a>
+		
       
-      
-      <%= render :partial => "layouts/addthis" %>
-      
-      <% if admin? %>
-        <div class="admin_art">
-          <%= link_to "Admin", admin_art_path(@art) %>
-        </div>
-      <% end %>
+	      <% if admin? %>
+	          <%= link_to "Admin", admin_art_path(@art) %>
+	      <% end %>
+		</div>
       
       <div class="clear"></div>
+
     </div>
 
   <div id="ltColumn">
-    <div class="module">
+    <div class="module artdetails">
       
       <dl id="artworkMetaData">
         <dt>Category</dt> 
@@ -187,13 +191,16 @@
         </ul>
       <% end %>
       <div class="clear"></div>
-      <% if @art.commissioned %>
+      
+	  <div class="icons">
+	  <% if @art.commissioned %>
         <a href="http://dcarts.dc.gov/DC/DCARTS/">
           <span id="commissioned" title="Commissioned by the District">
             Commissioned by the city
           </span>
         </a>
       <% end %>
+	  </div>
     </div>
     
     <% if @art.comments.approved.any? %>
@@ -273,7 +280,7 @@
       <div class="module" id="artworkPhoto">
       
         <% if @art.flickr_ids.size > 1 %>
-          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="300" height="300" scrolling="no"></iframe>
+          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="490" height="300" scrolling="no"></iframe>
         <% else %>
           <script type="text/javascript">
             var photo_id = "<%= @art.flickr_ids.first %>";
@@ -295,18 +302,60 @@
     
     <div class="module">
       <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
-      <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
-        <%= file_field_tag 'new_photo' %>
-        <label for="new_photo_username">Flickr Username (optional)</label>
-        <%= text_field_tag 'new_photo_username' %>
-        <%= submit_tag "Submit" %>
-      <% end %>
+	  <a href="#">Upload</a>
     </div>
     
     <div id="map_canvas" class="smMap module"></div>
     <!--<div name="pano" id="pano" class="module"></div>/-->
   </div>
+  <div class="flagOverlay">
+	  <div class="clear"></div>
+	  	<div id="light" class="white_content">
+			<a class="close" href="#">Close</a>
+			<div class="clear"></div>
+			<h2>Something wrong with this page?</h2>
+	      <small>Let us know and we'll look into it.</small>
+			<form action="/contact/" method="post" id="flagForm" class="normalForm">
+			    <ul>
+					<li>
+						<label for="id_comment"></label>
+						<textarea name="comment" id="id_comment"></textarea>
+					</li>
+				    <li class="button">
+			            <button class="submitBtn" type="submit">
+			              <span>Submit</span>
+			            </button>
+				    </li>
+				</ul>
+			</form>
+			<div class="thankyou">
+				<small>Thanks for sending us feedback!</small>
+			</div>
 
-  <div class="clear"></div>
+		</div>
+		<div id="fade" class="black_overlay"></div>	
+	</div>
+	<div class="addArtOverlay">
+	  <div class="clear"></div>
+	  	<div id="light" class="white_content">
+			<a class="close" href="#">Close</a>
+			<div class="clear"></div>
+			<h2>Photo Upload</h2>
+	      <small>All the photos you submit to ArtAround will be posted (with attribution) to Flickr and contributes to making the world a better place.</small>
+		      <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
+		        <%= file_field_tag 'new_photo' %>
+		        <label for="new_photo_username">Flickr Username (optional)</label>
+		        <%= text_field_tag 'new_photo_username' %>
+		        <%= submit_tag "Submit" %>
+		      <% end %>
+			<div class="thankyou">
+				<small>Thanks for sending us feedback!</small>
+			</div>
+
+		</div>
+		<div id="fade" class="black_overlay"></div>	
+	</div>
+	<div class="clear"></div>
+	
 
 </div>
