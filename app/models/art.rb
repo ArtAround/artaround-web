@@ -16,7 +16,6 @@ class Art
   field :title
   slug :title
   
-  # (kept, currently undisplayed)
   field :website
   
   # fields doubled on submissions

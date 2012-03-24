@@ -16,6 +16,8 @@
 <% content_for :head do %>
 
   <script type="text/javascript">
+    var event_description_max = 500;
+
     var map;
     var geocoder;
     
@@ -234,7 +236,10 @@
       var container = $(".mapTitle.event");
       container.find("h3").html(event.name);
       container.find("span").html(event.starts_at + " - " + event.ends_at);
-      $("p.description.event").html(event.description);
+      var description = event.description;
+      if (description.length > event_description_max)
+        description = description.substr(0, (event_description_max - 5)) + "...";
+      $("p.description.event").html(description);
 
       // switch the filter pane into event mode
       $("#filterForm").removeClass("allArt").addClass("event");
@@ -341,6 +346,10 @@
       // if the search is pre-populated on page load, perform the filter
       if ($("input#mapsearch").val())
         $("form#mapsearch_form").submit();
+
+      <% if @event %>
+        selectEvent("<%= @event.id %>");
+      <% end %>
     }
     
     $(function() {

@@ -21,5 +21,5 @@ class Event
   validates_presence_of :ends_at
   validates_uniqueness_of :slug
 
-  scope :current, lambda {{:where => {:starts_at.lte => Date.today, :ends_at.gte => Date.today}}}
+  scope :current, lambda {{:where => {:ends_at.gte => Date.today}}}
 end
