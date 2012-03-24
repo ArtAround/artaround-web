@@ -190,6 +190,10 @@ div#ltColumn {
 	width: 420px;
 }
 
+div#ltColumn.oneCol{
+	width: 490px;
+}
+
 div#ltColumn h3{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
@@ -940,7 +944,7 @@ div.flash.notice {
 div.about strong, div.faq strong {
 	font-weight: bold
 }
-div.faq h4 {
+div.oneCol h4 {
 	font-size: 140%;
 	font-weight: bold;
 	margin: 30px 0 10px 0;
