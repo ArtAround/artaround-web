@@ -121,6 +121,10 @@
     
     function markerFor(art, map) {
       var location = new google.maps.LatLng(art.latitude, art.longitude);
+
+      var description = art.description;
+      if (description.length > 210)
+        description = description.substr(0, 205) + "..."
       
       var eventIcon = "";
       if (art.event_name) {
@@ -167,7 +171,7 @@
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		    '<p>' + (art.description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
+		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
         
       '</div>';
       
