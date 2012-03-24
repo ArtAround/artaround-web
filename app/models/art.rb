@@ -111,6 +111,10 @@ class Art
       :description => nil
     )
   end
+
+  def popular?
+    ranking.present?
+  end
   
   def contains_location
     if !latitude.present? and !longitude.present?
