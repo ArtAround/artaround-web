@@ -239,7 +239,6 @@
         <ol>
           <% @art.comments.approved.each_with_index do |comment, i| %>
             <li>
-              <span class="commentNumber"><%= i + 1 %></span>
               <div class="commentMetaData">
                 <span class="commentName">
                   <% if comment.url.present? %>

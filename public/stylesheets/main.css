@@ -198,6 +198,7 @@ div#ltColumn h3, div#rtColumn h3{
 	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
 	font-size: 170%;
+	margin-bottom: 10px;
 }
 
 .tip {
@@ -680,6 +681,13 @@ label {
 	font-weight: 700;
 	margin-top: 10px;
 }
+.addNewArt label{
+	width: none;
+}
+
+select{
+	margin-top: 15px;
+}
 textarea {
 height: 200px;
 }
@@ -851,37 +859,48 @@ padding-left: 50px;
 }
 
 #artworkPhoto img {
-border: 4px solid #ffffff;
-width: 484px;
+	border: 4px solid #ffffff;
+	width: 484px;
 }
 
 #comments li {
-margin-bottom: 35px;
+	margin-bottom: 15px;
+	margin-top: 15px;
 }
 .commentMetaData {
-float: left;
-margin-left: 25px;
+	float: left;
+	width: 420px;
 }
 .commentNumber {
-color: #DCD5D1;
-float: left;
-font-size: 600%;
-font-style: oblique;
+	color: #DCD5D1;
+	float: left;
+	font-size: 600%;
+	font-style: oblique;
 }
 .commentName {
-display: block;
-font-size: 140%;
+	display: block;
+	font-size: 100%;
+	float: left;
+	width: 290px;
+	font-style: italic;
+	font-weight: bold;
+	text-transform: uppercase;
 }
 .entryDate {
-color: #AA9C95;
-display: block;
-font-style: oblique;
-margin-bottom: 8px;
+	color: #AA9C95;
+	display: block;
+	font-style: oblique;
+	margin-bottom: 8px;
+	float: right;
+	font-style: italic;
+}
+#comments p{
+	clear: both;
 }
 
 #artworkPhoto span {
-margin-top: 20px;
-display: block;
+	margin-top: 20px;
+	display: block;
 }
 
 .artwork1 {
