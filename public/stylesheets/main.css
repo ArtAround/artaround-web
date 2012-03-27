@@ -369,14 +369,21 @@ margin-bottom: 0;
 .submitBtn:hover {
 	background: #08958D;
 }
-.cancelBtn {
-	background: url(/images/btn_cancel.png) top left no-repeat;
+.cancelBtn, a.buttonLink{
+	background: #57B6A6;
 	width: 89px;
-	height: 45px;
+	height: 33px;
 	margin-top: 45px;
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	font-size: 150%;
+	color: #ffffff;
+	text-transform: uppercase;
+	text-align: center;
+	text-decoration: none;
+	padding-top: 12px;
 }
 .cancelBtn:hover {
-	background: url(/images/btn_cancel.png) bottom left no-repeat;
+	background: #08958D;
 }
 
 #mapContainer {
