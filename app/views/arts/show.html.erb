@@ -132,7 +132,7 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-  	  <%= render :partial => "layouts/share" %>
+  	  <%= render :partial => "layouts/share", :locals => {:art => @art} %>
   	    
   	  <div class="clear"></div>
   		<div class="withLinks">

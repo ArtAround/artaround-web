@@ -1064,9 +1064,9 @@ text-indent: -9999em;
 display: block;
 }
 
-.addthis_toolbox {
-float: right;
-margin-top: 2px;
+.share_toolbox {
+	float: right;
+	margin-top: 2px;
 }
 .stButton .chicklets {
 text-indent: -9999em
