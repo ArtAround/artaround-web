@@ -132,21 +132,21 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-	  <%= render :partial => "layouts/addthis" %>
-	    
-	  <div class="clear"></div>
-		<div class="withLinks">
-		  <% if @art.website.present? %>
-	          <a><%= link_to "Visit website", @art.website %></a>
-	      <% end %>
-	      
-		  <a id="edit" href="#">Edit</a>
-		  <a id="flagIt" href="#">Flag this art</a>
-		
-      <% if admin? %>
-          <%= link_to "Admin", admin_art_path(@art) %>
-      <% end %>
-		</div>
+  	  <%= render :partial => "layouts/share" %>
+  	    
+  	  <div class="clear"></div>
+  		<div class="withLinks">
+  		  <% if @art.website.present? %>
+  	          <a><%= link_to "Visit website", @art.website %></a>
+  	      <% end %>
+  	      
+  		  <a id="edit" href="#">Edit</a>
+  		  <a id="flagIt" href="#">Flag this art</a>
+  		
+        <% if admin? %>
+            <%= link_to "Admin", admin_art_path(@art) %>
+        <% end %>
+  		</div>
       
       <div class="clear"></div>
 
