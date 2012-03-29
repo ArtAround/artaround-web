@@ -59,7 +59,8 @@
         description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
-        flickr_id: "<%= (art.flickr_ids || []).first %>",
+        flickr_id: "<%= art.primary_photo ? art.primary_photo.flickr_id : "" %>",
+        flickr_thumb: "<%= art.primary_photo ? thumbnail_url(art.primary_photo, "Medium") : "" %>",
         commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
         longitude: <%= art.longitude || 0 %>
@@ -176,7 +177,7 @@
        
             '</dl>' +
         '</div>' +
-        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" href="/arts/' + art.id + '" target="_blank">Image</a>' +
+        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.flickr_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
 		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
         
       '</div>';
@@ -204,14 +205,6 @@
         
         currentInfoWindow = new google.maps.InfoWindow({content: html});
         currentInfoWindow.open(map, marker);
-        
-        if (art.flickr_id) {
-          Flickr.getThumbnail(art.flickr_id, "Medium", function(thumbnail) {
-            if (thumbnail)
-              $("#bubbleimg-" + art.id).css("background-image", "url(\"" + thumbnail.source + "\")");
-          });
-        }
-
       });
       
       return marker;
@@ -381,16 +374,6 @@
         }
       );
       
-
-      $("li.event").each(function(i, elem) {
-        var flickr_id = $(elem).data("flickr_id");
-        var id = $(elem).data("id");
-
-        Flickr.getThumbnail(flickr_id, "Small", function(thumbnail) {
-          if (thumbnail)
-            $("#event-" + id + " img").prop("src", thumbnail.source);
-        });
-      });
 
       $("li.event a").click(function() {
         selectEvent($(this).parents("li").data("id"));
@@ -571,12 +554,11 @@
         <% @events.each do |event| %>
   				<li class="event" 
             id="event-<%= event.id %>"
-            data-flickr_id="<%= event.arts.first.photos.first.flickr_id %>"
             data-id="<%= event.id %>"
             data-slug="<%= event.slug %>"
             >
   					<a href="#">
-              <img width="109" height="60" alt="<%= event.name %>">
+              <img width="109" height="60" src="<%= thumbnail_url event.arts.first.photos.first, "Small" %>" alt="<%= event.name %>">
             </a>
   					<a href="#"><h4><%= event.name %></h4></a>
   					<div class="dateRange">

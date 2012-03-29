@@ -2,6 +2,15 @@
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
 <% end %>
 
+<% content_for :head do %>
+  <% @art.photos.each do |photo| %>
+    <meta property="og:image" content="<%= thumbnail_url photo, "Large" %>" />
+  <% end %>
+  <meta property="og:description" content="<%= h known(@art.description) %>" />
+  <meta property="og:title" content="<%= h @art.title %>" />
+  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<% end %>
+
 <script type="text/javascript">
   var latitude = <%= @art.latitude || 0 %>;
   var longitude = <%= @art.longitude || 0 %>;
@@ -132,7 +141,13 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-  	  <%= render :partial => "layouts/share", :locals => {:art => @art} %>
+  	  
+      <div class="share_toolbox">
+        <span class='st_facebook' displayText='Facebook'></span>
+        <span class='st_twitter' st_title="<%= h @art.title %>" displayText='Tweet'></span>
+        <span class='st_pinterest' displayText='Pinterest'></span>
+        <span class='st_googleplus' displayText='Google +1'></span>
+      </div>
   	    
   	  <div class="clear"></div>
   		<div class="withLinks">
@@ -331,17 +346,10 @@
       
         <% if @art.flickr_ids.size > 1 %>
           <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="490" height="300" scrolling="no"></iframe>
-        <% else %>
-          <script type="text/javascript">
-            var photo_id = "<%= @art.flickr_ids.first %>";
-            Flickr.getThumbnail(photo_id, "Medium", function(thumbnail) {
-              if (thumbnail) {
-                var image = "<img src=\"" + thumbnail.source + "\" />";
-                var html = "<a href=\"" + Flickr.photoUrl(photo_id) + "\">" + image + "</a>";
-                $("#artworkPhoto").prepend(html);
-              }
-            });
-          </script>
+        <% elsif @art.primary_photo %>
+            <a href="<%= photo_url @art.primary_photo %>">
+              <img src="<%= thumbnail_url @art.primary_photo, "Medium" %>" />
+            </a>
         <% end %>
 <!--
 		<div id="eventsMenu">

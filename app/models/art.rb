@@ -7,7 +7,7 @@ class Art
   has_many :comments
   belongs_to :event
   embeds_many :submissions
-  has_many :photos
+  has_many :photos, :dependent => :destroy
 
   
   attr_protected :_id, :commissioned, :approved, :location, :flickr_ids, :slug
