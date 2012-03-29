@@ -47,18 +47,8 @@ class Api::ArtsController < Api::ApiController
     head :not_found and return unless art
 
     begin
-      flickr_id = upload_photo art, params[:file].path, params[:new_photo_username]
+      photo = upload_photo! art, params[:file].path, params[:new_photo_username]
       
-      art.flickr_ids ||= []
-      art.flickr_ids << flickr_id
-      art.save!
-
-      photo = art.photos.new(
-        :flickr_id => flickr_id,
-        :flickr_username => params[:new_photo_username]
-      )
-      photo.save! # also not controversial
-
       AdminMailer.new_photo(art).deliver
 
       render :json => art

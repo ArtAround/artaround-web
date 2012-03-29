@@ -41,22 +41,12 @@ class ArtsController < ApplicationController
         AdminMailer.new_art(@art).deliver
         
         begin
-          flickr_id = upload_photo @art, params[:new_photo].path, params[:new_photo_username]
+          photo = upload_photo! @art, params[:new_photo].path, params[:new_photo_username]
         rescue FlickRaw::FailedResponse
           @art.destroy
           flash.now[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
           render :new
         else
-          @art.flickr_ids ||= []
-          @art.flickr_ids << flickr_id
-          @art.save! # should not be a controversial operation
-
-          photo = @art.photos.new(
-            :flickr_id => flickr_id,
-            :flickr_username => params[:new_photo_username]
-          )
-          photo.save! # also not controversial
-          
           redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
         end
       end
@@ -91,20 +81,10 @@ class ArtsController < ApplicationController
     end
     
     begin
-      flickr_id = upload_photo @art, params[:new_photo].path, params[:new_photo_username]
+      photo = upload_photo! @art, params[:new_photo].path, params[:new_photo_username]
     rescue FlickRaw::FailedResponse
       redirect_to art_path(@art), :alert => "There was a problem uploading your photo. If you don't mind, please try it again."
     else
-      @art.flickr_ids ||= []
-      @art.flickr_ids << flickr_id
-      
-      @art.save! # should not be a controversial operation
-      
-      photo = @art.photos.new(
-        :flickr_id => flickr_id,
-        :flickr_username => params[:new_photo_username]
-      )
-      photo.save! # also not controversial
 
       AdminMailer.new_photo(@art).deliver
       

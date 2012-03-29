@@ -20,4 +20,8 @@ module ApplicationHelper
     end
   end
 
+  def photo_url(photo, size = :large)
+    photo.sizes[size.to_s.capitalize]['url']
+  end
+
 end
