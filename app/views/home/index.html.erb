@@ -19,8 +19,8 @@
 	<div class="rtCol">
 		<div class="featureShadow">
 			<div class="imgContainer">
-				<a href="#">
-					<img class="featuredImage" src="" alt="" />
+				<a href="<%= art_path @featured %>">
+					<img class="featuredImage" src="<%= thumbnail_url @featured.primary_photo, "Large" %>" alt="<%= h @featured.title %>" />
 				</a>
 			</div>
 		</div>
@@ -28,7 +28,10 @@
 		<ul class="recentlyAdded">
 	      <% recent_art.each_with_index do |art, i| %>
 	        <li class="artwork<%= i + 1 %>">
-	          <a href="<%= art_path art %>" id="art-thumbnail-<%= art.slug %>"></a>
+	          <a href="<%= art_path art %>" 
+	          	id="art-thumbnail-<%= art.slug %>"
+	          	style="background-image: url('<%= thumbnail_url art.primary_photo, "Small" %>')"
+	          	></a>
 	        </li>
 	      <% end %>
 		</ul>
@@ -62,28 +65,3 @@
 </div>
 
 </div>
-
-<script type="text/javascript">
-	<% if @featured and @featured.primary_photo %>
-		var art_path = "<%= art_path @featured %>";
-		Flickr.getThumbnail("<%= @featured.primary_photo.flickr_id %>", "Large", function(thumbnail) {
-          if (thumbnail) {
-            $("img.featuredImage").prop("src", thumbnail.source);
-            $("img.featuredImage").parent("a").prop("href", art_path);
-          }
-        });
-    <% end %>
-
-    <% recent_art.each do |art| %>
-	  <% if art.flickr_ids and art.flickr_ids.any? %>
-	    (function() {
-	    	Flickr.getThumbnail("<%= art.flickr_ids.first %>", "Small", function(thumbnail) {
-		      if (thumbnail) {
-		        $("#art-thumbnail-<%= art.slug %>").css("background-image", "url(\"" + thumbnail.source + "\")");
-		      }
-		    });
-		})();
-	  <% end %>
-	<% end %>
-
-</script>

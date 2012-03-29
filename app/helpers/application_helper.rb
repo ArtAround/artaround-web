@@ -24,7 +24,9 @@ module ApplicationHelper
   # ["Medium 800", "Small", "Small 320", "Medium", "Medium 640",
   # "Large Square", "Square", "Large", "Original", "Thumbnail"]
   def thumbnail_url(photo, size = "Large")
-    photo.sizes[size.to_s.capitalize]['source']
+    size = size.to_s.capitalize
+    return nil unless photo and photo.sizes[size]
+    photo.sizes[size]['source']
   end
 
   def photo_url(photo)

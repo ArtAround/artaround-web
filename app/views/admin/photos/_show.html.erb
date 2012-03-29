@@ -1,18 +1,8 @@
 <div class="photo admin" id="photo-<%= photo.id %>">
-    <script type="text/javascript">
-        (function() {
-            var flickr_id = "<%= photo.flickr_id %>";
-            var photo_id = "<%= photo.id %>";
-            Flickr.getThumbnail(flickr_id, "Small", function(thumbnail) {
-              if (thumbnail) {
-                var image = "<img src=\"" + thumbnail.source + "\" />";
-                var html = "<a href=\"" + Flickr.photoUrl(flickr_id) + "\">" + image + "</a>";
-                $("#photo-" + photo_id).prepend(html);
-              }
-            });
-        })();
-    </script>
-
+    <a href="<%= photo_url photo %>">
+        <img src="<%= thumbnail_url photo, "Small" %>" />
+    </a>
+    
     <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
         <%= f.label :flickr_username %>
         <%= f.text_field :flickr_username %>
