@@ -20,8 +20,16 @@ module ApplicationHelper
     end
   end
 
-  def photo_url(photo, size = :large)
-    photo.sizes[size.to_s.capitalize]['url']
+  # valid sizes: 
+  # ["Medium 800", "Small", "Small 320", "Medium", "Medium 640",
+  # "Large Square", "Square", "Large", "Original", "Thumbnail"]
+  def thumbnail_url(photo, size = "Large")
+    photo.sizes[size.to_s.capitalize]['source']
+  end
+
+  def photo_url(photo)
+    username = flickr_details[:account][:username]
+    "http://www.flickr.com/photos/#{username}/#{photo.flickr_id}/"
   end
 
 end

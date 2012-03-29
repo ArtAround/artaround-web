@@ -1,11 +1,7 @@
-<div class="share_toolbox">
-	<span id='share_facebook' displayText='Facebook'></span>
-	<span id='share_twitter' displayText='Tweet'></span>
-	<span id='share_pinterest' displayText='Pinterest'></span>
-	<span id='share_googleplus' displayText='Google +1'></span>
-</div>
 
-<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+
+
+
 <script type="text/javascript">
     // required by ShareThis
     stLight.options({publisher: "ur-53501c6d-3b37-ee4f-e4d7-c71039306e67"});
@@ -27,11 +23,13 @@
         stWidget.addEntry(details);
     }
 
-    Flickr.getThumbnail(<%= art.primary_photo.flickr_id %>, "Medium", function(thumbnail) {
-        var thumb = thumbnail ? thumbnail.source : null;
-        wireButton("facebook", thumb);
-        wireButton("twitter"); // thumbnail not needed
-        wireButton("pinterest", thumb);
-        wireButton("googleplus", thumb);
-    });
+    <% if art.primary_photo %>
+    var thumb = "<%= thumbnail_url art.primary_photo, "Large" %>";
+    <% else %>
+    var thumb = null;
+    <% end %>
+    wireButton("facebook", thumb);
+    wireButton("twitter"); // thumbnail not needed
+    wireButton("pinterest", thumb);
+    wireButton("googleplus", thumb);
 </script>
