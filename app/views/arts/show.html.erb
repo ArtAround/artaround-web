@@ -4,7 +4,7 @@
 
 <% content_for :head do %>
   <% @art.photos.each do |photo| %>
-    <meta property="og:image" content="<%= thumbnail_url @art.primary_photo, "Large" %>" />
+    <meta property="og:image" content="<%= thumbnail_url photo, "Large" %>" />
   <% end %>
   <meta property="og:description" content="<%= h known(@art.description) %>" />
   <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
