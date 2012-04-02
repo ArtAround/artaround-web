@@ -12,9 +12,7 @@ gem 'mongoid_slug', '0.9.0', :require => 'mongoid/slug'
 gem 'bson_ext', '1.5.2'
 gem 'SystemTimer', '1.2.3'
 
-gem "will_paginate" # update to 3.0.0
-
-gem 'pony', '1.1' # update to 1.3
+gem 'rails_autolink'
 
 group :development do
   gem 'wirble', '0.1.3'
