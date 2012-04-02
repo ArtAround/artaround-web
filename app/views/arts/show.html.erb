@@ -63,9 +63,9 @@
 
     $("#edit").click(
       function() {
-        $("#artworkMetaData").hide();
-        $("#edit_artworkMetaData").show();
-        $(".callout").hide();
+        $("#artworkMetaData").toggle();
+        $("#edit_artworkMetaData").toggle();
+        $(".callout").toggle();
         return false;
       }
     );
