@@ -4,7 +4,11 @@ set :environment, (ENV['target'] || 'staging')
 set :user, 'dotthei'
 set :application, 'artaround'
 
-set :deploy_to, "/home/#{user}/webapps/artaround_#{environment}/artaround"
+if environment == "staging"
+  set :deploy_to, "/home/#{user}/webapps/artaround_staging/artaround"
+else
+  set :deploy_to, "/home/#{user}/webapps/artaround/artaround"
+end
 
 # both production and staging environments are on the same box
 set :domain, 'theartaround.us'
@@ -40,7 +44,7 @@ namespace :deploy do
 
   desc "Create indexes"
   task :create_indexes, :roles => :app, :except => {:no_release => true} do
-    run "cd #{release_path} && rake db:mongoid:create_indexes"
+    run "cd #{release_path} && bundle exec rake db:mongoid:create_indexes"
   end
   
   task :bundle_install, :roles => :app, :except => {:no_release => true} do
