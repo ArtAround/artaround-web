@@ -342,35 +342,47 @@
 
   <div id="rtColumn">
     <% if @art.flickr_ids and @art.flickr_ids.any? %>
-      <div class="module" id="artworkPhoto">
+      <div class="module">
       
         <% if @art.flickr_ids.size > 1 %>
           <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="490" height="300" scrolling="no"></iframe>
         <% elsif @art.primary_photo %>
-            <a href="<%= photo_url @art.primary_photo %>">
+            <a id="artworkPhoto" href="<%= photo_url @art.primary_photo %>">
               <img src="<%= thumbnail_url @art.primary_photo, "Medium" %>" />
             </a>
         <% end %>
-<!--
-		<div id="eventsMenu">
-			<a class="moreEvents left"></a>
-			<ul>
-  				<li class="art thumbnail">
-  					<a href="#">
-              			<img width="109" height="60" alt="<%= event.name %>">
-					</a>
-  				</li>
-  				<li class="art thumbnail">
-  					<a href="#">
-              			<img width="109" height="60" alt="<%= event.name %>">
-					</a>
-  				</li>
-			</ul>
 
-			<a class="moreEvents right"></a>
+		<div id="artThumbs">
+			<a class="moreArt left"></a>
+			<div class="thumbsContainer">
+				<ul>
+	  				<li class="art thumbnail">
+	  					<a href="#">
+	              			<img width="112" height="112" alt="">
+						</a>
+	  				</li>
+	  				<li class="art thumbnail">
+	  					<a href="#">
+	              			<img width="112" height="112" alt="">
+						</a>
+	  				</li>
+	  				<li class="art thumbnail">
+	  					<a href="#">
+	              			<img width="112" height="112" alt="">
+						</a>
+	  				</li>
+	  				<li class="art thumbnail">
+	  					<a href="#">
+	              			<img width="112" height="112" alt="">
+						</a>
+	  				</li>
+				</ul>
+			</div>
+
+			<a class="moreArt right"></a>
 			<div class="clear"></div>
 		</div>
-  -->      
+
         <span class="tip">
           All photos uploaded are published on <a href="http://flickr.com">Flickr</a> with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
         </span>
