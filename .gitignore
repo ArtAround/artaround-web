@@ -1,6 +1,5 @@
 .DS_Store
 /.bundle
-/.rvmrc
 /db/*.sqlite3
 /log/*.log
 /tmp/**/*

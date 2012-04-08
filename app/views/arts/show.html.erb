@@ -63,9 +63,9 @@
 
     $("#edit").click(
       function() {
-        $("#artworkMetaData").hide();
-        $("#edit_artworkMetaData").show();
-        $(".callout").hide();
+        $("#artworkMetaData").toggle();
+        $("#edit_artworkMetaData").toggle();
+        $(".callout").toggle();
         return false;
       }
     );
@@ -190,10 +190,10 @@
         <dd><%= known @art.ward %></dd>
 
         <dt>Location</dt>
-        <dd><%= known @art.location_description %></dd>
+        <dd><%= light_format known(@art.location_description) %></dd>
 
         <dt>Description</dt>  
-        <dd><%= known @art.description %></dd>
+        <dd><%= light_format known(@art.description) %></dd>
       </dl>
       
       <%= form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
