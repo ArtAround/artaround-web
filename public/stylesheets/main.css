@@ -1058,31 +1058,31 @@ width: auto;
 margin-right: 10px
 }
 .mapBubble p {
-float: left;
-width: 300px;
+	float: left;
+	width: 300px;
 }
 .mapBubble h4 {
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
-font-weight: normal;
-font-size: 150%;
-text-transform: uppercase;
+	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
+	font-weight: normal;
+	font-size: 150%;
+	text-transform: uppercase;
 }
 .mapBubble .icons {
-position: absolute;
-top: 0;
-right: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 .mapBubble .category {
-text-transform: uppercase;
+	text-transform: uppercase;
 }
 .mapBubble .artist {
 }
 .mapBubble .year {
 }
 .mapBubble .moreInfo {
-text-transform: uppercase;
-font-size: 90%;
-margin-left: 10px;
+	text-transform: uppercase;
+	font-size: 90%;
+	margin-left: 10px;
 }
 
 
