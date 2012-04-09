@@ -731,10 +731,10 @@ label {
 	text-transform: capitalize;
 	text-transform: uppercase;
 	font-weight: 700;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 .addNewArt label{
-	width: none;
+	width: 100%;
 }
 
 select{
@@ -1087,16 +1087,16 @@ margin-left: 10px;
 
 
 .bubbleimg {
-margin-right: 20px;
-float: left;
-clear: both;
-width: 109px;
-height: 109px;
-background-repeat: no-repeat;
-background-attachment: center;
-background-position: center;
-text-indent: -9999em;
-display: block;
+	margin-right: 20px;
+	float: left;
+	clear: both;
+	width: 109px;
+	height: 109px;
+	background-repeat: no-repeat;
+	background-attachment: center;
+	background-position: center;
+	text-indent: -9999em;
+	display: block;
 }
 
 .share_toolbox {
@@ -1104,28 +1104,30 @@ display: block;
 	margin-top: 2px;
 }
 .stButton .chicklets {
-text-indent: -9999em
+	text-indent: -9999em
 }
 
 span.or {
-font-weight: bold;
-font-size: 150%;
+	font-weight: bold;
+	font-size: 150%;
+	margin-top: 15px;
+	display: block;
 }
 
 
 /** admin styles **/
 
 .withLinks a {
-float: left;
-margin-right: 20px;
+	float: left;
+	margin-right: 20px;
 }
 #flagIt {
-text-indent: -9999em;
-background: url(/images/flagIt.png) left top no-repeat;
-display: block;
-width: 17px;
-height: 13px;
-margin-top: 3px;
+	text-indent: -9999em;
+	background: url(/images/flagIt.png) left top no-repeat;
+	display: block;
+	width: 17px;
+	height: 13px;
+	margin-top: 3px;
 }
 
 div.admin input[type=checkbox] {
