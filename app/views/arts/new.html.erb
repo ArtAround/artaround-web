@@ -70,7 +70,7 @@
     <%= form_for @art, :html => {:multipart => true, :id => "new_form"} do |f| %>
       <ul class="new-art">
         <li>
-          <strong>If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.</strong>
+          If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.
         </li>
         <li>
           <span class="small blue"><em><sup>*</sup> = required</em>
@@ -97,8 +97,8 @@
           <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
         </li>
         <li>
-          <em>Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.</em>
           <%= f.label :ward %>
+          <em>Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.</em>
           <%= f.text_field :ward %>
         </li>
         <li>
