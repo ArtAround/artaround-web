@@ -1514,19 +1514,13 @@ div.popupError {
 
 .timeline{
 	height: 6px;
-	background: #4f4f4f; /* Old browsers */
-	background: -moz-linear-gradient(top,  #4f4f4f 0%, #dfdcdb 44%, #dfdcdb 56%, #4f4f4f 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4f4f4f), color-stop(44%,#dfdcdb), color-stop(56%,#dfdcdb), color-stop(100%,#4f4f4f)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #4f4f4f 0%,#dfdcdb 44%,#dfdcdb 56%,#4f4f4f 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #4f4f4f 0%,#dfdcdb 44%,#dfdcdb 56%,#4f4f4f 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #4f4f4f 0%,#dfdcdb 44%,#dfdcdb 56%,#4f4f4f 100%); /* IE10+ */
-	background: linear-gradient(top,  #4f4f4f 0%,#dfdcdb 44%,#dfdcdb 56%,#4f4f4f 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f4f4f', endColorstr='#4f4f4f',GradientType=0 ); /* IE6-9 */
-	width: 100%;
-	position: absolute;
-	bottom: 12px;
-	margin-left: -211px;
-	padding-right: 311px;
+	background: url('../images/bg_timeline.png') center center repeat-x;
+	position: relative;
+	bottom: -23px;
+	margin: 0 -101px 0 -211px;
+	height: 25px;
+
+
 }
 
 .handle{
