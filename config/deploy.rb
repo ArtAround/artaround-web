@@ -5,8 +5,10 @@ set :user, 'dotthei'
 set :application, 'artaround'
 
 if environment == "staging"
+  set :gems_dir, "/home/#{user}/webapps/artaround_staging/gems"
   set :deploy_to, "/home/#{user}/webapps/artaround_staging/artaround"
 else
+  set :gems_dir, "/home/#{user}/webapps/artaround/gems"
   set :deploy_to, "/home/#{user}/webapps/artaround/artaround"
 end
 
@@ -48,7 +50,7 @@ namespace :deploy do
   end
   
   task :bundle_install, :roles => :app, :except => {:no_release => true} do
-    run "cd #{release_path} && bundle install --local"
+    run "cd #{release_path} && bundle install --local --path=#{gems_dir}"
   end
   
   desc "Get shared files into position"
