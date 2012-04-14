@@ -39,7 +39,6 @@ class Api::ApiController < ApplicationController
     if event = art.event
       hash = clean(event.attributes.dup, event_fields)
       hash[:icon_thumbnail_url] = event.icon :thumbnail
-      hash[:icon_small_url] = event.icon :small
       hash
     end
   end
