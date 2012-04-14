@@ -38,11 +38,11 @@
 <div id="rtColumn">
   <% if @event.icon.exists? %>
     Original:<br/>
-    <%= link_to image_tag(@event.icon.url), @event.icon.url %><br/>
+    <%= link_to image_tag(@event.icon(:original)), @event.icon(:original) %><br/>
     Small:<br/>
-    <%= link_to image_tag(@event.icon.url(:small)), @event.icon.url(:small) %><br/>
+    <%= link_to image_tag(@event.icon(:small)), @event.icon(:small) %><br/>
     Thumbnail:<br/>
-    <%= link_to image_tag(@event.icon.url(:thumbnail)), @event.icon.url(:thumbnail) %><br/>
+    <%= link_to image_tag(@event.icon(:thumbnail)), @event.icon(:thumbnail) %><br/>
   <% end %>
 </div>
 

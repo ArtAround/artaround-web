@@ -562,7 +562,7 @@
             data-slug="<%= event.slug %>"
             >
   					<a href="#">
-              <img width="109" height="60" src="<%= thumbnail_url event.arts.first.photos.first, "Small" %>" alt="<%= event.name %>">
+              <img src="<%= event.icon :small %>" alt="<%= event.name %>">
             </a>
   					<a href="#"><h4><%= event.name %></h4></a>
   					<div class="dateRange">
