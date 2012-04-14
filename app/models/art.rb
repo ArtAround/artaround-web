@@ -21,9 +21,9 @@ class Art
   # fields doubled on submissions
   field :category
   field :artist
-  field :year
+  field :year, :default => ""
   field :neighborhood
-  field :ward
+  field :ward, :default => ""
   field :location_description
   field :description
   

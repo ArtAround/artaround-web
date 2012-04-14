@@ -14,8 +14,7 @@ class Api::ArtsController < Api::ApiController
     # be set manually.
     art = Art.new(vals)
 
-    art.approved     = true
-    art.commissioned = false
+    art.approved = true # auto-approve, would default to false otherwise
 
     if vals[:location]
       latitude = vals[:location][0].to_f
@@ -46,14 +45,13 @@ class Api::ArtsController < Api::ApiController
     # this is an API, no body is required.
     head :not_found and return unless art
 
-    begin
-      photo = upload_photo! art, params[:file].path, params[:new_photo_username]
-      
-      AdminMailer.new_photo(art).deliver
+    photo = create_photo art, params[:file], params[:new_photo_username]
 
+    if photo.save
+      AdminMailer.new_photo(art).deliver
       render :json => art
-    rescue FlickRaw::FailedResponse
-      render :json => { :success => false }, :status => 500
+    else
+      render :json => { :success => false, :errors => photo.errors.messages.values.flatten }, :status => 500
     end
   end
   

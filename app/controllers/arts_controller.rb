@@ -19,8 +19,7 @@ class ArtsController < ApplicationController
     
     @art.location = [latitude, longitude] if latitude and longitude
     
-    @art.approved = true # auto-approve
-    @art.commissioned = false
+    @art.approved = true # auto-approve, would default to false otherwise
     
     unless params[:new_photo] and params[:new_photo].respond_to?(:path)
       flash.now[:alert] = "Please include a photo of this piece of art."
@@ -40,14 +39,13 @@ class ArtsController < ApplicationController
       
         AdminMailer.new_art(@art).deliver
         
-        begin
-          photo = upload_photo! @art, params[:new_photo].path, params[:new_photo_username]
-        rescue FlickRaw::FailedResponse
-          @art.destroy
-          flash.now[:alert] = "There was a problem uploading your photo. If you don't mind, please try it again using the form on the righthand side."
-          render :new
-        else
+        photo = create_photo @art, params[:new_photo], params[:new_photo_username]
+        if photo.save
           redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
+        else
+          @art.destroy
+          flash.now[:alert] = photo.errors.messages.values.flatten.join(" ")
+          render :new
         end
       end
     else
@@ -80,15 +78,12 @@ class ArtsController < ApplicationController
       return false
     end
     
-    begin
-      photo = upload_photo! @art, params[:new_photo].path, params[:new_photo_username]
-    rescue FlickRaw::FailedResponse
-      redirect_to art_path(@art), :alert => "There was a problem uploading your photo. If you don't mind, please try it again."
-    else
-
-      AdminMailer.new_photo(@art).deliver
-      
+    photo = create_photo @art, params[:new_photo], params[:new_photo_username]
+    if photo.save
+      AdminMailer.new_photo(@art).deliver    
       redirect_to art_path(@art), :notice => "Thank you for contributing your photo! It should appear in the slideshow below."
+    else
+      redirect_to art_path(@art), :alert => photo.errors.messages.values.flatten.join(" ")
     end
   end
   

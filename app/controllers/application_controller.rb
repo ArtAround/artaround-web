@@ -3,61 +3,11 @@ class ApplicationController < ActionController::Base
   layout "application"
   
   # saves the art, creates a photo and saves it, returns the Photo object
-  def upload_photo!(art, path, username = nil)
-    tags = [art.slug, "dc"]
-    tags << art.category.downcase if art.category.present?
-    
-    if flickr_details[:metadata][:extra_tags].is_a?(Array)
-      tags << flickr_details[:metadata][:extra_tags]
-    end
-
-    description = username.present? ? flickr_description(username) : ""
-
-    if FlickRaw.api_key.present?
-
-      flickr_id = flickr.upload_photo path, {
-        :title => art.title,
-        :description => description,
-        :tags => tags.compact.uniq.join(","),
-        :viewable_by => flickr_details[:metadata][:viewable_by],
-        :level => flickr_details[:metadata][:level],
-        :type => flickr_details[:metadata][:type]
-      }
-
-      sizes = flickr.photos.getSizes :photo_id => flickr_id
-
-      art.flickr_ids ||= []
-      art.flickr_ids << flickr_id
-      art.save! # should not be a controversial operation
-
-      photo = art.photos.new(
-        :flickr_id => flickr_id,
-        :flickr_username => username,
-        :sizes => process_sizes(sizes)
-      )
-      photo.save! # also not controversial
-
-      photo
-
-    else
-      # only happens in a testing environment, when the API key is left out of the config
-      nil
-    end
-  end
-
-  # sizes is a FlickRaw::ResponseList (array-like of FlickRaw::Response)
-  def process_sizes(sizes)
-    new_sizes = {}
-    sizes.each do |size|
-      hash = size.to_hash
-      label = hash.delete "label"
-      new_sizes[label] = hash
-    end
-    new_sizes
-  end
-
-  def flickr_description(username)
-    "Uploaded by http://flickr.com/photos/#{username}"
+  def create_photo(art, image, username = nil)
+    art.photos.new(
+      :flickr_username => username,
+      :image => image
+    )
   end
 
   helper_method :flickr_details

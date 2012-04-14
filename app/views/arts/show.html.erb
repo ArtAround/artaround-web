@@ -348,41 +348,39 @@
   </div>
 
   <div id="rtColumn">
-    <% if @art.flickr_ids and @art.flickr_ids.any? %>
-      <div class="module">
-      
-        <a id="artworkPhoto" href="<%= @art.primary_photo.image :original %>">
-          <img src="<%= @art.primary_photo.image :big %>" />
-        </a>
+    <div class="module">
+    
+      <a id="artworkPhoto" href="<%= @art.primary_photo.image :original %>">
+        <img src="<%= @art.primary_photo.image :big %>" />
+      </a>
 
-        <% if @other_photos %>    
-      		<div id="artThumbs">
-      			<!-- <a class="moreArt left"></a> -->
-      			<div class="thumbsContainer">
-      				<ul>
-                <% @other_photos.first(3).each do |photo| %>
-      	  				<li class="art thumbnail">
-      	  					<a href="<%= photo.image :original %>">
-                			<img width="112" height="112" src="<%= photo.image :small %>" />
-      						  </a>
-      	  				</li>
-                <% end %>
-      				</ul>
-      			</div>
+      <% if @other_photos %>    
+    		<div id="artThumbs">
+    			<!-- <a class="moreArt left"></a> -->
+    			<div class="thumbsContainer">
+    				<ul>
+              <% @other_photos.first(3).each do |photo| %>
+    	  				<li class="art thumbnail">
+    	  					<a href="<%= photo.image :original %>">
+              			<img width="112" height="112" src="<%= photo.image :small %>" />
+    						  </a>
+    	  				</li>
+              <% end %>
+    				</ul>
+    			</div>
 
-      			<!-- <a class="moreArt right"></a> -->
-      			<div class="clear"></div>
-      		</div>
-        <% end %>
+    			<!-- <a class="moreArt right"></a> -->
+    			<div class="clear"></div>
+    		</div>
+      <% end %>
 
-        <span class="tip">
-          All photos uploaded are published on <a href="http://flickr.com">Flickr</a> with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
-        </span>
-      </div>
-    <% end %>
+      <span class="tip">
+        All photos uploaded are published on <a href="http://flickr.com">Flickr</a> with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
+      </span>
+    </div>
     
     <div class="module">
-      <h3>Have <%= (@art.flickr_ids and @art.flickr_ids.any?) ? "Another" : "A" %> Photo? Upload it now!</h3>
+      <h3>Have Another Photo? Upload it now!</h3>
 	    <a class="upload_link" href="#">Upload</a>
     </div>
     
