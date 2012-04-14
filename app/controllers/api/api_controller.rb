@@ -27,7 +27,7 @@ class Api::ApiController < ApplicationController
       hash = art.as_json
       hash = clean hash, art_fields
       hash[:event] = event_for_art(art)
-      hash[:photos] = photos_for_art(art)
+      # hash[:photos] = photos_for_art(art)
       hash
     end
     {
