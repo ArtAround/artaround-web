@@ -23,7 +23,7 @@ class Photo
 
   validates_attachment_presence :image, :message => "Please include a photo."
   validates_attachment_size :image, :in => 0..4.megabytes, :message => "Photo must be less than 4 megabytes."
-    # :content_type => { :content_type => "image/jpg" },
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/png"], :message => "Please include a JPG or PNG image for a photo."
 
   # temporary, for legacy importing, useful for a while
   require 'open-uri'
