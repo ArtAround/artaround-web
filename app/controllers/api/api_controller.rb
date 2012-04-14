@@ -5,6 +5,7 @@ class Api::ApiController < ApplicationController
     hash = clean hash, art_fields
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
     hash[:event] = event_for_art(art)
+    hash[:photos] = photos_for_art(art)
     hash
   end
 
@@ -26,6 +27,7 @@ class Api::ApiController < ApplicationController
       hash = art.as_json
       hash = clean hash, art_fields
       hash[:event] = event_for_art(art)
+      hash[:photos] = photos_for_art(art)
       hash
     end
     {
@@ -41,6 +43,18 @@ class Api::ApiController < ApplicationController
       hash[:icon_thumbnail_url] = event.icon :thumbnail
       hash[:icon_small_url] = event.icon :small
       hash
+    end
+  end
+
+  def photos_for_art(art)
+    art.photos.map do |photo|
+      {
+        :flickr_username => photo.flickr_username,
+        :primary => photo.primary,
+        :image_thumbnail_url => photo.image(:thumbnail),
+        :image_small_url => photo.image(:small),
+        :image_big_url => photo.image(:big)
+      }
     end
   end
   
