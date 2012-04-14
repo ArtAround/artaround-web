@@ -39,7 +39,9 @@
         name: "<%= escape_javascript event.name %>",
         description: "<%= escape_javascript event.description %>",
         starts_at: "<%= just_day event.starts_at %>",
-        ends_at: "<%= just_day event.ends_at %>"
+        ends_at: "<%= just_day event.ends_at %>",
+        icon_thumbnail: "<%= event.icon.url(:thumbnail) %>",
+        icon_small: "<%= event.icon.url(:small) %>"
       };
     <% end %>
 
@@ -50,6 +52,8 @@
         <% if @events.include?(art.event) %>
         event_name: events["<%= art.event_id %>"].name,
         event_slug: events["<%= art.event_id %>"].slug,
+        event_icon_thumbnail: events["<%= art.event_id %>"].icon_thumbnail,
+        event_icon_small: events["<%= art.event_id %>"].icon_small,
         <% end %>
         title: "<%= escape_javascript art.title %>",
         category: "<%= escape_javascript art.category %>",
@@ -137,7 +141,7 @@
       if (art.event_name) {
        eventIcon = '' +
         '<span class="eventIcon">' + 
-          '<img src="/images/5x5.png" title="' + art.event_name + '"/>'
+          '<img src="' + art.event_icon_thumbnail + '" title="' + art.event_name + '"/>'
         '</span>'
       }
       var popularIcon = "";

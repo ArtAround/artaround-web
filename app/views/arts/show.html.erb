@@ -250,7 +250,11 @@
 	  <% if @art.commissioned %>
         <a href="http://dcarts.dc.gov/DC/DCARTS/">
           <% if @art.event %>
-            <span id="eventIcon" title="Part of <%= escape_javascript @art.event.name %>">
+            <span 
+              id="eventIcon" 
+              title="Part of <%= escape_javascript @art.event.name %>"
+              style="background-image: url(<%= @art.event.icon.url(:thumbnail) %>)"
+              >
               Part of <%= @art.event.name %>
             </span>
           <% end %>

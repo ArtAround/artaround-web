@@ -37,8 +37,12 @@
 
 <div id="rtColumn">
   <% if @event.icon.exists? %>
-    <%= link_to image_tag(@event.icon.url), @event.icon.url %>
-    <%= link_to image_tag(@event.icon.url(:thumbnail)), @event.icon.url(:thumbnail) %>
+    Original:<br/>
+    <%= link_to image_tag(@event.icon.url), @event.icon.url %><br/>
+    Small (109x60):<br/>
+    <%= link_to image_tag(@event.icon.url(:small)), @event.icon.url(:small) %><br/>
+    Thumbnail (20x20):<br/>
+    <%= link_to image_tag(@event.icon.url(:thumbnail)), @event.icon.url(:thumbnail) %><br/>
   <% end %>
 </div>
 
