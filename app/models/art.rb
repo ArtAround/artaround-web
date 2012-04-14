@@ -45,8 +45,8 @@ class Art
   field :zoom, :type => Float
   
   # flags
-  field :commissioned, :type => Boolean
-  field :approved, :type => Boolean
+  field :commissioned, :type => Boolean, :default => false
+  field :approved, :type => Boolean, :default => false
   field :featured, :type => Boolean, :default => false
 
   # when an art piece was last flagged by a user

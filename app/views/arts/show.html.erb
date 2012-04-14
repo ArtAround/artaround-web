@@ -4,7 +4,7 @@
 
 <% content_for :head do %>
   <% @art.photos.each do |photo| %>
-    <meta property="og:image" content="<%= thumbnail_url photo, "Large" %>" />
+    <meta property="og:image" content="<%= domain_prefix %><%= photo.image :big %>" />
   <% end %>
   <meta property="og:description" content="<%= h known(@art.description) %>" />
   <meta property="og:title" content="<%= h @art.title %>" />
@@ -351,45 +351,30 @@
     <% if @art.flickr_ids and @art.flickr_ids.any? %>
       <div class="module">
       
-        <% if @art.flickr_ids.size > 1 %>
-          <iframe align="center" src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=<%= flickr_details[:account][:user_id] %>&set_id=&tags=<%= @art.slug %>" frameBorder="0" width="490" height="300" scrolling="no"></iframe>
-        <% elsif @art.primary_photo %>
-            <a id="artworkPhoto" href="<%= photo_url @art.primary_photo %>">
-              <img src="<%= thumbnail_url @art.primary_photo, "Medium" %>" />
-            </a>
+        <a id="artworkPhoto" href="<%= @art.primary_photo.image :original %>">
+          <img src="<%= @art.primary_photo.image :big %>" />
+        </a>
+
+        <% if @other_photos %>    
+      		<div id="artThumbs">
+      			<!-- <a class="moreArt left"></a> -->
+      			<div class="thumbsContainer">
+      				<ul>
+                <% @other_photos.first(3).each do |photo| %>
+      	  				<li class="art thumbnail">
+      	  					<a href="<%= photo.image :original %>">
+                			<img width="112" height="112" src="<%= photo.image :small %>" />
+      						  </a>
+      	  				</li>
+                <% end %>
+      				</ul>
+      			</div>
+
+      			<!-- <a class="moreArt right"></a> -->
+      			<div class="clear"></div>
+      		</div>
         <% end %>
 
-	<!-- 	<div id="artThumbs">
-			<a class="moreArt left"></a>
-			<div class="thumbsContainer">
-				<ul>
-	  				<li class="art thumbnail">
-	  					<a href="#">
-	              			<img width="112" height="112" alt="">
-						</a>
-	  				</li>
-	  				<li class="art thumbnail">
-	  					<a href="#">
-	              			<img width="112" height="112" alt="">
-						</a>
-	  				</li>
-	  				<li class="art thumbnail">
-	  					<a href="#">
-	              			<img width="112" height="112" alt="">
-						</a>
-	  				</li>
-	  				<li class="art thumbnail">
-	  					<a href="#">
-	              			<img width="112" height="112" alt="">
-						</a>
-	  				</li>
-				</ul>
-			</div>
-
-			<a class="moreArt right"></a>
-			<div class="clear"></div>
-		</div>
- -->
         <span class="tip">
           All photos uploaded are published on <a href="http://flickr.com">Flickr</a> with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
         </span>
@@ -402,7 +387,6 @@
     </div>
     
     <div id="map_canvas" class="smMap module"></div>
-    <!--<div name="pano" id="pano" class="module"></div>/-->
   </div>
 
   <div class="flag overlay">

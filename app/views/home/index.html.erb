@@ -20,7 +20,7 @@
 		<div class="featureShadow">
 			<div class="imgContainer">
 				<a href="<%= art_path @featured %>">
-					<img class="featuredImage" src="<%= thumbnail_url @featured.primary_photo, "Large" %>" alt="<%= h @featured.title %>" />
+					<img class="featuredImage" src="<%= @featured.primary_photo.image :big %>" alt="<%= h @featured.title %>" />
 				</a>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 	        <li class="artwork<%= i + 1 %>">
 	          <a href="<%= art_path art %>" 
 	          	id="art-thumbnail-<%= art.slug %>"
-	          	style="background-image: url('<%= thumbnail_url art.primary_photo, "Small" %>')"
+	          	style="background-image: url('<%= art.primary_photo.image :small %>')"
 	          	></a>
 	        </li>
 	      <% end %>

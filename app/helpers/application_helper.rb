@@ -26,18 +26,11 @@ module ApplicationHelper
     end
   end
 
-  # valid sizes: 
-  # ["Medium 800", "Small", "Small 320", "Medium", "Medium 640",
-  # "Large Square", "Square", "Large", "Original", "Thumbnail"]
-  def thumbnail_url(photo, size = "Large")
-    size = size.to_s.capitalize
-    return nil unless photo and photo.sizes[size]
-    photo.sizes[size]['source']
+  def domain_prefix
+    host = "http://#{request.host}"
+    if request.port != 80
+      host << ":#{request.port}"
+    end
+    host
   end
-
-  def photo_url(photo)
-    username = flickr_details[:account][:username]
-    "http://www.flickr.com/photos/#{username}/#{photo.flickr_id}/"
-  end
-
 end

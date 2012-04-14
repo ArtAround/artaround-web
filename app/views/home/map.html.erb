@@ -64,7 +64,7 @@
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
         flickr_id: "<%= art.primary_photo ? art.primary_photo.flickr_id : "" %>",
-        flickr_thumb: "<%= art.primary_photo ? thumbnail_url(art.primary_photo, "Medium") : "" %>",
+        flickr_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
         commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
         longitude: <%= art.longitude || 0 %>
