@@ -16,7 +16,7 @@ class Event
   field :ends_at, :type => DateTime
 
   has_mongoid_attached_file :icon, 
-    :styles => {:thumbnail => "20x20", :small => "109x60"}, 
+    :styles => {:thumbnail => "20x20", :small => "100x100"}, 
     :path => ':rails_root/public/system/events/:attachment/:id/:style.:extension',
     :url => '/system/events/:attachment/:id/:style.:extension'
 
