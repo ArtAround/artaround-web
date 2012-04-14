@@ -23,9 +23,9 @@ class Api::ApiController < ApplicationController
     limit = pagination[:per_page]
 
     results = arts.skip(skip).limit(limit).map do |art| 
-      hash = art.as_json :include => :event
+      hash = art.as_json
       hash = clean hash, art_fields
-      hash[:event] = clean(hash['event'], event_fields)
+      hash[:event] = event_for_art(art)
       hash
     end
     {
@@ -33,6 +33,15 @@ class Api::ApiController < ApplicationController
       :page => pagination.merge(:count => results.size),
       :total_count => total_count
     }.to_json
+  end
+
+  def event_for_art(art)
+    if event = art.event
+      hash = clean(event.attributes.dup, event_fields)
+      hash[:icon_thumbnail_url] = event.icon :thumbnail
+      hash[:icon_small_url] = event.icon :small
+      hash
+    end
   end
   
   def clean(attributes, whitelist)
