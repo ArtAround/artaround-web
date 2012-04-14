@@ -22,7 +22,7 @@ class Photo
     :url => '/system/photos/:attachment/:id/:style.:extension'
 
   validates_attachment_presence :image, :message => "Please include a photo."
-  validates_attachment_size :image, :in => 0..2.megabytes, :message => "Photo must be less than 2 megabytes."
+  validates_attachment_size :image, :in => 0..4.megabytes, :message => "Photo must be less than 4 megabytes."
     # :content_type => { :content_type => "image/jpg" },
 
   # temporary, for legacy importing, useful for a while
