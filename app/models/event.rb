@@ -3,6 +3,7 @@ class Event
   include Mongoid::Timestamps
   include Mongoid::Slug
   include Mongoid::MultiParameterAttributes
+  include Mongoid::Paperclip
 
   has_many :arts
 
@@ -13,6 +14,12 @@ class Event
   field :website
   field :starts_at, :type => DateTime
   field :ends_at, :type => DateTime
+
+  has_mongoid_attached_file :icon, 
+    :styles => {:thumbnail => "20x20"}, 
+    :path => ':rails_root/public/system/events/:attachment/:id/:style.:extension',
+    :url => '/system/events/:attachment/:id/:style.:extension'
+
 
   index :slug
 

@@ -35,10 +35,6 @@ class Api::ApiController < ApplicationController
     }.to_json
   end
   
-  def json_for_comments(art)
-    
-  end
-  
   def clean(attributes, whitelist)
     return nil unless attributes
     attributes.keys.each {|key| attributes.delete(key) unless whitelist.include?(key.to_sym)}

@@ -27,6 +27,12 @@
     <%= f.label :ends_at %>
     <%= f.date_select :ends_at, :include_blank => true %>
   </li>
+
+  <li>
+    <%= f.label :icon %>
+    <%= f.file_field :icon %>
+  </li>
+
   <li>
     <button class="submitBtn" type="submit">
         <span>Submit</span>
