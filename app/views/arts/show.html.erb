@@ -248,8 +248,9 @@
       
 	  <div class="icons">
 	  <% if @art.commissioned %>
-        <a href="http://dcarts.dc.gov/DC/DCARTS/">
-          <% if @art.event %>
+        
+        <% if @art.event %>
+          <a href="/events/<%= @art.event.slug %>">
             <span 
               id="eventIcon" 
               title="Part of <%= escape_javascript @art.event.name %>"
@@ -257,18 +258,20 @@
               >
               Part of <%= @art.event.name %>
             </span>
-          <% end %>
-          <% if @art.commissioned %>
+          </a>
+        <% end %>
+        <% if @art.commissioned %>
+          <a href="http://dcarts.dc.gov/DC/DCARTS/">
             <span id="commissionedIcon" title="Commissioned by the District">
               Commissioned by the city
             </span>
-          <% end %>
-          <% if @art.popular? %>
-  		      <span id="popularIcon" title="Popular">
-              Popular
-            </span>
-          <% end %>
-        </a>
+          </a>
+        <% end %>
+        <% if @art.popular? %>
+		      <span id="popularIcon" title="Popular">
+            Popular
+          </span>
+        <% end %>
       <% end %>
 	  </div>
     </div>
