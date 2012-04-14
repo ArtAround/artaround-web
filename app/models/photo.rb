@@ -24,4 +24,24 @@ class Photo
   validates_attachment_presence :image, :message => "Please include a photo."
   validates_attachment_size :image, :in => 0..2.megabytes, :message => "Photo must be less than 2 megabytes."
     # :content_type => { :content_type => "image/jpg" },
+
+  # temporary, for legacy importing, useful for a while
+  require 'open-uri'
+  def import_from_flickr
+    if self.sizes and self.sizes['Original']
+      url = self.sizes['Original']['source']
+      self.image = open(url)
+      begin
+        self.save!
+        puts "[#{art.slug}] Processed"
+        return true
+      rescue
+        puts "[#{art.slug}] ERROR: #{self.errors.messages.values.join ", "}"
+      end
+    else
+      puts "[#{art.slug}] No flickr source URL!"
+    end
+    false
+  end
+
 end
