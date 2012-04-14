@@ -1,10 +1,10 @@
 class Api::ApiController < ApplicationController
   
   def json_for_art(art)
-    hash = art.as_json :include => :event
+    hash = art.as_json
     hash = clean hash, art_fields
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
-    hash[:event] = clean(hash['event'], event_fields)
+    hash[:event] = event_for_art(art)
     hash
   end
 
