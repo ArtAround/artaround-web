@@ -1,6 +1,6 @@
 <div class="photo admin" id="photo-<%= photo.id %>">
-    <a href="<%= photo_url photo %>">
-        <img src="<%= thumbnail_url photo, "Small" %>" />
+    <a href="<%= photo.image :original %>">
+        <img src="<%= photo.image :small %>" />
     </a>
     
     <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
