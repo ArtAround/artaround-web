@@ -17,15 +17,7 @@ class Admin::PhotosController < Admin::AdminController
 
   def destroy
     @photo.destroy
-    @art.flickr_ids = @art.reload.photos.map &:flickr_id
-    @art.save!
-    begin
-      flickr.photos.delete :photo_id => @photo.flickr_id
-    rescue FlickRaw::FailedResponse
-      redirect_to admin_art_path(@art), :notice => "Photo de-associated from art piece, but WAS NOT removed from Flickr. Remove it manually, or verify that it has already been removed."
-    else
-      redirect_to admin_art_path(@art), :notice => "Photo deleted from ArtAround and Flickr."
-    end
+    redirect_to admin_art_path(@art), :notice => "Photo deleted from ArtAround."
   end
 
   protected

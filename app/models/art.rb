@@ -30,7 +30,7 @@ class Art
   # Location (array of lat/long)
   field :location, :type => Array
   
-  # pointers to photos on Flickr
+  # pointers to photos on Flickr (will be deleted soon)
   field :flickr_ids, :type => Array
   
   # Address (optional, will geocode to lat/long eventually)

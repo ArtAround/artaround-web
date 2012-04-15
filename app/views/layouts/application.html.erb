@@ -14,12 +14,6 @@
     <%= stylesheet_link_tag 'main' %>
     
     <%= javascript_include_tag 'jquery-1.7.1.min' %>
-    <%= javascript_include_tag 'flickr' %>
-    
-    <script type="text/javascript">
-      Flickr.api_key = "<%= flickr_details[:account][:api_key] %>";
-      Flickr.username = "<%= flickr_details[:account][:username] %>";
-    </script>
     
     <%= yield :head %>
 
