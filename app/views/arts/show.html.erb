@@ -350,9 +350,11 @@
   <div id="rtColumn">
     <div class="module">
     
-      <a id="artworkPhoto" href="<%= @art.primary_photo.image :original %>">
-        <img src="<%= @art.primary_photo.image :big %>" />
-      </a>
+      <% if @art.primary_photo %>
+        <a id="artworkPhoto" href="<%= @art.primary_photo.image :original %>">
+          <img src="<%= @art.primary_photo.image :big %>" />
+        </a>
+      <% end %>
 
       <% if @other_photos %>    
     		<div id="artThumbs">

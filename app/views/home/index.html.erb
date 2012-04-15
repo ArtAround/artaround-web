@@ -30,7 +30,9 @@
 	        <li class="artwork<%= i + 1 %>">
 	          <a href="<%= art_path art %>" 
 	          	id="art-thumbnail-<%= art.slug %>"
-	          	style="background-image: url('<%= art.primary_photo.image :small %>')"
+	          	<% if art.primary_photo %>	
+	          		style="background-image: url('<%= art.primary_photo.image :small %>')"
+	          	<% end %>
 	          	></a>
 	        </li>
 	      <% end %>
