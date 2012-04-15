@@ -28,7 +28,6 @@ class ArtsController < ApplicationController
       return false
     end
     
-    # save safely because the id must be used to tag the flickr photo
     if @art.safely.save
       # size check
       if File.size(params[:new_photo].path) > (1024*1024 * 2)

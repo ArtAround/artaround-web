@@ -26,9 +26,6 @@ class Admin::ArtsController < Admin::AdminController
       @art.slug = slug
     end
     
-    # filter out any blank flickr_ids
-    #@art.flickr_ids = params[:art].delete('flickr_ids').select {|id| id.present?}
-    
     latitude = params[:art].delete 'latitude'
     longitude = params[:art].delete 'longitude'
     # remove special case

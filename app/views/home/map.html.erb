@@ -63,8 +63,7 @@
         description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
-        flickr_id: "<%= art.primary_photo ? art.primary_photo.flickr_id : "" %>",
-        flickr_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
+        map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
         commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
         longitude: <%= art.longitude || 0 %>
@@ -181,7 +180,7 @@
        
             '</dl>' +
         '</div>' +
-        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.flickr_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
+        '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.map_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
 		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
         
       '</div>';
