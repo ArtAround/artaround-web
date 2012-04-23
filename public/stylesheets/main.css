@@ -482,7 +482,9 @@ width: 100%;
 	height: 130px;
 }
 .thumbsContainer{
-	width: 432px;
+	width: 484px;
+	overflow-x: scroll;
+	padding-bottom: 10px;
 }
 .moreEvents:hover, .moreArt:hover {
 	background-color: #65baab;

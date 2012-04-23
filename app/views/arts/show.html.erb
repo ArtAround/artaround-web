@@ -36,27 +36,6 @@
       position: location
     });
     marker.setMap(map);
-    
-    // street view, point of view
-    // var heading = <%= @art.header || -1 %>;
-    // var pitch = <%= @art.pitch || -1 %>;
-    // var zoom = <%= @art.zoom || -1 %>;
-    // street view map
-    // if (heading >= 0 && pitch >= 0 && zoom >= 0) {
-      // var street = new google.maps.StreetViewPanorama(document.getElementById("pano"), {
-        // position: location,
-        // pov: {
-          // heading: heading,
-          // pitch: pitch,
-          // zoom: zoom
-        // },
-        // addressControl: false,
-        // navigationControlOptions: {
-         //  style: google.maps.NavigationControlStyle.SMALL
-        // }
-      // });
-    // } else
-      // $("#pano").hide();
   }
 
   $(function() {
@@ -131,6 +110,12 @@
         return false;
       }
       return true;
+    });
+
+    $("li.thumbnail a").click(function() {
+      $("a#artworkPhoto").attr("href", $(this).data("original_url"));
+      $("a#artworkPhoto img").attr("src", $(this).data("big_url"));
+      return false;
     });
 
   });
@@ -355,26 +340,27 @@
           <img src="<%= @art.primary_photo.image :big %>" />
         </a>
       <% end %>
+  
+  		<div id="artThumbs">
+  			<!-- <a class="moreArt left"></a> -->
+  			<div class="thumbsContainer">
+  				<ul>
+            <% ([@art.primary_photo] + @other_photos).each do |photo| %>
+  	  				<li class="art thumbnail">
+  	  					<a href="#"
+                  data-big_url="<%= photo.image :big %>"
+                  data-original_url="<%= photo.image :original %>"
+                  >
+            			<img width="112" height="112" src="<%= photo.image :small %>" />
+  						  </a>
+  	  				</li>
+            <% end %>
+  				</ul>
+  			</div>
 
-      <% if @other_photos %>    
-    		<div id="artThumbs">
-    			<!-- <a class="moreArt left"></a> -->
-    			<div class="thumbsContainer">
-    				<ul>
-              <% @other_photos.first(3).each do |photo| %>
-    	  				<li class="art thumbnail">
-    	  					<a href="<%= photo.image :original %>">
-              			<img width="112" height="112" src="<%= photo.image :small %>" />
-    						  </a>
-    	  				</li>
-              <% end %>
-    				</ul>
-    			</div>
-
-    			<!-- <a class="moreArt right"></a> -->
-    			<div class="clear"></div>
-    		</div>
-      <% end %>
+  			<!-- <a class="moreArt right"></a> -->
+  			<div class="clear"></div>
+  		</div>
 
       <span class="tip">
         All photos uploaded are licensed under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
