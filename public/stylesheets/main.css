@@ -1531,6 +1531,8 @@ div.popupError {
 	width: 24px;
 	height: 25px;
 	margin-top: -10px;
+	position: relative;
+	cursor: pointer;
 }
 
 .history{

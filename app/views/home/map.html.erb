@@ -18,6 +18,8 @@
   <script type="text/javascript">
     var event_description_max = 725;
 
+    var slider;
+
     var map;
     var geocoder;
     
@@ -263,6 +265,8 @@
       // reset both the appearance (text field) and the hidden value
       $("#mapsearch_value").val("");
       $("#mapsearch").val("");
+
+      //TODO: reset slider
     }
     
     function recalculateFilter() {
@@ -295,6 +299,8 @@
       var keyword = $("#mapsearch_value").val();
 
       var event_id = $("#filter_event_id").val();
+
+      var timeline = parseInt($("#filter_timeline").val());
       
         
       // go through each marker and ensure it passes the test
@@ -304,6 +310,7 @@
         var passed_ward;
         var passed_keyword;
         var passed_event;
+        var passed_timeline;
         
         // examine for commissioned status
         passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
@@ -335,7 +342,14 @@
         else
           passed_event = (marker.filters.event_id == event_id);
         
-        marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword && passed_event);
+        if (timeline < 0)
+          passed_timeline = true;
+        else if (timeline == 0)
+          passed_timeline = (marker.filters.timeline_year < 1900);
+        else
+          passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
+
+        marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword && passed_event && passed_timeline);
       });
     }
 
@@ -401,17 +415,54 @@
       });
 
       // turn on the slider
-      new Dragdealer('timeline', {
-        x: 0.0,
-        speed: 0
-        // steps: 11,
-        // snap: true
+      slider = new Dragdealer('timeline', {
+        x: 1.0,
+        speed: 0,
+        animationCallback: function(x) {
+          var currentSegment = $("#filter_timeline").val();
+          var segment = getYearSegment(x);
+          if (segment != currentSegment) {
+            $("#filter_timeline").val(segment);
+            recalculateFilter();
+          }
+        }
       });
 
     });
     
     function clearWindow() {
       if (currentInfoWindow) currentInfoWindow.close();
+    }
+
+    // values calculated empirically (by messing in Firebug)
+    // definitely possible to rework this to make the steps even
+    // and use snapping, needs design help
+    function getYearSegment(x) {
+      // 0 for bottom, -1 for top, bottom year of 10-year range for all else
+      if (x < 0.14265335235378032)
+        return 0;
+      else if (x < 0.2211126961483595)
+        return 1910;
+      else if (x < 0.30028530670470754)
+        return 1920;
+      else if (x < 0.37945791726105566)
+        return 1930;
+      else if (x < 0.4593437945791726)
+        return 1940;
+      else if (x < 0.5378031383737518)
+        return 1950;
+      else if (x < 0.6169757489300999)
+        return 1960;
+      else if (x < 0.6961483594864479)
+        return 1970;
+      else if (x < 0.776034236804565)
+        return 1980;
+      else if (x < 0.854493580599144)
+        return 1990;
+      else if (x < 0.9372325249643366)
+        return 2000;
+      else 
+        return -1;
     }
   </script>
   
@@ -446,6 +497,9 @@
       
         <!-- hidden filter for event ID -->
         <input type="hidden" class="filter hidden" id="filter_event_id" name="event_id" />
+
+        <!-- hidden filter for timeline segment -->
+        <input type="hidden" class="filter hidden" id="filter_timeline" name="timeline" value="-1"/>
 
         <ul id="categoryScroll">
           <li>
