@@ -266,7 +266,9 @@
       $("#mapsearch_value").val("");
       $("#mapsearch").val("");
 
-      //TODO: reset slider
+      // reset timeline handle in value and appearance
+      $("#filter_timeline").val("-1");
+      $(".handle").css("left", "100%");
     }
     
     function recalculateFilter() {
@@ -413,6 +415,12 @@
         $("#eventsWrapper").toggle();
         return false;
       });
+
+      $(".reset").click(function() {
+        resetFilter();
+        recalculateFilter();
+        return false;
+      })
 
       // turn on the slider
       slider = new Dragdealer('timeline', {
@@ -666,7 +674,7 @@
 
 	<div class="right era">
 		<span class="contemporary">All Art</span>
-		<a href="" class="reset">Reset</a>
+		<a href="#" class="reset">Reset</a>
 	</div>
 	<div class="timeline" id="timeline">
 		<div class="handle">
