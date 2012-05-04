@@ -90,7 +90,7 @@ class Art
   validates_uniqueness_of :slug
   
   def timeline_year
-    if year.present?
+    if year.present? and year.to_i > 0
       year.to_i
     else
       Time.now.year
