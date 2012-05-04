@@ -347,7 +347,7 @@
         if (timeline < 0)
           passed_timeline = true;
         else if (timeline == 0)
-          passed_timeline = (marker.filters.timeline_year < 1900);
+          passed_timeline = (marker.filters.timeline_year < 1910);
         else
           passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
 
@@ -426,10 +426,17 @@
       slider = new Dragdealer('timeline', {
         x: 1.0,
         speed: 0,
+
+        // debugging
+        callback: function(x) {
+          console.log("x: " + x);
+        },
+
         animationCallback: function(x) {
           var currentSegment = $("#filter_timeline").val();
           var segment = getYearSegment(x);
           if (segment != currentSegment) {
+            console.log("segment: " + segment);
             $("#filter_timeline").val(segment);
             recalculateFilter();
           }
@@ -446,30 +453,42 @@
     // definitely possible to rework this to make the steps even
     // and use snapping, needs design help
     function getYearSegment(x) {
+      // 199 is:
+      //    211px (offset of beginning of timeline to first tick)
+      //    - 12px (half the width of the handle)
+      // 24 is the width of the slider (1/2 deducted from both sides)
+
+      var realHandleRange = $(".timeline").outerWidth() - 24;
+      var fixedLeftColumn = 199; // pixels across the handle's range
+      var fixedRightColumn = 90;
+      var bottom = fixedLeftColumn / realHandleRange;
+      var top = 1 - (fixedRightColumn / realHandleRange);
+      var step = (top - bottom) / 10;
+
       // 0 for bottom, -1 for top, bottom year of 10-year range for all else
-      if (x < 0.14265335235378032)
+      if (x < bottom)
         return 0;
-      else if (x < 0.2211126961483595)
+      else if (x < (bottom + (step * 1)))
         return 1910;
-      else if (x < 0.30028530670470754)
+      else if (x < (bottom + (step * 2)))
         return 1920;
-      else if (x < 0.37945791726105566)
+      else if (x < (bottom + (step * 3)))
         return 1930;
-      else if (x < 0.4593437945791726)
+      else if (x < (bottom + (step * 4)))
         return 1940;
-      else if (x < 0.5378031383737518)
+      else if (x < (bottom + (step * 5)))
         return 1950;
-      else if (x < 0.6169757489300999)
+      else if (x < (bottom + (step * 6)))
         return 1960;
-      else if (x < 0.6961483594864479)
+      else if (x < (bottom + (step * 7)))
         return 1970;
-      else if (x < 0.776034236804565)
+      else if (x < (bottom + (step * 8)))
         return 1980;
-      else if (x < 0.854493580599144)
+      else if (x < (bottom + (step * 9)))
         return 1990;
-      else if (x < 0.9372325249643366)
+      else if (x < (bottom + (step * 10)))
         return 2000;
-      else 
+      else
         return -1;
     }
   </script>
