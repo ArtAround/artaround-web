@@ -79,7 +79,10 @@
       map = new google.maps.Map(document.getElementById("map_canvas"), {
         center: location,
         zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+        }
       });
       
       var wards = new google.maps.KmlLayer("http://theartaround.us/kml/dc.kml", {
