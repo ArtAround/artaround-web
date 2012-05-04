@@ -63,7 +63,7 @@
         description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
-        timeline_year: <%= escape_javascript art.timeline_year %>,
+        timeline_year: <%= art.timeline_year %>,
         map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
         commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
@@ -400,6 +400,14 @@
         return false;
       });
 
+      // turn on the slider
+      new Dragdealer('timeline', {
+        x: 0.0,
+        speed: 0
+        // steps: 11,
+        // snap: true
+      });
+
     });
     
     function clearWindow() {
@@ -606,7 +614,7 @@
 		<span class="contemporary">All Art</span>
 		<a href="" class="reset">Reset</a>
 	</div>
-	<div class="timeline">
+	<div class="timeline" id="timeline">
 		<div class="handle">
 		</div>
 	</div>
