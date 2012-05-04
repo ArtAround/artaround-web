@@ -26,6 +26,9 @@ class Art
   field :ward, :default => ""
   field :location_description
   field :description
+
+  # timeline year (required)
+  field :timeline_year, :type => Integer
   
   # Location (array of lat/long)
   field :location, :type => Array
@@ -88,6 +91,21 @@ class Art
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
+  
+  validates_presence_of :timeline_year
+  validates_numericality_of :timeline_year
+
+  before_validation :set_timeline_year
+
+  def set_timeline_year
+    unless timeline_year
+      if year.present?
+        self.timeline_year = year.to_i
+      else
+        self.timeline_year = Time.now.year
+      end
+    end
+  end
   
   def primary_photo
     photos.desc(:primary).first

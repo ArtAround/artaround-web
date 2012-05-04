@@ -63,6 +63,7 @@
         description: "<%= escape_javascript art.description %>",
         artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
+        timeline_year: <%= escape_javascript art.timeline_year %>,
         map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
         commissioned: <%= art.commissioned? %>,
         latitude: <%= art.latitude || 0 %>,
@@ -101,7 +102,8 @@
           ward: art.ward,
           title: art.title,
           artist: art.artist,
-          event_id: art.event_id
+          event_id: art.event_id,
+          timeline_year: art.timeline_year
         };
         markers.push(marker);
         
