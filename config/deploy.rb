@@ -41,7 +41,7 @@ namespace :deploy do
   
   desc "Restart the server"
   task :restart, :roles => :app, :except => {:no_release => true} do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+    run "touch #{File.join(current_path, 'tmp', 'restart.txt')}"
   end
 
   desc "Create indexes"
