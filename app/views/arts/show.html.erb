@@ -9,6 +9,7 @@
   <meta property="og:description" content="<%= h known(@art.description) %>" />
   <meta property="og:title" content="<%= h @art.title %>" />
   <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript">stLight.options({publisher: "ur-baac6862-67cd-e919-fdcf-156e46daa982"}); </script>
 <% end %>
 
 <script type="text/javascript">
@@ -64,10 +65,13 @@
     <% end %>
     
     <% if admin? %>
-      $("div.delete_comment a").click(function() {
-        if (confirm("Unapprove this comment?")) {
-          var elem = $(this);
-          $.post(elem.attr("href"), function() {
+      $("div.admin_comment a").click(function() {
+        var elem = $(this);
+        var msg = elem.data("confirm");
+        var url = elem.attr("href");
+
+        if (confirm(msg)) {
+          $.post(url, function() {
             location.href = "<%= art_url @art %>";
           });
         }
@@ -261,12 +265,12 @@
 	  </div>
     </div>
     
-    <% if @art.comments.approved.any? %>
+    <% if admin? or @art.comments.approved.any? %>
       <div class="module" id="comments">
         <h3>Comments</h3>
         
         <ol>
-          <% @art.comments.approved.each_with_index do |comment, i| %>
+          <% (admin? ? (@art.comments) : (@art.comments.approved)).asc(:created_at).each do |comment| %>
             <li>
               <div class="commentMetaData">
                 <span class="commentName">
@@ -287,8 +291,12 @@
               </div>
               
               <% if admin? %>
-                <div class="delete_comment">
-                  <%= link_to "Unapprove", unapprove_admin_art_comment_path(@art, comment) %>
+                <div class="admin_comment">
+                  <% if comment.approved? %>
+                    <%= link_to "Unapprove", unapprove_admin_art_comment_path(@art, comment), "data-confirm" => "Unapprove this comment?" %>
+                  <% else %>
+                    <%= link_to "Approve", approve_admin_art_comment_path(@art, comment), "data-confirm" => "Approve this comment for display?" %>
+                  <% end %>
                 </div>
               <% end %>
               

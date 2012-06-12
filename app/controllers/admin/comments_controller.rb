@@ -1,14 +1,17 @@
 class Admin::CommentsController < Admin::AdminController
   before_filter :load_art
-  before_filter :load_comment, :only => [:unapprove]
+  before_filter :load_comment, :only => [:unapprove, :approve]
   
   def unapprove
     @comment.approved = false
-    if @comment.save
-      head 200
-    else
-      head 500
-    end
+    @comment.save!
+    head 200
+  end
+
+  def approve
+    @comment.approved = true
+    @comment.save!
+    head 200
   end
   
   protected

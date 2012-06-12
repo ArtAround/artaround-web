@@ -10,6 +10,7 @@ Artaround::Application.routes.draw do
     resources :arts do
       resources :comments do
         post :unapprove, :on => :member
+        post :approve, :on => :member
       end
       resources :photos
     end
