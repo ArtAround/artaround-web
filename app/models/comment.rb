@@ -11,7 +11,7 @@ class Comment
   field :ip_address
   field :url
   field :text
-  field :approved, :type => Boolean, :default => true
+  field :approved, :type => Boolean, :default => false
   
   index :email
   index :ip_address
