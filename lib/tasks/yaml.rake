@@ -4,14 +4,17 @@ namespace :data do
   task :to_yaml => :environment do
     dump_fixture "arts"
     dump_fixture "comments"
+    dump_fixture "photos"
   end
   
   desc "Wipe database and import from YAML."
   task :from_yaml => :environment do
     Art.delete_all
     Comment.delete_all
+    Photo.delete_all
     restore_fixture "arts"
     restore_fixture "comments"
+    restore_fixture "photos"
   end
   
 end
@@ -38,7 +41,7 @@ def dump_fixture(name)
     records << record_to_hash(record)
   end
   
-  FileUtils.mkdir_p "fixtures"
+  FileUtils.mkdir_p "data/yaml"
   File.open("data/yaml/#{name}.yml", "w") do |file|
     YAML.dump records, file
   end
@@ -50,8 +53,7 @@ def record_to_hash(record)
   return record unless record.class == BSON::OrderedHash
   
   new_record = {}
-  
-  record.delete '_id'
+
   record.each do |key, value|
   
     if value.class == Array
