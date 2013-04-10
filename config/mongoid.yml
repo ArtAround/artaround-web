@@ -2,6 +2,9 @@ defaults: &defaults
   host: localhost
   raise_not_found_error: false
 
+test:
+  <<: *defaults
+  database: artaround_test
 
 development:
   <<: *defaults
