@@ -22,3 +22,7 @@ group :development do
   gem 'rake', '0.9.2.2'
   gem 'unicorn', '4.2.1'
 end
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+end
