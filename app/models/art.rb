@@ -10,7 +10,7 @@ class Art
   has_many :photos, :dependent => :destroy
 
   
-  attr_protected :_id, :commissioned, :approved, :location, :flickr_ids, :slug
+  attr_protected :_id, :commissioned, :approved, :location, :slug
   
   # required field, used for slug
   field :title
@@ -29,9 +29,6 @@ class Art
   
   # Location (array of lat/long)
   field :location, :type => Array
-  
-  # pointers to photos on Flickr (will be deleted soon)
-  field :flickr_ids, :type => Array, :default => []
   
   # Address (optional, will geocode to lat/long eventually)
   field :address

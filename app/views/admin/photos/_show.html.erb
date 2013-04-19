@@ -2,18 +2,20 @@
     <a href="<%= photo.image :original %>">
         <img src="<%= photo.image :small %>" />
     </a>
-    
-    <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
-        <%= f.label :flickr_username %>
-        <%= f.text_field :flickr_username %>
-        <br/><br/>
-        <%= f.label :primary %>
-        <%= f.check_box :primary %>
-        <br/><br/>
-        <%= f.submit "Update" %>
-    <% end %>
 
-    <form class="photo delete form" action="<%= admin_art_photo_path art, photo %>" method="post">
+  <%= form_for photo, :url => admin_art_photo_path(art, photo) do |f| %>
+      <%= f.label :attribution_text %>
+      <%= f.text_field :attribution_text %>
+      <%= f.label :attribution_url %>
+      <%= f.text_field :attribution_url %>
+      <br/><br/>
+      <%= f.label :primary %>
+      <%= f.check_box :primary %>
+      <br/><br/>
+      <%= f.submit "Update" %>
+  <% end %>
+
+  <form class="photo delete form" action="<%= admin_art_photo_path art, photo %>" method="post">
       <input type="hidden" name="_method" value="delete" />
       <%= link_to "Delete this photo", "#", :class => "photo delete" %>
     </form>

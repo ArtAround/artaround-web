@@ -45,7 +45,7 @@ class Api::ArtsController < Api::ApiController
     # this is an API, no body is required.
     head :not_found and return unless art
 
-    photo = create_photo art, params[:file], params[:new_photo_username]
+    photo = create_photo art, params[:file], params[:photo_attribution_text], params[:photo_attribution_url]
 
     if photo.save
       AdminMailer.new_photo(art).deliver

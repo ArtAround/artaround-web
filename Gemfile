@@ -2,8 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'flickraw', '0.9.5'
-
 gem 'geokit', '1.5.0' # todo: update to 1.6.0
 
 gem "mongo", '1.6.1'
@@ -13,7 +11,7 @@ gem 'bson_ext', '1.6.1'
 
 gem 'rails_autolink'
 
-gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
+gem 'mongoid-paperclip', '0.0.8', :require => "mongoid_paperclip"
 
 group :development do
   gem 'wirble', '0.1.3'

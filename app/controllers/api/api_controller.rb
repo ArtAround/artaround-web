@@ -50,7 +50,8 @@ class Api::ApiController < ApplicationController
   def photos_for_art(art)
     art.photos.map do |photo|
       {
-        :flickr_username => photo.flickr_username,
+        :attribution_text => photo.attribution_text,
+        :attribution_url => photo.attribution_url,
         :primary => photo.primary,
         :image_thumbnail_url => photo.image(:thumbnail),
         :image_small_url => photo.image(:small),
@@ -79,7 +80,7 @@ class Api::ApiController < ApplicationController
   def art_fields
     [
       :slug, :description, :location_description, :artist, :location, 
-      :created_at, :updated_at, :category, :title, :flickr_ids, :updated_at, 
+      :created_at, :updated_at, :category, :title, :updated_at,
       :year, :neighborhood, :ward, :commissioned, :ranking, :event
     ]
   end

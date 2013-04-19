@@ -2,4 +2,7 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  recently_uploaded: "Recently Uploaded"
+  photo_attribution_text: "Photo attribution (optional)"
+  photo_attribution_url: "Attribution URL (optional)"
+

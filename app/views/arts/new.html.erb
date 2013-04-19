@@ -73,7 +73,7 @@
           If you don't know something, leave it blank. For unknown titles, enter "Unknown" followed by the nearest location.
         </li>
         <li>
-          <span class="small blue"><em><sup>*</sup> = required</em>
+          <span class="small blue"><em><sup>*</sup> = required</em> </span>
         </li>
       
         <li>
@@ -143,10 +143,13 @@
           <label>photo<sup>*</sup></label>
           <span class="tip">(<!--jpg, gif only; -->2MB limit)</span>
           <%= file_field_tag 'new_photo' %>
-          Flickr Username <%= text_field_tag 'new_photo_username' %>
           <div id="uploading_photo" style="display: none">
             <p>Uploading photo, please wait...</p>
           </div>
+        </li>
+        <li>
+        <%=t :photo_attribution_text %> <%= text_field_tag 'photo_attribution_text' %>
+        <%=t :photo_attribution_url %> <%= text_field_tag 'photo_attribution_url' %>
         </li>
         <li>
           <button class="submitBtn" name="submit" type="submit">

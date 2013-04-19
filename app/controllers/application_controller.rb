@@ -3,16 +3,12 @@ class ApplicationController < ActionController::Base
   layout "application"
   
   # saves the art, creates a photo and saves it, returns the Photo object
-  def create_photo(art, image, username = nil)
+  def create_photo(art, image, attribution_text = nil, attribution_url = nil)
     art.photos.new(
-      :flickr_username => username,
+      :attribution_text => attribution_text,
+      :attribution_url => attribution_url,
       :image => image
     )
-  end
-
-  helper_method :flickr_details
-  def flickr_details
-    @flickr_details ||= YAML.load_file "#{Rails.root}/config/flickr.yml"
   end
   
   helper_method :admin?

@@ -7,8 +7,8 @@ class Photo
 
   attr_protected :_id
 
-  field :flickr_id, :type => Integer
-  field :flickr_username
+  field :attribution_text, :type => String
+  field :attribution_url, :type => String
   field :primary, :type => Boolean, :default => false
   field :sizes, :type => Hash, :default => {}
 
@@ -24,24 +24,5 @@ class Photo
   validates_attachment_presence :image, :message => "Please include a photo."
   validates_attachment_size :image, :in => 0..6.megabytes, :message => "Photo must be less than 6 megabytes."
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/gif", "image/jpg", "image/png"], :message => "Please include a JPG or PNG image for a photo."
-
-  # temporary, for legacy importing, useful for a while
-  require 'open-uri'
-  def import_from_flickr
-    if self.sizes and self.sizes['Original']
-      url = self.sizes['Original']['source']
-      self.image = open(url)
-      begin
-        self.save!
-        puts "[#{art.slug}] Processed"
-        return true
-      rescue
-        puts "[#{art.slug}] ERROR: #{self.errors.messages.values.join ", "}"
-      end
-    else
-      puts "[#{art.slug}] No flickr source URL!"
-    end
-    false
-  end
 
 end

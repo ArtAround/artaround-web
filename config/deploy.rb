@@ -56,7 +56,6 @@ namespace :deploy do
   desc "Get shared files into position"
   task :shared_links, :roles => [:web, :app] do
     run "ln -nfs #{shared_path}/config/admin.yml #{release_path}/config/admin.yml"
-    run "ln -nfs #{shared_path}/config/flickr.yml #{release_path}/config/flickr.yml"
     run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
     run "ln -nfs #{shared_path}/config/pony.yml #{release_path}/config/pony.yml"
     run "ln -nfs #{shared_path}/config/email.yml #{release_path}/config/email.yml"

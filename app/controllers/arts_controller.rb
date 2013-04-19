@@ -38,7 +38,7 @@ class ArtsController < ApplicationController
       
         AdminMailer.new_art(@art).deliver
         
-        photo = create_photo @art, params[:new_photo], params[:new_photo_username]
+        photo = create_photo @art, params[:new_photo], params[:photo_attribution_text], params[:photo_attribution_url]
         if photo.save
           redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
         else
@@ -77,7 +77,7 @@ class ArtsController < ApplicationController
       return false
     end
     
-    photo = create_photo @art, params[:new_photo], params[:new_photo_username]
+    photo = create_photo @art, params[:new_photo], params[:photo_attribution_text], params[:photo_attribution_url]
     if photo.save
       AdminMailer.new_photo(@art).deliver    
       redirect_to art_path(@art), :notice => "Thank you for contributing your photo! It should appear in the slideshow below."
