@@ -11,7 +11,7 @@ gem 'bson_ext', '1.6.1'
 
 gem 'rails_autolink'
 
-gem 'mongoid-paperclip', '0.0.8', :require => "mongoid_paperclip"
+gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
 
 group :development do
   gem 'wirble', '0.1.3'
