@@ -348,7 +348,8 @@
           <img src="<%= @art.primary_photo.image :big %>" />
         </a>
       <% end %>
-  
+        <div>Photo by <a href=<%=@art.primary_photo.attribution_url %>> <%= @art.primary_photo.attribution_text %> </a>
+        </div>
   		<div id="artThumbs">
   			<!-- <a class="moreArt left"></a> -->
   			<div class="thumbsContainer">

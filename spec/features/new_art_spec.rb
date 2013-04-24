@@ -13,8 +13,15 @@ describe "uploading a piece of art", :type => :feature do
     fill_in "art_longitude", :with => "-77.0451021194458"
 
     attach_file "new_photo", Rails.root.join("spec", "assets", "photo.jpg")
+    fill_in "photo_attribution_text", :with => "Droopy Dog"
+    fill_in "photo_attribution_url", :with => "www.droopydog.com"
+
     click_on "Submit"
 
+
     page.should have_content("Thanks for contributing a new piece of art!")
+    page.should have_content("Photo by Droopy Dog")
+    find_link('Droopy Dog')[:href].should == 'www.droopydog.com'
+
   end
 end
