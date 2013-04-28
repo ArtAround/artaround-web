@@ -23,5 +23,6 @@ describe "uploading a piece of art", :type => :feature do
     page.should have_content("Photo by Droopy Dog")
     find_link('Droopy Dog')[:href].should == 'www.droopydog.com'
 
+    Art.where(:title => "Ping Pong").destroy
   end
 end

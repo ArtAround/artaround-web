@@ -119,6 +119,8 @@
     $("li.thumbnail a").click(function() {
       $("a#artworkPhoto").attr("href", $(this).data("original_url"));
       $("a#artworkPhoto img").attr("src", $(this).data("big_url"));
+        $("a#photoAttribution").text($(this).data("attribution_text"))
+        $("a#photoAttribution").attr("href", $(this).data("attribution_url"))
       return false;
     });
 
@@ -348,7 +350,7 @@
           <img src="<%= @art.primary_photo.image :big %>" />
         </a>
       <% end %>
-        <div>Photo by <a href=<%=@art.primary_photo.attribution_url %>> <%= @art.primary_photo.attribution_text %> </a>
+        <div>Photo by <a id="photoAttribution" href="<%=@art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text %> </a>
         </div>
   		<div id="artThumbs">
   			<!-- <a class="moreArt left"></a> -->
@@ -359,6 +361,8 @@
   	  					<a href="#"
                   data-big_url="<%= photo.image :big %>"
                   data-original_url="<%= photo.image :original %>"
+                  data-attribution_text="<%= photo.attribution_text %>"
+                  data-attribution_url="<%= photo.attribution_url %>"
                   >
             			<img width="112" height="112" src="<%= photo.image :small %>" />
   						  </a>

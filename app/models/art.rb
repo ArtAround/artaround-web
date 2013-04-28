@@ -85,7 +85,11 @@ class Art
   validates_numericality_of :ward, :allow_blank => true
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
-  
+
+  def url
+    "/arts/#{slug}"
+  end
+
   def timeline_year
     if year.present? and year.to_i > 0
       year.to_i
