@@ -20,7 +20,7 @@ describe "uploading a piece of art", :type => :feature do
 
 
     page.should have_content("Thanks for contributing a new piece of art!")
-    page.should have_content("Photo by Droopy Dog")
+    page.should have_content("#{I18n.t :photo_by} Droopy Dog")
     find_link('Droopy Dog')[:href].should == 'www.droopydog.com'
 
     Art.where(:title => "Ping Pong").destroy

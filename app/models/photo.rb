@@ -25,4 +25,9 @@ class Photo
   validates_attachment_size :image, :in => 0..6.megabytes, :message => "Photo must be less than 6 megabytes."
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/gif", "image/jpg", "image/png"], :message => "Please include a JPG or PNG image for a photo."
 
+  def attribution_text
+    return self[:attribution_text] unless self[:attribution_text].blank?
+    return attribution_url unless attribution_url.blank?
+    return I18n.t :anonymous_user
+  end
 end

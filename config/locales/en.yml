@@ -5,4 +5,5 @@ en:
   recently_uploaded: "Recently Uploaded"
   photo_attribution_text: "Photo attribution (optional)"
   photo_attribution_url: "Attribution URL (optional)"
-
+  photo_by: "Photo by"
+  anonymous_user: "anonymous user"
