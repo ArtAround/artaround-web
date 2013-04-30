@@ -15,14 +15,14 @@
 <script type="text/javascript">
   var latitude = <%= @art.latitude || 0 %>;
   var longitude = <%= @art.longitude || 0 %>;
-  
+
   var address = "<%= @art.address %>";
   var city = "<%= @art.city %>";
   var state = "<%= @art.state %>";
   var zip = "<%= @art.zip %>";
 
   function loadMaps() {
-    
+
     var location = new google.maps.LatLng(latitude, longitude);
 
     // regular map
@@ -32,7 +32,7 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false
     });
-    
+
     var marker = new google.maps.Marker({
       position: location
     });
@@ -49,7 +49,7 @@
         return false;
       }
     );
-    
+
     $(".cancelBtn").click(
       function() {
         $("#artworkMetaData").show();
@@ -58,12 +58,12 @@
         return false;
       }
     );
-    
+
     <% if @submission.errors.any? %>
       // submission has errors, show the form
       $("#editInformation a").click();
     <% end %>
-    
+
     <% if admin? %>
       $("div.admin_comment a").click(function() {
         var elem = $(this);
@@ -133,99 +133,93 @@
       <h2 class="withSubtext withIcon">
         <%= @art.title %>
       </h2>
-  	  
+
       <div class="share_toolbox">
         <span class='st_facebook' displayText='Facebook'></span>
         <span class='st_twitter' st_title="<%= h @art.title %>" displayText='Tweet'></span>
         <span class='st_pinterest' displayText='Pinterest'></span>
         <span class='st_googleplus' displayText='Google +1'></span>
       </div>
-  	    
+
   	  <div class="clear"></div>
   		<div class="withLinks">
   		  <% if @art.website.present? %>
   	          <a><%= link_to "Visit website", @art.website %></a>
   	      <% end %>
-  	      
+
   		  <a id="edit" href="#">Edit</a>
   		  <a id="flagIt" href="#">Flag this art</a>
-  		
+
         <% if admin? %>
             <%= link_to "Admin", admin_art_path(@art) %>
         <% end %>
   		</div>
-      
+
       <div class="clear"></div>
 
     </div>
-	
+
 	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-    
-	
+
+
   <div id="ltColumn">
     <div class="module artdetails">
-      
+
       <dl id="artworkMetaData">
-        <dt>Category</dt> 
+        <dt>Category</dt>
         <dd><%= known @art.category %></dd>
 
-        <dt><%= artist_type_for @art %></dt>  
+        <dt><%= artist_type_for @art %></dt>
         <dd><%= known @art.artist %></dd>
 
-        <dt>Year</dt> 
+        <dt>Year</dt>
         <dd><%= known @art.year %></dd>
-
-        <dt>Neighborhood</dt> 
-        <dd><%= known @art.neighborhood %></dd>
-        
-        <dt>Ward</dt> 
-        <dd><%= known @art.ward %></dd>
 
         <dt>Location</dt>
         <dd><%= light_format known(@art.location_description) %></dd>
 
-        <dt>Description</dt>  
+        <dt>Description</dt>
         <dd><%= light_format known(@art.description) %></dd>
       </dl>
-      
+
       <%= form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
         <ul>
-        
+
           <li>
             <%= f.label :category %>
             <%= f.select :category, categories, {:include_blank => "---"} %>
           </li>
-          
+
           <li>
             <%= f.label :artist, "Artist(s)" %>
             <%= f.text_field :artist %>
           </li>
-          
+
           <li>
             <%= f.label :year %>
             <%= f.text_field :year %>
           </li>
-          
+
           <li>
             <%= f.label :neighborhood %>
             <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
           </li>
-        
+
           <li>
             <%= f.label :ward %>
             <%= f.text_field :ward %>
           </li>
-        
+
           <li>
             <%= f.label :location_description, "Location" %>
             <%= f.text_area :location_description %>
           </li>
-          
+
           <li>
             <%= f.label :description %>
             <%= f.text_area :description %>
           </li>
-          
+
           <li>
             <button class="submitBtn" type="submit">
                 <span>Submit</span>
@@ -233,18 +227,18 @@
           </li>
           <li>
             <a class="cancelBtn buttonLink " href="#"><span>Cancel</span></a>
-          </li> 
+          </li>
         </ul>
       <% end %>
       <div class="clear"></div>
-      
+
 	  <div class="icons">
 	  <% if @art.commissioned %>
-        
+
         <% if @art.event %>
           <a href="/events/<%= @art.event.slug %>">
-            <span 
-              id="eventIcon" 
+            <span
+              id="eventIcon"
               title="Part of <%= escape_javascript @art.event.name %>"
               style="background-image: url(<%= @art.event.icon.url(:thumbnail) %>)"
               >
@@ -267,11 +261,11 @@
       <% end %>
 	  </div>
     </div>
-    
+
     <% if admin? or @art.comments.approved.any? %>
       <div class="module" id="comments">
         <h3>Comments</h3>
-        
+
         <ol>
           <% (admin? ? (@art.comments) : (@art.comments.approved)).asc(:created_at).each do |comment| %>
             <li>
@@ -283,16 +277,16 @@
                     <%= comment.name %>
                   <% end %>
                 </span>
-                
+
                 <span class="entryDate">
                   <%= comment.created_at.strftime "%B %d, %Y" %>
                 </span>
-                
+
                 <p>
                   <%= comment.text %>
                 </p>
               </div>
-              
+
               <% if admin? %>
                 <div class="admin_comment">
                   <% if comment.approved? %>
@@ -302,18 +296,18 @@
                   <% end %>
                 </div>
               <% end %>
-              
+
               <div class="clear"></div>
             </li>
           <% end %>
         </ol>
-        
+
       </div>
     <% end %>
-    
+
     <div class="module">
       <h3>Leave a Comment</h3>
-      
+
       <%= form_for([@art, @comment], :url => comment_art_path(@art)) do |f| %>
         <ul>
           <li>
@@ -336,10 +330,10 @@
             <button class="submitBtn" type="submit">
               <span>Submit</span>
             </button>
-          </li>   
-        </ul> 
+          </li>
+        </ul>
       <% end %>
-      
+
     </div>
   </div>
 
@@ -399,7 +393,7 @@
       <h3>Have Another Photo? Upload it now!</h3>
 	    <a class="upload_link" href="#">Upload</a>
     </div>
-    
+
     <div id="map_canvas" class="smMap module"></div>
   </div>
 
@@ -432,7 +426,7 @@
 			</div>
 
 		</div>
-		<div class="fade black"></div>	
+		<div class="fade black"></div>
 	</div>
 
 	<div class="addArt overlay">
@@ -459,7 +453,7 @@
 			</div>
 
 		</div>
-		<div class="fade black"></div>	
+		<div class="fade black"></div>
 	</div>
 
 	<div class="clear"></div>

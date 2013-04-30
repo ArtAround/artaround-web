@@ -22,18 +22,18 @@
 
     var map;
     var geocoder;
-    
+
     var arts = [];
     var events = {};
     var icons = {};
-    
+
     var searchMarker;
-    var searchInfoWindow;    
-    
+    var searchInfoWindow;
+
     var markers = [];
-  
+
     var currentInfoWindow;
-    
+
     <% @events.each do |event| %>
       events["<%= event.id %>"] = {
         id: "<%= event.id %>",
@@ -72,10 +72,10 @@
         longitude: <%= art.longitude || 0 %>
       });
     <% end %>
-  
+
     function loadMap() {
       var location = new google.maps.LatLng(38.9043, -77.035);
-    
+
       map = new google.maps.Map(document.getElementById("map_canvas"), {
         center: location,
         zoom: 12,
@@ -84,12 +84,12 @@
             position: google.maps.ControlPosition.TOP_LEFT
         }
       });
-      
+
       var wards = new google.maps.KmlLayer("http://theartaround.us/kml/dc.kml", {
         preserveViewport: true
       });
       wards.setMap(map);
-      
+
       // icon types
       icons.art = new google.maps.MarkerImage("/images/pins/art.png");
       icons.art_popular = new google.maps.MarkerImage("/images/pins/artPop.png");
@@ -97,12 +97,12 @@
       icons.venue_popular = new google.maps.MarkerImage("/images/pins/venuePop.png");
       icons.event = new google.maps.MarkerImage("/images/pins/event.png");
       icons.event_popular = new google.maps.MarkerImage("/images/pins/eventPop.png");
-      
+
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
-        
+
         marker.filters = {
-          category: (art.category || "Unknown").toLowerCase(), 
+          category: (art.category || "Unknown").toLowerCase(),
           commissioned: art.commissioned,
           ward: art.ward,
           title: art.title,
@@ -111,10 +111,10 @@
           timeline_year: art.timeline_year
         };
         markers.push(marker);
-        
+
         marker.setMap(map);
       });
-      
+
       geocoder = new google.maps.Geocoder();
       $("ul#location button.searchBtn").click(function() {
         var query = $("ul#location #id_location").val();
@@ -124,10 +124,10 @@
         }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setZoom(15);
-            
+
             searchMarker = new google.maps.Marker({position: results[0].geometry.location});
             searchMarker.setMap(map);
-              
+
             map.panTo(results[0].geometry.location);
           }
         });
@@ -135,25 +135,25 @@
 
       postLoadMap();
     }
-    
+
     function markerFor(art, map) {
       var location = new google.maps.LatLng(art.latitude, art.longitude);
 
       var description = art.description;
       if (description.length > 210)
         description = description.substr(0, 205) + "..."
-      
+
       var eventIcon = "";
       if (art.event_name) {
        eventIcon = '' +
-        '<span class="eventIcon">' + 
+        '<span class="eventIcon">' +
           '<img src="' + art.event_icon_thumbnail + '" title="' + art.event_name + '"/>'
         '</span>'
       }
       var popularIcon = "";
       if (art.popular) {
         popularIcon = '' +
-        '<span class="popularIcon">' + 
+        '<span class="popularIcon">' +
           '<img src="/images/popular.png" title="Popular Artwork"/>'
         '</span>'
       }
@@ -161,62 +161,62 @@
       var commissionedIcon = "";
       if (art.commissioned) {
         commissionedIcon = '' +
-        '<span class="commissionedIcon">' + 
+        '<span class="commissionedIcon">' +
           '<img src="/images/icon_commissioned.png" title="DC Arts"/>'
         '</span>'
       }
 
       var html = '<div class="mapBubble">' +
         '<h4>' + art.title + '</h4>' +
-    		'<div class="icons">' + 
-          eventIcon + 
-          popularIcon + 
+    		'<div class="icons">' +
+          eventIcon +
+          popularIcon +
           commissionedIcon +
         '</div>' +
-            
+
     		'<div class="bubbleMetaData">' +
             '<dl>' +
 	            '<dt class="category">Category</dt>' +
 	            '<dd  class="category">' + (art.category || "Unknown") + '</dd>' +
-	
+
                 '<dt>Artist</dt>' +
                 '<dd class="artist">' + (art.artist || "Unknown") + '</dd>' +
-            
+
                 '<dt>Erected</dt>' +
                 '<dd class="year">- ' + (art.year || "Unknown") + '</dd>' +
-       
+
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.map_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
 		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
-        
+
       '</div>';
-      
+
       var icon;
       var isVenue = (art.category == 'Museum' || art.category == 'Gallery' || art.category == 'Market');
       var isPopular = art.popular;
       var isEvent = !!art.event_id;
-      
+
       if (isEvent)
         icon = (isPopular ? icons.event_popular : icons.event);
       else if (isVenue)
         icon = (isPopular ? icons.venue_popular : icons.venue);
       else
         icon = (isPopular ? icons.art_popular : icons.art);
-      
+
       var marker = new google.maps.Marker({
         position: location,
         icon: icon,
         title: art.title
       });
-      
+
       google.maps.event.addListener(marker, "click", function() {
         clearWindow();
-        
+
         currentInfoWindow = new google.maps.InfoWindow({content: html});
         currentInfoWindow.open(map, marker);
       });
-      
+
       return marker;
     }
 
@@ -234,7 +234,7 @@
       $("#eventsWrapper").hide();
 
       var event = events[id];;
-      
+
       // populate the event details into the filter pane
       var container = $(".mapTitle.event");
       container.find("h3").html(event.name);
@@ -273,23 +273,23 @@
       $("#filter_timeline").val("-1");
       $(".handle").css("left", "100%");
     }
-    
+
     function recalculateFilter() {
       clearWindow();
-      
+
       // figure out commission filter
       var ensure_commissioned;
       if ($("#filter_commissioned_all")[0].checked)
         ensure_commissioned = false;
       else if ($("#filter_commissioned_only")[0].checked)
         ensure_commissioned = true;
-        
-        
+
+
       var all_categories = $("#filter_category_all")[0].checked;
       var just_museum = $("#filter_category_museum")[0].checked;
       var just_gallery = $("#filter_category_gallery")[0].checked;
       var just_market = $("#filter_category_market")[0].checked;
-      
+
       var just_public = $("#filter_category_public")[0].checked;
       var allowed_categories = [];
       if (just_public) {
@@ -298,16 +298,16 @@
             allowed_categories.push($(this).next("span.category").html().toLowerCase());
         });
       }
-      
+
       var specific_ward = $("#id_wards").val();
-      
+
       var keyword = $("#mapsearch_value").val();
 
       var event_id = $("#filter_event_id").val();
 
       var timeline = parseInt($("#filter_timeline").val());
-      
-        
+
+
       // go through each marker and ensure it passes the test
       $.each(markers, function(i, marker) {
         var passed_commission;
@@ -316,10 +316,10 @@
         var passed_keyword;
         var passed_event;
         var passed_timeline;
-        
+
         // examine for commissioned status
         passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
-        
+
         if (all_categories)
           passed_category = true;
         else if (just_museum)
@@ -332,9 +332,9 @@
           passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
         else
           passed_category = false;
-        
+
         passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
-        
+
         if (!keyword)
           passed_keyword = true;
         else {
@@ -346,7 +346,7 @@
           passed_event = true;
         else
           passed_event = (marker.filters.event_id == event_id);
-        
+
         if (timeline < 0)
           passed_timeline = true;
         else if (timeline == 0)
@@ -368,9 +368,9 @@
         selectEvent("<%= @event.id %>");
       <% end %>
     }
-    
+
     $(function() {
-      
+
       // filter checkboxes/radio/select widgets
       $("input.filter").click(recalculateFilter);
       $("select#id_wards").change(recalculateFilter);
@@ -381,7 +381,7 @@
         recalculateFilter();
         return false;
       });
-      
+
       // hide/show links
       $(".hideFilter").click(
         function() {
@@ -397,7 +397,7 @@
           return false;
         }
       );
-      
+
 
       $("li.event a").click(function() {
         selectEvent($(this).parents("li").data("id"));
@@ -447,7 +447,7 @@
       });
 
     });
-    
+
     function clearWindow() {
       if (currentInfoWindow) currentInfoWindow.close();
     }
@@ -495,13 +495,13 @@
         return -1;
     }
   </script>
-  
+
 <% end %>
 
 
 <div id="mapContainer" >
 
-  <!-- the #filterForm will switch its "allArt" class to "event" when an event is selected -->  
+  <!-- the #filterForm will switch its "allArt" class to "event" when an event is selected -->
   <div id="filterForm" class="allArt">
 
   	<div class="mapTitle allArt">
@@ -516,15 +516,15 @@
     <a class="hideFilter" href="#">Hide</a>
 
     <p class="description event">
-      
+
     </p>
 
   	<form action="." method="get" onsubmit="return false">
       <fieldset class="allArt">
         <legend>Look for</legend>
-      
+
         <div class="clear"></div>
-      
+
         <!-- hidden filter for event ID -->
         <input type="hidden" class="filter hidden" id="filter_event_id" name="event_id" />
 
@@ -538,14 +538,14 @@
               <span>all</span>
             </label>
           </li>
-      
+
           <li>
             <label>
               <input class="filter category radio" name="category" type="radio" id="filter_category_museum" />
               <span>museum</span>
             </label>
           </li>
-        
+
           <li>
             <label>
               <input class="filter category radio" name="category" type="radio" id="filter_category_gallery" />
@@ -563,15 +563,15 @@
           <li>
             <a href="#" id="events_filter_toggle">Events</a>
           </li>
-        
+
           <li class="publicItem">
             <label>
               <input class="filter radio" name="category" type="radio" id="filter_category_public" />
               <span>public</span>
             </label>
-          
+
             <div class="clear"></div>
-          
+
             <ul id="publicSubset">
               <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
                 <li>
@@ -582,11 +582,11 @@
                 </li>
               <% end %>
             </ul>
-          
+
           </li>
         </ul>
       </fieldset>
-    
+
       <fieldset>
         <legend>Funded By</legend>
         <div class="clear"></div>
@@ -606,31 +606,16 @@
           </li>
         </ul>
       </fieldset>
-    
+
       <fieldset>
         <legend>Located In</legend>
         <ul id="location">
-          <li> 
+          <li>
             <label>Zoom to an address or zip</label>
             <input type="text" id="id_location" />
             <button type="submit" class="searchBtn">
                 <span>Go</span>
             </button>
-          </li>
-        
-          <li class="allArt">
-            <label for="id_wards">DC Wards</label> 
-            <select id="id_wards" name="wards">
-                <option selected="selected" value="">---------</option>
-                <option value="1">Ward 1</option>
-                <option value="2">Ward 2</option>
-                <option value="3">Ward 3</option>
-                <option value="4">Ward 4</option>
-                <option value="5">Ward 5</option>
-                <option value="6">Ward 6</option>
-                <option value="7">Ward 7</option>
-                <option value="8">Ward 8</option>
-            </select>
           </li>
         </ul>
 
@@ -649,7 +634,7 @@
 			<!--<a class="moreEvents left"></a>-->
 			<ul>
         <% @events.each do |event| %>
-  				<li class="event" 
+  				<li class="event"
             id="event-<%= event.id %>"
             data-id="<%= event.id %>"
             data-slug="<%= event.slug %>"
@@ -672,7 +657,7 @@
 
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
 
-  
+
 </div>
 <div id="timelineWrapper">
 	<div class="history era">

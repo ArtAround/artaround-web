@@ -5,30 +5,30 @@
 <% content_for :head do %>
   <script type="text/javascript">
     function loadMaps() {
-      
+
       // dupont circle
       var start = new google.maps.LatLng(38.90940, -77.04382);
-      
+
       var map = new google.maps.Map(document.getElementById("map_canvas"), {
         zoom: 15,
         center: start,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false
       });
-      
+
       google.maps.event.addListener(map, "click", function(event) {
         $("input#art_latitude").val(event.latLng.lat());
         $("input#art_longitude").val(event.latLng.lng());
       });
-      
+
     }
-    
+
     $(function() {
       if ($("input#art_latitude").val() == "")
         $("input#art_latitude").val("Click on Map");
       if ($("input#art_longitude").val() == "")
         $("input#art_longitude").val("Click on Map");
-        
+
       $("#new_form").submit(function() {
         $("#new_photo").hide();
         $("#uploading_photo").show();
@@ -44,17 +44,17 @@
       <h2 class="withSubtext">Add New Art</h2>
     </div>
   </div>
-    
+
 
   <div id="ltColumn">
 	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
-	
+
     <% if @art.errors.delete(:location).present? %>
       <div class="errors">
         Please click on the map to choose a latitude or longitude, or enter an address.
       </div>
     <% end %>
-    
+
     <% if @art.errors.delete(:geocode).present? %>
       <div class="errors">
         We couldn't locate the address you gave. Please give a more specific address so that we can locate the art.
@@ -75,7 +75,7 @@
         <li>
           <span class="small blue"><em><sup>*</sup> = required</em> </span>
         </li>
-      
+
         <li>
           <label for="art_category">category<sup>*</sup></label>
           <%= f.select :category, categories, {:include_blank => "---"} %>
@@ -91,15 +91,6 @@
         <li>
           <%= f.label :year %>
           <%= f.text_field :year %>
-        </li>
-        <li>
-          <label for="art_neighborhood">neighborhood<sup>*</sup></label>
-          <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
-        </li>
-        <li>
-          <%= f.label :ward %>
-          <em>Not required, but if you're curious, find the ward you seek <a href="http://citizenatlas.dc.gov/atlasapps/reporthometab.aspx">here</a>.</em>
-          <%= f.text_field :ward %>
         </li>
         <li>
           <%= f.label :location_description, "Describe the location" %>
@@ -155,9 +146,9 @@
           <button class="submitBtn" name="submit" type="submit">
               <span>Submit</span>
           </button>
-				
 
-        </li> 
+
+        </li>
       </ul>
     <% end %>
   </div>
@@ -169,5 +160,5 @@
   </div>
 
   <div class="clear"></div>
-  
+
 </div>
