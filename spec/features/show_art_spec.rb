@@ -75,8 +75,8 @@ describe "viewing an art", :type => :feature, :js => true do
       @art = FactoryGirl.create(:art)
       @primary_photo = FactoryGirl.create(:photo, :art => @art,
                                           :image => File.new(Rails.root + 'spec/assets/photo2.jpg'),
-                                          :attribution_text => nil,
-                                          :attribution_url => nil,
+                                          :attribution_text => "",
+                                          :attribution_url => "",
                                           :primary => true
       )
     end

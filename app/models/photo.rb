@@ -11,6 +11,7 @@ class Photo
   field :attribution_url, :type => String
   field :primary, :type => Boolean, :default => false
   field :sizes, :type => Hash, :default => {}
+  before_save :ensure_well_formed_url, :fill_in_blank_attribution_text
 
   has_mongoid_attached_file :image,
     :styles => {
@@ -25,9 +26,23 @@ class Photo
   validates_attachment_size :image, :in => 0..6.megabytes, :message => "Photo must be less than 6 megabytes."
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/gif", "image/jpg", "image/png"], :message => "Please include a JPG, GIF or PNG image for a photo."
 
-  def attribution_text
-    return self[:attribution_text] unless self[:attribution_text].blank?
-    return attribution_url unless attribution_url.blank?
-    return I18n.t :anonymous_user
+  private
+
+  def fill_in_blank_attribution_text
+    if attribution_text.blank?
+      if attribution_url.blank?
+        self.attribution_text = I18n.t :anonymous_user
+      else
+        self.attribution_text = attribution_url
+      end
+    end
+  end
+
+  def ensure_well_formed_url
+    uri = URI(attribution_url)
+    unless attribution_url.blank? || uri.scheme == "http" || uri.scheme == "https"
+      self.attribution_url = "http://" + attribution_url
+    end
   end
 end
+
