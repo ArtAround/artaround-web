@@ -11,23 +11,23 @@
 
     <script type="text/javascript" src="http://use.typekit.com/rxr6ppr.js"></script>
 	  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    
+
     <%= stylesheet_link_tag 'main' %>
-    
+
     <%= javascript_include_tag 'jquery-1.7.1.min' %>
     <%= javascript_include_tag 'dragdealer' %>
-    
+
     <%= yield :head %>
 
   </head>
-  
+
   <body class="<%= content_for :body_class %>">
-  
+
     <div id="headerWrapper">
       <header>
         <h1><a href="/">Art Around</a></h1>
     		<h2 id="cityView">
-    			Washington, DC
+
     		</h2>
   	    <form action="/map" method="geT" id="mapsearch_form">
   	      <label>Search by artist or title</label>
@@ -40,11 +40,11 @@
   	          <span>Search</span>
   	      </button>
   	    </form>
-        
+
   		  <nav>
     			<ul class="main_nav">
     				<% tabs = yield(:tabs) %>
-            
+
             <% if tabs.present? %>
               <%= tabs %>
             <% else %>
@@ -60,7 +60,7 @@
   		  </nav>
       </header>
     </div>
-    
+
     <%= yield %>
 	<div id="footerWrap">
 	  <footer>
@@ -76,11 +76,11 @@
 	          </ul>
 	          <div class="clear"></div>
 		    </nav>
-	
+
         </footer>
 	</div>
     <%= yield :footer %>
-    
+
     <% if Rails.env == "production" %>
       <script type="text/javascript">
 
@@ -96,6 +96,6 @@
 
       </script>
     <% end %>
-    
+
   </body>
 </html>

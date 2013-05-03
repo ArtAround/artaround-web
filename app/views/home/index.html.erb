@@ -8,9 +8,6 @@
 			<a href="/arts/new">Add Art</a>
 			<div class="clear"></div>
 		</div>
-		<p>
-			Are you looking for art in your neighborhood? Do you want to know more about that statue downtown? Maybe you're just visiting DC for the first time and want to explore our museums and galleries. Whatever you’re looking for, we’re here to help: ArtAround is your guide to finding -- and sharing --  public art in Washington, DC. Get the scoop on everything from murals, monuments, and street art to galleries, museums, and festivals - and share what you know, too.
-		</p>
 		<div class="mobileAd">
 			<a class="iphone" href="http://itunes.apple.com/us/app/artaround/id463678249">Available on the app store</a>
 			<a class="android" href="https://play.google.com/store/apps/details?id=us.artaround">Available in the Android market</a>
@@ -28,9 +25,9 @@
 		<ul class="recentlyAdded">
 	      <% recent_art.each_with_index do |art, i| %>
 	        <li class="artwork<%= i + 1 %>">
-	          <a href="<%= art_path art %>" 
+	          <a href="<%= art_path art %>"
 	          	id="art-thumbnail-<%= art.slug %>"
-	          	<% if art.primary_photo %>	
+	          	<% if art.primary_photo %>
 	          		style="background-image: url('<%= art.primary_photo.image :small %>')"
 	          	<% end %>
 	          	></a>
