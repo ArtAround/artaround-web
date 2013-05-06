@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'geokit', '1.5.0' # todo: update to 1.6.0
+gem 'geocoder', '1.1.8'
 
 gem "mongo", '1.6.1'
 gem "mongoid", '2.4.7'

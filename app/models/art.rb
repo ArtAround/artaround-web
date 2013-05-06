@@ -137,10 +137,10 @@ class Art
       if address.present? and state.present? and city.present?
         full_address = "#{address}, #{city}, #{state}"
         full_address += " #{zip}" if zip.present?
-
-        result = Geokit::Geocoders::GoogleGeocoder.geocode full_address
-        if result.success?
-          self.location = [result.lat, result.lng]
+        result = Geocoder.search full_address
+        if !result.empty?
+          self.location = [result.first.geometry['location']['lat'],
+            result.first.geometry['location']['lng']]
         else
           errors.add(:geocode, "not used") and return false
         end
