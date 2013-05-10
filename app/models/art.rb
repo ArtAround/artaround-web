@@ -19,7 +19,7 @@ class Art
   field :website
 
   # fields doubled on submissions
-  field :category
+  field :category, :type => Array
   field :artist
   field :year, :default => ""
   field :neighborhood

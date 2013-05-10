@@ -28,9 +28,8 @@ class ArtsController < ApplicationController
       return false
     end
 
-    if @art.category.class == String
-      @art.category == [@art.category]
-    end
+    # Get around Rails bug that introduces empty element with multiple selects
+    @art.category.reject!(&:blank?)
 
     if @art.safely.save
       # size check
