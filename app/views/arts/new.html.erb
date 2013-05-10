@@ -78,7 +78,7 @@
 
         <li>
           <label for="art_category">category<sup>*</sup></label>
-          <%= f.select :category, categories, {:include_blank => "---"} %>
+          <%= f.select :category, categories, {:multiple => true} %>
         </li>
         <li>
           <label for="art_title">title<sup>*</sup></label>

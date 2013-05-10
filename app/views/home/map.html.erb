@@ -58,7 +58,7 @@
         event_icon_small: events["<%= art.event_id %>"].icon_small,
         <% end %>
         title: "<%= escape_javascript art.title %>",
-        category: "<%= escape_javascript art.category %>",
+        category: <%= raw(art.category.map{|x| x.downcase}) %>,
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
@@ -114,7 +114,7 @@
         var marker = markerFor(art, map);
 
         marker.filters = {
-          category: (art.category || "Unknown").toLowerCase(),
+          category: (art.category || ["Unknown"]),
           commissioned: art.commissioned,
           ward: art.ward,
           title: art.title,
@@ -205,7 +205,7 @@
       '</div>';
 
       var icon;
-      var isVenue = (art.category == 'Museum' || art.category == 'Gallery' || art.category == 'Market');
+      var isVenue = ($.inArray('Museum', art.category) || $.inArray('Gallery', art.category) || $.inArray('Market', art.category));
       var isPopular = art.popular;
       var isEvent = !!art.event_id;
 
@@ -307,7 +307,7 @@
       if (just_public) {
         $("input.filter.public").each(function(i, element) {
           if (element.checked)
-            allowed_categories.push($(this).next("span.category").html().toLowerCase());
+            allowed_categories.push($(this).next("span.category").html());
         });
       }
 
@@ -335,13 +335,14 @@
         if (all_categories)
           passed_category = true;
         else if (just_museum)
-          passed_category = (marker.filters.category == "museum");
+          passed_category = ($.inArray('Museum', marker.filters.category));
         else if (just_gallery)
-          passed_category = (marker.filters.category == "gallery");
+          passed_category = ($.inArray('Gallery', marker.filters.category));
         else if (just_market)
-          passed_category = (marker.filters.category == "market");
+          passed_category = ($.inArray('Market', marker.filters.category));
         else if (just_public)
-          passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
+          //passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
+          passed_category = (getIntersect(marker.filters.category, allowed_categories).length >0);
         else
           passed_category = false;
 
@@ -460,6 +461,22 @@
 
     });
 
+    // Get the intersection of 2 arrays
+    function getIntersect(arr1, arr2) {
+      var r = [], o = {}, l = arr2.length, i, v;
+      for (i = 0; i < l; i++) {
+          o[arr2[i]] = true;
+      }
+      l = arr1.length;
+      for (i = 0; i < l; i++) {
+          v = arr1[i];
+          if (v in o) {
+              r.push(v);
+          }
+      }
+      return r;
+    }
+
     function clearWindow() {
       if (currentInfoWindow) currentInfoWindow.close();
     }
@@ -509,7 +526,6 @@
   </script>
 
 <% end %>
-
 
 <div id="mapContainer" >
 
