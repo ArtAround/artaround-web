@@ -15,7 +15,9 @@ describe "viewing an art", :type => :feature, :js => true do
   it "displays the art info" do
     visit @art.url
     page.should have_content(@art.title.upcase)
-    page.should have_content(@art.category)
+    @art.category.each do |cat|
+      page.should have_content(cat)
+    end
     page.should have_content(@art.artist)
     page.should have_content(@art.year)
     page.should have_content(@art.description)

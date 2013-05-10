@@ -28,6 +28,10 @@ class ArtsController < ApplicationController
       return false
     end
 
+    if @art.category.class == String
+      @art.category == [@art.category]
+    end
+
     if @art.safely.save
       # size check
       if File.size(params[:new_photo].path) > (1024*1024 * 6)

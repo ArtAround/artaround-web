@@ -167,7 +167,13 @@
 
       <dl id="artworkMetaData">
         <dt>Category</dt>
-        <dd><%= known @art.category %></dd>
+        <dd>
+          <ul>
+            <% @art.category.each do |cat| %>
+              <li><%= cat %></li>
+            <% end %>
+          </ul>
+        </dd>
 
         <dt><%= artist_type_for @art %></dt>
         <dd><%= known @art.artist %></dd>
@@ -187,7 +193,7 @@
 
           <li>
             <%= f.label :category %>
-            <%= f.select :category, categories, {:multiple => true} %>
+            <%= f.select :category, categories, {},{:multiple => true} %>
           </li>
 
           <li>
