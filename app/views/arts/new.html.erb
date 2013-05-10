@@ -1,5 +1,8 @@
 <% content_for :footer do %>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
+  <script type="text/javascript">
+  $('#art_category').chosen({allow_single_deselect:true});
+  </script>
 <% end %>
 
 <% content_for :head do %>
@@ -78,7 +81,7 @@
 
         <li>
           <label for="art_category">category<sup>*</sup></label>
-          <%= f.select :category, categories, {}, {:multiple => true}  %>
+          <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
         </li>
         <li>
           <label for="art_title">title<sup>*</sup></label>
