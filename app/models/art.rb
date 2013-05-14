@@ -8,6 +8,7 @@ class Art
   belongs_to :event
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
+  has_and_belongs_to_many :categories
 
 
   attr_protected :_id, :commissioned, :approved, :location, :slug
