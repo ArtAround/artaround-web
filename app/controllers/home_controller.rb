@@ -1,16 +1,16 @@
 class HomeController < ApplicationController
-  
+
   def index
     @arts = Art.approved.all
-    
+
     all_featured = Art.featured.all.to_a
     @featured = all_featured[rand all_featured.size]
-    
+
     @popular = Art.popular.limit(10)
 
     @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
   end
-  
+
   def map
     @arts = Art.approved.all
 
@@ -28,7 +28,7 @@ class HomeController < ApplicationController
         redirect_to contact_path, :notice => "Thanks for your comments!"
       rescue Exception => ex
         Rails.logger.info "ERROR sending mail: #{ex.message}"
-        
+
         flash.now[:alert] = "We had a problem sending your comment. Please try it again."
         render :contact
       end
@@ -37,5 +37,14 @@ class HomeController < ApplicationController
       render :contact
     end
   end
-  
+
+  def autocomplete_categories
+    tags = {:tags => []}
+
+    Category.all.each do |cat|
+      tags[:tags].push({tag: cat.name})
+    end
+    render json: tags
+  end
+
 end

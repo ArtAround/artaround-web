@@ -166,11 +166,11 @@
     <div class="module artdetails">
 
       <dl id="artworkMetaData">
-        <dt>Category</dt>
+        <dt><%= "Category".pluralize(@art.categories.count) %></dt>
         <dd>
           <ul>
-            <% @art.category.each do |cat| %>
-              <li><%= cat %></li>
+            <% @art.categories.each do |cat| %>
+              <li><%= cat.name %></li>
             <% end %>
           </ul>
         </dd>

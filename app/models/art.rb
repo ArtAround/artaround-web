@@ -8,7 +8,7 @@ class Art
   belongs_to :event
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
-  has_and_belongs_to_many :categories
+  has_and_belongs_to_many :categories, :autosave => true
 
 
   attr_protected :_id, :commissioned, :approved, :location, :slug
@@ -81,7 +81,7 @@ class Art
   scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
 
   validates_presence_of :title
-  validates_presence_of :category
+  #validates_presence_of :category
   validates_numericality_of :year, :allow_blank => true
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
