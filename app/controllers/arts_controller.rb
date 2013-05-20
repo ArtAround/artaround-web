@@ -16,7 +16,12 @@ class ArtsController < ApplicationController
     longitude = ["Click on Map", ""].include?(longitude) ? nil : longitude.to_f
 
     @art = Art.new params[:art]
-    @categories = params["hidden-categories"].split(',')
+    # for testing
+    if params["hidden-categories"].nil?
+      @categories = params["categories"].split(',')
+    else
+      @categories = params["hidden-categories"].split(',')
+    end
 
     # Move this below validation and photo check
     @categories.each do |cat|
