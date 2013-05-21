@@ -1,11 +1,12 @@
 class Api::ApiController < ApplicationController
-  
+
   def json_for_art(art)
     hash = art.as_json
     hash = clean hash, art_fields
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
     hash[:event] = event_for_art(art)
     hash[:photos] = photos_for_art(art)
+    hash[:categories] = categories_for_art(art)
     hash
   end
 
@@ -15,19 +16,20 @@ class Api::ApiController < ApplicationController
     if params[:order] == 'hotness'
       arts = arts.desc :total_visits
     end
-    
+
     # get it from the criteria before the content is lazily loaded
     total_count = arts.count
     pagination = paginate_options
-    
+
     skip = pagination[:per_page] * (pagination[:page]-1)
     limit = pagination[:per_page]
 
-    results = arts.skip(skip).limit(limit).map do |art| 
+    results = arts.skip(skip).limit(limit).map do |art|
       hash = art.as_json
       hash = clean hash, art_fields
       hash[:event] = event_for_art(art)
       # hash[:photos] = photos_for_art(art)
+      hash[:categories] = categories_for_art(art)
       hash
     end
     {
@@ -59,28 +61,32 @@ class Api::ApiController < ApplicationController
       }
     end
   end
-  
+
+  def categories_for_art(art)
+    art.categories.map{|x| x.name}
+  end
+
   def clean(attributes, whitelist)
     return nil unless attributes
     attributes.keys.each {|key| attributes.delete(key) unless whitelist.include?(key.to_sym)}
     attributes
   end
-  
+
   def paginate_options
     page = (params[:page] || 1).to_i
     page = 1 if page.to_i < 1
-    
+
     per_page = (params[:per_page] || 20).to_i
     per_page = 20 if per_page.to_i < 1
-    
+
     {:page => page, :per_page => per_page}
   end
-  
-  
+
+
   def art_fields
     [
-      :slug, :description, :location_description, :artist, :location, 
-      :created_at, :updated_at, :category, :title, :updated_at,
+      :slug, :description, :location_description, :artist, :location,
+      :created_at, :updated_at, :title, :updated_at,
       :year, :neighborhood, :ward, :commissioned, :ranking, :event
     ]
   end

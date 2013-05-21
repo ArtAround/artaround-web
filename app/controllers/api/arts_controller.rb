@@ -1,6 +1,6 @@
 class Api::ArtsController < Api::ApiController
   before_filter :load_art, :only => :show
-  
+
   def index
     render :json => json_for_arts
   end
@@ -22,17 +22,22 @@ class Api::ArtsController < Api::ApiController
       art.location = [latitude, longitude]
     end
 
+    vals[:categories].each do |cat|
+      new_cat = Category.find_or_create_by(name: cat)
+      art.categories.push(new_cat)
+    end
+
     respond_to do |format|
       format.json do
         # If the art is successfully saved, send back the JSON representation
-        # of the art. Otherwise, send back the errors and a Bad Request 
+        # of the art. Otherwise, send back the errors and a Bad Request
         # status code.
         if art.safely.save
           AdminMailer.new_art(art).deliver
           render :json => { :success => art.slug }
         else
           Rails.logger.info "Could not save art: #{art.errors}"
-          render :json => art.errors, :status => 400 
+          render :json => art.errors, :status => 400
         end
       end
     end
@@ -54,7 +59,7 @@ class Api::ArtsController < Api::ApiController
       render :json => { :success => false, :errors => photo.errors.messages.values.flatten }, :status => 500
     end
   end
-  
+
   def show
     @art.inc :api_visits, 1
     @art.inc :total_visits, 1
@@ -65,11 +70,11 @@ class Api::ArtsController < Api::ApiController
 
   def update
     art = Art.find_by_slug(params[:id])
-    
+
     # Send back a 404 message if the art was not found. Since
     # this is an API, no body is required.
     head :not_found and return unless art
-    
+
     data = params.reject { |k, v| %w[ controller action format id ].include?(k) }
 
     submission = art.submissions.build(data)
@@ -118,21 +123,21 @@ class Api::ArtsController < Api::ApiController
       end
     end
   end
-                    
+
   def neighborhoods_api
     render :json => neighborhoods.to_json
   end
-  
+
   def categories_api
     render :json => categories.to_json
   end
-  
+
   protected
-  
+
   def load_art
     unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
       head :not_found and return false
     end
   end
-                    
+
 end
