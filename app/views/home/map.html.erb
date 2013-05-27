@@ -1,6 +1,6 @@
 <% content_for :body_class, "home" %>
 <% content_for :footer do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMap"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=geoLocate"></script>
 <% end %>
 <% content_for :tabs do %>
   <li id="events_link" class="map">
@@ -73,11 +73,23 @@
       });
     <% end %>
 
-    function loadMap() {
-      var location = new google.maps.LatLng(38.9043, -77.035);
+    function geoLocate(){
+      if (navigator.geolocation)
+      {
+        navigator.geolocation.getCurrentPosition(loadMap);
+      }
+    }
+
+    function loadMap(position) {
+      var center;
+      center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
+      if (center == undefined)
+      {
+        center = new google.maps.LatLng(38.9043, -77.035);
+      }
 
       map = new google.maps.Map(document.getElementById("map_canvas"), {
-        center: location,
+        center: center,
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControlOptions: {
