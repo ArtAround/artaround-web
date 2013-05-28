@@ -5,9 +5,6 @@ describe "retrieving an art", :type => :feature do
   before :each do
     @art = FactoryGirl.create(:art)
     @primary_photo = FactoryGirl.create(:photo, :primary => true, :art => @art)
-    @categories = []
-    @categories.push(FactoryGirl.create(:category, :name => "Mural", :arts => [@art]))
-    @categories.push(FactoryGirl.create(:category, :name => "Painting", :arts => [@art]))
   end
 
   after :each do
@@ -24,8 +21,8 @@ describe "retrieving an art", :type => :feature do
 
   it "should get all art categories" do
     visit("/api/v1/arts/" + @art.slug)
-    @art.categories.each do |cat|
-      page.should have_content(cat.name)
+    @art.category.each do |cat|
+      page.should have_content(cat)
     end
   end
 

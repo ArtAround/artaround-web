@@ -5,6 +5,7 @@ FactoryGirl.define do
     f.title Faker::Company.catch_phrase
     f.artist Faker::Name.name
     f.year (1900+Random.rand(114)).to_s
+    f.category ["Mural"]
     f.location [Faker::Address.latitude, Faker::Address.longitude]
     f.description Faker::Lorem.paragraph
     f.location_description Faker::Lorem.sentence
