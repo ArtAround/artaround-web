@@ -3,7 +3,7 @@ require "spec_helper"
 describe "uploading a piece of art", :type => :feature do
   it "works" do
     visit '/arts/new'
-    fill_in "categories", :with => 'Mural'
+    select "Mural", :from => "category"
     fill_in "art_title", :with => "Ping Pong"
     fill_in "art_artist", :with => "Daffy Duck"
     fill_in "art_year", :with => "1989"
