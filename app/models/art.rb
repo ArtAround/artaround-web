@@ -8,7 +8,6 @@ class Art
   belongs_to :event
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
-  has_and_belongs_to_many :categories, :autosave => true
 
 
   attr_protected :_id, :commissioned, :approved, :location, :slug
@@ -81,7 +80,8 @@ class Art
   scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
 
   validates_presence_of :title
-  #validates_presence_of :category
+  validates_presence_of :category
+  validate :contains_valid_categories
   validates_numericality_of :year, :allow_blank => true
   validate :contains_location, :on => :create
   validates_uniqueness_of :slug
@@ -148,6 +148,21 @@ class Art
       else
         errors.add(:location, "not used") and return false
       end
+    end
+  end
+
+  def contains_valid_categories
+    valid_categories = ["Architecture", "Digital", "Drawing", "Installation",
+                      "Interactive", "Gallery", "Graffiti", "Kinetic",
+                      "Lighting installation", "Market", "Memorial",
+                      "Mixed media", "Mosaic", "Mural", "Museum", "Painting",
+                      "Paste", "Photograph", "Print", "Sculpture", "Statue",
+                      "Stained glass", "Temporary", "Textile", "Plaster",
+                      "Participatory", "Performance", "Projection", "Video",
+                      "Other"]
+    invalid = category - valid_categories
+    if invalid.length != 0
+      errors.add(:category, "invalid categories") and return false
     end
   end
 end

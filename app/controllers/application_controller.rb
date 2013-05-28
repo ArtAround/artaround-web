@@ -23,7 +23,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :categories
   def categories
-    @categories ||= Category.all.map{|x| x.name}
+    @categories ||= ["Architecture", "Digital", "Drawing", "Installation",
+                      "Interactive", "Gallery", "Graffiti", "Kinetic",
+                      "Lighting installation", "Market", "Memorial",
+                      "Mixed media", "Mosaic", "Mural", "Museum", "Painting",
+                      "Paste", "Photograph", "Print", "Sculpture", "Statue",
+                      "Stained glass", "Temporary", "Textile", "Plaster",
+                      "Participatory", "Performance", "Projection", "Video",
+                      "Other"]
   end
 
   helper_method :neighborhoods

@@ -16,11 +16,11 @@ Artaround::Application.routes.draw do
     end
     resources :events
   end
-
+  
   namespace :api do
     scope '/v1' do
       resources :arts, :except => [:new, :edit] do
-        member do
+        member do 
           post :photos
           post :comments
         end
@@ -30,18 +30,17 @@ Artaround::Application.routes.draw do
       match "/categories" => "arts#categories_api"
     end
   end
-
+  
   match "/admin" => "admin/arts#index", :as => "admin"
-
+  
   match "/contact" => "home#contact"
   match "/about" => "home#about"
   match "/faq" => "home#faq"
-
+  
   match "/contact/send" => "home#send_contact", :via => [:post], :as => "send_contact"
-
+  
   match "/map" => "home#map"
   match "/events/:slug" => "home#map"
-  match "/autocomplete_categories" => "home#autocomplete_categories"
 
   root :to => "home#index"
 end

@@ -1,10 +1,7 @@
 <% content_for :footer do %>
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
   <script type="text/javascript">
-    jQuery(".tagManager").tagsManager({
-      typeahead: true,
-      typeaheadAjaxSource: '/autocomplete_categories'
-    });
+  $('#art_category').chosen({allow_single_deselect:true});
   </script>
 <% end %>
 
@@ -83,10 +80,9 @@
         </li>
 
         <li>
-          <label>Category <small>Separate with commas.</small></label>
-          <input type="text" name="categories" placeholder="Category" class="tagManager"/>
+          <label for="art_category">category<sup>*</sup></label>
+          <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
         </li>
-
         <li>
           <label for="art_title">title<sup>*</sup></label>
           <%= f.text_field :title %>

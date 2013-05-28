@@ -16,18 +16,6 @@ class ArtsController < ApplicationController
     longitude = ["Click on Map", ""].include?(longitude) ? nil : longitude.to_f
 
     @art = Art.new params[:art]
-    # for testing
-    if params["hidden-categories"].nil?
-      @categories = params["categories"].split(',')
-    else
-      @categories = params["hidden-categories"].split(',')
-    end
-
-    # Move this below validation and photo check
-    @categories.each do |cat|
-      category = Category.find_or_create_by(name: cat)
-      @art.categories.push(category)
-    end
 
     @art.location = [latitude, longitude] if latitude and longitude
 
@@ -41,9 +29,7 @@ class ArtsController < ApplicationController
     end
 
     # Get around Rails bug that introduces empty element with multiple selects
-    # @art.category.reject!(&:blank?)
-
-
+    @art.category.reject!(&:blank?)
 
     if @art.safely.save
       # size check

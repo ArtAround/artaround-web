@@ -58,7 +58,7 @@
         event_icon_small: events["<%= art.event_id %>"].icon_small,
         <% end %>
         title: "<%= escape_javascript art.title %>",
-        category: <%= raw(art.categories.map{|x| x.name.downcase}) %>,
+        category: <%= raw(art.category.map{|x| x.downcase}) %>,
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
