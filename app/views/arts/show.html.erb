@@ -46,6 +46,7 @@
         $("#artworkMetaData").toggle();
         $("#edit_artworkMetaData").toggle();
         $(".callout").toggle();
+        $('#submission_category').chosen({allow_single_deselect:true});
         return false;
       }
     );
@@ -193,7 +194,7 @@
 
           <li>
             <%= f.label :category %>
-            <%= f.select :category, categories, {},{:multiple => true} %>
+            <%= f.select :category, options_for_select(categories, @art.category), {},{:multiple => true} %>
           </li>
 
           <li>
