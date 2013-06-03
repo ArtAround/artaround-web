@@ -20,6 +20,7 @@ class Art
 
   # fields doubled on submissions
   field :category, :type => Array
+  field :old_category
   field :artist
   field :year, :default => ""
   field :neighborhood
@@ -80,7 +81,6 @@ class Art
   scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
 
   validates_presence_of :title
-  validates_presence_of :category
   validate :contains_valid_categories
   validates_numericality_of :year, :allow_blank => true
   validate :contains_location, :on => :create
