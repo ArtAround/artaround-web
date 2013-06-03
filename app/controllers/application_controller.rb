@@ -23,14 +23,14 @@ class ApplicationController < ActionController::Base
 
   helper_method :categories
   def categories
-    @categories ||= ["Architecture", "Digital", "Drawing", "Installation",
-                      "Interactive", "Gallery", "Graffiti", "Kinetic",
-                      "Lighting installation", "Market", "Memorial",
-                      "Mixed media", "Mosaic", "Mural", "Museum", "Painting",
-                      "Paste", "Photograph", "Print", "Sculpture", "Statue",
-                      "Stained glass", "Temporary", "Textile", "Plaster",
-                      "Participatory", "Performance", "Projection", "Video",
-                      "Other"]
+    @categories ||= ["Architecture", "Digital", "Drawing", "Gallery",
+                    "Graffiti", "Installation", "Interactive",
+                    "Kinetic", "Lighting installation", "Market",
+                    "Memorial", "Mixed media", "Mosaic", "Mural",
+                    "Museum", "Painting", "Performance", "Paste",
+                    "Photograph", "Print", "Projection", "Sculpture",
+                    "Statue", "Stained glass", "Temporary", "Textile",
+                    "Video"]
   end
 
   helper_method :neighborhoods
