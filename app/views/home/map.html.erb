@@ -76,21 +76,25 @@
     function geoLocate(){
       if (navigator.geolocation)
       {
-        navigator.geolocation.getCurrentPosition(loadMap);
+        navigator.geolocation.getCurrentPosition(loadMap, loadMap);
       }
     }
 
     function loadMap(position) {
       var center;
-      center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
-      if (center == undefined)
+      var zoom = 12;
+      if (position.hasOwnProperty('message'))
       {
-        center = new google.maps.LatLng(38.9043, -77.035);
+        center = new google.maps.LatLng(41.623184026741214, -91.962563225);
+        zoom = 4;
+      }
+      else{
+        center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
       }
 
       map = new google.maps.Map(document.getElementById("map_canvas"), {
         center: center,
-        zoom: 12,
+        zoom: zoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControlOptions: {
             position: google.maps.ControlPosition.TOP_LEFT
@@ -605,26 +609,6 @@
               <% end %>
             </ul>
 
-          </li>
-        </ul>
-      </fieldset>
-
-      <fieldset>
-        <legend>Funded By</legend>
-        <div class="clear"></div>
-
-        <ul id="commissionedScroll">
-          <li>
-            <label>
-              <input class="filter commissioned radio" type="radio" name="commissioned" id="filter_commissioned_all" checked />
-              <span>anyone</span>
-            </label>
-          </li>
-          <li>
-            <label>
-              <input class="filter radio" type="radio" name="commissioned" id="filter_commissioned_only" />
-              <span>the District</span>
-            </label>
           </li>
         </ul>
       </fieldset>

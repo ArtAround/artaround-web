@@ -1,5 +1,5 @@
 <% content_for :footer do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=geoLocate"></script>
   <script type="text/javascript">
   $('#art_category').chosen({allow_single_deselect:true});
   </script>
@@ -7,14 +7,28 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
-    function loadMaps() {
 
-      // dupont circle
-      var start = new google.maps.LatLng(38.90940, -77.04382);
+    function geoLocate(){
+      if (navigator.geolocation)
+      {
+        navigator.geolocation.getCurrentPosition(loadMaps, loadMaps);
+      }
+    }
+    function loadMaps(position) {
+      var center;
+      var zoom = 12;
+      if (position.hasOwnProperty('message'))
+      {
+        center = new google.maps.LatLng(38.1167755604538, -97.763344475);
+        zoom = 3;
+      }
+      else{
+        center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
+      }
 
       var map = new google.maps.Map(document.getElementById("map_canvas"), {
-        zoom: 15,
-        center: start,
+        zoom: zoom,
+        center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false
       });
