@@ -152,17 +152,21 @@ class Art
   end
 
   def contains_valid_categories
-    valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
-                        "Graffiti", "Installation", "Interactive",
-                        "Kinetic", "Lighting installation", "Market",
-                        "Memorial", "Mixed media", "Mosaic", "Mural",
-                        "Museum", "Painting", "Performance", "Paste",
-                        "Photograph", "Print", "Projection", "Sculpture",
-                        "Statue", "Stained glass", "Temporary", "Textile",
-                        "Video"]
-    invalid = category - valid_categories
-    if invalid.length != 0
-      errors.add(:category, "invalid categories") and return false
+    if category.nil?
+      return true
+    else
+      valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
+                          "Graffiti", "Installation", "Interactive",
+                          "Kinetic", "Lighting installation", "Market",
+                          "Memorial", "Mixed media", "Mosaic", "Mural",
+                          "Museum", "Painting", "Performance", "Paste",
+                          "Photograph", "Print", "Projection", "Sculpture",
+                          "Statue", "Stained glass", "Temporary", "Textile",
+                          "Video"]
+      invalid = category - valid_categories
+      if invalid.length != 0
+        errors.add(:category, "invalid categories") and return false
+      end
     end
   end
 end
