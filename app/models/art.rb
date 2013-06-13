@@ -12,6 +12,8 @@ class Art
 
   attr_protected :_id, :commissioned, :approved, :location, :slug
 
+  before_save :ensure_well_formed_url
+
   # required field, used for slug
   field :title
   slug :title
@@ -167,6 +169,13 @@ class Art
       if invalid.length != 0
         errors.add(:category, "invalid categories") and return false
       end
+    end
+  end
+
+  def ensure_well_formed_url
+    uri = URI(website) unless website.blank?
+    unless website.blank? || uri.scheme == "http" || uri.scheme == "https"
+      self.website = "http://" + website
     end
   end
 end
