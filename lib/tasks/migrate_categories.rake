@@ -22,4 +22,19 @@ namespace :migrate do
       end
     end
   end
+
+  desc "Convert Flickr ids to attribution text/url"
+  task :flickr => :environment do
+    Photo.all.each do |photo|
+      if photo.attribution_text.blank?
+        if photo.flickr_username.blank?
+          photo.attribution_text = "anonymous user"
+        else
+          photo.attribution_text = photo.flickr_username
+          photo.attribution_url = "http://www.flickr.com/#{photo.flickr_username}"
+        end
+        photo.save
+      end
+    end
+  end
 end
