@@ -14,9 +14,14 @@ class ArtsController < ApplicationController
     longitude = (longitude || "").strip
     latitude = ["Click on Map", ""].include?(latitude) ? nil : latitude.to_f
     longitude = ["Click on Map", ""].include?(longitude) ? nil : longitude.to_f
+    @commissioner = Commissioner.where({:name => /^#{params[:art]['commissioned_by']}/i}).first
+    if @commissioner.nil?
+      @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
+    end
 
     @art = Art.new params[:art]
 
+    @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
     @art.approved = true # auto-approve, would default to false otherwise
@@ -40,6 +45,8 @@ class ArtsController < ApplicationController
       else
 
         AdminMailer.new_art(@art).deliver
+        @commissioner.arts.push(@art)
+        @commissioner.save
 
         photo = create_photo @art, params[:new_photo], params[:photo_attribution_text], params[:photo_attribution_url]
         if photo.save

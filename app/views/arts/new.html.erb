@@ -8,6 +8,16 @@
 <% content_for :head do %>
   <script type="text/javascript">
 
+    $(document).ready(function() {
+      $("#art_commissioned_by").typeahead({
+        minLength: 1,
+        source: function(query, process) {
+          $.get('/autocomplete_commissioners.json', { query: query}, function(data) {
+            process(data);
+          });
+        }
+      });
+    });
     function geoLocate(){
       if (navigator.geolocation)
       {
@@ -112,6 +122,10 @@
         <li>
           <%= f.label :website %>
           <%= f.text_field :website %>
+        </li>
+        <li>
+          <%= f.label :commissioned_by %>
+          <%= f.text_field :commissioned_by, {:autocomplete => "off"} %>
         </li>
         <li>
           <%= f.label :location_description, "Describe the location" %>

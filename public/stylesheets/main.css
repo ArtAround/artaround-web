@@ -1,5 +1,5 @@
 /*
- * YUI Resect CSS version: 2.2.2 
+ * YUI Resect CSS version: 2.2.2
  * Copyright (c) 2007, Yahoo! Inc. All rights reserved.
  * Licensed under the BSD License: http://developer.yahoo.net/yui/license.txt
  */
@@ -456,7 +456,7 @@ top: 10px;
 	height: 130px;
 	float: left;
 	position: relative;
-	overflow: hidden;	
+	overflow: hidden;
 }
 #artThumbs ul{
 	position: absolute;
@@ -1393,7 +1393,7 @@ input#new_photo{
 }
 
 div.popupError {
-	display: none; 
+	display: none;
 	margin-top: 5px;
 	font-size: 110%;
 	margin: 10px 0;
@@ -1448,7 +1448,7 @@ div.popupError {
 	background: -ms-linear-gradient(top,  #acabab 60%,#848484 100%); /* IE10+ */
 	background: linear-gradient(top,  #acabab 60%,#848484 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#acabab', endColorstr='#848484',GradientType=0 ); /* IE6-9 */
-	
+
 }
 
 .history li{
@@ -1466,14 +1466,14 @@ div.popupError {
 	width: 5.0%;
 	padding-left: 5px;
 	box-sizing: border-box;
-	
+
 
 }
 .history li.end{
 	background: none;
-	text-align: right;	
+	text-align: right;
 	width: 5.0%;
-	
+
 }
 
 .right{
@@ -1516,7 +1516,7 @@ div.popupError {
 	display: block;
 	float: left;
 	background: url('../images/timeline_tick.png') left bottom repeat-y;
-	
+
 }
 a.reset{
 	display: block;
@@ -1536,7 +1536,16 @@ a.reset:hover{
 }
 
 
+.typeahead {
+	border: 1px black solid;
+}
+.typeahead .active{
+	background-color: #57b6a6;
+	color: white;
+}
 
-
-
+.active a{
+	color: white;
+	background-color: #57b6a6;
+}
 
