@@ -181,7 +181,7 @@
 
         <% unless @art.commissioned_by.nil? %>
           <dt>Commissioned By</dt>
-          <dd><%= @art.commissioned_by.name %></dd>
+          <dd><%= link_to @art.commissioned_by.name, @art.commissioned_by.url %></dd>
         <% end %>
 
         <dt>Year</dt>
