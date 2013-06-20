@@ -29,6 +29,14 @@
             </li>
         <% end %>
     </ul>
+    <h3>Commissioners</h3>
+    <ul>
+        <% @commissioners.each do |com| %>
+            <li>
+                <%= link_to com.name, admin_commissioner_path(com) %>
+            </li>
+        <% end %>
+    </ul>
 </div>
 
 <div class="clear"></div>

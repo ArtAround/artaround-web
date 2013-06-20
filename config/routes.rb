@@ -15,6 +15,7 @@ Artaround::Application.routes.draw do
       resources :photos
     end
     resources :events
+    resources :commissioners
   end
 
   namespace :api do
