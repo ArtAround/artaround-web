@@ -179,6 +179,11 @@
         <dt><%= artist_type_for @art %></dt>
         <dd><%= known @art.artist %></dd>
 
+        <% unless @art.commissioned_by.nil? %>
+          <dt>Commissioned By</dt>
+          <dd><%= @art.commissioned_by.name %></dd>
+        <% end %>
+
         <dt>Year</dt>
         <dd><%= known @art.year %></dd>
 
