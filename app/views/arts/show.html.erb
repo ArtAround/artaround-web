@@ -181,7 +181,11 @@
 
         <% unless @art.commissioned_by.nil? %>
           <dt>Commissioned By</dt>
-          <dd><%= link_to @art.commissioned_by.name, @art.commissioned_by.url %></dd>
+          <% if @art.commissioned_by.url.blank? %>
+            <dd><%= @art.commissioned_by.name %></dd>
+          <% else %>
+            <dd><%= link_to @art.commissioned_by.name, @art.commissioned_by.url %></dd>
+          <% end %>
         <% end %>
 
         <dt>Year</dt>

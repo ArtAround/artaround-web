@@ -6,7 +6,7 @@ class Art
 
   has_many :comments
   belongs_to :event
-  belongs_to :commissioned_by, :class_name => "Commissioner"
+  belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
 

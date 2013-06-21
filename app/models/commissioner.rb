@@ -3,7 +3,7 @@ class Commissioner
   include Mongoid::Timestamps
   include Mongoid::Paperclip
 
-  has_many :arts, :autosave => true
+  has_many :arts, :autosave => true, :inverse_of => :commissioned_by
 
   field :url, :type => String
   field :name, :type => String
