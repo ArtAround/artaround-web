@@ -75,6 +75,7 @@ html {
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
 	height: 100%;
+	width: 100%;
 }
 body {
 -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -84,6 +85,7 @@ body {
 margin: 0;
 height: 100%;
 padding-bottom: 42px;
+width: 100%;
 }
 
 
@@ -113,26 +115,25 @@ margin-right: 3px;
 }
 
 #headerWrapper {
-background: url(/images/bg_headerWrapper.jpg) center top repeat-x;
-height: 82px;
+height: 100px;
 z-index: 100;
+width: 100%;
+max-width: 1000px;
+margin: 0 auto;
 }
 header {
-background: url(/images/bg_header.jpg) center top no-repeat;
 position: relative;
 }
 header, #featureBox, #mapSearch, #pageMain, footer {
-	width: 960px;
 	padding: 0;
 	margin: 0 auto;
 }
 header nav {
-	margin-top: 56px;
+	margin-top: 65px;
 	position: absolute;
 	z-index: 100;
 	right: 0;
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
-	font-size: 150%;
+	font-size: 120%;
 	font-weight: 700;
 }
 header nav li {
@@ -146,7 +147,6 @@ header nav a {
 	float: left;
 	display: block;
 	text-align: center;
-	background-color: #3a3233;
 	height: 24px;
 	color: #ffffff;
 	text-transform: uppercase;
@@ -155,34 +155,34 @@ header nav a {
 
 
 header nav a:hover {
-background-color: #4b4344;
+text-decoration: underline;
 
 }
 header nav a:link, header nav a:hover, header nav a:visited {
-color: #c2b4b5;
+color: #ccc;
 }
 header nav li.active a {
-	background: url(/images/nav_active.png) center top no-repeat ;
 	height: 38px;
-	color: #ffffff;
-	text-shadow: 1px 1px 3px #706d6d;
-	filter: dropshadow(color=#706d6d, offx=1, offy=1);
+	color: #444;
 }
 header nav {
 float: left;
 }
 header nav a:link, #nav a:visited, #nav a:active {
-color: #c9c0bd;
+color: #ccc;
 text-decoration: none;
 }
 
 
 body {
-background: url(/images/bg_main.jpg) center top repeat;
+background: rgb(235, 229, 223);
+font-family: "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
 #pageMain {
-padding-top: ;
+max-width: 1000px;
+width: 100%;
+border-top: 3px solid #54c3c6;
 }
 div#rtColumn {
 	float: left;
@@ -203,7 +203,6 @@ div#ltColumn.oneCol{
 }
 
 div#ltColumn h3, div#rtColumn h3{
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
 	font-size: 170%;
 	margin-bottom: 10px;
@@ -216,17 +215,18 @@ div#ltColumn h3, div#rtColumn h3{
 	font-style: oblique;
 }
 
-h1 {
-width: 124px;
-height: 73px;
+header h1 {
+width: 40%;
+padding: 16px 0 0 16px;
 float: left;
 }
 h1 a {
-text-indent: -9999em;
-display: block;
-width: 124px;
-height: 73px;
-background: url(/images/logo.png) top left no-repeat;
+width: 40%;
+height: 100px;
+}
+
+h1 a img {
+	width: 100%;
 }
 
 h2 {
@@ -244,19 +244,16 @@ float: left;
 color: #7f7b7b;
 margin-left: 30px;
 margin-top: 57px;
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 font-size: 150%;
 
 }
 
 #titleContent {
-	background: url(/images/bg_artTitle.png) center top no-repeat;
 	height: 65px;
 	padding: 19px 10px 0 10px;
 	margin-bottom: 35px;
 }
 #titleContent h2 {
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	padding-bottom: 0px;
 	border-bottom: none;
 	margin-bottom: 0px;
@@ -330,7 +327,6 @@ header .searchBtn span{
 .searchBtn {
 	background: #57b6a6; /* Old browsers */
 	color: #ffffff;
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-indent: 0;
 	display: inline;
 	width: 0;
@@ -361,7 +357,6 @@ margin-bottom: 0;
 	height: 45px;
 	margin-left: 0;
 	margin-top: 45px;
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-size: 150%;
 	color: #ffffff;
 	text-transform: uppercase;
@@ -374,7 +369,6 @@ margin-bottom: 0;
 	width: 89px;
 	height: 33px;
 	margin-top: 45px;
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-size: 150%;
 	color: #ffffff;
 	text-transform: uppercase;
@@ -390,15 +384,11 @@ margin-bottom: 0;
 -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */ 
-	bottom:71px;
-overflow: hidden;
-padding-bottom: 7px;
-margin-top: 82px;
-margin-left: 0;
-margin-right: 0;
-position: absolute;
-top: 0;
 width: 100%;
+height: 85%;
+border-top: 3px solid #54c3c6;
+margin: 0 auto;
+position: absolute;
 }
 .home {
 	height: 100%;
@@ -409,10 +399,11 @@ width: 100%;
 	width: 100%;
 }
 
-.home #mapsearch_form {
-	margin-top: 56px;
-	float: left;
-	margin-left: 215px
+#mapsearch_form {
+	position: absolute;
+right: 0;
+top: 10px;
+}
 }
 
 #mapsearch_form {
@@ -519,7 +510,6 @@ width: 100%;
 	color: #000000;
 }
 #eventsMenu h4 {
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-weight: normal;
 	font-size: 150%;
 	text-transform: uppercase;
@@ -569,7 +559,6 @@ right: 0;
 width: 110px;
 z-index: 9;
 opacity: .9;
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 font-weight: normal;
 font-size: 150%;
 text-transform: uppercase;
@@ -599,7 +588,6 @@ background-color: #d5d201;
 color: #ffffff;
 }
 .mapTitle h3 {
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 font-weight: normal;
 font-size: 150%;
 text-transform: uppercase;
@@ -712,14 +700,11 @@ width: 180px;
 
 
 input, textarea {
-	background-color: #e9e6e6;
-	border: 1px dotted #E0DBD3;
-	color: #585755;
-	padding: 5px;
-	width: 410px;
-	-webkit-box-shadow: inset 1px 1px 7px #a09b9b;
-	-moz-box-shadow: inset 1px 1px 7px #a09b9b;
-	box-shadow: inset 1px 1px 7px #a09b9b;
+background-color: #e9e6e6;
+border: 1px solid rgb(213, 207, 199);
+color: #585755;
+padding: 5px;
+width: 410px;
 }
 input.checkbox, input.radio {
 width: 15px;
@@ -858,30 +843,26 @@ padding: 10px 20px;
 /** Footer **/
 
 .home #footerWrap {
-background: #3a3233;
+background: rgb(235, 229, 223);
 height: 42px;
 position: absolute;
 bottom: 0;
 width: 100%;
 z-index: 10;
 }
-#footerWrap {
-background: #3a3233;
-height: 42px;
-width: 100%;
-z-index: 10;
-}
 
 footer {
 padding-top: 10px;
+max-width: 1000px;
+margin: 0 auto;
 }
 footer small {
-color: #c2b4b5;
+color: rgb(172, 172, 172);
 float: left;
 }
 footer a:link {
 outline: none;
-color: #e9e0e1;
+color: rgb(77, 77, 77);
 }
 footer a:visited {
 outline: none;
@@ -1067,7 +1048,6 @@ margin-right: 10px
 	width: 300px;
 }
 .mapBubble h4 {
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-weight: normal;
 	font-size: 150%;
 	text-transform: uppercase;
@@ -1191,7 +1171,6 @@ margin-top: 22px;
 }
 
 .splashIntro h3 {
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 font-size: 300%;
 font-weight: 700;
 text-transform: uppercase;
@@ -1211,7 +1190,6 @@ display: block;
 margin: 42px 0 11px 40px;
 font-weight: 200;
 font-size: 200%;
-font-family: "helvetica neue", arial, sans-serif;
 width: 300px;
 line-height: 1.3;
 }
@@ -1222,7 +1200,6 @@ line-height: 1.3;
 	background-color: #65BAAB;
 	float: left;
 	margin-right: 20px;
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-size: 200%;
 	text-decoration: none;
 	color: #ffffff;
@@ -1296,7 +1273,6 @@ margin-left: 8px;
 
 .rtCol h4 {
 margin: 30px 0 10px 10px;
-font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 text-transform: uppercase;
 color: #000000;
 font-size: 150%;
@@ -1381,7 +1357,6 @@ input#new_photo{
 	cursor: pointer;
 }
 .overlay .light.white h2{
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	text-transform: uppercase;
 	font-size: 170%;
 }
@@ -1396,10 +1371,6 @@ input#new_photo{
 .overlay .light.white input.submitBtn{
 	width: 150px;
 	cursor: pointer;
-}
-
-.overlay .light.white input, textarea{
-	border: 0;
 }
 
 .overlay .light.white small{
@@ -1556,7 +1527,6 @@ a.reset{
 	color: #ffffff;
 	text-shadow: 1px 1px 3px #706d6d;
 	filter: dropshadow(color=#706d6d, offx=1, offy=1);
-	font-family: "franklin-gothic-ext-comp-urw", arial, sans-serif;
 	font-size: 150%;
 	text-decoration: none;
 	padding-top: 10px;

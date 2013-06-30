@@ -3,9 +3,6 @@
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=geoLocate"></script>
 <% end %>
 <% content_for :tabs do %>
-  <li id="events_link" class="map">
-    <a href="#">Events</a>
-  </li>
   <li id="allArt_link" class="map active">
     <a href="#">All Art</a>
   </li>
@@ -664,33 +661,4 @@
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
 
 
-</div>
-<div id="timelineWrapper">
-	<div class="history era">
-		<ul class="labels">
-			<li class="begin">1910</li>
-			<li>1920</li>
-			<li>1930</li>
-			<li>1940</li>
-			<li>1950</li>
-			<li>1960</li>
-			<li>1970</li>
-			<li>1980</li>
-			<li>1990</li>
-			<li>2000</li>
-			<li class="end">2010</li>
-		</ul>
-	</div>
-	<div class="left era">
-		Before 1900
-	</div>
-
-	<div class="right era">
-		<span class="contemporary">All Art</span>
-		<a href="#" class="reset">Reset</a>
-	</div>
-	<div class="timeline" id="timeline">
-		<div class="handle">
-		</div>
-	</div>
 </div>
