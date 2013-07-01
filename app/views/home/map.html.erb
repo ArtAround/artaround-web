@@ -266,7 +266,7 @@
     function resetFilter() {
       clearWindow();
 
-      $("#filter_commissioned_all").prop("checked", "checked");
+      //$("#filter_commissioned_all").prop("checked", "checked");
       $("#filter_category_all").prop("checked", "checked");
       $("input.filter.public").prop("checked", "checked");
       $("#id_wards").val("");
@@ -285,12 +285,13 @@
       clearWindow();
 
       // figure out commission filter
-      var ensure_commissioned;
+      var ensure_commissioned = false;
+      /*
       if ($("#filter_commissioned_all")[0].checked)
         ensure_commissioned = false;
       else if ($("#filter_commissioned_only")[0].checked)
         ensure_commissioned = true;
-
+      */
 
       var all_categories = $("#filter_category_all")[0].checked;
       var just_museum = $("#filter_category_museum")[0].checked;
