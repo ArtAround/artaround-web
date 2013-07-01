@@ -37,4 +37,18 @@ namespace :migrate do
       end
     end
   end
+
+
+  desc "Convert old commisioned attribute to new commissioner model"
+  task :commissioned => :environment do
+   @commissioner = Commissioner.where({:name => 'DCArts'}).first
+   if @commissioner.nil?
+     @commissioner = Commissioner.create(:name => 'DCArts')
+   end
+   Art.all.each do |art|
+     if art.commissioned
+       @commissioner.arts << art
+     end
+   end
+  end
 end
