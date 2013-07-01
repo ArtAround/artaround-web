@@ -128,6 +128,12 @@ class ArtsController < ApplicationController
     end
   end
 
+  def index
+    @arts = Art.approved
+
+  end
+
+
   protected
 
   def load_art

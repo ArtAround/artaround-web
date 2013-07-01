@@ -1,0 +1,15 @@
+<div id="filter-options">
+</div>
+
+<div id="art-list">
+  <% @arts.each do |art| %>
+    <% unless art.photos.empty? %>
+      <div class="art">
+        <img src="<%= art.primary_photo.image :big %>"/>
+        <h3><%= art.title %></h3>
+        <h4><%= known(art.artist) %></h4>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>

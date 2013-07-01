@@ -4,6 +4,7 @@ Artaround::Application.routes.draw do
     post :submit, :on => :member
     post :add_photo, :on => :member
     post :flag, :on => :member
+    get :index, :on => :collection
   end
 
   namespace :admin do
