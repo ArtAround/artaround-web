@@ -234,7 +234,7 @@ height: 100px;
 }
 
 h1 a img {
-	width: 100%;
+	width: 99%;
 }
 
 h2 {
@@ -1553,3 +1553,56 @@ a.reset:hover{
 	color: white;
 	background-color: #54c3c6;
 }
+
+    /* Media quires for a responsive layout */
+    /* For big monitors */
+    @media (min-width: 1601px) {
+
+    }
+/* For laptops */
+    @media (max-width: 1027px) {
+
+    }
+    /* For tablets & smart phones */
+    @media (max-width: 767px) {
+
+    }
+
+    /* For smartphones */
+    @media (max-width: 480px) {
+		header h1 {
+		width: 90%;
+		padding: 0;
+		margin: 5px auto;
+		float: none;
+		}
+		.formNavContainer {
+		width: 90%;
+		margin: 0 auto;
+		float: none;
+		}
+		#mapsearch_form {
+			width: 100%;
+			float: none;
+			margin: 15px auto;
+		}
+		#mapsearch_form input {
+			width: 85%;
+		}
+		.searchBtn {
+			width:10.3%;
+		}
+		header nav {
+			margin-top: 0;
+		}
+		h1 a img {
+			margin-top: 5px;
+		}
+		.cclicense {
+			display: none;
+		}
+    }
+    /* For tiny phones */
+    @media (max-width: 240px) {
+
+    }
