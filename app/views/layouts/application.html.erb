@@ -32,35 +32,37 @@
     		<h2 id="cityView">
 
     		</h2>
-  	    <form action="/map" method="geT" id="mapsearch_form">
-  	      <label>Search by artist or title</label>
-  	      <input id="mapsearch" type="text" name="q" placeholder="Search by artist or title"
-            <% if params[:q].present? %>
-              value="<%= params[:q] %>"
-            <% end %>
-            />
-  	      <button class="searchBtn" type="submit">
-  	          <span>Search</span>
-  	      </button>
-  	    </form>
+        <div class="formNavContainer">
+          <form action="/map" method="geT" id="mapsearch_form">
+            <label>Search by artist or title</label>
+            <input id="mapsearch" type="text" name="q" placeholder="Search by artist or title"
+              <% if params[:q].present? %>
+                value="<%= params[:q] %>"
+              <% end %>
+              />
+            <button class="searchBtn" type="submit">
+                <span>Search</span>
+            </button>
+          </form>
+    		  <nav>
+      			<ul class="main_nav">
+      				<% tabs = yield(:tabs) %>
 
-  		  <nav>
-    			<ul class="main_nav">
-    				<% tabs = yield(:tabs) %>
+              <% if tabs.present? %>
+                <%= tabs %>
+              <% else %>
+        				<li id="map_link">
+        					<a id="map" href="/map" href="#">Map</a>
+        				</li>
+              <% end %>
 
-            <% if tabs.present? %>
-              <%= tabs %>
-            <% else %>
-      				<li id="map_link">
-      					<a id="map" href="/map" href="#">Map</a>
+      				<li id="addArt_link">
+      					<a id="addArt" href="/arts/new" href="#">Add Art</a>
       				</li>
-            <% end %>
-
-    				<li id="addArt_link">
-    					<a id="addArt" href="/arts/new" href="#">Add Art</a>
-    				</li>
-    			</ul>
-  		  </nav>
+      			</ul>
+    		  </nav>
+        </div>
+        <div class="clear"></div>
       </header>
     </div>
 

@@ -23,7 +23,15 @@ list-style: none;
 }
 fieldset,img {
 border: 0;
+max-width: 100%;
+height: auto;
 }
+
+#map_canvas img {
+	max-width: none;
+	height: inherit;
+}
+
 input,textarea,select,optgroup,option,button {
 font-family: inherit;
 font-size: 100%;
@@ -115,7 +123,7 @@ margin-right: 3px;
 }
 
 #headerWrapper {
-height: 100px;
+min-height: 100px;
 z-index: 100;
 width: 100%;
 max-width: 1000px;
@@ -129,10 +137,9 @@ header, #featureBox, #mapSearch, #pageMain, footer {
 	margin: 0 auto;
 }
 header nav {
-	margin-top: 65px;
-	position: absolute;
+	margin-top: 45px;
 	z-index: 100;
-	right: 0;
+	float:right;
 	font-size: 120%;
 	font-weight: 700;
 }
@@ -141,33 +148,34 @@ header nav li {
 	display: block;
 	text-align: center;
 	margin-left: 5px;
+	background: #ccc;
 }
 header nav a {
 	width: 95px;
 	float: left;
 	display: block;
 	text-align: center;
-	height: 24px;
 	color: #ffffff;
 	text-transform: uppercase;
 	padding-top: 2px;
 }
 
+.formNavContainer {
+	float: right;
+	width: 211px;
+}
 
 header nav a:hover {
 text-decoration: underline;
 
 }
 header nav a:link, header nav a:hover, header nav a:visited {
-color: #ccc;
+color: rgb(145, 144, 144);
 }
 header nav li.active a {
-	height: 38px;
 	color: #444;
 }
-header nav {
-float: left;
-}
+
 header nav a:link, #nav a:visited, #nav a:active {
 color: #ccc;
 text-decoration: none;
@@ -321,19 +329,18 @@ header .searchBtn{
 header .searchBtn span{
 	text-indent: -9999em;
 	background: url(/images/searchBtn.png) center top no-repeat;
-	width: 18px;
+	height: 20px;
 }
 
 .searchBtn {
-	background: #57b6a6; /* Old browsers */
+	background: #54c3c6; /* Old browsers */
 	color: #ffffff;
 	text-indent: 0;
 	display: inline;
-	width: 0;
-	padding-left: 8px;
-	padding-right: 8px;
-	height: 22px;
-	font-size: 150%;
+	width: 30px;
+	height: 26px;
+	text-transform: uppercase;
+	font-size: 15px;
 	font-weight: 700;
 }
 
@@ -352,7 +359,7 @@ margin-bottom: 0;
 
 
 .submitBtn {
-	background: #57B6A6;
+	background: #54c3c6;
 	width: 89px;
 	height: 45px;
 	margin-left: 0;
@@ -365,7 +372,7 @@ margin-bottom: 0;
 	background: #08958D;
 }
 .cancelBtn, a.buttonLink{
-	background: #57B6A6;
+	background: #54c3c6;
 	width: 89px;
 	height: 33px;
 	margin-top: 45px;
@@ -400,9 +407,8 @@ position: absolute;
 }
 
 #mapsearch_form {
-	position: absolute;
-right: 0;
-top: 10px;
+float: right;
+margin-top: 10px;
 }
 }
 
@@ -419,10 +425,10 @@ top: 10px;
 	box-shadow: inset 1px 1px 7px #332c2c;
 	color: #b0afaf;
 	float: left;
-	width: 175px;
-	padding: 3px;
+	width: 150px;
+	padding: 3px 8px;
 	border: none;
-	height: 20px
+	height: 20px;
 }
 #mapsearch_form label {
 	text-indent: -9999em;
@@ -453,7 +459,7 @@ top: 10px;
 .thumbsContainer{
 	width: 300px;
 	white-space: nowrap;
-	height: 130px;
+	min-height: 130px;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -474,7 +480,6 @@ top: 10px;
 }
 .thumbsContainer{
 	width: 484px;
-	overflow-x: scroll;
 	padding-bottom: 10px;
 }
 .moreEvents:hover, .moreArt:hover {
@@ -526,7 +531,6 @@ border: 4px solid #ffffff;
 
 
 #filterForm {
-margin: 5px 0 0 0;
 max-height: 522px;
 position: absolute;
 right: 0;
@@ -551,16 +555,16 @@ width: 100px;
 #filterSettings {
 display: none;
 height: 32px;
-background-color: #dedada;
-margin: 35px 0 0 0;
+background-color: #313131;
+margin: 0;
 max-height: 522px;
 position: absolute;
 right: 0;
-width: 110px;
+width: 120px;
 z-index: 9;
 opacity: .9;
 font-weight: normal;
-font-size: 150%;
+font-size: 100%;
 text-transform: uppercase;
 }
 #filterSettings a:link, #filterSettings a:active, #filterSettings a:hover, #filterSettings a:visited {
@@ -571,7 +575,7 @@ text-decoration: none;
 display: block;
 height: 20px;
 width: 20px;
-background: #57B6A6;
+background: #4766AF;
 padding: 6px;
 float: left;
 margin-right: 10px;
@@ -584,11 +588,11 @@ padding: 5px;
 #filterForm .mapTitle {
 height: ;
 padding: 10px 48px 10px 10px;
-background-color: #d5d201;
+background-color: #4766AF;
 color: #ffffff;
 }
 .mapTitle h3 {
-font-weight: normal;
+font-weight: 600;
 font-size: 150%;
 text-transform: uppercase;
 }
@@ -674,12 +678,6 @@ max-height: 200px;
 	column-count:2;
 }
 
-.searchBtn {
-display: inline;
-width: 29px;
-height: 26px;
-}
-
 ul#location .searchBtn {
 display: inline;
 background:
@@ -738,8 +736,12 @@ padding-top: 25px;
 }
 
 #filterForm #publicSubset {
-margin-left: 18px;
 margin-top: 0px;
+font-size: 10px;
+}
+
+#publicSubset label {
+	height: 15px;
 }
 
 #rtColumn #map_canvas {
@@ -817,7 +819,9 @@ margin-right: 5px;
 margin-right: 5px;
 }
 
-
+a.hideFilter {
+	color: #fff;
+}
 .showFilter, .hideFilter {
 position: absolute;
 top: 10px;
@@ -866,7 +870,7 @@ color: rgb(77, 77, 77);
 }
 footer a:visited {
 outline: none;
-color: #e9e0e1;
+color: rgb(145, 144, 144);
 }
 footer a:hover {
 outline: none;
@@ -999,7 +1003,6 @@ color: red;
 div.flash {
 	font-size: 110%;
 	margin: 10px 0;
-	width: 920px;
 	margin: 10px auto;
 	color: #fff;
 	padding: 10px 20px;
@@ -1011,7 +1014,7 @@ div.flash.alert {
 	width: auto;
 }
 div.flash.notice {
-	background-color: #beda03;
+	background-color: #54c3c6;
 }
 
 div.about strong, div.faq strong {
@@ -1540,12 +1543,11 @@ a.reset:hover{
 	border: 1px black solid;
 }
 .typeahead .active{
-	background-color: #57b6a6;
+	background-color: #54c3c6;
 	color: white;
 }
 
 .active a{
 	color: white;
-	background-color: #57b6a6;
+	background-color: #54c3c6;
 }
-
