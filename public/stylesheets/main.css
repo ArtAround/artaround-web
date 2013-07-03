@@ -896,8 +896,10 @@ padding-left: 50px;
 
 #artworkPhoto {
 	border: 4px solid #ffffff;
-	width: 484px;
-	display: block;
+width: 100%;
+display: block;
+background: rgb(141, 141, 141);
+text-align: center;
 }
 
 #comments li {
