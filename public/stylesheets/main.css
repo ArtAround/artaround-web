@@ -192,10 +192,11 @@ max-width: 1000px;
 width: 100%;
 border-top: 3px solid #54c3c6;
 margin: 0 auto;
+overflow: hidden;
 }
 
 #art-list {
-padding-top: 20px;
+padding-top:20px;
 }
 
 div#rtColumn {
@@ -708,14 +709,13 @@ background-color: #e9e6e6;
 border: 1px solid rgb(213, 207, 199);
 color: #585755;
 padding: 5px;
-width: 410px;
+max-width: 410px;
 }
 input.checkbox, input.radio {
 width: 15px;
 }
 label {
 	display: block;
-	float: left;
 	font-size: 85%;
 	margin-top: -2px;
 	width: 120px;
@@ -763,7 +763,8 @@ margin-bottom: 5px;
 }
 dd {
 float: left;
-width: 300px;
+max-width: 300px;
+font-weight: 300;
 }
 .module dt {
 clear: both;
@@ -1035,7 +1036,6 @@ div.oneCol h4 {
 }
 
 .mapBubble .bubbleMetaData {
-	width: 300px;
 	float: left;
 }
 .bubbleMetaData a {
@@ -1043,7 +1043,6 @@ div.oneCol h4 {
 	display: block;
 }
 .mapBubble .bubbleMetaData {
-width: 300px;
 float: left;
 }
 .bubbleMetaData dt {
@@ -1052,15 +1051,14 @@ display: none;
 .bubbleMetaData dd {
 float: left;
 width: auto;
-margin-right: 10px
+margin-right: 5px
 }
 .mapBubble p {
 	float: left;
-	width: 300px;
+	width: 150px;
 }
 .mapBubble h4 {
-	font-weight: normal;
-	font-size: 150%;
+	font-weight: 600;
 	text-transform: uppercase;
 }
 .mapBubble .icons {
@@ -1078,7 +1076,8 @@ margin-right: 10px
 .mapBubble .moreInfo {
 	text-transform: uppercase;
 	font-size: 90%;
-	margin-left: 10px;
+	clear:both;
+	display:block;
 }
 
 
@@ -1090,7 +1089,7 @@ margin-right: 10px
 	height: 109px;
 	background-repeat: no-repeat;
 	background-attachment: center;
-	background-position: center;
+	background-position: top center;
 	text-indent: -9999em;
 	display: block;
 }
@@ -1562,22 +1561,27 @@ a.reset:hover{
 
 .isotope-item {
 	background: #eee;
-	padding: 5px;
-	margin: 5px 0;
+	margin: 6px;
 	border: 1px solid #ccc;
 }
 
 .isotope-item img {
-	max-width: 330px;
-	border: 1px solid #ccc;
+	width: 235px;
+	height: auto;
+	border-bottom: 1px solid #ccc;
 }
 
 .art h3 {
 	font-weight: 700;
-	margin: 5px 0 0;
+	margin: 10px 10px 0;
 	text-transform: uppercase;
 	font-size: 15px;
 }
+
+.art h4 {
+	margin: 0 10px 10px;
+	font-weight:100;
+	}
 
 .isotope,
 .isotope .isotope-item {
@@ -1651,6 +1655,16 @@ a.reset:hover{
 		}
 		.cclicense {
 			display: none;
+		}
+		div#rtColumn, div#ltColumn {
+			width: 90%;
+		}
+		#ltColumn input, #ltColumn textarea {
+			width:100%;
+		}
+		.mapBubble, .mapBubble p{
+			width: 100%;
+			max-width: 200px;
 		}
     }
     /* For tiny phones */
