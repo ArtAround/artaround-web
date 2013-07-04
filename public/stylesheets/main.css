@@ -187,7 +187,7 @@ background: rgb(235, 229, 223);
 font-family: "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
-#pageMain, #art-list {
+#pageMain, #art-list, .contentWrapper {
 max-width: 1000px;
 width: 100%;
 border-top: 3px solid #54c3c6;
@@ -710,6 +710,7 @@ border: 1px solid rgb(213, 207, 199);
 color: #585755;
 padding: 5px;
 max-width: 410px;
+width: 100%;
 }
 input.checkbox, input.radio {
 width: 15px;
@@ -1576,12 +1577,18 @@ a.reset:hover{
 	margin: 10px 10px 0;
 	text-transform: uppercase;
 	font-size: 15px;
+	max-width: 214px;
 }
 
 .art h4 {
 	margin: 0 10px 10px;
 	font-weight:100;
+	max-width: 214px;
 	}
+
+#submission_category_chzn {
+	width:100%!important;
+}
 
 .isotope,
 .isotope .isotope-item {
@@ -1620,7 +1627,9 @@ a.reset:hover{
     }
     /* For tablets & smart phones */
     @media (max-width: 767px) {
-
+		#mapsearch_form input {
+			width: 85%;
+		}
     }
 
     /* For smartphones */
@@ -1642,7 +1651,7 @@ a.reset:hover{
 			margin: 15px auto;
 		}
 		#mapsearch_form input {
-			width: 85%;
+			width: 86%;
 		}
 		.searchBtn {
 			width:10.3%;
@@ -1656,18 +1665,35 @@ a.reset:hover{
 		.cclicense {
 			display: none;
 		}
-		div#rtColumn, div#ltColumn {
+		div#rtColumn, div#ltColumn, .ltColumn, .rtColumn {
 			width: 90%;
 		}
 		#ltColumn input, #ltColumn textarea {
 			width:100%;
+		}
+		.imgContainer {
+			width: 100%;
+		}
+		.mobileAd {
+			width: 50%;
 		}
 		.mapBubble, .mapBubble p{
 			width: 100%;
 			max-width: 200px;
 		}
     }
+        /* Extra Breakpoint for iPhone header bug */
+    @media (max-width: 320px) {
+    	#mapsearch_form input {
+			width: 84%;
+		}
+    }
     /* For tiny phones */
     @media (max-width: 240px) {
-
+    	#mapsearch_form input {
+			width: 79%;
+		}
+		.searchBtn {
+			width: 13%;
+		}
     }
