@@ -857,7 +857,7 @@ padding: 10px 20px;
 .home #footerWrap {
 background: rgb(235, 229, 223);
 height: 42px;
-position: absolute;
+position: fixed;
 bottom: 0;
 width: 100%;
 z-index: 10;
@@ -1628,7 +1628,7 @@ a.reset:hover{
     /* For tablets & smart phones */
     @media (max-width: 767px) {
 		#mapsearch_form input {
-			width: 85%;
+			width: 76%;
 		}
     }
 
@@ -1651,7 +1651,7 @@ a.reset:hover{
 			margin: 15px auto;
 		}
 		#mapsearch_form input {
-			width: 86%;
+			width: 85%;
 		}
 		.searchBtn {
 			width:10.3%;
