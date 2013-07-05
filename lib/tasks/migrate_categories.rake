@@ -26,7 +26,7 @@ namespace :migrate do
   desc "Convert Flickr ids to attribution text/url"
   task :flickr => :environment do
     Photo.all.each do |photo|
-      if photo.attribution_text.blank?
+      if photo.attribution_text.blank? & photo.respond_to?(:flickr_username)
         if photo.flickr_username.blank?
           photo.attribution_text = "anonymous user"
         else
