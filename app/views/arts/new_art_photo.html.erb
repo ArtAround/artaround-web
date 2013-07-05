@@ -1,0 +1,6 @@
+<h2>Add Art</h2>
+
+<%= form_tag create_art_photo, :multipart => true, :method => "get" do %>
+  <%= file_field_tag 'new_photo' %>
+  <%= submit_tag "Submit", :class => "submitBtn" %>
+<% end %>

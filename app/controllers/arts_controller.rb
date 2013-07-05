@@ -1,6 +1,16 @@
 class ArtsController < ApplicationController
   before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
 
+
+  # New 2 step flow
+  def new_art_photo
+    @photo = Photo.new
+  end
+
+  def create_art_photo
+    @photo = Photo.create(:image => params[:new_photo])
+  end
+
   def new
     @art = Art.new
   end

@@ -33,6 +33,9 @@ Artaround::Application.routes.draw do
     end
   end
 
+  match "/new_art_photo" => "arts#new_art_photo", :as => "new_art_photo"
+  match "/create_art_photo" => "arts#create_art_photo", :as => "create_art_photo"
+
   match "/admin" => "admin/arts#index", :as => "admin"
 
   match "/contact" => "home#contact"
