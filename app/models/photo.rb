@@ -39,6 +39,7 @@ class Photo
   end
 
   def ensure_well_formed_url
+    attribution_url ||= ""
     uri = URI(attribution_url)
     unless attribution_url.blank? || uri.scheme == "http" || uri.scheme == "https"
       self.attribution_url = "http://" + attribution_url

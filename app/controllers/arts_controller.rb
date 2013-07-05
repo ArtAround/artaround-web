@@ -8,11 +8,13 @@ class ArtsController < ApplicationController
   end
 
   def create_art_photo
-    @photo = Photo.create(:image => params[:new_photo])
+    @photo = Photo.create(params[:photo])
+    redirect_to new_art_path(:photo_id => @photo.id)
   end
 
   def new
     @art = Art.new
+    @photo = Photo.find(params[:photo_id])
   end
 
   def create
@@ -30,43 +32,23 @@ class ArtsController < ApplicationController
     end
 
     @art = Art.new params[:art]
+    @photo = Photo.find(params[:photo_id])
 
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
     @art.approved = true # auto-approve, would default to false otherwise
 
-    unless params[:new_photo] and params[:new_photo].respond_to?(:path)
-      flash.now[:alert] = "Please include a photo of this piece of art."
-      @art.valid? # generate errors
-      render :new
-      return false
-    end
-
     # Get around Rails bug that introduces empty element with multiple selects
     @art.category.reject!(&:blank?)
 
     if @art.safely.save
-      # size check
-      if File.size(params[:new_photo].path) > (1024*1024 * 6)
-        @art.destroy
-        flash.now[:alert] = "We ask that uploaded photos be less than 6MB in size. Please resize your photo so that it takes up less space and try again."
-        render :new
-      else
-
         AdminMailer.new_art(@art).deliver
         @commissioner.arts.push(@art)
         @commissioner.save
+        @art.photos << @photo
 
-        photo = create_photo @art, params[:new_photo], params[:photo_attribution_text], params[:photo_attribution_url]
-        if photo.save
-          redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
-        else
-          @art.destroy
-          flash.now[:alert] = photo.errors.messages.values.flatten.join(" ")
-          render :new
-        end
-      end
+        redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
     else
       render :new
     end

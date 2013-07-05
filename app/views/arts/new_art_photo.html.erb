@@ -1,6 +1,11 @@
 <h2>Add Art</h2>
 
-<%= form_tag create_art_photo, :multipart => true, :method => "get" do %>
-  <%= file_field_tag 'new_photo' %>
-  <%= submit_tag "Submit", :class => "submitBtn" %>
+<%= form_for(@photo, :url => create_art_photo_path) do |f| %>
+		<%= f.label :image %>
+		<%= f.file_field :image %><br />
+		<%= f.label :attribution_text %>
+		<%= f.text_field :attribution_text %><br />
+		<%= f.label :attribution_url %>
+		<%= f.text_field :attribution_url %><br />
+	<%= f.submit %>
 <% end %>
