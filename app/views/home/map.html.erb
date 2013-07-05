@@ -293,12 +293,12 @@
         ensure_commissioned = true;
       */
 
-      var all_categories = $("#filter_category_all")[0].checked;
-      var just_museum = $("#filter_category_museum")[0].checked;
-      var just_gallery = $("#filter_category_gallery")[0].checked;
-      var just_market = $("#filter_category_market")[0].checked;
+      //var all_categories = $("#filter_category_all")[0].checked;
+      // var just_museum = $("#filter_category_museum")[0].checked;
+      // var just_gallery = $("#filter_category_gallery")[0].checked;
+      // var just_market = $("#filter_category_market")[0].checked;
 
-      var just_public = $("#filter_category_public")[0].checked;
+      var just_public = true; //$("#filter_category_public")[0].checked;
       var allowed_categories = [];
       if (just_public) {
         $("input.filter.public").each(function(i, element) {
@@ -328,15 +328,7 @@
         // examine for commissioned status
         passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
 
-        if (all_categories)
-          passed_category = true;
-        else if (just_museum)
-          passed_category = ($.inArray('Museum', marker.filters.category));
-        else if (just_gallery)
-          passed_category = ($.inArray('Gallery', marker.filters.category));
-        else if (just_market)
-          passed_category = ($.inArray('Market', marker.filters.category));
-        else if (just_public)
+        if (just_public)
           //passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           passed_category = (getIntersect(marker.filters.category, allowed_categories).length >0);
         else
@@ -349,6 +341,7 @@
         else {
           var pattern = new RegExp(keyword, "i");
           passed_keyword = (pattern.test(marker.filters.title) || pattern.test(marker.filters.artist));
+          
         }
 
         if (!event_id)
@@ -363,7 +356,9 @@
         else
           passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
 
-        marker.setVisible(passed_commission && passed_category && passed_wards && passed_keyword && passed_event && passed_timeline);
+        console.log(passed_category);
+
+        marker.setVisible(passed_commission && passed_category && passed_keyword && passed_event && passed_timeline);
       });
     }
 
