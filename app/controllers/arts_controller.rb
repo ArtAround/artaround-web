@@ -26,9 +26,11 @@ class ArtsController < ApplicationController
     longitude = (longitude || "").strip
     latitude = ["Click on Map", ""].include?(latitude) ? nil : latitude.to_f
     longitude = ["Click on Map", ""].include?(longitude) ? nil : longitude.to_f
-    @commissioner = Commissioner.where({:name => /^#{params[:art]['commissioned_by']}/i}).first
-    if @commissioner.nil?
-      @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
+    unless params[:art]['commissioned_by'].blank?
+      @commissioner = Commissioner.where({:name => /^#{params[:art]['commissioned_by']}/i}).first
+      if @commissioner.nil?
+        @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
+      end
     end
 
     @art = Art.new params[:art]
@@ -44,8 +46,10 @@ class ArtsController < ApplicationController
 
     if @art.safely.save
         AdminMailer.new_art(@art).deliver
-        @commissioner.arts.push(@art)
-        @commissioner.save
+        unless @commissioner.nil?
+          @commissioner.arts.push(@art)
+          @commissioner.save
+        end
         @art.photos << @photo
 
         redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
