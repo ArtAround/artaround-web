@@ -177,7 +177,6 @@ header nav li.active a {
 }
 
 header nav a:link, #nav a:visited, #nav a:active {
-color: #ccc;
 text-decoration: none;
 }
 
@@ -264,18 +263,18 @@ font-size: 150%;
 }
 
 #titleContent {
-	height: 65px;
 	padding: 19px 10px 0 10px;
-	margin-bottom: 35px;
+	margin-bottom: 20px;
 }
 #titleContent h2 {
 	padding-bottom: 0px;
 	border-bottom: none;
 	margin-bottom: 0px;
-	color: white;
+	color: rgb(80, 80, 80);
 	font-size: 200%;
 	text-transform: uppercase;
 	padding-bottom: 3px;
+	font-weight: 700;
 }
 
 
@@ -466,7 +465,7 @@ margin-top: 10px;
 .thumbsContainer{
 	width: 300px;
 	white-space: nowrap;
-	min-height: 130px;
+	min-height: 110px;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -711,6 +710,8 @@ color: #585755;
 padding: 5px;
 max-width: 410px;
 width: 100%;
+-webkit-appearance: none;
+    border-radius: 0;
 }
 input.checkbox, input.radio {
 width: 15px;
@@ -778,9 +779,9 @@ width: 140px;
 }
 
 .module {
-border-bottom: 1px dashed #CECFC8;
-margin-bottom: 35px;
-padding-bottom: 35px;
+border-bottom: 1px solid #CECFC8;
+margin-bottom: 20px;
+padding-bottom: 20px;
 }
 
 .gmnoprint td img {
@@ -908,6 +909,7 @@ width: 100%;
 display: block;
 background: rgb(141, 141, 141);
 text-align: center;
+margin-bottom: 5px;
 }
 
 #comments li {
@@ -1335,7 +1337,7 @@ column-count: 2;
 	width: 36%;
 	height: ;
 	padding: 20px;
-	background: url(/images/bg_main.jpg) center top repeat;
+	background: rgb(235, 229, 223);
 	z-index: 1002;
 	overflow: auto;
 	font-size: 14px;
@@ -1590,6 +1592,22 @@ a.reset:hover{
 	width:100%!important;
 }
 
+a.upload_link {
+	background: #54c3c6;
+font-size: 150%;
+color: #ffffff;
+text-transform: uppercase;
+padding: 10px;
+float: right;
+text-decoration: none;
+}
+
+.cc.tip {
+font-size: 70%;
+margin-top: 10px;
+display: block;
+}
+
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
@@ -1637,12 +1655,12 @@ a.reset:hover{
 		header h1 {
 		width: 90%;
 		padding: 0;
-		margin: 5px auto;
+		margin: 0 auto;
 		float: none;
 		}
 		.formNavContainer {
 		width: 90%;
-		margin: 0 auto;
+		margin: -5px auto 0;
 		float: none;
 		}
 		#mapsearch_form {
@@ -1667,6 +1685,11 @@ a.reset:hover{
 		}
 		div#rtColumn, div#ltColumn, .ltColumn, .rtColumn {
 			width: 90%;
+			margin-left: 0;
+			margin-right: 0;
+		}
+		#rtColumn, .rtColumn {
+			padding-left: 10px;
 		}
 		#ltColumn input, #ltColumn textarea {
 			width:100%;
@@ -1681,9 +1704,12 @@ a.reset:hover{
 			width: 100%;
 			max-width: 200px;
 		}
+		.isotope-item img {
+			width: 100%;
+		}
     }
         /* Extra Breakpoint for iPhone header bug */
-    @media (max-width: 320px) {
+    @media (max-width: 321px) {
     	#mapsearch_form input {
 			width: 84%;
 		}
