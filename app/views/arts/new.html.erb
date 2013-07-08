@@ -8,7 +8,49 @@
 <% content_for :head do %>
   <script type="text/javascript">
 
+    var slide_position = 0;
+
+    function next_slide(){
+      slide_position = slide_position + 1;
+      update_slide();
+    }
+
+    function back_slide(){
+      if (slide_position > 0){
+        slide_position = slide_position - 1;
+      }
+      update_slide();
+    }
+
+    function update_slide(){
+      if (slide_position == 0){
+        // first slide
+        $('#last_slide').hide();
+        $('#map_canvas').hide();
+        $('#first_slide').show();
+        $('#art_photo').show();
+      }
+      else{
+        // last slide
+        $('#first_slide').hide();
+        $('#art_photo').hide();
+        $('#last_slide').show();
+        $('#map_canvas').show();
+        geoLocate();
+      }
+
+    }
+
     $(document).ready(function() {
+      $('#last_slide').hide();
+      $('#map_canvas').hide();
+      $('#next_slide').click(function(){
+        next_slide();
+      });
+
+      $('#back_slide').click(function(){
+        back_slide();
+      });
       $("#art_commissioned_by").typeahead({
         minLength: 1,
         source: function(query, process) {
@@ -103,73 +145,84 @@
           <span class="small blue"><em><sup>*</sup> = required</em> </span>
         </li>
 
-        <li>
-          <label for="art_category">category<sup>*</sup></label>
-          <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
-        </li>
-        <li>
-          <label for="art_title">title<sup>*</sup></label>
-          <%= f.text_field :title %>
-        </li>
-        <li>
-          <%= f.label :artist, "Artist/Founder(s)" %>
-          <%= f.text_field :artist %>
-        </li>
-        <li>
-          <%= f.label :year %>
-          <%= f.text_field :year %>
-        </li>
-        <li>
-          <%= f.label :website %>
-          <%= f.text_field :website %>
-        </li>
-        <li>
-          <%= f.label :commissioned_by %>
-          <%= f.text_field :commissioned_by, {:autocomplete => "off"} %>
-        </li>
-        <li>
-          <%= f.label :location_description, "Describe the location" %>
-          <%= f.text_area :location_description %>
-        </li>
-        <li>
-          <%= f.label :description, "Describe the art" %>
-          <%= f.text_area :description %>
-        </li>
-        <li class="formModule">
-          <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
-        </li>
-        <li>
-          <%= f.label :latitude %>
-          <%= f.text_field :latitude %>
-        </li>
-        <li>
-          <%= f.label :longitude %>
-          <%= f.text_field :longitude %>
-        </li>
-        <li>
-          <span class="or">or</span>
-        </li>
-        <li>
-          <%= f.label :address %>
-          <%= f.text_field :address %>
-        </li>
-        <li>
-          <%= f.label :city %>
-          <%= f.text_field :city %>
-        </li>
-        <li>
-          <%= f.label :state %>
-          <%= f.text_field :state %>
-        </li>
-        <li>
-          <%= f.label :zip %>
-          <%= f.text_field :zip %>
-        </li>
-        <%= hidden_field_tag :photo_id, @photo.id %>
-        <li>
-          <button class="submitBtn" name="submit" type="submit">
-              <span>Submit</span>
-          </button>
+        <div id="first_slide">
+          <li>
+            <label for="art_category">category<sup>*</sup></label>
+            <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
+          </li>
+          <li>
+            <label for="art_title">title<sup>*</sup></label>
+            <%= f.text_field :title %>
+          </li>
+          <li>
+            <%= f.label :artist, "Artist/Founder(s)" %>
+            <%= f.text_field :artist %>
+          </li>
+          <li>
+            <%= f.label :year %>
+            <%= f.text_field :year %>
+          </li>
+          <li>
+            <%= f.label :website %>
+            <%= f.text_field :website %>
+          </li>
+          <li>
+            <%= f.label :commissioned_by %>
+            <%= f.text_field :commissioned_by, {:autocomplete => "off"} %>
+          </li>
+          <li>
+            <%= f.label :description, "Describe the art" %>
+            <%= f.text_area :description %>
+          </li>
+          <li>
+            <a id="next_slide" href="#">Next</a>
+          </li>
+        </div>
+        <div id="last_slide">
+          <li>
+            <a id="back_slide" href="#">Back</a>
+          </li>
+          <li>
+            <%= f.label :location_description, "Describe the location" %>
+            <%= f.text_area :location_description %>
+          </li>          
+          <li class="formModule">
+            <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
+          </li>
+          <li>
+            <%= f.label :latitude %>
+            <%= f.text_field :latitude %>
+          </li>
+          <li>
+            <%= f.label :longitude %>
+            <%= f.text_field :longitude %>
+          </li>
+          <li>
+            <span class="or">or</span>
+          </li>
+          <li>
+            <%= f.label :address %>
+            <%= f.text_field :address %>
+          </li>
+          <li>
+            <%= f.label :city %>
+            <%= f.text_field :city %>
+          </li>
+          <li>
+            <%= f.label :state %>
+            <%= f.text_field :state %>
+          </li>
+          <li>
+            <%= f.label :zip %>
+            <%= f.text_field :zip %>
+          </li>
+          <%= hidden_field_tag :photo_id, @photo.id %>
+          <li>
+            <button class="submitBtn" name="submit" type="submit">
+                <span>Submit</span>
+            </button>
+          </li>
+        </div>
 
 
         </li>
@@ -178,10 +231,10 @@
   </div>
 
   <div id="rtColumn">
-    <img src="<%= @photo.image :big %>"/>
-	<div class="mapWrap">
-	    <div id="map_canvas"></div>
-	</div>
+    <img src="<%= @photo.image :big %>" id="art_photo">
+    <div class="mapWrap">
+      <div id="map_canvas"></div>
+    </div>
   </div>
 
   <div class="clear"></div>
