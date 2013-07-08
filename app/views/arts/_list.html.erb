@@ -6,7 +6,7 @@
     <% unless art.photos.empty? %>
       <div class="art">
         <img src="<%= art.primary_photo.image :big %>"/>
-        <h3><%= art.title %></h3>
+        <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
       </div>
     <% end %>

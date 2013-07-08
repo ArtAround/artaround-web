@@ -48,5 +48,5 @@ Artaround::Application.routes.draw do
   match "/events/:slug" => "home#map"
   match "/autocomplete_commissioners" => "home#autocomplete_commissioners"
 
-  root :to => "home#index"
+  root :to => "home#map"
 end
