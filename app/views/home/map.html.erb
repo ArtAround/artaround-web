@@ -4,7 +4,7 @@
 <% end %>
 <% content_for :tabs do %>
   <li id="allArt_link" class="map active">
-    <a href="#">All Art</a>
+    <a id="toggle_view" href="#">Map Art</a>
   </li>
   <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
   <input id="mapsearch_value" type="hidden" value="" />
@@ -31,7 +31,7 @@
 
     var currentInfoWindow;
 
-    var current_view = 'map';
+    var current_view = 'list';
 
     <% @events.each do |event| %>
       events["<%= event.id %>"] = {
@@ -379,7 +379,8 @@
       if (current_view == 'map'){
         current_view = 'list';
         $('#mapContainer').hide();
-        $('#list_view').show()
+        $('#list_view').show();
+        $('#toggle_view').text('Map Art');
         var $container = $('#art-list');
 
         $container.isotope({
@@ -392,16 +393,27 @@
       }
       else{
         current_view = 'map';
-        $('#list_view').hide()
+        $('#toggle_view').text('List Art');
+        $('#list_view').hide();
         $('#mapContainer').show();
         geoLocate();
       }
     }
 
-    $(function() {
+    function getURLParameter(name) {
+      return decodeURI(
+          (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+      );
+    }
 
-      $('#list_view').hide();
+    $(function() {
+      $('#mapContainer').hide();
+      
       $('#toggle_view').click(toggle_view);
+
+      if (getURLParameter('view') == 'map'){
+        toggle_view();
+      }
 
       // filter checkboxes/radio/select widgets
       $("input.filter").click(recalculateFilter);
@@ -478,6 +490,7 @@
         }
       });
 
+
     });
 
     // Get the intersection of 2 arrays
@@ -542,10 +555,10 @@
       else
         return -1;
     }
+    
   </script>
 
 <% end %>
-<a href="#" id="toggle_view">Toggle View</a>
 
 <div id="mapContainer" >
 

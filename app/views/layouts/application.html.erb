@@ -51,7 +51,7 @@
                 <%= tabs %>
               <% else %>
         				<li id="map_link">
-        					<a id="map" href="/map" href="#">Map</a>
+        					<a id="map" href="/" href="#">Home</a>
         				</li>
               <% end %>
 
@@ -102,7 +102,16 @@
     <% end %>
     <script>
       $(window).load(function(){
-        
+        var $container = $('#art-list');
+
+      $container.isotope({
+        masonry: {
+          layoutMode: 'fitColumns',
+          columnWidth: 83
+        },
+        itemSelector : '.art'
+      });
+      
         
         var $optionSets = $('#options .option-set'),
             $optionLinks = $optionSets.find('a');
