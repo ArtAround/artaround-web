@@ -9,6 +9,7 @@
   <script type="text/javascript">
 
     var slide_position = 0;
+    var map;
 
     function next_slide(){
       slide_position = slide_position + 1;
@@ -69,40 +70,49 @@
     function loadMaps(position) {
       var center;
       var zoom = 12;
-      if (position.hasOwnProperty('message'))
+      var lat, lng;
+      lat = $("input#art_latitude").val();
+      lng = $("input#art_longitude").val();
+      if (lat != "Click on Map" & lng != "Click on Map"){
+        center = new google.maps.LatLng(lat,lng);
+      }
+      else if (position.hasOwnProperty('message'))
       {
         center = new google.maps.LatLng(38.1167755604538, -97.763344475);
         zoom = 3;
       }
       else{
-        center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
+        center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
       }
 
-      var map = new google.maps.Map(document.getElementById("map_canvas"), {
+      map = new google.maps.Map(document.getElementById("map_canvas"), {
         zoom: zoom,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false
       });
 
+      var marker = new google.maps.Marker({position: center});
+      if (lat != "Click on Map" & lng != "Click on Map"){
+        marker.setMap(map);
+      }
+
       google.maps.event.addListener(map, "click", function(event) {
         $("input#art_latitude").val(event.latLng.lat());
         $("input#art_longitude").val(event.latLng.lng());
+        marker.setMap(null);
       });
 
     }
 
     $(function() {
-      if ($("input#art_latitude").val() == "")
+      var lat, lng;
+      lat = $("input#art_latitude").val();
+      lng = $("input#art_longitude").val();
+      if (lat == "")
         $("input#art_latitude").val("Click on Map");
-      if ($("input#art_longitude").val() == "")
+      if (lng == "")
         $("input#art_longitude").val("Click on Map");
-
-      $("#new_form").submit(function() {
-        $("#new_photo").hide();
-        $("#uploading_photo").show();
-        return true;
-      });
     });
   </script>
 <% end %>
@@ -187,7 +197,11 @@
             <%= f.text_area :location_description %>
           </li>          
           <li class="formModule">
-            <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
+            <% if @art.location.nil? %>
+              <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
+            <% else %>
+              <strong>Based on the geotag in your photo, we've created a location for your art! If this isn't right click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
+            <% end %>
           </li>
           <li>
             <%= f.label :latitude %>

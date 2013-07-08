@@ -8,6 +8,7 @@ gem "mongo", '1.6.1'
 gem "mongoid", '2.4.7'
 gem 'mongoid_slug', '0.9.0', :require => 'mongoid/slug'
 gem 'bson_ext', '1.6.1'
+gem 'exifr', :git => 'git://github.com/picuous/exifr.git'
 
 gem 'rails_autolink'
 

@@ -15,6 +15,12 @@ class ArtsController < ApplicationController
   def new
     @art = Art.new
     @photo = Photo.find(params[:photo_id])
+    if @photo.image_content_type == 'image/jpeg'
+      exif = EXIFR::JPEG.new(@photo.image.path)
+      if exif.gps?
+        @art.location = exif.gps
+      end
+    end
   end
 
   def create
