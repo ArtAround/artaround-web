@@ -89,7 +89,6 @@ describe "viewing an art", :type => :feature, :js => true do
 
     it "Attributes anonymous user and does not display an attribution link." do
       visit @art.url
-      find(:xpath, "//img[@src='#{@primary_photo.image.url(:small)}']").click
       page.should have_xpath("//img[@src='#{@primary_photo.image.url(:big)}']")
       page.should have_content("#{I18n.t :photo_by} #{I18n.t :anonymous_user}")
       page.should_not have_link("anonymous user")
@@ -113,7 +112,6 @@ describe "viewing an art", :type => :feature, :js => true do
 
     it "Shows the attribution url as both the text and href of the link." do
       visit @art.url
-      find(:xpath, "//img[@src='#{@primary_photo.image.url(:small)}']").click
       page.should have_xpath("//img[@src='#{@primary_photo.image.url(:big)}']")
       page.should have_content("#{I18n.t :photo_by} #{@primary_photo.attribution_url}")
       find_link(@primary_photo.attribution_url)[:href].should == @primary_photo.attribution_url
