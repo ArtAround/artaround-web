@@ -394,8 +394,9 @@
         $('#toggle_view').text('List Art');
         $('#list_view').hide();
         $('#mapContainer').show();
-        geoLocate();
-        //google.maps.event.trigger(map, 'resize');
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
       }
     }
 
