@@ -358,8 +358,6 @@
         else
           passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
 
-        console.log(passed_category);
-
         marker.setVisible(passed_commission && passed_category && passed_keyword && passed_event && passed_timeline);
       });
     }
@@ -397,6 +395,7 @@
         $('#list_view').hide();
         $('#mapContainer').show();
         geoLocate();
+        //google.maps.event.trigger(map, 'resize');
       }
     }
 
