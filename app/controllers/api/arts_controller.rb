@@ -27,6 +27,13 @@ class Api::ArtsController < Api::ApiController
       art.location = [latitude, longitude]
     end
 
+    unless vals[:commissioned_by].blank?
+      @commissioner = Commissioner.where({:name => /^#{vals[:commissioned_by]}/i}).first
+      if @commissioner.nil?
+        @commissioner = Commissioner.create(:name => vals[:commissioned_by])
+      end
+    end
+
     respond_to do |format|
       format.json do
         # If the art is successfully saved, send back the JSON representation
@@ -34,6 +41,10 @@ class Api::ArtsController < Api::ApiController
         # status code.
         if art.safely.save
           AdminMailer.new_art(art).deliver
+          unless @commissioner.nil?
+            @commissioner.arts.push(art)
+            @commissioner.save
+          end
           render :json => { :success => art.slug }
         else
           Rails.logger.info "Could not save art: #{art.errors}"
