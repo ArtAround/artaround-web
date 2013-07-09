@@ -388,6 +388,11 @@
           },
           itemSelector : '.art'
         });
+        $('#filters a').click(function(){
+          var selector = $(this).attr('data-filter');
+          $container.isotope({ filter: selector });
+          return false;
+        });
       }
       else{
         current_view = 'map';
@@ -408,8 +413,6 @@
 
     $(function() {
       $('#mapContainer').hide();
-      
-      $('#toggle_view').click(toggle_view);
 
       if (getURLParameter('view') == 'map'){
         toggle_view();
@@ -555,6 +558,10 @@
       else
         return -1;
     }
+
+    $(document).ready(function(){
+      $('#toggle_view').click(toggle_view);
+    })
     
   </script>
 
@@ -666,6 +673,6 @@
 
 </div>
 
-<div id="list_view">
+<div id="list_view" >
   <%= render "arts/list" %>
 </div>
