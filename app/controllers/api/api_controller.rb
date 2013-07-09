@@ -6,6 +6,11 @@ class Api::ApiController < ApplicationController
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
     hash[:event] = event_for_art(art)
     hash[:photos] = photos_for_art(art)
+    if art.commissioned_by.nil?
+      hash[:commissioned_by] = nil
+    else
+      hash[:commissioned_by] = {:name => art.commissioned_by.name, :url => art.commissioned_by.url}
+    end
     hash
   end
 
@@ -25,6 +30,11 @@ class Api::ApiController < ApplicationController
 
     results = arts.skip(skip).limit(limit).map do |art| 
       hash = art.as_json
+      if art.commissioned_by.nil?
+      hash[:commissioned_by] = nil
+    else
+      hash[:commissioned_by] = {:name => art.commissioned_by.name}
+    end
       hash = clean hash, art_fields
       hash[:event] = event_for_art(art)
       # hash[:photos] = photos_for_art(art)
@@ -81,7 +91,8 @@ class Api::ApiController < ApplicationController
     [
       :slug, :description, :location_description, :artist, :location, 
       :created_at, :updated_at, :category, :title, :updated_at,
-      :year, :neighborhood, :ward, :commissioned, :ranking, :event
+      :year, :neighborhood, :ward, :commissioned, :ranking, :event,
+      :commissioned_by
     ]
   end
 
