@@ -102,21 +102,6 @@
     <% end %>
     <script>
       $(window).load(function(){
-        var $container = $('#art-list');
-
-      $container.isotope({
-        masonry: {
-          layoutMode: 'fitColumns',
-          columnWidth: 83
-        },
-        itemSelector : '.art'
-      });
-      $('#filters a').click(function(){
-        var selector = $(this).attr('data-filter');
-        $container.isotope({ filter: selector });
-        return false;
-      });
-      
         
         var $optionSets = $('#options .option-set'),
             $optionLinks = $optionSets.find('a');

@@ -379,20 +379,7 @@
         $('#mapContainer').hide();
         $('#list_view').show();
         $('#toggle_view').text('Map Art');
-        var $container = $('#art-list');
-
-        $container.isotope({
-          masonry: {
-            layoutMode: 'fitColumns',
-            columnWidth: 83
-          },
-          itemSelector : '.art'
-        });
-        $('#filters a').click(function(){
-          var selector = $(this).attr('data-filter');
-          $container.isotope({ filter: selector });
-          return false;
-        });
+        setup_isotope();
       }
       else{
         current_view = 'map';
@@ -559,9 +546,48 @@
         return -1;
     }
 
+    function setup_isotope(){
+      var $container = $('#art-list');
+
+      $container.isotope({
+        masonry: {
+          layoutMode: 'fitColumns',
+          columnWidth: 83
+        },
+        itemSelector : '.art',
+        sortBy: 'visits',
+        getSortData:{
+          visits: function($elem){
+            return parseInt($elem.find('.visits').text());
+          },
+          created_at: function($elem){
+            return parseInt($elem.find('.created_at').text());
+          }
+        }
+      });
+      $('#filters a').click(function(){
+        var selector = $(this).attr('data-filter');
+        $container.isotope({ filter: selector });
+        return false;
+      });
+      $('#sort-by a').click(function(){
+        // get href attribute, minus the '#'
+        var sortName = $(this).attr('href').slice(1);
+        if(sortName == 'created_at'){
+          $('#art-list').isotope({ sortBy : sortName, sortAscending : false });  
+        }
+        else{
+          $('#art-list').isotope({ sortBy : sortName });  
+        }
+        
+        return false;
+      });
+    }
+
     $(document).ready(function(){
       $('#toggle_view').click(toggle_view);
-    })
+      setup_isotope();
+    });
     
   </script>
 

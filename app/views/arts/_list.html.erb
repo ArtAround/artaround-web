@@ -1,4 +1,8 @@
 <div id="filter-options" style="float: left;">
+	<ul id="sort-by">
+		<li><a href="#created_at" >Recent</a></li>
+		<li><a href="#visits" >Popular</a></li>
+	</ul>
 	<ul id="filters">
 	  <li><a href="#" data-filter="*">show all</a></li>
 	  <li><a href="#" data-filter=".architecture">Architecture</a></li>
@@ -39,6 +43,8 @@
         <img src="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
+        <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
+        <small class="visits" style="display:none;"><%= art.total_visits %></small>
       </div>
     <% end %>
   <% end %>
