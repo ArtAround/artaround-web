@@ -267,8 +267,6 @@
       clearWindow();
 
       //$("#filter_commissioned_all").prop("checked", "checked");
-      $("#filter_category_all").prop("checked", "checked");
-      $("input.filter.public").prop("checked", "checked");
       $("#id_wards").val("");
       $("#filter_event_id").val("");
 
@@ -556,16 +554,13 @@
 
             <div class="clear"></div>
 
-            <ul id="publicSubset">
-              <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
-                <li>
-                  <label>
-                    <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
-                    <span class="category"><%= category.downcase %></span>
-                  </label>
-                </li>
-              <% end %>
-            </ul>
+            <div id="publicSubset">
+              <select selected value="All Art" class="filter category public" name="public_category" type="dropdown" />
+                <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
+                      <option class="category"><%= category.downcase %></option>
+                <% end %>
+              </select>
+            </div>
 
           </li>
         </ul>
