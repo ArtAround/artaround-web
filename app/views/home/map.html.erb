@@ -595,7 +595,7 @@
             <div class="clear"></div>
 
             <ul id="publicSubset">
-              <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
+              <% categories.each do |category| %>
                 <li>
                   <label>
                     <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
