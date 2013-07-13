@@ -154,38 +154,9 @@
       if (description.length > 210)
         description = description.substr(0, 205) + "..."
 
-      var eventIcon = "";
-      if (art.event_name) {
-       eventIcon = '' +
-        '<span class="eventIcon">' +
-          '<img src="' + art.event_icon_thumbnail + '" title="' + art.event_name + '"/>'
-        '</span>'
-      }
-      var popularIcon = "";
-      if (art.popular) {
-        popularIcon = '' +
-        '<span class="popularIcon">' +
-          '<img src="/images/popular.png" title="Popular Artwork"/>'
-        '</span>'
-      }
-
-      var commissionedIcon = "";
-      if (art.commissioned) {
-        commissionedIcon = '' +
-        '<span class="commissionedIcon">' +
-          '<img src="/images/icon_commissioned.png" title="DC Arts"/>'
-        '</span>'
-      }
-
       var html = '<div class="mapBubble">' +
         '<h4>' + art.title + '</h4>' +
-    		'<div class="icons">' +
-          eventIcon +
-          popularIcon +
-          commissionedIcon +
-        '</div>' +
-
-    		'<div class="bubbleMetaData">' +
+    	'<div class="bubbleMetaData">' +
             '<dl>' +
 
                 '<dt>Artist</dt>' +
