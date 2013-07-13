@@ -186,7 +186,7 @@ background: rgb(235, 229, 223);
 font-family: "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
-#pageMain, #art-list, .contentWrapper {
+#pageMain, #artListContainer, .contentWrapper {
 max-width: 1000px;
 width: 100%;
 border-top: 3px solid #54c3c6;
@@ -196,6 +196,7 @@ overflow: hidden;
 
 #art-list {
 padding-top:20px;
+clear: both;
 }
 
 div#rtColumn {
@@ -1606,6 +1607,10 @@ text-decoration: none;
 font-size: 70%;
 margin-top: 10px;
 display: block;
+}
+
+#filters li {
+	float: left;
 }
 
 .isotope,
