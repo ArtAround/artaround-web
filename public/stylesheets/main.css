@@ -1653,7 +1653,20 @@ display: block;
 		#mapsearch_form input {
 			width: 75%;
 		}
-    }
+		.video-container {
+		position: relative;
+		height: 0;
+		overflow: hidden;
+		padding-bottom: 56.25%;
+		padding-top: 30px;
+		}
+		.video-container iframe, .video-container object, .video-container embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+    	}
 
     /* For smartphones */
     @media (max-width: 480px) {
@@ -1688,7 +1701,7 @@ display: block;
 		.cclicense {
 			display: none;
 		}
-		div#rtColumn, div#ltColumn, .ltColumn, .rtColumn {
+		div#rtColumn, div#ltColumn, .ltColumn, .rtColumn, div#ltColumn.oneCol {
 			width: 90%;
 			margin-left: 0;
 			margin-right: 0;
