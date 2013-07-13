@@ -426,10 +426,7 @@ margin-top: 10px;
 }
 
 #mapsearch_form input {
-	background-color: #484242;
-	-webkit-box-shadow: inset 1px 1px 7px #332c2c;
-	-moz-box-shadow: inset 1px 1px 7px #332c2c;
-	box-shadow: inset 1px 1px 7px #332c2c;
+	background-color: #fff;
 	color: #b0afaf;
 	float: left;
 	width: 150px;
