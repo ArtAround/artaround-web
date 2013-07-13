@@ -4,7 +4,7 @@
 <% end %>
 <% content_for :tabs do %>
   <li id="allArt_link" class="map active">
-    <a id="toggle_view" href="#">Map Art</a>
+    <a id="toggle_view" href="#">Map</a>
   </li>
   <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
   <input id="mapsearch_value" type="hidden" value="" />
@@ -341,12 +341,12 @@
         current_view = 'list';
         $('#mapContainer').hide();
         $('#list_view').show();
-        $('#toggle_view').text('Map Art');
+        $('#toggle_view').text('Map');
         setup_isotope();
       }
       else{
         current_view = 'map';
-        $('#toggle_view').text('List Art');
+        $('#toggle_view').text('List');
         $('#list_view').hide();
         $('#mapContainer').show();
         var center = map.getCenter();
