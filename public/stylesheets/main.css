@@ -1651,7 +1651,7 @@ display: block;
     /* For tablets & smart phones */
     @media (max-width: 767px) {
 		#mapsearch_form input {
-			width: 76%;
+			width: 75%;
 		}
     }
 
@@ -1674,7 +1674,7 @@ display: block;
 			margin: 15px auto;
 		}
 		#mapsearch_form input {
-			width: 85%;
+			width: 84%;
 		}
 		.searchBtn {
 			width:10.3%;

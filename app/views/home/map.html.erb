@@ -4,7 +4,7 @@
 <% end %>
 <% content_for :tabs do %>
   <li id="allArt_link" class="map active">
-    <a id="toggle_view" href="#">Map Art</a>
+    <a id="toggle_view" href="#">Map</a>
   </li>
   <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
   <input id="mapsearch_value" type="hidden" value="" />
@@ -102,12 +102,8 @@
 
 
       // icon types
-      icons.art = new google.maps.MarkerImage("/images/pins/art.png");
-      icons.art_popular = new google.maps.MarkerImage("/images/pins/artPop.png");
-      icons.venue = new google.maps.MarkerImage("/images/pins/venue.png");
-      icons.venue_popular = new google.maps.MarkerImage("/images/pins/venuePop.png");
-      icons.event = new google.maps.MarkerImage("/images/pins/event.png");
-      icons.event_popular = new google.maps.MarkerImage("/images/pins/eventPop.png");
+      icons.art = new google.maps.MarkerImage("/images/pins/red.png");
+      icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
 
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
@@ -154,38 +150,9 @@
       if (description.length > 210)
         description = description.substr(0, 205) + "..."
 
-      var eventIcon = "";
-      if (art.event_name) {
-       eventIcon = '' +
-        '<span class="eventIcon">' +
-          '<img src="' + art.event_icon_thumbnail + '" title="' + art.event_name + '"/>'
-        '</span>'
-      }
-      var popularIcon = "";
-      if (art.popular) {
-        popularIcon = '' +
-        '<span class="popularIcon">' +
-          '<img src="/images/popular.png" title="Popular Artwork"/>'
-        '</span>'
-      }
-
-      var commissionedIcon = "";
-      if (art.commissioned) {
-        commissionedIcon = '' +
-        '<span class="commissionedIcon">' +
-          '<img src="/images/icon_commissioned.png" title="DC Arts"/>'
-        '</span>'
-      }
-
       var html = '<div class="mapBubble">' +
         '<h4>' + art.title + '</h4>' +
-    		'<div class="icons">' +
-          eventIcon +
-          popularIcon +
-          commissionedIcon +
-        '</div>' +
-
-    		'<div class="bubbleMetaData">' +
+    	'<div class="bubbleMetaData">' +
             '<dl>' +
 
                 '<dt>Artist</dt>' +
@@ -202,16 +169,12 @@
       '</div>';
 
       var icon;
-      var isVenue = ($.inArray('Museum', art.category) || $.inArray('Gallery', art.category) || $.inArray('Market', art.category));
-      var isPopular = art.popular;
-      var isEvent = !!art.event_id;
+      var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
 
-      if (isEvent)
-        icon = (isPopular ? icons.event_popular : icons.event);
-      else if (isVenue)
-        icon = (isPopular ? icons.venue_popular : icons.venue);
+      if (isVenue)
+        icon = icons.venue;
       else
-        icon = (isPopular ? icons.art_popular : icons.art);
+        icon = icons.art;
 
       var marker = new google.maps.Marker({
         position: location,
@@ -378,12 +341,12 @@
         current_view = 'list';
         $('#mapContainer').hide();
         $('#list_view').show();
-        $('#toggle_view').text('Map Art');
+        $('#toggle_view').text('Map');
         setup_isotope();
       }
       else{
         current_view = 'map';
-        $('#toggle_view').text('List Art');
+        $('#toggle_view').text('List');
         $('#list_view').hide();
         $('#mapContainer').show();
         var center = map.getCenter();
@@ -584,7 +547,7 @@
       });
     }
 
-    $(document).ready(function(){
+    $(window).load(function(){
       $('#toggle_view').click(toggle_view);
       setup_isotope();
     });
@@ -632,7 +595,7 @@
             <div class="clear"></div>
 
             <ul id="publicSubset">
-              <% categories.reject {|c| ["Museum", "Gallery", "Market"].include? c}.each do |category| %>
+              <% categories.each do |category| %>
                 <li>
                   <label>
                     <input class="filter checkbox category public" name="public_category" type="checkbox" checked />
