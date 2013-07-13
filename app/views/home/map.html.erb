@@ -102,12 +102,8 @@
 
 
       // icon types
-      icons.art = new google.maps.MarkerImage("/images/pins/art.png");
-      icons.art_popular = new google.maps.MarkerImage("/images/pins/artPop.png");
-      icons.venue = new google.maps.MarkerImage("/images/pins/venue.png");
-      icons.venue_popular = new google.maps.MarkerImage("/images/pins/venuePop.png");
-      icons.event = new google.maps.MarkerImage("/images/pins/event.png");
-      icons.event_popular = new google.maps.MarkerImage("/images/pins/eventPop.png");
+      icons.art = new google.maps.MarkerImage("/images/pins/red.png");
+      icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
 
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
@@ -173,16 +169,12 @@
       '</div>';
 
       var icon;
-      var isVenue = ($.inArray('Museum', art.category) || $.inArray('Gallery', art.category) || $.inArray('Market', art.category));
-      var isPopular = art.popular;
-      var isEvent = !!art.event_id;
+      var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
 
-      if (isEvent)
-        icon = (isPopular ? icons.event_popular : icons.event);
-      else if (isVenue)
-        icon = (isPopular ? icons.venue_popular : icons.venue);
+      if (isVenue)
+        icon = icons.venue;
       else
-        icon = (isPopular ? icons.art_popular : icons.art);
+        icon = icons.art;
 
       var marker = new google.maps.Marker({
         position: location,
