@@ -57,7 +57,11 @@
         event_icon_small: events["<%= art.event_id %>"].icon_small,
         <% end %>
         title: "<%= escape_javascript art.title %>",
+        <% if art.category.nil? %>
+        category: [],
+        <% else %>
         category: <%= raw(art.category.map{|x| x.downcase}) %>,
+        <% end %>
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
@@ -293,11 +297,13 @@
         // examine for commissioned status
         passed_commission = (!ensure_commissioned || (ensure_commissioned && marker.filters.commissioned));
 
-        if (just_public)
+        if (allowed_categories.length < 27){
           //passed_category = ($.inArray(marker.filters.category, allowed_categories) >= 0);
           passed_category = (getIntersect(marker.filters.category, allowed_categories).length >0);
-        else
-          passed_category = false;
+        }
+        else{
+          passed_category = true;
+        }
 
         passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
 
