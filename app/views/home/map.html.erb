@@ -79,8 +79,13 @@
     function geoLocate(){
       if (navigator.geolocation)
       {
-        navigator.geolocation.getCurrentPosition(loadMap, loadMap);
+        navigator.geolocation.getCurrentPosition(loadMap, geoError);
       }
+    }
+
+    // Firefox workaround
+    function geoError(error){
+      loadMap({message: 'error'});
     }
 
     function loadMap(position) {
