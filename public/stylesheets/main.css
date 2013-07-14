@@ -186,7 +186,7 @@ background: rgb(235, 229, 223);
 font-family: "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
-#pageMain, #artListContainer, .contentWrapper {
+#pageMain, #artListContainer, .contentWrapper, .addArtContainer {
 max-width: 1000px;
 width: 100%;
 border-top: 3px solid #54c3c6;
@@ -364,10 +364,13 @@ margin-bottom: 0;
 	display: block
 }
 
-
-.submitBtn {
-	background: #54c3c6;
+button.submitBtn {
 	width: 89px;
+}
+
+.submitBtn, input[type=submit] {
+	background: #54c3c6;
+	max-width: 50%;
 	height: 45px;
 	margin-left: 0;
 	margin-top: 45px;
@@ -711,6 +714,9 @@ width: 100%;
 -webkit-appearance: none;
     border-radius: 0;
 }
+input#photo_image { background: none; 
+	border: none;
+	}
 input.checkbox, input.radio {
 width: 15px;
 }
@@ -1379,7 +1385,7 @@ input#new_photo{
 .overlay .light.white label{
 	width: 250px;
 }
-.overlay .light.white input.submitBtn{
+.overlay .light.white input.submitBtn {
 	width: 150px;
 	cursor: pointer;
 }
