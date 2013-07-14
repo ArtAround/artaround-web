@@ -35,6 +35,7 @@ class Admin::ArtsController < Admin::AdminController
     @art.location = [latitude, longitude]
 
     @art.attributes = params[:art]
+    @art.category.reject!(&:blank?)
 
     if @art.save
       redirect_to admin_art_path(@art), :notice => "Successfully updated art piece."

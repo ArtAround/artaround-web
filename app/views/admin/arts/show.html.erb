@@ -85,6 +85,7 @@
           $(this).parents("form.photo.delete").submit();
         return false;
       })
+      $('#art_category').chosen({allow_single_deselect:true});
     });
   </script>
 <% end %>
@@ -146,19 +147,11 @@
       </li>
       <li>
         <%= f.label :category %>
-        <%= f.select :category, categories, {:include_blank => "---"} %>
-      </li>
-      <li>
-        <%= f.label :neighborhood %>
-        <%= f.select :neighborhood, neighborhoods, {:include_blank => "---"} %>
+        <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
       </li>
       <li>
         <%= f.label :year %>
         <%= f.text_field :year %>
-      </li>
-      <li>
-        <%= f.label :ward %>
-        <%= f.text_field :ward %>
       </li>
       <li>
         <%= f.label :latitude %>
