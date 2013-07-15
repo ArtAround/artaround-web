@@ -1614,6 +1614,14 @@ display: block;
 	float: left;
 }
 
+.module h4 {
+	text-transform: uppercase;
+	font-weight: 100;
+	font-size: 17px;
+	border-bottom: 1px solid #ccc;
+	margin: 20px 0;
+}
+
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
