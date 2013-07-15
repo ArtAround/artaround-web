@@ -8,8 +8,13 @@ class ArtsController < ApplicationController
   end
 
   def create_art_photo
-    @photo = Photo.create(params[:photo])
-    redirect_to new_art_path(:photo_id => @photo.id)
+    @photo = Photo.new(params[:photo])
+    if @photo.save
+      redirect_to new_art_path(:photo_id => @photo.id)
+    else
+      flash.now[:alert] = @photo.errors.messages.values.flatten.join(" ")
+      redirect_to new_art_photo_path, :alert => @photo.errors.messages.values.flatten.join(" ")
+    end
   end
 
   def new

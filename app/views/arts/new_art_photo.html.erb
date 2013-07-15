@@ -1,4 +1,11 @@
 <div class="addArtContainer">
+	<% [:notice, :alert].each do |msg| %>
+	  <% if flash[msg] %>
+	    <div class="flash <%= msg %>">
+	      <%= flash[msg] %>
+	    </div>
+	  <% end %>
+	<% end %>
 	<div id="titleContent">
 		<h2>Add Art</h2>
 	</div>
