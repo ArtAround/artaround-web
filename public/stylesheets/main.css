@@ -183,7 +183,7 @@ text-decoration: none;
 
 body {
 background: rgb(235, 229, 223);
-font-family: "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
+font-family: "proxima-nova", "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
 #pageMain, #artListContainer, .contentWrapper, .addArtContainer {
@@ -219,8 +219,9 @@ div#ltColumn.oneCol{
 
 div#ltColumn h3, div#rtColumn h3{
 	text-transform: uppercase;
-	font-size: 170%;
+	font-size: 17px;
 	margin-bottom: 10px;
+	font-weight: 100;
 }
 
 .tip {
@@ -906,7 +907,6 @@ padding-left: 50px;
 }
 
 #artworkPhoto {
-	border: 4px solid #ffffff;
 width: 100%;
 display: block;
 background: rgb(141, 141, 141);
