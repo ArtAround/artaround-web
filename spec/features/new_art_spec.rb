@@ -7,7 +7,7 @@ describe "uploading a piece of art", :type => :feature do
     fill_in "photo_attribution_text", :with => "Droopy Dog"
     fill_in "photo_attribution_url", :with => "http://www.droopydog.com"
 
-    click_on "Create Photo"
+    click_on "Upload Photo"
 
 
     select "Mural", :from => "category"
