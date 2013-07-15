@@ -351,6 +351,18 @@
       }
     }
 
+    function search(){
+      if (current_view == 'map'){
+        // map search
+        recalculateFilter();
+      }
+      else{
+        // list search
+        var keyword = $("input#mapsearch_value").val().toLowerCase();
+        $('#art-list').isotope({ filter: '.' + keyword });
+      }
+    }
+
     function getURLParameter(name) {
       return decodeURI(
           (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
@@ -371,7 +383,7 @@
       // override how the form works on all the other pages
       $("form#mapsearch_form").submit(function() {
         $("input#mapsearch_value").val($("input#mapsearch").val());
-        recalculateFilter();
+        search();
         return false;
       });
 
