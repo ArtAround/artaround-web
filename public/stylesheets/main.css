@@ -56,11 +56,11 @@ list-style: none;
 
 a:link {
 outline: none;
-color: #5fb9aa;
+color: #4766AF;
 }
 a:visited {
 outline: none;
-color: #5fb9aa;
+color: #4766AF;
 }
 a:hover {
 outline: none;
@@ -68,7 +68,7 @@ color: #08958d;
 }
 a:active {
 outline: none;
-color: #5fb9aa;
+color: #4766AF;
 }
 
 body {
@@ -1563,7 +1563,7 @@ a.reset{
 	width: 111px;
 	float: right;
 	height: 40px;
-	background-color: #5fb9aa;
+	background-color: #4766AF;
 	color: #ffffff;
 	text-shadow: 1px 1px 3px #706d6d;
 	filter: dropshadow(color=#706d6d, offx=1, offy=1);
