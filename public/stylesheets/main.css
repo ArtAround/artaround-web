@@ -642,6 +642,7 @@ border-right: 1px solid #b7b4b4;
 border-bottom: 1px solid #b7b4b4;
 opacity: 0.9 !important;
 background-color: #dedada;
+overflow: hidden;
 -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
@@ -668,7 +669,6 @@ fieldset {
 margin-bottom: 10px;
 }
 #filterForm legend {
-float: left;
 font-weight: bold;
 text-transform: uppercase;
 }
@@ -707,11 +707,12 @@ max-height: 200px;
 
 ul#location .searchBtn {
 display: inline;
-background:
+height: 27px;
+width: 17%;
 }
 
 ul#location #id_location {
-width: 128px;
+width: 135px;
 }
 
 ul#location button, ul#location a.buttonLink {
@@ -890,13 +891,20 @@ position: fixed;
 bottom: 0;
 width: 100%;
 z-index: 10;
+border-top: 1px solid #54c3c6;
 }
 
 footer {
 padding-top: 10px;
 max-width: 1000px;
 margin: 0 auto;
+border-top: 1px solid #54c3c6;
 }
+
+.home footer {
+	border: none;
+}
+
 footer small {
 color: rgb(172, 172, 172);
 float: left;
@@ -1680,6 +1688,23 @@ display: block;
 	display:block;
 	clear: both;
 }
+
+li.publicItem {
+	width:378px;
+	height: 10px;
+}
+
+select#category {
+	margin: 0;
+	border: 1px solid #ccc;
+	font-family: "proxima-nova", "proxima nova", helvetica, sans-serif;
+	background: #fff;
+}
+
+.mobileLogo {
+	display:none;
+}
+
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
@@ -1799,6 +1824,15 @@ display: block;
 		body {
     		background-size: 36%;
     	}
+    	.mobileLogo {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			height:auto;
+		}
+		.mainLogo {
+			display:none;
+		}
     }
         /* Extra Breakpoint for iPhone header bug */
     @media (max-width: 321px) {
