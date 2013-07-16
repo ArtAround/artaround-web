@@ -182,7 +182,7 @@ text-decoration: none;
 
 
 body {
-background: rgb(235, 229, 223);
+background: rgb(235, 229, 223) url(/images/background_1.png) left top no-repeat;
 font-family: "proxima-nova", "proxima nova", "helvetica neue", helvetica, arial, sans-serif;
 }
 
@@ -200,17 +200,20 @@ clear: both;
 }
 
 div#rtColumn {
-	float: left;
+	float: right;
 	margin-bottom: 80px;
 	margin-left: 20px;
-	width: 490px;
+	width: 43%;
+	max-width: 477px;
+	padding-right: 10px;
 }
 div#ltColumn {
 	padding-left: 10px;
 	float: left;
 	margin-bottom: 80px;
 	margin-right: 20px;
-	width: 460px;
+	max-width: 460px;
+	width:43%;
 }
 
 div#ltColumn.oneCol{
@@ -218,8 +221,7 @@ div#ltColumn.oneCol{
 }
 
 div#ltColumn h3, div#rtColumn h3{
-	text-transform: uppercase;
-	font-size: 17px;
+	font-size: 22px;
 	margin-bottom: 10px;
 	font-weight: 100;
 }
@@ -1704,6 +1706,9 @@ display: block;
 			width: 100%;
 			height: 100%;
     	}
+    	body {
+    		background-size: 25%;
+    	}
 	}
     /* For smartphones */
     @media (max-width: 480px) {
@@ -1742,6 +1747,7 @@ display: block;
 			width: 90%;
 			margin-left: 0;
 			margin-right: 0;
+			float: left;
 		}
 		#rtColumn, .rtColumn {
 			padding-left: 10px;
@@ -1762,6 +1768,9 @@ display: block;
 		.isotope-item img {
 			width: 100%;
 		}
+		body {
+    		background-size: 36%;
+    	}
     }
         /* Extra Breakpoint for iPhone header bug */
     @media (max-width: 321px) {
