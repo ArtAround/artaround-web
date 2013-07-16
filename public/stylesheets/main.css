@@ -201,7 +201,7 @@ clear: both;
 
 div#rtColumn {
 	float: right;
-	margin-bottom: 80px;
+	margin-bottom: 20px;
 	margin-left: 20px;
 	width: 43%;
 	max-width: 477px;
@@ -210,7 +210,24 @@ div#rtColumn {
 div#ltColumn {
 	padding-left: 10px;
 	float: left;
-	margin-bottom: 80px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	max-width: 460px;
+	width:43%;
+}
+
+div.rtColumn {
+	float: right;
+	margin-bottom: 20px;
+	margin-left: 20px;
+	width: 43%;
+	max-width: 477px;
+	padding-right: 10px;
+}
+div.ltColumn {
+	padding-left: 10px;
+	float: left;
+	margin-bottom: 20px;
 	margin-right: 20px;
 	max-width: 460px;
 	width:43%;
@@ -220,7 +237,7 @@ div#ltColumn.oneCol{
 	width: 490px;
 }
 
-div#ltColumn h3, div#rtColumn h3{
+div#ltColumn h3, div#rtColumn h3, .ltColumn h3, .rtColumn h3{
 	font-size: 22px;
 	margin-bottom: 10px;
 	font-weight: 100;
@@ -381,6 +398,7 @@ button.submitBtn {
 	font-size: 150%;
 	color: #ffffff;
 	text-transform: uppercase;
+	float:right;
 }
 .submitBtn:hover {
 	background: #08958D;
@@ -762,7 +780,7 @@ font-size: 10px;
 	height: 15px;
 }
 
-#rtColumn #map_canvas {
+#rtColumn #map_canvas, .rtColumn #map_canvas, .ltColumn #map_canvas, #ltColumn #map_canvas {
 border: 1px solid #B4B2AD;
 height: 280px
 }
@@ -1187,7 +1205,7 @@ float: left;
 width: 419px;
 }
 .rtCol {
-float: left;
+float: right;
 width: 541px;
 margin-top: 22px;
 }
@@ -1652,6 +1670,17 @@ display: block;
 	padding: 4px;
 }
 
+.rtColumn {
+	float: right;
+}
+
+.ltColumn {
+	float:left;
+}
+.commentsAndMap{
+	display:block;
+	clear: both;
+}
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
@@ -1743,7 +1772,7 @@ display: block;
 		.cclicense {
 			display: none;
 		}
-		div#rtColumn, div#ltColumn, .ltColumn, .rtColumn, div#ltColumn.oneCol {
+		div#rtColumn, div#ltColumn, div.ltColumn, div.rtColumn, div#ltColumn.oneCol {
 			width: 90%;
 			margin-left: 0;
 			margin-right: 0;
@@ -1752,7 +1781,7 @@ display: block;
 		#rtColumn, .rtColumn {
 			padding-left: 10px;
 		}
-		#ltColumn input, #ltColumn textarea {
+		.ltColumn input, .ltColumn textarea, #ltColumn input, #ltColumn textarea {
 			width:100%;
 		}
 		.imgContainer {
