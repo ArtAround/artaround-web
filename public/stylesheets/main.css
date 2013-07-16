@@ -226,9 +226,10 @@ div#ltColumn h3, div#rtColumn h3{
 
 .tip {
 	color: #86827a;
-	font-size: 95%;
+	font-size: 10px;
 	margin-top: 15px;
 	font-style: oblique;
+	font-weight: 100;
 }
 
 header h1 {
@@ -1628,6 +1629,27 @@ display: block;
 .chzn-container {
 	width:100%!important;
 }
+
+.stButton .googleplus {
+	background: #d14836 url(/images/googleplus-24.png)!important;
+	padding: 4px;
+}
+
+.stButton .pinterest {
+	background: #cb2027 url(/images/pinterest-24.png)!important;
+	padding: 4px;
+}
+
+.stButton .facebook {
+	background: #3b5998 url(/images/facebook-24.png)!important;
+	padding: 4px;
+}
+
+.stButton .twitter {
+	background: #00aced url(/images/twitter-24.png)!important;
+	padding: 4px;
+}
+
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */
@@ -1666,7 +1688,7 @@ display: block;
     /* For tablets & smart phones */
     @media (max-width: 767px) {
 		#mapsearch_form input {
-			width: 75%;
+			width: 73%;
 		}
 		.video-container {
 		position: relative;
@@ -1682,7 +1704,7 @@ display: block;
 			width: 100%;
 			height: 100%;
     	}
-
+	}
     /* For smartphones */
     @media (max-width: 480px) {
 		header h1 {
