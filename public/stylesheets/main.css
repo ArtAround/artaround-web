@@ -1126,7 +1126,6 @@ margin-right: 5px
 
 .share_toolbox {
 	float: right;
-	margin-top: 2px;
 }
 .stButton .chicklets {
 	text-indent: -9999em
@@ -1421,12 +1420,11 @@ input#new_photo{
 }
 
 .addNewArt .mapWrap{
-	position: fixed;
-	height: 280px;
-	width: 490px;
-	top:200px;
-}
+	padding-top: 20px;
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
 
+}
 .addNewArt .mapWrap.floating{
 	position: fixed;
 	top: 300px;
@@ -1627,6 +1625,7 @@ text-transform: uppercase;
 padding: 10px;
 float: right;
 text-decoration: none;
+margin-top: 10px;
 }
 
 .cc.tip {

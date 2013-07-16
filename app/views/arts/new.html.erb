@@ -185,7 +185,7 @@
             <%= f.text_area :description %>
           </li>
           <li>
-            <a id="next_slide" href="#">Next</a>
+            <a id="next_slide" class="upload_link" href="#">Next</a>
           </li>
         </div>
         <div id="last_slide">
@@ -196,6 +196,10 @@
             <%= f.label :location_description, "Describe the location" %>
             <%= f.text_area :location_description %>
           </li>          
+          <img src="<%= @photo.image :big %>" id="art_photo">
+    <div class="mapWrap">
+      <div id="map_canvas"></div>
+    </div>
           <li class="formModule">
             <% if @art.location.nil? %>
               <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
@@ -246,9 +250,6 @@
 
   <div id="rtColumn">
     <img src="<%= @photo.image :big %>" id="art_photo">
-    <div class="mapWrap">
-      <div id="map_canvas"></div>
-    </div>
   </div>
 
   <div class="clear"></div>
