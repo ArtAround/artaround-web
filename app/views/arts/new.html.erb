@@ -1,5 +1,5 @@
 <% content_for :footer do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=geoLocate"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript">
   $('#art_category').chosen({allow_single_deselect:true});
   </script>
@@ -10,6 +10,7 @@
 
     var slide_position = 0;
     var map;
+    var marker;
 
     function next_slide(){
       slide_position = slide_position + 1;
@@ -37,7 +38,9 @@
         $('#art_photo').hide();
         $('#last_slide').show();
         $('#map_canvas').show();
-        geoLocate();
+        var center = map.getCenter();
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(center);
       }
 
     }
@@ -64,38 +67,36 @@
     function geoLocate(){
       if (navigator.geolocation)
       {
-        navigator.geolocation.getCurrentPosition(loadMaps, loadMaps);
-      }
-    }
-    function loadMaps(position) {
-      var center;
-      var zoom = 12;
-      var lat, lng;
-      lat = $("input#art_latitude").val();
-      lng = $("input#art_longitude").val();
-      if (lat != "Click on Map" & lng != "Click on Map"){
-        center = new google.maps.LatLng(lat,lng);
-      }
-      else if (position.hasOwnProperty('message'))
-      {
-        center = new google.maps.LatLng(38.1167755604538, -97.763344475);
-        zoom = 3;
+        navigator.geolocation.getCurrentPosition(updateMap, geoError);
       }
       else{
-        center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+        geoError();
       }
+    }
 
+    // Firefox workaround
+    function geoError(error){
+      // Do nothing
+    }
+
+    function updateMap(position){
+      var center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
+      map.setCenter(center);
+      map.setZoom(12);
+    }
+
+    function loadMaps() {
+      var center;
+      var zoom = 4;
+      center = new google.maps.LatLng(41.623184026741214, -91.962563225);
       map = new google.maps.Map(document.getElementById("map_canvas"), {
-        zoom: zoom,
         center: center,
+        zoom: zoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false
+        mapTypeControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+        }
       });
-
-      var marker = new google.maps.Marker({position: center});
-      if (lat != "Click on Map" & lng != "Click on Map"){
-        marker.setMap(map);
-      }
 
       google.maps.event.addListener(map, "click", function(event) {
         $("input#art_latitude").val(event.latLng.lat());
@@ -113,6 +114,24 @@
         $("input#art_latitude").val("Click on Map");
       if (lng == "")
         $("input#art_longitude").val("Click on Map");
+    });
+
+    $(window).load(function(){
+      loadMaps();
+      //geoLocate();
+      var lat, lng;
+      lat = $("input#art_latitude").val();
+      lng = $("input#art_longitude").val();
+      marker = new google.maps.Marker({position: map.getCenter()});
+      if (lat != "Click on Map" & lng != "Click on Map"){
+        var center = new google.maps.LatLng(lat,lng);
+        marker = new google.maps.Marker({position: center});
+        marker.setMap(map);
+        updateMap({coords: {latitude: lat, longitude: lng}})
+      }
+      else{
+        geoLocate();
+      }
     });
   </script>
 <% end %>
