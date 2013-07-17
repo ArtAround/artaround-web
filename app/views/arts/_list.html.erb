@@ -40,7 +40,7 @@
 <div id="art-list" >
   <% @arts.each do |art| %>
     <% unless art.photos.empty? %>
-      <div class="art <%= art.category.map{|x| x.downcase}.join(' ') %> <%= art.title.downcase %>">
+      <div class="art <%= art.category.map{|x| x.downcase}.join(' ') %> <%= art.title.downcase.split.join('-') %>">
         <img src="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
