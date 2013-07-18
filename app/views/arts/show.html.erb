@@ -171,10 +171,10 @@
             <img src="<%= @art.primary_photo.image :big %>"/>
           </a>
           <div class="photoAttribution tip" id="<%= @art.primary_photo.id.to_s %>" style="display:inline" ><%= t :photo_by %>
-            <% if@art.primary_photo.attribution_url.blank? %>
-                <%= @art.primary_photo.attribution_text %>
+            <% if @art.primary_photo.attribution_url.blank? %>
+                <%= "#{@art.primary_photo.attribution_text}. " %>
             <% else %>
-                <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text %> </a>
+                <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text %></a>.
             <% end %>
           </div>
       <% end %>
