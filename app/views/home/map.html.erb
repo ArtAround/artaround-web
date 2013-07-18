@@ -358,7 +358,7 @@
       }
       else{
         // list search
-        var keyword = $("input#mapsearch_value").val().toLowerCase();
+        var keyword = $("input#mapsearch_value").val().toLowerCase().split(' ').join('-');
         $('#art-list').isotope({ filter: '.' + keyword });
       }
     }
