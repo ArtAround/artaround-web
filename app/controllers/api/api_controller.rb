@@ -104,7 +104,7 @@ class Api::ApiController < ApplicationController
 
   def comment_fields
     [
-      :name, :created_at, :url, :text
+      :_id, :name, :created_at, :url, :text
     ]
   end
 end
