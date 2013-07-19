@@ -40,7 +40,11 @@
   <% @arts.each do |art| %>
     <% unless art.photos.empty? %>
       <% categories = art.category || [] %>
-      <div class="art <%= categories.map{|x| x.downcase}.join(' ') %> <%= art.title.downcase.split.join('-') %>">
+      <% classes = "#{art.category.map{|x| x.downcase}.join(' ')} #{art.title.downcase.split.join('-')}" %>
+      <% unless art.artist.nil? %>
+      	<% classes = classes + art.artist.downcase.split.join('-') %>
+     	<% end %>
+ 			<div class="art <%= classes %>">
         <img src="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
