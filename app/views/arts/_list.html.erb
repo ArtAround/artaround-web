@@ -8,7 +8,7 @@
 	  <li><a href="#" data-filter="*">show all</a></li>
 	  <li><a href="#" data-filter=".architecture">Architecture</a></li>
 	  <li><a href="#" data-filter=".digital">Digital</a></li>
-	  <li><a href="#" data-filter=".drawing">Drawing
+	  <li><a href="#" data-filter=".drawing">Drawing</a></li>
 	  <li><a href="#" data-filter=".gallery">Gallery</a></li>
 	  <li><a href="#" data-filter=".graffiti">Graffiti</a></li>
 	  <li><a href="#" data-filter=".installation">Installation</a></li>
@@ -33,14 +33,14 @@
 	  <li><a href="#" data-filter=".temporary">Temporary</a></li>
 	  <li><a href="#" data-filter=".textile">Textile</a></li>
 	  <li><a href="#" data-filter=".video">Video</a></li>
-	  
 	</ul>
 </div>
 
 <div id="art-list" >
   <% @arts.each do |art| %>
     <% unless art.photos.empty? %>
-      <div class="art <%= art.category.map{|x| x.downcase}.join(' ') %> <%= art.title.downcase.split.join('-') %>">
+      <% categories = art.category || [] %>
+      <div class="art <%= categories.map{|x| x.downcase}.join(' ') %> <%= art.title.downcase.split.join('-') %>">
         <img src="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
