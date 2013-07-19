@@ -119,9 +119,8 @@ class ArtsController < ApplicationController
       AdminMailer.new_comment(@art, params[:comment]['name'], params[:comment]['text']).deliver
       redirect_to @art, :notice => "Your comment will be posted soon. Thanks for contributing!"
     else
-      flash.now[:alert] = "Your comment couldn't be posted. Please look below and check for any missing fields or errors."
       @submission = @art.new_submission
-      render :show
+      redirect_to art_path(@art), :alert => @comment.errors.messages.flatten.join(" ")
     end
   end
 
