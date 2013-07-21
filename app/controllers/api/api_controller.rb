@@ -60,7 +60,7 @@ class Api::ApiController < ApplicationController
   def photos_for_art(art)
     art.photos.map do |photo|
       {
-        :attribution_text => photo.attribution_text,
+        :attribution_text => photo.attribution_text_for_display,
         :attribution_url => photo.attribution_url,
         :primary => photo.primary,
         :image_thumbnail_url => photo.image(:thumbnail),

@@ -172,9 +172,9 @@
           </a>
           <div class="photoAttribution tip" id="<%= @art.primary_photo.id.to_s %>" style="display:inline" ><%= t :photo_by %>
             <% if @art.primary_photo.attribution_url.blank? %>
-                <%= "#{@art.primary_photo.attribution_text}. " %>
+                <%= "#{@art.primary_photo.attribution_text_for_display}. " %>
             <% else %>
-                <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text %></a>.
+                <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text_for_display %></a>.
             <% end %>
           </div>
       <% end %>
@@ -183,9 +183,9 @@
         <% @other_photos.each do |photo| %>
             <div class="photoAttribution tip" id="<%= photo.id.to_s %>" style="display:none" ><%= t :photo_by %>
               <% if photo.attribution_url.blank? %>
-                  <%= photo.attribution_text %>
+                  <%= "#{photo.attribution_text_for_display}." %>
               <% else %>
-                  <a  href="<%= photo.attribution_url %>"> <%= photo.attribution_text %> </a>
+                  <a  href="<%= photo.attribution_url %>"> <%= photo.attribution_text_for_display %></a>.
               <% end %>
             </div>
         <% end %>
