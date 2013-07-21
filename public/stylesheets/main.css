@@ -1705,6 +1705,14 @@ select#category {
 	display:none;
 }
 
+#sort-by {
+	float: left;
+}
+
+#filters {
+	float: right;
+}
+
 .isotope,
 .isotope .isotope-item {
   /* change duration value to whatever you like */

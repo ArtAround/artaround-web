@@ -130,8 +130,24 @@
           
           return false;
         });
+        $(function() {
 
-        
+            var $container = $('#art-list'),
+                $select = $('#filters select');
+
+            $container.isotope({
+                itemSelector: '.isotope-item'
+            });
+
+            $select.change(function() {
+                var filters = $(this).val();
+        ;
+                $container.isotope({
+                    filter: filters
+                });
+            });
+
+        });
       });
     </script>
   </body>
