@@ -1694,7 +1694,7 @@ li.publicItem {
 	height: 10px;
 }
 
-select#category {
+select#category, #filters select {
 	margin: 0;
 	border: 1px solid #ccc;
 	font-family: "proxima-nova", "proxima nova", helvetica, sans-serif;
@@ -1711,6 +1711,25 @@ select#category {
 
 #filters {
 	float: right;
+}
+
+#filter-options { margin-top:20px;}
+
+#filter-options li { 
+	float: left;  
+	margin-right: 8px;
+}
+#filter-options li a { 
+	padding: 6px; 
+	text-decoration: none; 
+	background: #ccc; 
+	color: #666; 
+	font-weight: 500; 
+	text-transform: uppercase;
+}
+#filter-options li a.current { 
+	background: #3B6EAF;
+	color: rgb(235, 229, 223);
 }
 
 .isotope,

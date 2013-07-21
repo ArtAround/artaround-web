@@ -130,6 +130,13 @@
           
           return false;
         });
+        $('#sort-by a').click(function(){
+          //removes class from all items to "clear" the class from your menu
+          $('#sort-by a').removeClass("current");
+
+          //adds the class to whichever item you clicked
+          $(this).addClass("current");
+        });
         $(function() {
 
             var $container = $('#art-list'),
