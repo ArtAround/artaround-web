@@ -1713,7 +1713,11 @@ select#category, #filters select {
 	float: right;
 }
 
-#filter-options { margin-top:20px;}
+#filter-options { 
+	margin-top: 20px;
+	max-width: 985px;
+	margin: 20px auto 0;
+}
 
 #filter-options li { 
 	float: left;  
@@ -1723,9 +1727,9 @@ select#category, #filters select {
 	padding: 6px; 
 	text-decoration: none; 
 	background: #ccc; 
-	color: #666; 
+	color: rgb(145, 144, 144); 
 	font-weight: 500; 
-	text-transform: uppercase;
+	letter-spacing: 1px;
 }
 #filter-options li a.current { 
 	background: #3B6EAF;
@@ -1789,6 +1793,9 @@ select#category, #filters select {
     	body {
     		background-size: 25%;
     	}
+    	#filter-options { 
+			width: 97%
+		}
 	}
     /* For smartphones */
     @media (max-width: 480px) {
