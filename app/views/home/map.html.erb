@@ -3,8 +3,8 @@
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <% end %>
 <% content_for :tabs do %>
-  <li id="allArt_link" class="map active">
-    <a id="toggle_view" href="#">Map</a>
+  <li id="allArt_link" class="active">
+    <%= link_to "List", root_path %>
   </li>
   <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
   <input id="mapsearch_value" type="hidden" value="" />
@@ -30,8 +30,6 @@
     var markers = [];
 
     var currentInfoWindow;
-
-    var current_view = 'list';
 
     <% @events.each do |event| %>
       events["<%= event.id %>"] = {
@@ -209,7 +207,6 @@
       $("#eventsWrapper").hide();
       $("#filterForm").removeClass("event").addClass("allArt");
       $("ul.main_nav li").removeClass("active");
-      $("ul.main_nav li#allArt_link").addClass("active");
       recalculateFilter();
     }
 
@@ -332,35 +329,15 @@
       <% end %>
     }
 
-    function toggle_view(){
-      if (current_view == 'map'){
-        current_view = 'list';
-        $('#mapContainer').hide();
-        $('#list_view').show();
-        $('#toggle_view').text('Map');
-        setup_isotope();
-      }
-      else{
-        current_view = 'map';
-        $('#toggle_view').text('List');
-        $('#list_view').hide();
-        $('#mapContainer').show();
-        var center = map.getCenter();
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(center);
-      }
-    }
-
     function search(){
-      if (current_view == 'map'){
-        // map search
-        recalculateFilter();
-      }
-      else{
-        // list search
-        var keyword = $("input#mapsearch_value").val().toLowerCase().split(' ').join('-');
-        $('#art-list').isotope({ filter: '.' + keyword });
-      }
+      // map search
+      recalculateFilter();
+      
+      
+      // // list search
+      // var keyword = $("input#mapsearch_value").val().toLowerCase().split(' ').join('-');
+      // $('#art-list').isotope({ filter: '.' + keyword });
+      
     }
 
     function getURLParameter(name) {
@@ -370,11 +347,6 @@
     }
 
     $(function() {
-      $('#mapContainer').hide();
-
-      if (getURLParameter('view') == 'map'){
-        toggle_view();
-      }
 
       // filter checkboxes/radio/select widgets
       $("input.filter").click(recalculateFilter);
@@ -406,11 +378,6 @@
 
       $("li.event a").click(function() {
         selectEvent($(this).parents("li").data("id"));
-        return false;
-      });
-
-      $("#allArt_link").click(function() {
-        selectAllArt();
         return false;
       });
 
@@ -501,57 +468,12 @@
         return -1;
     }
 
-    function setup_isotope(){
-      var $container = $('#art-list');
-
-      $container.isotope({
-        transformsEnabled: false,
-        masonry: {
-          layoutMode: 'fitColumns',
-          columnWidth: 83
-        },
-        itemSelector : '.art',
-        sortBy: 'created_at',
-        getSortData:{
-          visits: function($elem){
-            return parseInt($elem.find('.visits').text());
-          },
-          created_at: function($elem){
-            return parseInt($elem.find('.created_at').text());
-          }
-        },
-        onLayout: function () {
-          $(window).trigger("scroll");
-        }
-      });
-      $('#filters a').click(function(){
-        var selector = $(this).attr('data-filter');
-        $container.isotope({ filter: selector });
-        return false;
-      });
-      $('#sort-by a').click(function(){
-        // get href attribute, minus the '#'
-        var sortName = $(this).attr('href').slice(1);
-        if(sortName == 'created_at'){
-          $('#art-list').isotope({ sortBy : sortName, sortAscending : false });  
-        }
-        else{
-          $('#art-list').isotope({ sortBy : sortName });  
-        }
-        
-        return false;
-      });
-      $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
-    }
-
     $(window).load(function(){
-      $('#toggle_view').click(toggle_view);
       loadMap();
       $('#category').change(function(){
         // Filter for new category selection
         recalculateFilter();
       });
-      setup_isotope();
       geoLocate();
     });
 
@@ -666,8 +588,4 @@
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
 
 
-</div>
-
-<div id="list_view" >
-  <%= render "arts/list" %>
 </div>
