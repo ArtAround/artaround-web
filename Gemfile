@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.2.11'
 
 gem 'geocoder', '1.1.8'
+gem 'kaminari'
 
 gem "mongo", '1.6.1'
 gem "mongoid", '2.4.7'

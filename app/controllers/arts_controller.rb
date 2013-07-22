@@ -135,7 +135,7 @@ class ArtsController < ApplicationController
   end
 
   def index
-    @arts = Art.approved.all
+    @arts = Art.approved.desc(:created_at).page(params[:page]).per(5)
   end
 
 
