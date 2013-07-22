@@ -1368,8 +1368,8 @@ column-count: 2;
 	display: block;
 	position: fixed;
 	top: 25%;
-	left: 32%;
-	width: 36%;
+	left: 30%;
+	width: 40%;
 	height: ;
 	padding: 20px;
 	background: rgb(235, 229, 223);
@@ -1406,8 +1406,14 @@ input#new_photo{
 }
 .overlay .light.white h2{
 	text-transform: uppercase;
-	font-size: 170%;
+	font-size: 150%;
 }
+
+.overlay .light.white form {
+	margin-top: 10px;
+}
+
+
 .overlay .light.white .close{
 	position: absolute;
 	top: 15px;
@@ -1423,6 +1429,7 @@ input#new_photo{
 
 .overlay .light.white small{
 	margin-bottom: 20px;
+	font-size: 10px;
 }
 .addNewArt .rtColumn{
 	position: relative;
@@ -1868,6 +1875,19 @@ select#category, #filters select {
 		.mainLogo {
 			display:none;
 		}
+		.overlay .light.white {
+	display: block;
+	position: fixed;
+	top: 25%;
+	left: 15%;
+	width: 60%;
+	height: ;
+	padding: 20px;
+	background: rgb(235, 229, 223);
+	z-index: 1002;
+	overflow: auto;
+	font-size: 14px;
+}
     }
         /* Extra Breakpoint for iPhone header bug */
     @media (max-width: 321px) {
