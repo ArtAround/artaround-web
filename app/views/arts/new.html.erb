@@ -101,7 +101,8 @@
       google.maps.event.addListener(map, "click", function(event) {
         $("input#art_latitude").val(event.latLng.lat());
         $("input#art_longitude").val(event.latLng.lng());
-        marker.setMap(null);
+        marker.setPosition(event.latLng);
+        marker.setMap(map);
       });
 
     }
