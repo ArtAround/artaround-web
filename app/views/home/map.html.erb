@@ -510,7 +510,7 @@
           columnWidth: 83
         },
         itemSelector : '.art',
-        sortBy: 'visits',
+        sortBy: 'created_at',
         getSortData:{
           visits: function($elem){
             return parseInt($elem.find('.visits').text());
@@ -537,6 +537,7 @@
         
         return false;
       });
+      $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
     }
 
     $(window).load(function(){
