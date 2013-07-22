@@ -1,3 +1,57 @@
+<% content_for :tabs do %>
+  <li id="allArt_link" class="map active">
+    <%= link_to "Map", map_path %>
+  </li>
+  <!-- only used on map page, to keep current search value even if the user idly changes what's in the field without hitting the form -->
+  <input id="mapsearch_value" type="hidden" value="" />
+<% end %>
+
+<script>
+function setup_isotope(){
+  var $container = $('#art-list');
+
+  $container.isotope({
+    masonry: {
+      layoutMode: 'fitColumns',
+      columnWidth: 83
+    },
+    itemSelector : '.art',
+    sortBy: 'created_at',
+    getSortData:{
+      visits: function($elem){
+        return parseInt($elem.find('.visits').text());
+      },
+      created_at: function($elem){
+        return parseInt($elem.find('.created_at').text());
+      }
+    }
+  });
+  $('#filters a').click(function(){
+    var selector = $(this).attr('data-filter');
+    $container.isotope({ filter: selector });
+    return false;
+  });
+  $('#sort-by a').click(function(){
+    // get href attribute, minus the '#'
+    var sortName = $(this).attr('href').slice(1);
+    if(sortName == 'created_at'){
+      $('#art-list').isotope({ sortBy : sortName, sortAscending : false });  
+    }
+    else{
+      $('#art-list').isotope({ sortBy : sortName });  
+    }
+    
+    return false;
+  });
+  $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
+  }
+
+  $(window).load(function(){
+      setup_isotope();
+  });
+
+</script>
+
 <div id="artListContainer">
 <div id="filter-options">
 	<ul id="sort-by">
