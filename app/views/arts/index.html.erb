@@ -142,7 +142,7 @@ function setup_isotope1(){
       // call Isotope as a callback
       function( newElements ) {
         $container.isotope('appended', $(newElements));
-        //$container.isotope('reLayout'); 
+        $container.isotope('reLayout'); 
       }
     );
 
@@ -166,7 +166,7 @@ function setup_isotope1(){
   }
 
   $(window).load(function(){
-      setup_isotope();
+      //setup_isotope();
   });
 
   // Disable lazy loading for now
