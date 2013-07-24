@@ -518,6 +518,9 @@
           created_at: function($elem){
             return parseInt($elem.find('.created_at').text());
           }
+        },
+        onLayout: function () {
+          $(window).trigger("scroll");
         }
       });
       $('#filters a').click(function(){
@@ -549,6 +552,19 @@
       });
       setup_isotope();
       geoLocate();
+    });
+
+    jQuery(document).ready(function ($) {
+        var $imgs = $('img.lazy'),
+                $container = $('#art-list');
+
+        $imgs.lazyload({
+            'failure_limit' : Math.max($imgs.length - 1, 0)
+        });
+
+        $imgs.load(function () {
+            $container.isotope('reLayout');
+        });
     });
     
   </script>

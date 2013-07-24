@@ -6,34 +6,34 @@
 	</ul>
 	<div id="filters">
 		<select>
-		  <option value="*">show all</a></option>
-		  <option value=".architecture">Architecture</a></option>
-		  <option value=".digital">Digital</a></option>
-		  <option value=".drawing">Drawing</a></option>
-		  <option value=".gallery">Gallery</a></option>
-		  <option value=".graffiti">Graffiti</a></option>
-		  <option value=".installation">Installation</a></option>
-		  <option value=".interactive">Interactive</a></option>
-		  <option value=".kinetic">Kinetic</a></option>
-		  <option value==".lighting">Lighting Installation</a></option>
-		  <option value=".market">Market</a></option>
-		  <option value=".memorial">Memorial</a></option>
-		  <option value=".mixed">Mixed</a></option>
-		  <option value=".mosaic">Mosaic</a></option>
-		  <option value=".mural">Mural</a></option>
-		  <option value=".museum">Museum</a></option>
-		  <option value=".painting">Painting</a></option>
-		  <option value=".performance">Performance</a></option>
-		  <option value=".paste">Paste</a></option>
-		  <option value=".photograph">Photograph</a></option>
-		  <option value=".print">Print</a></option>
-		  <option value=".projection">Projection</a></option>
-		  <option value=".sculpture">Sculpture</a></option>
-		  <option value=".statue">Statue</a></option>
-		  <option value=".stained">Stained Glass</a></option>
-		  <option value=".temporary">Temporary</a></option>
-		  <option value=".textile">Textile</a></option>
-		  <option value=".video">Video</a></option>
+		  <option value="*">show all</option>
+		  <option value=".architecture">Architecture</option>
+		  <option value=".digital">Digital</option>
+		  <option value=".drawing">Drawing</option>
+		  <option value=".gallery">Gallery</option>
+		  <option value=".graffiti">Graffiti</option>
+		  <option value=".installation">Installation</option>
+		  <option value=".interactive">Interactive</option>
+		  <option value=".kinetic">Kinetic</option>
+		  <option value=".lighting">Lighting Installation</option>
+		  <option value=".market">Market</option>
+		  <option value=".memorial">Memorial</option>
+		  <option value=".mixed">Mixed</option>
+		  <option value=".mosaic">Mosaic</option>
+		  <option value=".mural">Mural</option>
+		  <option value=".museum">Museum</option>
+		  <option value=".painting">Painting</option>
+		  <option value=".performance">Performance</option>
+		  <option value=".paste">Paste</option>
+		  <option value=".photograph">Photograph</option>
+		  <option value=".print">Print</option>
+		  <option value=".projection">Projection</option>
+		  <option value=".sculpture">Sculpture</option>
+		  <option value=".statue">Statue</option>
+		  <option value=".stained">Stained Glass</option>
+		  <option value=".temporary">Temporary</option>
+		  <option value=".textile">Textile</option>
+		  <option value=".video">Video</option>
 		</select>
 	</div>
 	<div class="clear"></div>
@@ -48,7 +48,7 @@
       	<% classes = classes + art.artist.downcase.split.join('-') %>
      	<% end %>
  			<div class="art <%= classes %>">
-        <img src="<%= art.primary_photo.image :big %>"/>
+        <img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
