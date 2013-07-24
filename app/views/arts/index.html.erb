@@ -56,7 +56,7 @@
       	<% classes = classes + art.artist.downcase.split.join('-') %>
      	<% end %>
  			<div class="art <%= classes %>">
-        <img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/>
+        <img src="<%= art.primary_photo.image :big %>"/>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
@@ -123,6 +123,9 @@ function setup_isotope1(){
         created_at: function($elem){
           return parseInt($elem.find('.created_at').text());
         }
+      },
+      onLayout: function(){
+        $(window).trigger("scroll");
       }
     });
     
@@ -137,7 +140,8 @@ function setup_isotope1(){
       },
       // call Isotope as a callback
       function( newElements ) {
-        $container.isotope('insert', $(newElements)); 
+        $container.isotope('appended', $(newElements));
+        //$container.isotope('reLayout'); 
       }
     );
 
@@ -162,8 +166,21 @@ function setup_isotope1(){
 
   $(window).load(function(){
       setup_isotope();
-      //$('#art-list').isotope('destroy');
-      //setup_isotope();
   });
+
+  // Disable lazy loading for now
+  // jQuery(document).ready(function ($) {
+  //       var $imgs = $('img.lazy'),
+  //               $container = $('#art-list');
+
+  //       $imgs.lazyload({
+  //           'failure_limit' : Math.max($imgs.length - 1, 0)
+  //       });
+
+  //       $imgs.load(function () {
+  //           $container.isotope('reLayout');
+  //       });
+
+  //   });
 
 </script>
