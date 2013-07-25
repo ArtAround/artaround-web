@@ -25,7 +25,7 @@ class Photo
 
   validates_attachment_presence :image, :message => "Please include a photo."
   validates_attachment_size :image, :in => 0..6.megabytes, :message => "Photo must be less than 6 megabytes."
-  validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/gif", "image/jpg", "image/png"], :message => "Please include a JPG, GIF or PNG image for a photo."
+  validates_attachment_content_type :image, :content_type => ["application/octet-stream", "image/jpeg", "image/gif", "image/jpg", "image/png"], :message => "Please include a JPG, GIF or PNG image for a photo."
 
   def attribution_text_for_display
     return attribution_text unless attribution_text.blank?
