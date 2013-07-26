@@ -563,6 +563,7 @@ position: absolute;
 right: 0;
 width: 222px;
 z-index: 9;
+display: none;
 }
 #filterForm.collapsed {
 margin: 5px 0 0 0;
@@ -573,14 +574,11 @@ width: 222px;
 z-index: 9;
 }
 
-#filterForm.collapsed .mapTitle, #filterForm.collapsed form {
-display: none;
-}
 #filterForm.collapsed {
 width: 100px;
 }
 #filterSettings {
-display: none;
+display: block;
 height: 32px;
 background-color: #313131;
 margin: 0;
@@ -864,9 +862,6 @@ a.hideFilter {
 position: absolute;
 top: 10px;
 right: 10px;
-}
-#filterSettings {
-display: none;
 }
 
 .errors {
