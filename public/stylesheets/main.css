@@ -1619,14 +1619,15 @@ a.reset:hover{
 	font-weight: 700;
 	margin: 10px 10px 0;
 	text-transform: uppercase;
-	font-size: 15px;
+	font-size: 16px;
 	max-width: 214px;
 }
 
 .art h4 {
 	margin: 0 10px 10px;
-	font-weight:100;
+	font-weight:400;
 	max-width: 214px;
+	font-size: 14px;
 	}
 
 #submission_category_chzn {
