@@ -228,6 +228,12 @@
     <div class="module artdetails">
 
       <dl id="artworkMetaData">
+        <dt><%= artist_type_for @art %></dt>
+        <dd><%= known @art.artist %></dd>
+
+        <dt>Year</dt>
+        <dd><%= known @art.year %></dd>
+
         <dt>Category</dt>
         <dd>
           <ul>
@@ -237,8 +243,8 @@
           </ul>
         </dd>
 
-        <dt><%= artist_type_for @art %></dt>
-        <dd><%= known @art.artist %></dd>
+        <dt>Description</dt>
+        <dd><%= light_format known(@art.description) %></dd>
 
         <% unless @art.commissioned_by.nil? %>
           <dt>Commissioned By</dt>
@@ -249,24 +255,13 @@
           <% end %>
         <% end %>
 
-        <dt>Year</dt>
-        <dd><%= known @art.year %></dd>
-
         <dt>Location</dt>
         <dd><%= light_format known(@art.location_description) %></dd>
 
-        <dt>Description</dt>
-        <dd><%= light_format known(@art.description) %></dd>
       </dl>
 
       <%= form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>
         <ul>
-
-          <li>
-            <%= f.label :category %>
-            <%= f.select :category, options_for_select(categories, @art.category), {},{:multiple => true} %>
-          </li>
-
           <li>
             <%= f.label :artist, "Artist(s)" %>
             <%= f.text_field :artist, {value: @art.artist} %>
@@ -278,13 +273,18 @@
           </li>
 
           <li>
-            <%= f.label :location_description, "Location" %>
-            <%= f.text_area :location_description, {value: @art.location_description} %>
+            <%= f.label :category %>
+            <%= f.select :category, options_for_select(categories, @art.category), {},{:multiple => true} %>
           </li>
 
           <li>
             <%= f.label :description %>
             <%= f.text_area :description, {value: @art.description} %>
+          </li>
+
+          <li>
+            <%= f.label :location_description, "Location" %>
+            <%= f.text_area :location_description, {value: @art.location_description} %>
           </li>
 
           <li>
