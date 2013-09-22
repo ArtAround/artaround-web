@@ -88,7 +88,7 @@
     // Firefox workaround
     function geoError(error){
       // Do nothing
-      
+
     }
 
     function loadMap() {
@@ -299,7 +299,7 @@
         else {
           var pattern = new RegExp(keyword, "i");
           passed_keyword = (pattern.test(marker.filters.title) || pattern.test(marker.filters.artist));
-          
+
         }
 
         if (!event_id)
@@ -332,12 +332,12 @@
     function search(){
       // map search
       recalculateFilter();
-      
-      
+
+
       // // list search
       // var keyword = $("input#mapsearch_value").val().toLowerCase().split(' ').join('-');
       // $('#art-list').isotope({ filter: '.' + keyword });
-      
+
     }
 
     function getURLParameter(name) {
@@ -489,7 +489,7 @@
             $container.isotope('reLayout');
         });
     });
-    
+
   </script>
 
 <% end %>
