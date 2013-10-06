@@ -1183,6 +1183,7 @@ div.admin input {
 div.admin input[type=submit] {
 	/*background-color: #fff;*/
 	color: auto;
+	float: none;
 }
 div.admin div#map_canvas {
 	margin-top: 20px;
@@ -1206,6 +1207,10 @@ div.admin #search_text_label{
 }
 div.admin #search_text{
 
+}
+
+div.admin button{
+	float: none;
 }
 
 /** new index styles **/
