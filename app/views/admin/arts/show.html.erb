@@ -7,32 +7,32 @@
     var geocoder;
     var map;
     var searchMarker;
-    
+
     function loadMaps() {
-      
+
       <% if @art.latitude and @art.longitude %>
         var start = new google.maps.LatLng(<%= @art.latitude %>, <%= @art.longitude %>);
       <% else %>
         // dupont circle
         var start = new google.maps.LatLng(38.90940, -77.04382);
       <% end %>
-      
+
       map = new google.maps.Map(document.getElementById("map_canvas"), {
         zoom: 15,
         center: start,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControl: false
       });
-      
+
       <% if @art.latitude and @art.longitude %>
         // initialize
         updateLocation(start);
       <% end %>
-      
+
       google.maps.event.addListener(map, "click", function(event) {
         updateLocation(event.latLng);
       });
-      
+
       geocoder = new google.maps.Geocoder();
       $("input#search_button").click(function() {
         var query = $("input#search_text").val();
@@ -42,32 +42,32 @@
         }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             var location = results[0].geometry.location;
-            
+
             map.setZoom(15);
             updateLocation(location);
             map.panTo(location);
           }
         });
       });
-      
+
     }
-    
+
     function updateLocation(location) {
       if (searchMarker)
-        searchMarker.setMap(null);  
-      
+        searchMarker.setMap(null);
+
       searchMarker = new google.maps.Marker({position: location});
       searchMarker.setMap(map);
-      
+
       $("input#art_latitude").val(location.lat());
       $("input#art_longitude").val(location.lng());
-      
+
       searchMarker.setDraggable(true);
       google.maps.event.addListener(searchMarker, "dragend", function(event) {
         updateLocation(event.latLng);
       });
     }
-    
+
     $(function() {
       if ($("input#art_latitude").val() == "")
         $("input#art_latitude").val("Click on Map");
@@ -75,7 +75,7 @@
         $("input#art_longitude").val("Click on Map");
 
       $("a.delete.art").click(function() {
-        if (confirm("Delete this art piece FOREVER?")) 
+        if (confirm("Delete this art piece FOREVER?"))
           $("form.delete.art").submit();
         return false;
       });
@@ -193,7 +193,9 @@
 
 <div id="rtColumn">
   <div id="search_box">
-    <input type="text" id="search_text" />
+    <label id="search_text_label">Map Search:
+      <input type="text" id="search_text" />
+    </label>
     <input type="submit" id="search_button" value="Search" />
   </div>
   <div id="map_canvas"></div>
