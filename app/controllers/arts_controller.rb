@@ -148,7 +148,6 @@ class ArtsController < ApplicationController
     end
   end
 
-
   protected
 
   def load_art

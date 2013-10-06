@@ -45,7 +45,7 @@ Artaround::Application.routes.draw do
   match "/contact/send" => "home#send_contact", :via => [:post], :as => "send_contact"
 
   match "/map" => "arts#map", :as => "map"
-  match "/events/:slug" => "home#map"
+  match "/events/:slug" => "arts#map"
   match "/autocomplete_commissioners" => "home#autocomplete_commissioners"
 
   root :to => "arts#index"
