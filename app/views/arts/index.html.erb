@@ -57,6 +57,9 @@
      	<% end %>
  			<div class="art <%= classes %>">
         <a href="<%= art_path(art) %>"><img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/></a>
+        <a href="<%= art_path(art) %>">
+          <img class="" src="<%= art.primary_photo.image :big %>"/>
+        </a>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
@@ -70,48 +73,9 @@
 <%= paginate @arts %>
 
 <script>
-function setup_isotope1(){
-  var $container = $('#art-list');
-
-  $container.isotope({
-    masonry: {
-      layoutMode: 'fitColumns',
-      columnWidth: 83
-    },
-    itemSelector : '.art',
-    sortBy: 'created_at',
-    getSortData:{
-      visits: function($elem){
-        return parseInt($elem.find('.visits').text());
-      },
-      created_at: function($elem){
-        return parseInt($elem.find('.created_at').text());
-      }
-    }
-  });
-  $('#filters a').click(function(){
-    var selector = $(this).attr('data-filter');
-    $container.isotope({ filter: selector });
-    return false;
-  });
-  $('#sort-by a').click(function(){
-    // get href attribute, minus the '#'
-    var sortName = $(this).attr('href').slice(1);
-    if(sortName == 'created_at'){
-      $('#art-list').isotope({ sortBy : sortName, sortAscending : false });  
-    }
-    else{
-      $('#art-list').isotope({ sortBy : sortName });  
-    }
-    
-    return false;
-  });
-  $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
-  }
-
   function setup_isotope(){
     var $container = $('#art-list');
-    
+
     $container.isotope({
       itemSelector : '.art',
       sortBy: 'created_at',
@@ -124,21 +88,21 @@ function setup_isotope1(){
         }
       }
     });
-    
-    $container.infinitescroll({
-      navSelector  : 'nav.pagination',    // selector for the paged navigation 
-      nextSelector : 'nav.pagination a[rel=next]',  // selector for the NEXT link (to page 2)
-      itemSelector : '.art',     // selector for all items you'll retrieve
-      loading: {
-          finishedMsg: 'No more pages to load.',
-          img: 'http://i.imgur.com/qkKy8.gif'
-        }
-      },
-      // call Isotope as a callback
-      function( newElements ) {
-        $container.isotope('insert', $(newElements)); 
-      }
-    );
+
+    // $container.infinitescroll({
+    //   navSelector  : 'nav.pagination',    // selector for the paged navigation
+    //   nextSelector : 'nav.pagination a[rel=next]',  // selector for the NEXT link (to page 2)
+    //   itemSelector : '.art',     // selector for all items you'll retrieve
+    //   loading: {
+    //       finishedMsg: 'No more pages to load.',
+    //       img: 'http://i.imgur.com/qkKy8.gif'
+    //     }
+    //   },
+    //   // call Isotope as a callback
+    //   function( newElements ) {
+    //     $container.isotope('insert', $(newElements));
+    //   }
+    // );
 
     $('#filters a').click(function(){
       var selector = $(this).attr('data-filter');
@@ -149,10 +113,10 @@ function setup_isotope1(){
       // get href attribute, minus the '#'
       var sortName = $(this).attr('href').slice(1);
       if(sortName == 'created_at'){
-        $('#art-list').isotope({ sortBy : sortName, sortAscending : false });  
+        $('#art-list').isotope({ sortBy : sortName, sortAscending : false });
       }
       else{
-        $('#art-list').isotope({ sortBy : sortName });  
+        $('#art-list').isotope({ sortBy : sortName });
       }
       return false;
     });
