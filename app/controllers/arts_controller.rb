@@ -138,6 +138,16 @@ class ArtsController < ApplicationController
     @arts = Art.approved.desc(:created_at).page(params[:page]).per(10)
   end
 
+  def map
+    @arts = Art.approved.all
+
+    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
+
+    if params[:slug].present?
+      @event = Event.where(:slug => params[:slug].strip).first
+    end
+  end
+
 
   protected
 

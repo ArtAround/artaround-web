@@ -11,16 +11,6 @@ class HomeController < ApplicationController
     @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
   end
 
-  def map
-    @arts = Art.approved.all
-
-    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
-
-    if params[:slug].present?
-      @event = Event.where(:slug => params[:slug].strip).first
-    end
-  end
-
   def send_contact
     if params[:name].present? and params[:email].present? and params[:text].present?
       begin
