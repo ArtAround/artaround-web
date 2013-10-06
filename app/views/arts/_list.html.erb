@@ -48,7 +48,7 @@
       	<% classes = classes + art.artist.downcase.split.join('-') %>
      	<% end %>
  			<div class="art <%= classes %>">
-        <img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/>
+        <a href="<%= art_path(art) %>"><img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/></a>
         <h3><%= link_to art.title, art %></h3>
         <h4><%= known(art.artist) %></h4>
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
