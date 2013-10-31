@@ -56,7 +56,6 @@
       	<% classes = classes + art.artist.downcase.split.join('-') %>
      	<% end %>
  			<div class="art <%= classes %>">
-        <a href="<%= art_path(art) %>"><img class="lazy" src="grey.gif" data-original="<%= art.primary_photo.image :big %>"/></a>
         <a href="<%= art_path(art) %>">
           <img class="" src="<%= art.primary_photo.image :big %>"/>
         </a>
