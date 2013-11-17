@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 gem 'geocoder', '1.1.8'
 gem 'kaminari'
@@ -18,7 +18,7 @@ gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
 group :development do
   gem 'wirble', '0.1.3'
   gem 'capistrano', '2.5.21' # update to 2.8.0
-  gem 'rack', '1.4.1'
+  gem 'rack', '1.4.5'
   gem 'rake', '0.9.2.2'
   gem 'unicorn', '4.2.1'
 end
