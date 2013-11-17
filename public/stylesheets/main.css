@@ -1786,7 +1786,47 @@ select#category, #filters select {
        -o-transition-property:      -o-transform, opacity;
           transition-property:         transform, opacity;
 }
+.pagination {
+	max-width: 1000px;
+	font-size: 14px;
+	text-align: center;
+	margin: 20px auto; 
+}
 
+.pagination .page:hover {
+	background: #54c3c6;
+	border: 1px solid #54c3c6;
+}
+
+.pagination .page:hover a {
+	color: #fff;
+}
+
+.pagination .page, .next, .last, .first, .prev {
+	margin: 5px;
+	padding: 2px 3px 2px 9px;
+	border: 1px solid #ccc;
+}
+.page.gap {
+	border: 0;
+	background: none;
+}
+
+.page.gap:hover {
+	background: none;
+	border: 0;
+}
+
+.pagination .current {
+	background: #4766AF;
+	padding: 2px 4px 2px 10px;
+	color: #fff;
+	border: 1px solid #4766AF;
+}
+
+.pagination a {
+	text-decoration: none;
+}
     /* Media quires for a responsive layout */
     /* For big monitors */
     @media (min-width: 1601px) {
