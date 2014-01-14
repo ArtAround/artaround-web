@@ -135,7 +135,34 @@ class ArtsController < ApplicationController
   end
 
   def index
-    @arts = Art.approved.desc(:created_at).page(params[:page]).per(10)
+    valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
+                          "Graffiti", "Installation", "Interactive",
+                          "Kinetic", "Lighting installation", "Market",
+                          "Memorial", "Mixed media", "Mosaic", "Mural",
+                          "Museum", "Painting", "Performance", "Paste",
+                          "Photograph", "Print", "Projection", "Sculpture",
+                          "Statue", "Stained glass", "Temporary", "Textile",
+                          "Video"]
+    filter = params[:filter]
+    unless filter.nil?
+      filter.capitalize!
+    end
+    unless valid_categories.include?(filter)
+      filter = nil
+    end
+
+    if params[:sort] == 'popular'
+      sort = :total_visits
+    else
+      sort = :created_at
+    end
+
+    if filter == nil
+      @arts = Art.approved.desc(sort).page(params[:page]).per(10)
+    else
+      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(10)
+    end
+      
   end
 
   def map

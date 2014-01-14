@@ -9,40 +9,43 @@
 <div id="artListContainer">
 <div id="filter-options">
 	<ul id="sort-by">
-		<li><a href="#created_at" class="current">Recent</a></li>
-		<li><a href="#visits" >Popular</a></li>
+		<li><a href="/" class="current" id="recent">Recent</a></li>
+		<li><a href="/?sort=popular" id="popular">Popular</a></li>
 	</ul>
 	<div id="filters">
-		<select>
+  <form method="get" action"/">
+		<select name="filter">
 		  <option value="*">show all</option>
-		  <option value=".architecture">Architecture</option>
-		  <option value=".digital">Digital</option>
-		  <option value=".drawing">Drawing</option>
-		  <option value=".gallery">Gallery</option>
-		  <option value=".graffiti">Graffiti</option>
-		  <option value=".installation">Installation</option>
-		  <option value=".interactive">Interactive</option>
-		  <option value=".kinetic">Kinetic</option>
-		  <option value=".lighting">Lighting Installation</option>
-		  <option value=".market">Market</option>
-		  <option value=".memorial">Memorial</option>
-		  <option value=".mixed">Mixed</option>
-		  <option value=".mosaic">Mosaic</option>
-		  <option value=".mural">Mural</option>
-		  <option value=".museum">Museum</option>
-		  <option value=".painting">Painting</option>
-		  <option value=".performance">Performance</option>
-		  <option value=".paste">Paste</option>
-		  <option value=".photograph">Photograph</option>
-		  <option value=".print">Print</option>
-		  <option value=".projection">Projection</option>
-		  <option value=".sculpture">Sculpture</option>
-		  <option value=".statue">Statue</option>
-		  <option value=".stained">Stained Glass</option>
-		  <option value=".temporary">Temporary</option>
-		  <option value=".textile">Textile</option>
-		  <option value=".video">Video</option>
+		  <option value="architecture">Architecture</option>
+		  <option value="digital">Digital</option>
+		  <option value="drawing">Drawing</option>
+		  <option value="gallery">Gallery</option>
+		  <option value="graffiti">Graffiti</option>
+		  <option value="installation">Installation</option>
+		  <option value="interactive">Interactive</option>
+		  <option value="kinetic">Kinetic</option>
+		  <option value="lighting">Lighting Installation</option>
+		  <option value="market">Market</option>
+		  <option value="memorial">Memorial</option>
+		  <option value="mixed">Mixed</option>
+		  <option value="mosaic">Mosaic</option>
+		  <option value="mural">Mural</option>
+		  <option value="museum">Museum</option>
+		  <option value="painting">Painting</option>
+		  <option value="performance">Performance</option>
+		  <option value="paste">Paste</option>
+		  <option value="photograph">Photograph</option>
+		  <option value="print">Print</option>
+		  <option value="projection">Projection</option>
+		  <option value="sculpture">Sculpture</option>
+		  <option value="statue">Statue</option>
+		  <option value="stained">Stained Glass</option>
+		  <option value="temporary">Temporary</option>
+		  <option value="textile">Textile</option>
+		  <option value="video">Video</option>
 		</select>
+    <button class="submit">Filter</button>
+    </form>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -77,15 +80,7 @@
 
     $container.isotope({
       itemSelector : '.art',
-      sortBy: 'created_at',
-      getSortData:{
-        visits: function($elem){
-          return parseInt($elem.find('.visits').text());
-        },
-        created_at: function($elem){
-          return parseInt($elem.find('.created_at').text());
-        }
-      }
+      sortBy: 'created_at'
     });
 
 
@@ -105,26 +100,19 @@
     //   }
     // );
 
-    $('#filters a').click(function(){
-      var selector = $(this).attr('data-filter');
-      $container.isotope({ filter: selector });
-      return false;
-    });
-    $('#sort-by a').click(function(){
-      // get href attribute, minus the '#'
-      var sortName = $(this).attr('href').slice(1);
-      if(sortName == 'created_at'){
-        $('#art-list').isotope({ sortBy : sortName, sortAscending : false });
-      }
-      else{
-        $('#art-list').isotope({ sortBy : sortName });
-      }
-      return false;
-    });
+    // $('#filters a').click(function(){
+    //   var selector = $(this).attr('data-filter');
+    //   $container.isotope({ filter: selector });
+    //   return false;
+    // });
     $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
   }
 
   $(window).load(function(){
+    if (window.location.search.replace( "?", "").split("&").indexOf("sort=popular") != -1){
+      $('#recent').removeClass("current");
+      $('#popular').addClass("current");
+    }
       setup_isotope();
   });
 
