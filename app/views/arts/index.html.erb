@@ -13,7 +13,7 @@
 		<li><a href="/?sort=popular" id="popular">Popular</a></li>
 	</ul>
 	<div id="filters">
-  <form method="get" action"/">
+  <form method="get" action"/" id="filter-form">
 		<select name="filter">
 		  <option value="*">show all</option>
 		  <option value="architecture">Architecture</option>
@@ -44,6 +44,7 @@
 		  <option value="textile">Textile</option>
 		  <option value="video">Video</option>
 		</select>
+    <input id="sort-value" type="hidden" name="sort" value="" />
     <button class="submit">Filter</button>
     </form>
 	</div>
@@ -112,8 +113,28 @@
     if (window.location.search.replace( "?", "").split("&").indexOf("sort=popular") != -1){
       $('#recent').removeClass("current");
       $('#popular').addClass("current");
+      $('#sort-value').val('popular');
     }
-      setup_isotope();
+    $('#recent').click(function(){
+      var filter = getParameterByName('filter');
+      window.location = '/?filter=' + filter;
+      return false;
+
+    })
+    $('#popular').click(function(){
+      var filter = getParameterByName('filter');
+      window.location = '/?sort=popular&filter=' + filter;
+      return false;
+    })
+
+    setup_isotope();
   });
+
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
 
 </script>
