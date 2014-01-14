@@ -158,9 +158,9 @@ class ArtsController < ApplicationController
     end
 
     if filter == nil
-      @arts = Art.approved.desc(sort).page(params[:page]).per(10)
+      @arts = Art.approved.desc(sort).page(params[:page]).per(25)
     else
-      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(10)
+      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(25)
     end
       
   end
