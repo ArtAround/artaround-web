@@ -27,6 +27,7 @@
     function update_slide(){
       if (slide_position == 0){
         // first slide
+        $('#stepTitle').text('Step 2: Share What You Know');
         $('#last_slide').hide();
         $('#map_canvas').hide();
         $('#first_slide').show();
@@ -34,6 +35,7 @@
       }
       else{
         // last slide
+        $('#stepTitle').text('Step 3: Specify Location');
         $('#first_slide').hide();
         $('#art_photo').hide();
         $('#last_slide').show();
@@ -140,7 +142,7 @@
 <div id="pageMain" class="addNewArt">
   <div id="fullColumn">
     <div id="titleContent">
-      <h2 class="withSubtext">Step 2: Share what you know about this art</h2>
+      <h2 id="stepTitle" class="withSubtext">Step 2: Share what you know about this art</h2>
     </div>
   </div>
 
@@ -217,9 +219,9 @@
             <%= f.text_area :location_description %>
           </li>
           <img src="<%= @photo.image :big %>" id="art_photo">
-    <div class="mapWrap">
-      <div id="map_canvas"></div>
-    </div>
+          <div class="mapWrap">
+            <div id="map_canvas"></div>
+          </div>
           <li class="formModule">
             <% if @art.location.nil? %>
               <strong>Click on the map to enter the exact location, or fill in the approximate street address below.</strong><sup>*</sup>
@@ -261,9 +263,6 @@
             </button>
           </li>
         </div>
-
-
-        </li>
       </ul>
     <% end %>
   </div>
