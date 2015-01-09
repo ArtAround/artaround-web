@@ -22,6 +22,7 @@ class Art
   field :website
 
   # fields doubled on submissions
+  field :tags, :type => Array
   field :category, :type => Array
   field :old_category
   field :artist
