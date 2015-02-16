@@ -6,9 +6,13 @@ en:
   photo_attribution_text: "Photo attribution (optional)"
   photo_attribution_url: "Attribution URL (optional)"
   photo_by: "Photo by"
+  posted_on: "Posted on %{date}"
   anonymous_user: "anonymous user"
   views:
     pagination:
       previous: "&lt; Previous"
       next: "Next &gt;"
       truncate: "..."
+  date:
+    formats:
+      default: "%B %d, %Y"
