@@ -176,6 +176,7 @@
             <% else %>
                 <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text_for_display %></a>.
             <% end %>
+            <%= t(:posted_on, date: l(@art.primary_photo.posted_on)) %>.
           </div>
       <% end %>
 
@@ -187,6 +188,7 @@
               <% else %>
                   <a  href="<%= photo.attribution_url %>"> <%= photo.attribution_text_for_display %></a>.
               <% end %>
+              <%= t(:posted_on, date: l(photo.posted_on)) %>
             </div>
         <% end %>
         <div id="artThumbs">
@@ -213,9 +215,9 @@
         </div>
       <% end %>
 
-      <span class="tip">
+      <div class="tip">
         All photos uploaded are licensed under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.
-      </span>
+      </div>
     </div>
 
     <div class="module">

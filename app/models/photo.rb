@@ -33,6 +33,10 @@ class Photo
     return I18n.t :anonymous_user
   end
 
+  def posted_on
+    created_at.to_date
+  end
+
   private
 
   def ensure_well_formed_url
