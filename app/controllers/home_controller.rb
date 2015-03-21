@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   def index
     @arts = Art.approved.all
 
+
     all_featured = Art.featured.all.to_a
     @featured = all_featured[rand all_featured.size]
 
