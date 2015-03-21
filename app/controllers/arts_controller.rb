@@ -71,7 +71,7 @@ class ArtsController < ApplicationController
 
   def submit
     @submission = @art.submissions.build params[:submission]
-
+    @art.tag = params[:submission][:tag]
     if @submission.save
       @art.submitted_at = Time.now
       @art.save!

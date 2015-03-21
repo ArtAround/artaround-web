@@ -86,6 +86,8 @@
         return false;
       })
       $('#art_category').chosen({allow_single_deselect:true});
+      $('#art_tag').chosen({allow_single_deselect:true});
+      $('#art_city').chosen({allow_single_deselect:true});
     });
   </script>
 <% end %>
@@ -142,6 +144,10 @@
         <%= f.text_field :slug %>
       </li>
       <li>
+        <label for="city">City</label>
+        <%= f.select :city, City.all.collect(&:name), {}, {:multiple => false, :style => "width: 350px"}  %>
+      </li>
+      <li>
         <%= f.label :website %>
         <%= f.text_field :website %>
       </li>
@@ -156,6 +162,10 @@
       <li>
         <%= f.label :latitude %>
         <%= f.text_field :latitude %>
+      </li>
+      <li>
+        <label for="art_tag">Tags</label>
+        <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
       </li>
       <li>
         <%= f.label :longitude %>
