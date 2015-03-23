@@ -143,12 +143,15 @@ class ArtsController < ApplicationController
                           "Photograph", "Print", "Projection", "Sculpture",
                           "Statue", "Stained glass", "Temporary", "Textile",
                           "Video"]
-    filter = params[:filter]
-    unless filter.nil?
-      filter.capitalize!
+    filter_category = params[:filter_category]
+    filter_city = params[:filter_city]
+    cities = Art.all.map(&:city)
+    filter_tag = params[:filter_tag]
+    unless filter_category.nil?
+      filter_category.capitalize!
     end
-    unless valid_categories.include?(filter)
-      filter = nil
+    unless valid_categories.include?(filter_category)
+      filter_category = nil
     end
 
     if params[:sort] == 'popular'
@@ -157,10 +160,10 @@ class ArtsController < ApplicationController
       sort = :created_at
     end
 
-    if filter == nil
+    if filter_category == nil
       @arts = Art.approved.desc(sort).page(params[:page]).per(25)
     else
-      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(25)
+      @arts = Art.approved.where(category: filter_category).desc(sort).page(params[:page]).per(25)
     end
       
   end
