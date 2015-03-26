@@ -60,6 +60,11 @@
         <% else %>
         category: <%= raw(art.category.map{|x| x.downcase}) %>,
         <% end %>
+        <% if art.tag.nil? %>
+        tag: [],
+        <% else %>
+        tag: <%= raw(art.tag.map{|x| x.downcase}) %>,
+        <% end %>
         neighborhood: "<%= escape_javascript art.neighborhood %>",
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
@@ -108,12 +113,17 @@
       // icon types
       icons.art = new google.maps.MarkerImage("/images/pins/red.png");
       icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
+      icons.blue = new google.maps.MarkerImage("/images/pins/blue.png");
+      icons.navy = new google.maps.MarkerImage("/images/pins/navy-blue.png");
+      icons.yellow = new google.maps.MarkerImage("/images/pins/yellow.png");
+      icons.grey = new google.maps.MarkerImage("/images/pins/grey.png");
 
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
 
         marker.filters = {
           category: (art.category || ["Unknown"]),
+          tag: (art.tag || ["Unknown"]),
           commissioned: art.commissioned,
           ward: art.ward,
           title: art.title,
@@ -181,10 +191,27 @@
       var icon;
       var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
 
-      if (isVenue)
+      if (isVenue){
         icon = icons.venue;
-      else
-        icon = icons.art;
+      }else{if ($.inArray('catalog', art.tag)>=0) {
+              icon = icons.blue;
+            } else{
+              if ($.inArray('museums & galleries', art.tag)>=0) {
+                icon = icons.navy;
+              } else{
+                if ($.inArray('street art hot spot', art.tag)>=0) {
+                  icon = icons.yellow;
+                } else{
+                  if ($.inArray('artchive', art.tag)>=0) {
+                    icon = icons.grey;
+                  } else{
+                    icon = icons.art;            
+                  }
+                }
+              }
+            };
+        
+        }
 
       var marker = new google.maps.Marker({
         position: location,
@@ -264,6 +291,8 @@
       var just_public = true; //$("#filter_category_public")[0].checked;
       var selected_category =  $('#category').val().toLowerCase();
 
+      var selected_tag =  $('#tag').val().toLowerCase();
+
       var specific_ward = $("#id_wards").val();
 
       var keyword = $("#mapsearch_value").val();
@@ -277,6 +306,7 @@
       $.each(markers, function(i, marker) {
         var passed_commission;
         var passed_category = true;
+        var passed_tag = true;
         var passed_ward;
         var passed_keyword;
         var passed_event;
@@ -292,6 +322,12 @@
           }
         }
 
+        if (selected_tag != 'all'){
+          var isInArray = $.inArray(selected_tag, marker.filters.tag);
+          if (isInArray < 0){
+            passed_tag = false;
+          }
+        }
         passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
 
         if (!keyword)
@@ -314,7 +350,7 @@
         else
           passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
 
-        marker.setVisible(passed_commission && passed_category && passed_keyword && passed_event && passed_timeline);
+        marker.setVisible(passed_commission && passed_category && passed_keyword && passed_event && passed_timeline && passed_tag);
       });
     }
 
@@ -470,7 +506,7 @@
 
     $(window).load(function(){
       loadMap();
-      $('#category').change(function(){
+      $('#category , #tag').change(function(){
         // Filter for new category selection
         recalculateFilter();
       });
@@ -516,7 +552,24 @@
 
   	<form action="." method="get" onsubmit="return false">
       <fieldset class="allArt">
-        <legend>Look for</legend>
+        <legend>Pin Types</legend>
+
+        <div class="clear"></div>
+
+        <ul id="categoryScroll">
+
+          <li class="publicItem">
+
+            <div class="clear"></div>
+
+            <%= select_tag "pin", options_for_select((['All'] )) %>
+
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset class="allArt">
+        <legend>Category</legend>
 
         <div class="clear"></div>
 
@@ -533,6 +586,23 @@
             <div class="clear"></div>
 
             <%= select_tag "category", options_for_select((['All'] + categories)) %>
+
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset class="allArt">
+        <legend>Tag</legend>
+
+        <div class="clear"></div>
+
+        <ul id="categoryScroll">
+
+          <li class="publicItem">
+
+            <div class="clear"></div>
+
+            <%= select_tag "tag", options_for_select((['All'] + Tag.all.collect(&:name))) %>
 
           </li>
         </ul>

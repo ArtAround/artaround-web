@@ -87,7 +87,6 @@
       })
       $('#art_category').chosen({allow_single_deselect:true});
       $('#art_tag').chosen({allow_single_deselect:true});
-      $('#art_city').chosen({allow_single_deselect:true});
     });
   </script>
 <% end %>
@@ -142,10 +141,6 @@
       <li>
         <%= f.label :slug %>
         <%= f.text_field :slug %>
-      </li>
-      <li>
-        <label for="city">City</label>
-        <%= f.select :city, City.all.collect(&:name), {}, {:multiple => false, :style => "width: 350px"}  %>
       </li>
       <li>
         <%= f.label :website %>
