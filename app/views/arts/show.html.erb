@@ -270,6 +270,17 @@
         <dt>Location</dt>
         <dd><%= light_format known(@art.location_description) %></dd>
 
+        <dt>Links</dt>
+        <dd>
+          <ul>
+            <% @art.art_link.each do |link| %>
+              <li style="list-style-type: initial;">
+                <%= link_to link.title ,"http://"+link.link_url , :target => "_blank" %>
+              </li>
+            <% end %>
+          </ul>
+        </dd>
+
       </dl>
 
       <%= form_for([@art, @submission], :url => submit_art_path(@art), :html => {:id => "edit_artworkMetaData", :style => "display: none"}) do |f| %>

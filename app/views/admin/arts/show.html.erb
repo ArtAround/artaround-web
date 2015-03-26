@@ -183,6 +183,17 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
       </li>
+      <%= f.fields_for :art_link ,@art.art_link.new do |l| %>
+      <li>
+        <%= l.label :title ,"Link Title"%>
+        <%= l.text_field :title %>
+      </li>
+      <li>
+        <%= l.label :link_url,"Link Url" %>
+        <%= l.text_field :link_url %>
+      </li>  
+      <%end%>
+
       <li>
         <%= f.label :event_id %>
         <%= f.collection_select :event_id, @events, :id, :name, :include_blank => "----" %>
