@@ -15,8 +15,12 @@ Artaround::Application.routes.draw do
       end
       resources :photos
     end
+    resources :cities 
+    resources :tags
     resources :events
     resources :commissioners
+    get 'city/:id' => 'cities#destroy', as: :trash_city
+    get 'tag/:id' => 'tags#destroy', as: :trash_tag
   end
 
   namespace :api do

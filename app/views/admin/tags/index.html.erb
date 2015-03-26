@@ -1,0 +1,25 @@
+<div id="pageMain" class="admin">
+
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Area</h2>
+    </div>
+  </div>
+
+  <div id="ltColumn">
+    <h3>Tags list</h3>
+    <ul>
+      <% @tags.each do |tag| %>
+        <li>
+          <%= link_to tag.name, admin_tag_path(tag) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="rtColumn">
+    <h3>
+      Tag (<%= link_to 'New', new_admin_tag_path %>)
+    </h3>
+  </div>
+</div>

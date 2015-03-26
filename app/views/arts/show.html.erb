@@ -47,6 +47,7 @@
         $("#edit_artworkMetaData").toggle();
         $(".callout").toggle();
         $('#submission_category').chosen({allow_single_deselect:true});
+        $('#submission_tag').chosen({allow_single_deselect:true});
         return false;
       }
     );
@@ -245,6 +246,15 @@
           </ul>
         </dd>
 
+        <dt>Tag</dt>
+        <dd>
+          <ul>
+            <% @art.tag.each do |t| %>
+              <li><%= t %></li>
+            <% end if @art.tag.present? %>
+          </ul>
+        </dd>
+
         <dt>Description</dt>
         <dd><%= light_format known(@art.description) %></dd>
 
@@ -277,6 +287,11 @@
           <li>
             <%= f.label :category %>
             <%= f.select :category, options_for_select(categories, @art.category), {},{:multiple => true} %>
+          </li>
+
+          <li>
+            <%= f.label :tag %>
+            <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
           </li>
 
           <li>

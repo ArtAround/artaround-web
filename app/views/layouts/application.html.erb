@@ -59,6 +59,15 @@
       				<li id="addArt_link">
                 <%= link_to "Add Art", new_art_photo_path, :id => "addArt" %>
       				</li>
+              <% if params[:controller].include? 'admin/' %>
+              <li id="cities_link">
+                <%= link_to "Cities", admin_cities_path, :id => "cities" %>
+              </li>
+              <li id="tags_link">
+                <%= link_to "Tags", admin_tags_path, :id => "tags" %>
+              </li>
+              <script>$(".formNavContainer").css("width","400px")</script>
+              <%end%>
       			</ul>
     		  </nav>
         </div>
