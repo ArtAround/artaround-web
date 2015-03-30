@@ -241,7 +241,7 @@
         <dd>
           <ul>
             <% @art.category.each do |cat| %>
-              <li><%= cat %></li>
+              <li><%= link_to cat,category_path(cat) %></li>
             <% end %>
           </ul>
         </dd>
@@ -250,7 +250,7 @@
         <dd>
           <ul>
             <% @art.tag.each do |t| %>
-              <li><%= t %></li>
+              <li><%=link_to t ,tag_path(t)%></li>
             <% end if @art.tag.present? %>
           </ul>
         </dd>
