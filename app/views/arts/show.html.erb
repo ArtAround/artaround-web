@@ -177,7 +177,7 @@
                 <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text_for_display %></a>.
             <% end %>
             <%= t :Posted %>  
-            <%= @art.primary_photo.pic_date.strftime("%B %Y .")   %><br>
+            <%= @art.primary_photo.created_at.strftime("%B %Y .")   %><br>
           </div>
       <% end %>
 
@@ -189,6 +189,8 @@
               <% else %>
                   <a  href="<%= photo.attribution_url %>"> <%= photo.attribution_text_for_display %></a>.
               <% end %>
+              <%= t :Posted %>
+              <%= photo.created_at.strftime("%B %Y .")   %><br>
             </div>
         <% end %>
         <div id="artThumbs">

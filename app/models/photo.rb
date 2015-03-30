@@ -7,7 +7,6 @@ class Photo
 
   attr_protected :_id
 
-  field :pic_date , :type => Date, :default => Date.new(2015,1,1)
   field :attribution_text, :type => String
   field :attribution_url, :type => String
   field :primary, :type => Boolean, :default => false
