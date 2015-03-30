@@ -9,6 +9,7 @@ class ArtsController < ApplicationController
 
   def create_art_photo
     @photo = Photo.new(params[:photo])
+    @photo.pic_date = Time.now.to_date
     if @photo.save
       redirect_to new_art_path(:photo_id => @photo.id)
     else
