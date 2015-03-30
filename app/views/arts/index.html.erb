@@ -17,7 +17,8 @@
   <%if controller_name == 'arts'%>
 	<div id="filters">
   <form method="get" action"/" id="filter-form">
-		<select name="filter">
+		<%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)))%>
+    <select name="filter">
 		  <option value="">show all</option>
 		  <option value="architecture">Architecture</option>
 		  <option value="digital">Digital</option>
