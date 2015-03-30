@@ -28,4 +28,11 @@ namespace :initialize do
     
     puts "Loaded #{Art.count} art pieces into the database."
   end
+
+  task :udate_pic_date => :environment do
+    Photo.all.each do |p|
+      p.pic_date = p.created_at
+      p.save
+    end  
+  end  
 end
