@@ -7,6 +7,7 @@ en:
   photo_attribution_url: "Attribution URL (optional)"
   photo_by: "Photo by"
   anonymous_user: "anonymous user"
+  posted: "Posted %{date}."
   views:
     pagination:
       previous: "&lt; Previous"

@@ -13,7 +13,7 @@
 		<li><a href="/?sort=popular" id="popular">Popular</a></li>
 	</ul>
 	<div id="filters">
-  <form method="get" action"/" id="filter-form">
+  <form method="get" action="/" id="filter-form">
 		<select name="filter">
 		  <option value="">show all</option>
 		  <option value="architecture">Architecture</option>
@@ -106,7 +106,7 @@
     //   $container.isotope({ filter: selector });
     //   return false;
     // });
-    $('#art-list').isotope({ sortBy : 'created_at', sortAscending : false});
+    $('#art-list').isotope({ sortBy : 'created_at', sortAscending : true});
   }
 
   $(window).load(function(){
