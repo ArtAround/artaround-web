@@ -36,6 +36,7 @@ class Admin::ArtsController < Admin::AdminController
 
     @art.attributes = params[:art]
     @art.category.reject!(&:blank?)
+    @art.art_link.create( params[:art][:art_link_attributes]['0']) if params[:art][:art_link_attributes]['0'][:title].present?
 
     if @art.save
       redirect_to admin_art_path(@art), :notice => "Successfully updated art piece."

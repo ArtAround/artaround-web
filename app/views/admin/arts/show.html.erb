@@ -86,6 +86,7 @@
         return false;
       })
       $('#art_category').chosen({allow_single_deselect:true});
+      $('#art_tag').chosen({allow_single_deselect:true});
     });
   </script>
 <% end %>
@@ -158,6 +159,10 @@
         <%= f.text_field :latitude %>
       </li>
       <li>
+        <label for="art_tag">Tags</label>
+        <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+      </li>
+      <li>
         <%= f.label :longitude %>
         <%= f.text_field :longitude %>
       </li>
@@ -173,6 +178,17 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
       </li>
+      <%= f.fields_for :art_link ,@art.art_link.new do |l| %>
+      <li>
+        <%= l.label :title ,"Link Title"%>
+        <%= l.text_field :title %>
+      </li>
+      <li>
+        <%= l.label :link_url,"Link Url" %>
+        <%= l.text_field :link_url %>
+      </li>  
+      <%end%>
+
       <li>
         <%= f.label :event_id %>
         <%= f.collection_select :event_id, @events, :id, :name, :include_blank => "----" %>

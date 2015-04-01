@@ -5,6 +5,8 @@ class Art
   include Mongoid::MultiParameterAttributes
 
   has_many :comments
+  has_many :art_link
+  accepts_nested_attributes_for :art_link
   belongs_to :event
   belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
   embeds_many :submissions
@@ -22,6 +24,7 @@ class Art
   field :website
 
   # fields doubled on submissions
+  field :tag, :type => Array
   field :category, :type => Array
   field :old_category
   field :artist

@@ -15,8 +15,10 @@ Artaround::Application.routes.draw do
       end
       resources :photos
     end
+    resources :tags
     resources :events
     resources :commissioners
+    get 'tag/:id' => 'tags#destroy', as: :trash_tag
   end
 
   namespace :api do
@@ -48,5 +50,7 @@ Artaround::Application.routes.draw do
   match "/events/:slug" => "arts#map"
   match "/autocomplete_commissioners" => "home#autocomplete_commissioners"
 
+  get "/tag/:id" => "tag#show" ,:as => "tag"
+  get "/category/:id" => "category#show" ,:as => 'category'
   root :to => "arts#index"
 end

@@ -4,6 +4,7 @@ class Submission
   
   embedded_in :art, :inverse_of => :submissions
   
+  field :tag
   field :category
   field :artist
   field :year

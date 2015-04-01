@@ -1719,7 +1719,7 @@ li.publicItem {
 	height: 10px;
 }
 
-select#category, #filters select {
+select#category,select#tag,select#pin, #filters select {
 	margin: 0;
 	border: 1px solid #ccc;
 	font-family: "proxima-nova", "proxima nova", helvetica, sans-serif;

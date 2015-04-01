@@ -2,6 +2,7 @@
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
   <script type="text/javascript">
   $('#art_category').chosen({allow_single_deselect:true});
+  $('#art_tag').chosen({allow_single_deselect:true});
   </script>
 <% end %>
 
@@ -181,6 +182,10 @@
           <li>
             <label for="art_category">category</label>
             <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
+          </li>
+          <li>
+            <label for="art_tag">Tags</label>
+            <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
           </li>
           <li>
             <label for="art_title">title<sup>*</sup></label>
