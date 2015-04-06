@@ -178,16 +178,32 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
       </li>
-      <%= f.fields_for :art_link ,@art.art_link.new do |l| %>
+      
+      <%@art.art_link.each do |al|%>
+        <li>
+          <%= link_to al.title , al.link_url%> 
+          <span style="float: right;">        
+          <%= link_to "" , destroy_link_admin_art_path(al),:class => "delete_icon" ,:remote => true %>
+          <%= link_to "" ,"javascript:void(0)",:class => "edit_icon" ,:art_link_id => al.id ,:art_link_title => al.title ,:art_link_url => al.link_url %>
+          </span>
+        </li>
+      <%end%>
+      
+      <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
+      <%#= form_for @art.art_link.new , remote: true do |l| %>
       <li>
-        <%= l.label :title ,"Link Title"%>
-        <%= l.text_field :title %>
+        <%= label_tag :title ,"Link Title"%>
+        <%= text_field_tag :title %>
       </li>
       <li>
-        <%= l.label :link_url,"Link Url" %>
-        <%= l.text_field :link_url %>
-      </li>  
-      <%end%>
+        <%= label_tag :link_url,"Link Url" %>
+        <%= text_field_tag :link_url %>
+        <%= hidden_field_tag :link_url_id %> 
+        <%= button_tag "Save link",:type => "button",:class=>"submitBtn" ,:id => "link_submit"%>
+        <%= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
+      </li> 
+
+      <%#end%>
 
       <li>
         <%= f.label :event_id %>
@@ -219,3 +235,36 @@
 
 <div class="clear"></div>
 </div>
+
+
+<script>
+  $("#link_submit").on("click",function(){
+    // alert("testig")
+    $.ajax({
+      type: 'post',
+      data: {art_id: '<%=@art.id%>' ,title: $("input#title").val() ,url: $("input#link_url").val() ,link_url_id: $("input#link_url_id").val()},
+      url: '<%=manage_link_admin_arts_path%>',
+      success: function (response) {
+        // return false;
+        $('input#title').val('');
+        $('input#link_url').val('');
+        $('input#link_url_id').val('');
+        location.reload();
+      }
+    });
+  });
+
+  $('.edit_icon').on('click', function(){
+    $('input#title').val($(this).attr("art_link_title"));
+    $('input#link_url').val($(this).attr("art_link_url"));
+    $('input#link_url_id').val($(this).attr("art_link_id"));
+    $("#link_cancel").show();
+  });
+
+  $("#link_cancel").on("click",function(){
+    $('input#title').val('');
+    $('input#link_url').val('');
+    $('input#link_url_id').val('');
+    $("#link_cancel").hide();
+  });
+</script>

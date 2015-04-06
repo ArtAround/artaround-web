@@ -14,7 +14,10 @@ Artaround::Application.routes.draw do
         post :approve, :on => :member
       end
       resources :photos
+      post :manage_link ,:on => :collection
+      get :destroy_link, :on => :member
     end
+
     resources :tags
     resources :events
     resources :commissioners
