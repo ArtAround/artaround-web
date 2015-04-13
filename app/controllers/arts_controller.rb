@@ -146,7 +146,7 @@ class ArtsController < ApplicationController
                           "Video"]
     filter = params[:filter]
     tag_filter = params[:tag_filter]
-    tag_filter = '' if params[:tag_filter] == 'All'
+    tag_filter = nil if params[:tag_filter] == 'All'
     unless filter.nil?
       filter.capitalize!
     end
@@ -160,7 +160,11 @@ class ArtsController < ApplicationController
       sort = :created_at
     end
 
-    if filter == nil
+    if filter == nil && tag_filter == nil
+      @arts = Art.approved.desc(sort).page(params[:page]).per(25)
+    elsif filter != nil && tag_filter == nil
+      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(25)
+    elsif filter == nil && tag_filter != nil
       @arts = Art.approved.where(tag: tag_filter).desc(sort).page(params[:page]).per(25)
     else
       @arts = Art.approved.where(category: filter ,tag: tag_filter).desc(sort).page(params[:page]).per(25)

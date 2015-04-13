@@ -17,7 +17,9 @@
   <%if controller_name == 'arts'%>
 	<div id="filters">
   <form method="get" action"/" id="filter-form">
-		<%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)))%>
+		<b style="margin: 5px;" >TAGS</b>
+    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)))%>
+    <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">
 		  <option value="">show all</option>
 		  <option value="architecture">Architecture</option>
@@ -49,7 +51,8 @@
 		  <option value="video">Video</option>
 		</select>
     <input id="sort-value" type="hidden" name="sort" value="" />
-    <button class="submit">Filter</button>
+    <br>
+    <button class="submit" style="float: right; margin-top: 5px;" >Filter</button>
     </form>
 	</div>
   <%end%>
