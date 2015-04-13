@@ -153,17 +153,24 @@ class ArtsController < ApplicationController
       filter = nil
     end
 
+   
+    if filter == nil && tag_filter == nil
+      @arts = Art.approved
+    elsif filter != nil && tag_filter == nil
+      @arts = Art.approved.where(category: filter)
+    elsif filter == nil && tag_filter != nil
+      @arts = Art.approved.where(tag: tag_filter)
+    else  
+      @arts = Art.approved.where(category: filter ,tag: tag_filter)
+    end
+    
     if params[:sort] == 'popular'
       sort = :total_visits
+      @arts = @arts.desc(sort).page(params[:page]).per(25)
     else
       sort = :created_at
-    end
-
-    if filter == nil
-      @arts = Art.approved.where(tag: tag_filter).desc(sort).page(params[:page]).per(25)
-    else
-      @arts = Art.approved.where(category: filter ,tag: tag_filter).desc(sort).page(params[:page]).per(25)
-    end
+      @arts = @arts.asc(sort).page(params[:page]).per(25)
+    end  
       
   end
 
