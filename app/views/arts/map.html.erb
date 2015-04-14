@@ -116,7 +116,7 @@
       icons.blue = new google.maps.MarkerImage("/images/pins/artaround-pin-blue.png");
       icons.navy = new google.maps.MarkerImage("/images/pins/artaround-pin-navy.png");
       icons.yellow = new google.maps.MarkerImage("/images/pins/artaround-pin-yellow.png");
-      icons.grey = new google.maps.MarkerImage("/images/pins/artaround-pin-grey.png");
+      icons.grey = new google.maps.MarkerImage("/images/pins/artaround-pin-gray.png");
 
       $.each(arts, function(i, art) {
         var marker = markerFor(art, map);
@@ -616,6 +616,15 @@
             <button type="submit" class="searchBtn">
                 <span>Go</span>
             </button>
+          </li>
+        </ul>
+
+      </fieldset>
+
+      <fieldset>
+        <ul id="location">
+          <li>
+            <img src="/images/pins/artaround-pin-key.png" style="width: 100%;">
           </li>
         </ul>
 
