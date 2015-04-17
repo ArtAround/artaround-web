@@ -247,8 +247,9 @@
             <% end %>
           </ul>
         </dd>
-
-        <dt>Tag</dt>
+        
+        <%# if @art.tag.count > 1 %>
+        <dt>Tags</dt>
         <dd>
           <ul>
             <% @art.tag.each do |t| %>
@@ -256,6 +257,7 @@
             <% end if @art.tag.present? %>
           </ul>
         </dd>
+        <%#end%>
 
         <dt>Description</dt>
         <dd><%= light_format known(@art.description) %></dd>
@@ -272,6 +274,7 @@
         <dt>Location</dt>
         <dd><%= light_format known(@art.location_description) %></dd>
 
+        <% if  @art.art_link.present?%>
         <dt>Links</dt>
         <dd>
           <ul>
@@ -282,6 +285,7 @@
             <% end %>
           </ul>
         </dd>
+        <%end%>
 
       </dl>
 
@@ -303,7 +307,7 @@
           </li>
 
           <li>
-            <%= f.label :tag %>
+            <%= f.label :tags %>
             <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
           </li>
 
