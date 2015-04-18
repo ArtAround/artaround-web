@@ -1839,6 +1839,20 @@ select#category,select#tag,select#pin, #filters select {
 	padding-right: 15px;
 }
 
+#key_image{
+	position: absolute;
+	z-index: 9;
+	right: 130px;
+	width: 200px;
+	display: none;
+}
+
+#key_icon{
+	position: absolute;
+	z-index: 9;
+	right: 130px;
+	width: 32px;
+}
 #link_cancel{
 	background: #54c3c6;
 	max-width: 50%;
