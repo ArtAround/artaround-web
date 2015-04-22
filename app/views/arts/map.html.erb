@@ -188,30 +188,19 @@
 
       '</div>';
 
-      var icon;
+      var icon = icons.art;
       var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
-
       if (isVenue){
-        icon = icons.venue;
-      }else{if ($.inArray('catalog', art.tag)>=0) {
-              icon = icons.blue;
-            } else{
-              if ($.inArray('museums & galleries', art.tag)>=0) {
-                icon = icons.navy;
-              } else{
-                if ($.inArray('street art hot spot', art.tag)>=0) {
-                  icon = icons.yellow;
-                } else{
-                  if ($.inArray('artchive', art.tag)>=0) {
-                    icon = icons.grey;
-                  } else{
-                    icon = icons.art;            
-                  }
-                }
-              }
-            };
-        
-        }
+        icon = icons.navy;
+      } else if ($.inArray('catalog', art.tag)>=0) {
+        icon = icons.blue;
+      } else if ($.inArray('street art hot spot', art.tag)>=0) {
+        icon = icons.yellow;
+      }
+
+      if ($.inArray('artchive', art.tag)>=0) {
+        icon = icons.grey;
+      }
 
       var marker = new google.maps.Marker({
         position: location,
@@ -326,26 +315,21 @@
           var isInArray = $.inArray(selected_tag, marker.filters.tag);
           if (isInArray < 0){
             passed_tag = false;
-          }else{
-            if ('catalog' == selected_tag ) {
-              marker.icon = icons.blue;
-            } else{
-              if ('museums & galleries'== selected_tag) {
-                marker.icon = icons.navy;
-              } else{
-                if ('street art hot spot'== selected_tag) {
+          } else {
+              if ('catalog' == selected_tag) {
+                  marker.icon = icons.blue;
+              } else if ('street art hot spot' == selected_tag) {
                   marker.icon = icons.yellow;
-                } else{
-                  if ('artchive'== selected_tag) {
-                    marker.icon = icons.grey;
-                  } else{
-                    marker.icon = icons.art;            
+              } else {
+                  if ('artchive' == selected_tag) {
+                      marker.icon = icons.grey;
+                  } else {
+                      marker.icon = icons.art;
                   }
-                }
               }
-            };
           }
         }
+
         passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
 
         if (!keyword)
