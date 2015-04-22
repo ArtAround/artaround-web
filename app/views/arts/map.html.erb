@@ -111,11 +111,11 @@
 
 
       // icon types
-      icons.art = new google.maps.MarkerImage("/images/pins/artaround-pin-red.png");
+      icons.art = new google.maps.MarkerImage("/images/pins/red.png");
       icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
-      icons.blue = new google.maps.MarkerImage("/images/pins/artaround-pin-blue.png");
-      icons.navy = new google.maps.MarkerImage("/images/pins/artaround-pin-navy.png");
-      icons.yellow = new google.maps.MarkerImage("/images/pins/artaround-pin-yellow.png");
+      icons.blue = new google.maps.MarkerImage("/images/pins/teal.png");
+      icons.navy = new google.maps.MarkerImage("/images/pins/blue.png");
+      icons.yellow = new google.maps.MarkerImage("/images/pins/yellow.png");
       icons.grey = new google.maps.MarkerImage("/images/pins/artaround-pin-gray.png");
 
       $.each(arts, function(i, art) {
@@ -326,6 +326,24 @@
           var isInArray = $.inArray(selected_tag, marker.filters.tag);
           if (isInArray < 0){
             passed_tag = false;
+          }else{
+            if ('catalog' == selected_tag ) {
+              marker.icon = icons.blue;
+            } else{
+              if ('museums & galleries'== selected_tag) {
+                marker.icon = icons.navy;
+              } else{
+                if ('street art hot spot'== selected_tag) {
+                  marker.icon = icons.yellow;
+                } else{
+                  if ('artchive'== selected_tag) {
+                    marker.icon = icons.grey;
+                  } else{
+                    marker.icon = icons.art;            
+                  }
+                }
+              }
+            };
           }
         }
         passed_wards = !specific_ward || (specific_ward == marker.filters.ward);
@@ -349,8 +367,9 @@
           passed_timeline = (marker.filters.timeline_year < 1910);
         else
           passed_timeline = ((marker.filters.timeline_year > timeline) && (marker.filters.timeline_year <= timeline + 10));
+        set_visible = passed_commission && passed_category && passed_keyword && passed_event && passed_timeline && passed_tag
+        marker.setVisible(set_visible);
 
-        marker.setVisible(passed_commission && passed_category && passed_keyword && passed_event && passed_timeline && passed_tag);
       });
     }
 
@@ -400,6 +419,8 @@
         function() {
           $("#filterForm").hide();
           $("#filterSettings").show();
+          $("#key_icon").css("right","130px");
+          $("#key_image").css("right","130px");
           return false;
         }
       );
@@ -407,9 +428,27 @@
         function() {
           $("#filterSettings").hide();
           $("#filterForm").show();
+          $("#key_icon").css("right","230px");
+          $("#key_image").css("right","230px");
           return false;
         }
       );
+
+      $("#key_icon").click(
+        function() {
+          $("#key_icon").hide();
+          $("#key_image").show();
+          return false;
+        }
+      );
+      $("#key_image").click(
+        function() {
+          $("#key_image").hide();
+          $("#key_icon").show();
+          return false;
+        }
+      );
+
 
 
       $("li.event a").click(function() {
@@ -532,6 +571,12 @@
 
 <div id="mapContainer" >
 
+  <div id = "key_icon" >
+    <img src="/images/pins/key-icon.png" style="width: 100%;">
+  </div>
+  <div id = "key_image" >
+    <img src="/images/pins/artaround-pin-key.png" style="width: 100%;">
+  </div>
   <!-- the #filterForm will switch its "allArt" class to "event" when an event is selected -->
   <div id="filterForm" class="allArt">
 
@@ -621,14 +666,14 @@
 
       </fieldset>
 
-      <fieldset>
+      <!-- <fieldset>
         <ul id="location">
           <li>
             <img src="/images/pins/artaround-pin-key.png" style="width: 100%;">
           </li>
         </ul>
 
-      </fieldset>
+      </fieldset> -->
 
     </form>
 
