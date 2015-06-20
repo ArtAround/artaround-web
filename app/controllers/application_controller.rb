@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
     @recent_art ||= Art.approved.descending(:created_at).limit(5).to_a
   end
 
+  helper_method :tags
+  def tags
+    @tags = Tag.all.collect {|t| t.name}
+  end
+
   helper_method :categories
   def categories
     @categories ||= ["Architecture", "Digital", "Drawing", "Gallery",
