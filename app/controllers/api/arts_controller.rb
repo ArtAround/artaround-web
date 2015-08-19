@@ -143,6 +143,10 @@ class Api::ArtsController < Api::ApiController
     render :json => categories.to_json
   end
 
+  def tags_api
+    render :json => tags.to_json
+  end
+
   protected
 
   def load_art

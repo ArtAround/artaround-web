@@ -35,6 +35,7 @@ Artaround::Application.routes.draw do
 
       match "/neighborhoods" => "arts#neighborhoods_api"
       match "/categories" => "arts#categories_api"
+      match "/tags" => "arts#tags_api"
     end
   end
 

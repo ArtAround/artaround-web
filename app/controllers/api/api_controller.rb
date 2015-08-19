@@ -92,7 +92,7 @@ class Api::ApiController < ApplicationController
       :slug, :description, :location_description, :artist, :location, 
       :created_at, :updated_at, :category, :title, :updated_at,
       :year, :neighborhood, :ward, :commissioned, :ranking, :event,
-      :commissioned_by, :website
+      :commissioned_by, :website, :tag
     ]
   end
 
