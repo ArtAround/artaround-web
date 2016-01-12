@@ -3,6 +3,7 @@
   <script type="text/javascript">
   $('#art_category').chosen({allow_single_deselect:true});
   $('#art_tag').chosen({allow_single_deselect:true});
+  $('#art_artist').chosen({allow_single_deselect:true});
   </script>
 <% end %>
 
@@ -192,8 +193,10 @@
             <%= f.text_field :title %>
           </li>
           <li>
-            <%= f.label :artist, "Artist/Founder(s)" %>
-            <%= f.text_field :artist %>
+            <label for="art_artist">Artist/Founder(s)</label>
+            <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+            <%#= f.label :artist, "Artist/Founder(s)" %>
+            <%#= f.text_field :artist %>
           </li>
           <li>
             <%= f.label :year %>

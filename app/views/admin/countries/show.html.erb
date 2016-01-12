@@ -1,0 +1,23 @@
+<div id="pageMain" class="admin">
+
+<div id="fullColumn">
+    <div id="titleContent">
+        <h2>Admin Area</h2>
+    </div>
+</div>
+<%#= link_to "Delete this artist" ,admin_trash_country_path(@country) %>
+<%= form_for @country, :url => admin_country_path(@country) do |f| %>
+	<ul>
+	<li>
+		<%= f.label :count %>
+		<%= f.text_field :country_count %>
+	</li>
+	<li>
+		<button class="submitBtn" type="submit">
+		    <span>Submit</span>
+		</button>
+	</li>
+	</ul>
+<%end%>
+
+</div>
