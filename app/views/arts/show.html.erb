@@ -238,7 +238,7 @@
         <!-- <dd><%#= known @art.artist %></dd> -->
         <dd>
           <ul>
-          <%if @art.artist.present?%>
+          <%if @art.artist[1].present?%>
             <%if @art.artist.kind_of?(Array)%>
               <% @art.artist.each do |a| %>
                 <li><%=link_to a ,artist_path(a)%></li>
