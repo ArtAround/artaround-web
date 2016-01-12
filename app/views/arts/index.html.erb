@@ -108,7 +108,7 @@ jQuery(function($) {
   <div id="filters">
   <form method="get" action="/" id="filter-form">
     <b style="margin: 5px;" >TAGS</b>
-    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)).sort)%>
+    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)).sort_by!{ |e| e.downcase })%>
     
     <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">

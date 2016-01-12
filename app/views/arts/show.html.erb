@@ -273,7 +273,7 @@
         <dd>
           <ul>
             <% if @art.tag.present? %>
-              <% @art.tag.sort.each do |t| %>
+              <% @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
                 <li><%=link_to t ,known(tag_path(t))%></li>
               <% end %>
             <%else%>
