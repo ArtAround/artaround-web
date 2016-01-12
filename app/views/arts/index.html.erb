@@ -10,10 +10,11 @@
 
 <div id="artListContainer"><div style=" text-align:center">
 <h3>
+<% if @artworks_count.present?%>
 <span class="y_count timer_p"></span>&nbsp;Photos<span style="margin:0px 150px;">
 <span class="r_count timer_a"></span>&nbsp;Artworks</span>
 <span class="b_count timer_c"></span>&nbsp;Countries</h3>
-
+<%end%>
 <script type="text/javascript">
   (function($) {
     $.fn.countTo = function(options) {
