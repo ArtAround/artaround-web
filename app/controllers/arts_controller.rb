@@ -43,7 +43,6 @@ class ArtsController < ApplicationController
         @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
       end
     end
-
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
 
@@ -168,8 +167,17 @@ class ArtsController < ApplicationController
     else
       @arts = Art.approved.where(category: filter ,tag: tag_filter).desc(sort).page(params[:page]).per(25)
     end
-      
-  end
+    
+    @artworks_count= Art.count()
+    #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+    
+    @photos_count= Photo.count()
+    #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+    
+    @c_count= Country.find(:first)
+    @countries_count= @c_count.country_count if @c_count.present?
+    #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+end
 
   def map
     @arts = Art.approved.all

@@ -48,6 +48,8 @@
         $(".callout").toggle();
         $('#submission_category').chosen({allow_single_deselect:true});
         $('#submission_tag').chosen({allow_single_deselect:true});
+        $('#submission_artist').chosen({allow_single_deselect:true});
+        $('#submission_tag_id').chosen({allow_single_deselect:true});
         return false;
       }
     );
@@ -234,7 +236,22 @@
 
       <dl id="artworkMetaData">
         <dt><%= artist_type_for @art %></dt>
-        <dd><%= known @art.artist %></dd>
+        <!-- <dd><%#= known @art.artist %></dd> -->
+        <dd>
+          <ul>
+          <%if @art.artist[1].present?%>
+            <%if @art.artist.kind_of?(Array)%>
+              <% @art.artist.each do |a| %>
+                <li><%=link_to a ,artist_path(a)%></li>
+              <% end %>
+            <%else%>
+                <li><%=link_to @art.artist , artist_path(@art.artist)%></li>
+            <%end%>
+          <%else%>
+          Unknown
+          <%end%>
+          </ul>
+        </dd>
 
         <dt>Year</dt>
         <dd><%= known @art.year %></dd>
@@ -242,25 +259,55 @@
         <dt>Category</dt>
         <dd>
           <ul>
+          <% if @art.category.present? %>
             <% @art.category.each do |cat| %>
               <li><%= link_to cat,category_path(cat) %></li>
             <% end %>
+          <%else%>
+          <li>Unknown</li>
+          <%end%>
           </ul>
         </dd>
         
         <%# if @art.tag.count > 1 %>
+        <!-- <dt>Tags</dt>
+        <dd>
+          <ul>
+            <%# if @art.tag.present? %>
+              <%# @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
+                <li><%#=link_to t ,known(tag_path(t))%></li>
+              <%# end %>
+            <%#else%>
+            <li>Unknown</li>
+            <%#end%>
+          </ul>
+        </dd> -->
         <dt>Tags</dt>
         <dd>
           <ul>
-            <% @art.tag.each do |t| %>
-              <li><%=link_to t ,tag_path(t)%></li>
-            <% end if @art.tag.present? %>
+            <% if @art.tag_id.present? %>
+
+              <% @art.tag_id.sort_by!{ |e| e.downcase }.each do |t| %>
+                <% s = Tag.find(t.to_s) %>
+                <% if !s.nil? %>
+                  <li><%=link_to s.name ,known(tag_path(t))%></li>
+                <% end %>  
+              <% end %>
+            <%#else%>
+            <% elsif @art.tag.present? %>
+              <% @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
+                <li><%=link_to t ,known(tag_path(t))%></li>
+              <% end %>
+            <%else%>
+            <li>Unknown</li>
+            <%end%>
           </ul>
         </dd>
         <%#end%>
-
-        <dt>Description</dt>
-        <dd><%= light_format known(@art.description) %></dd>
+        <%if @art.description.present?%>
+          <dt>Description</dt>
+          <dd><%= light_format known(@art.description) %></dd>
+        <%end%>
 
         <% unless @art.commissioned_by.nil? %>
           <dt>Commissioned By</dt>
@@ -293,7 +340,8 @@
         <ul>
           <li>
             <%= f.label :artist, "Artist(s)" %>
-            <%= f.text_field :artist, {value: @art.artist} %>
+            <%#= f.text_field :artist, {value: @art.artist} %>
+            <%= f.select :artist, options_for_select(Artist.all.collect(&:name), @art.artist), {},{:multiple => true} %>
           </li>
 
           <li>
@@ -308,7 +356,11 @@
 
           <li>
             <%= f.label :tags %>
-            <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% if @art.tag_id.present?%>
+              <%= f.select('tag_id', options_for_select(Tag.all.collect {|r| [h(r.name), r.id] }, @art.tag_id), {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
+            <% else %>
+              <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% end %>
           </li>
 
           <li>
@@ -377,7 +429,10 @@
                     <%= link_to "Unapprove", unapprove_admin_art_comment_path(@art, comment), "data-confirm" => "Unapprove this comment?" %>
                   <% else %>
                     <%= link_to "Approve", approve_admin_art_comment_path(@art, comment), "data-confirm" => "Approve this comment for display?" %>
-                  <% end %>
+                  <% end %>&nbsp;&nbsp;
+                  <%= link_to "Delete", delete_admin_art_comment_path(@art, comment), "data-confirm" => "Delete this comment?", method: :delete %>
+                  <%#= link_to 'Delete', comment, :confirm => "Are you sure?", :method => :delete %>
+                  <%#= link_to 'Delete', delete_admin_art_comment_path(comment) %>
                 </div>
               <% end %>
 
