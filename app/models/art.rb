@@ -11,7 +11,7 @@ class Art
   belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
-  # has_many :tags, :dependent => :destroy
+  has_many :tags, :dependent => :destroy
 
 
   attr_protected :_id, :commissioned, :approved, :location, :slug
@@ -26,7 +26,7 @@ class Art
 
   # fields doubled on submissions
   field :tag, :type => Array
-  #field :tag, :type => Integer
+  field :tag_id, :type => Array
   field :category, :type => Array
   field :old_category
   field :artist

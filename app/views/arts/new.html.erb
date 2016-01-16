@@ -4,6 +4,7 @@
   $('#art_category').chosen({allow_single_deselect:true});
   $('#art_tag').chosen({allow_single_deselect:true});
   $('#art_artist').chosen({allow_single_deselect:true});
+  $('#art_tag_id').chosen({allow_single_deselect:true});
   </script>
 <% end %>
 
@@ -184,9 +185,13 @@
             <label for="art_category">category</label>
             <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
           </li>
-          <li>
+          <!-- <li>
             <label for="art_tag">Tags</label>
-            <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+            <%#= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+          </li> -->
+           <li>
+            <label for="art_tag">Tags</label>
+            <%= f.select('tag_id', Tag.all.collect {|r| [h(r.name), r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
           </li>
           <li>
             <label for="art_title">title<sup>*</sup></label>

@@ -49,6 +49,7 @@
         $('#submission_category').chosen({allow_single_deselect:true});
         $('#submission_tag').chosen({allow_single_deselect:true});
         $('#submission_artist').chosen({allow_single_deselect:true});
+        $('#submission_tag_id').chosen({allow_single_deselect:true});
         return false;
       }
     );
@@ -269,10 +270,31 @@
         </dd>
         
         <%# if @art.tag.count > 1 %>
+        <!-- <dt>Tags</dt>
+        <dd>
+          <ul>
+            <%# if @art.tag.present? %>
+              <%# @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
+                <li><%#=link_to t ,known(tag_path(t))%></li>
+              <%# end %>
+            <%#else%>
+            <li>Unknown</li>
+            <%#end%>
+          </ul>
+        </dd> -->
         <dt>Tags</dt>
         <dd>
           <ul>
-            <% if @art.tag.present? %>
+            <% if @art.tag_id.present? %>
+
+              <% @art.tag_id.sort_by!{ |e| e.downcase }.each do |t| %>
+                <% s = Tag.find(t.to_s) %>
+                <% if !s.nil? %>
+                  <li><%=link_to s.name ,known(tag_path(t))%></li>
+                <% end %>  
+              <% end %>
+            <%#else%>
+            <% elsif @art.tag.present? %>
               <% @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
                 <li><%=link_to t ,known(tag_path(t))%></li>
               <% end %>
@@ -334,7 +356,11 @@
 
           <li>
             <%= f.label :tags %>
-            <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% if @art.tag_id.present?%>
+              <%= f.select('tag_id', options_for_select(Tag.all.collect {|r| [h(r.name), r.id] }, @art.tag_id), {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
+            <% else %>
+              <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% end %>
           </li>
 
           <li>
