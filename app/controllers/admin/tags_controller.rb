@@ -22,7 +22,7 @@ class Admin::TagsController < Admin::AdminController
 
 	def update
 		@tag = Tag.find(params[:id])
-		@tag.name = params[:tag][:name]
+    @tag.name = params[:tag][:name]
 		@tag.save
 		redirect_to :back
 	end

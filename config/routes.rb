@@ -5,11 +5,14 @@ Artaround::Application.routes.draw do
     post :add_photo, :on => :member
     post :flag, :on => :member
     get :index, :on => :collection
+    post :manage_link ,:on => :collection
+    get :destroy_link, :on => :member
   end
 
   namespace :admin do
     resources :arts do
       resources :comments do
+        post :delete, :on => :member
         post :unapprove, :on => :member
         post :approve, :on => :member
       end
@@ -19,9 +22,13 @@ Artaround::Application.routes.draw do
     end
 
     resources :tags
+    resources :artists
+    resources :countries
     resources :events
     resources :commissioners
     get 'tag/:id' => 'tags#destroy', as: :trash_tag
+    get 'artist/:id' => 'artists#destroy', as: :trash_artist
+    get 'country/:id' => 'countries#destroy', as: :trash_country
   end
 
   namespace :api do
@@ -55,6 +62,7 @@ Artaround::Application.routes.draw do
   match "/autocomplete_commissioners" => "home#autocomplete_commissioners"
 
   get "/tag/:id" => "tag#show" ,:as => "tag"
+  get "/artist/:id" => "artist#show" ,:as => "artist"
   get "/category/:id" => "category#show" ,:as => 'category'
   root :to => "arts#index"
 end

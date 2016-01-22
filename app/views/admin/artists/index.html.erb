@@ -1,0 +1,25 @@
+<div id="pageMain" class="admin">
+
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Area</h2>
+    </div>
+  </div>
+
+  <div id="ltColumn">
+    <h3>Artists list</h3>
+    <ul>
+      <% @artists.each do |artist| %>
+        <li>
+          <%= link_to artist.name, admin_artist_path(artist) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="rtColumn">
+    <h3>
+      Artist (<%= link_to 'New', new_admin_artist_path %>)
+    </h3>
+  </div>
+</div>

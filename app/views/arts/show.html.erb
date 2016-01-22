@@ -48,6 +48,8 @@
         $(".callout").toggle();
         $('#submission_category').chosen({allow_single_deselect:true});
         $('#submission_tag').chosen({allow_single_deselect:true});
+        $('#submission_artist').chosen({allow_single_deselect:true});
+        $('#submission_tag_id').chosen({allow_single_deselect:true});
         return false;
       }
     );
@@ -234,7 +236,22 @@
 
       <dl id="artworkMetaData">
         <dt><%= artist_type_for @art %></dt>
-        <dd><%= known @art.artist %></dd>
+        <!-- <dd><%#= known @art.artist %></dd> -->
+        <dd>
+          <ul>
+          <%if @art.artist[1].present?%>
+            <%if @art.artist.kind_of?(Array)%>
+              <% @art.artist.each do |a| %>
+                <li><%=link_to a ,artist_path(a)%></li>
+              <% end %>
+            <%else%>
+                <li><%=link_to @art.artist , artist_path(@art.artist)%></li>
+            <%end%>
+          <%else%>
+          Unknown
+          <%end%>
+          </ul>
+        </dd>
 
         <dt>Year</dt>
         <dd><%= known @art.year %></dd>
@@ -242,25 +259,57 @@
         <dt>Category</dt>
         <dd>
           <ul>
+          <% if @art.category.present? %>
             <% @art.category.each do |cat| %>
               <li><%= link_to cat,category_path(cat) %></li>
             <% end %>
+          <%else%>
+          <li>Unknown</li>
+          <%end%>
           </ul>
         </dd>
         
         <%# if @art.tag.count > 1 %>
-        <dt>Tags</dt>
+        <!-- <dt>Tags</dt>
         <dd>
           <ul>
-            <% @art.tag.each do |t| %>
-              <li><%=link_to t ,tag_path(t)%></li>
-            <% end if @art.tag.present? %>
+            <%# if @art.tag.present? %>
+              <%# @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
+                <li><%#=link_to t ,known(tag_path(t))%></li>
+              <%# end %>
+            <%#else%>
+            <li>Unknown</li>
+            <%#end%>
+          </ul>
+        </dd> -->
+        <dt>Tags</dt>
+        <dd>
+          <ul><%#debugger%>
+            <% if !@art.tag_id.nil? %>
+                <%if @art.tag_id == [""]%>
+                <li>Unknown</li>
+                <%end%>
+              <% @art.tag_id.reject(&:empty?).sort_by!{ |e| e.downcase }.each do |t| %>
+                <% s = Tag.find(t.to_s) %>
+                <% if !s.nil? %>
+                  <li><%=link_to s.name ,known(tag_path(t))%></li>
+                <% end %>  
+              <% end %>
+            <%#else%>
+            <% elsif @art.tag.present? %>
+              <% @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
+                <li><%=link_to t ,known(tag_path(t))%></li>
+              <% end %>
+            <%else%>
+            <li>Unknown</li>
+            <%end%>
           </ul>
         </dd>
         <%#end%>
-
-        <dt>Description</dt>
-        <dd><%= light_format known(@art.description) %></dd>
+        <%if @art.description.present?%>
+          <dt>Description</dt>
+          <dd><%= light_format known(@art.description) %></dd>
+        <%end%>
 
         <% unless @art.commissioned_by.nil? %>
           <dt>Commissioned By</dt>
@@ -293,7 +342,8 @@
         <ul>
           <li>
             <%= f.label :artist, "Artist(s)" %>
-            <%= f.text_field :artist, {value: @art.artist} %>
+            <%#= f.text_field :artist, {value: @art.artist} %>
+            <%= f.select :artist, options_for_select(Artist.all.collect(&:name), @art.artist), {},{:multiple => true} %>
           </li>
 
           <li>
@@ -308,7 +358,11 @@
 
           <li>
             <%= f.label :tags %>
-            <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% if @art.tag_id.present?%>
+              <%= f.select('tag_id', options_for_select(Tag.all.collect {|r| [h(r.name), r.id] }, @art.tag_id), {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
+            <% else %>
+              <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
+            <% end %>
           </li>
 
           <li>
@@ -319,7 +373,33 @@
           <li>
             <%= f.label :location_description, "Location" %>
             <%= f.text_area :location_description, {value: @art.location_description} %>
-          </li>
+          </li><br>
+
+          <%@art.art_link.each do |al|%>
+            <li>
+              <%= link_to al.title , al.link_url%> 
+              <span style="float: right;">        
+              <%= link_to "" , destroy_link_art_path(al),:class => "delete_icon" ,:remote => true %>
+              <%= link_to "" ,"javascript:void(0)",:class => "edit_icon" ,:art_link_id => al.id ,:art_link_title => al.title ,:art_link_url => al.link_url %>
+              </span>
+            </li>
+          <%end%>
+      
+        <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
+        <%#= form_for @art.art_link.new , remote: true do |l| %>
+        <li>
+          <%= label_tag :title ,"Link Title"%>
+          <%= text_field_tag :title %>
+        </li>
+        <li>
+          <%= label_tag :link_url,"Link Url" %>
+          <%= text_field_tag :link_url %>
+          <%= hidden_field_tag :link_url_id %><br>
+          <%= button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
+          <%#= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
+        </li> 
+
+        <%#end%>
 
           <li>
             <button class="submitBtn" type="submit">
@@ -377,7 +457,10 @@
                     <%= link_to "Unapprove", unapprove_admin_art_comment_path(@art, comment), "data-confirm" => "Unapprove this comment?" %>
                   <% else %>
                     <%= link_to "Approve", approve_admin_art_comment_path(@art, comment), "data-confirm" => "Approve this comment for display?" %>
-                  <% end %>
+                  <% end %>&nbsp;&nbsp;
+                  <%= link_to "Delete", delete_admin_art_comment_path(@art, comment), "data-confirm" => "Delete this comment?", method: :delete %>
+                  <%#= link_to 'Delete', comment, :confirm => "Are you sure?", :method => :delete %>
+                  <%#= link_to 'Delete', delete_admin_art_comment_path(comment) %>
                 </div>
               <% end %>
 
@@ -483,3 +566,33 @@
 	<div class="clear"></div>
 
 </div>
+<script>
+  $("#link_submit").on("click",function(){
+    $.ajax({
+      type: 'post',
+      data: {art_id: '<%=@art.id%>' ,title: $("input#title").val() ,url: $("input#link_url").val() ,link_url_id: $("input#link_url_id").val()},
+      url: '<%=manage_link_arts_path%>',
+      success: function (response) {
+        // return false;
+        $('input#title').val('');
+        $('input#link_url').val('');
+        $('input#link_url_id').val('');
+        location.reload();
+      }
+    });
+  });
+
+  $('.edit_icon').on('click', function(){
+    $('input#title').val($(this).attr("art_link_title"));
+    $('input#link_url').val($(this).attr("art_link_url"));
+    $('input#link_url_id').val($(this).attr("art_link_id"));
+    $("#link_cancel").show();
+  });
+
+  $("#link_cancel").on("click",function(){
+    $('input#title').val('');
+    $('input#link_url').val('');
+    $('input#link_url_id').val('');
+    $("#link_cancel").hide();
+  });
+</script>
