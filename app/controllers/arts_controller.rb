@@ -50,7 +50,8 @@ class ArtsController < ApplicationController
     @art.location = [latitude, longitude] if latitude and longitude
 
     @art.approved = true # auto-approve, would default to false otherwise
-
+    
+    @art.link_art_id(params[:link_title], params[:link_url])
     # Get around Rails bug that introduces empty element with multiple selects
     @art.category.reject!(&:blank?)
 
@@ -187,6 +188,26 @@ end
     if params[:slug].present?
       @event = Event.where(:slug => params[:slug].strip).first
     end
+  end
+
+  def manage_link
+    # debugger
+    if params[:link_url_id].present?
+      art_link = ArtLink.find(params[:link_url_id])
+      art_link.title = params[:title]
+      art_link.link_url = params[:url]
+      art_link.save
+    else
+      art_link = ArtLink.create(title: params[:title],link_url: params[:url],art_id: params[:art_id])
+    end
+    # redirect_to :back
+    render :json => { :success => true }
+  end
+
+  def destroy_link
+    ArtLink.find(params[:id]).delete
+    redirect_to :back
+    #render :json => { :success => true }
   end
 
   protected

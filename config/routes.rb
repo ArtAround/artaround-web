@@ -5,6 +5,8 @@ Artaround::Application.routes.draw do
     post :add_photo, :on => :member
     post :flag, :on => :member
     get :index, :on => :collection
+    post :manage_link ,:on => :collection
+    get :destroy_link, :on => :member
   end
 
   namespace :admin do
