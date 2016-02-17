@@ -68,7 +68,18 @@
           });
         }
       });
+
+      $('li #add_artist').click(function(){
+        $("#minus_artist").removeClass('hide')
+      });
+
+      $('li #hide_field').click(function(){
+        $("#minus_artist").addClass('hide')
+        $("#art_new_artist").val('');
+      });
+
     });
+    
     function geoLocate(){
       if (navigator.geolocation)
       {
@@ -199,9 +210,12 @@
           </li>
           <li>
             <label for="art_artist">Artist/Founder(s)</label>
-            <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+            <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %><%= image_tag("/images/plus.png", :id=>"add_artist")%>
             <%#= f.label :artist, "Artist/Founder(s)" %>
-            <%#= f.text_field :artist %>
+            <div id="minus_artist" class="hide">
+              <%= f.text_field :new_artist, :style=> "margin-top: 12px;", :placeholder => "Add More Artist" %>
+              <%= image_tag("/images/minus.png", :id=>"hide_field")%>
+            </div>
           </li>
           <li>
             <%= f.label :year %>

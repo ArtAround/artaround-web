@@ -239,17 +239,21 @@
         <!-- <dd><%#= known @art.artist %></dd> -->
         <dd>
           <ul>
-          <%if @art.artist[1].present?%>
-            <%if @art.artist.kind_of?(Array)%>
-              <% @art.artist.each do |a| %>
-                <li><%=link_to a ,artist_path(a)%></li>
-              <% end %>
+          <% if !@art.artist.blank? %>
+            <%if @art.artist[1].present?%>
+              <%if @art.artist.kind_of?(Array)%>
+                <% @art.artist.each do |a| %>
+                  <li><%=link_to a ,artist_path(a)%></li>
+                <% end %>
+              <%else%>
+                  <li><%=link_to @art.artist , artist_path(@art.artist)%></li>
+              <%end%>
             <%else%>
-                <li><%=link_to @art.artist , artist_path(@art.artist)%></li>
+            Unknown
             <%end%>
-          <%else%>
-          Unknown
-          <%end%>
+            <% else%>
+            Unknown
+            <% end %>
           </ul>
         </dd>
 
@@ -343,6 +347,10 @@
           <li>
             <%= f.label :artist, "Artist(s)" %>
             <%#= f.text_field :artist, {value: @art.artist} %>
+            <% if !@art.new_artist.nil? %>
+              <% @art.artist.push(@art.new_artist)  %>
+            <% end %>
+
             <%= f.select :artist, options_for_select(Artist.all.collect(&:name), @art.artist), {},{:multiple => true} %>
           </li>
 

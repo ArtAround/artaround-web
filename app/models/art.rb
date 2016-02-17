@@ -30,6 +30,7 @@ class Art
   field :category, :type => Array
   field :old_category
   field :artist
+  field :new_artist
   field :year, :default => ""
   field :neighborhood
   field :ward, :default => ""

@@ -43,9 +43,13 @@ class ArtsController < ApplicationController
         @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
       end
     end
+   
+    if !params[:art][:new_artist].nil?
+      params[:art][:artist] <<  params[:art][:new_artist]
+    end 
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
-
+    @art.artist = params[:art][:artist]
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
@@ -70,8 +74,11 @@ class ArtsController < ApplicationController
   end
 
   def submit
+    #debugger 
     @submission = @art.submissions.build params[:submission]
     @art.tag = params[:submission][:tag]
+    @art.artist = params[:submission][:artist]
+
     if @submission.save
       @art.submitted_at = Time.now
       @art.save!

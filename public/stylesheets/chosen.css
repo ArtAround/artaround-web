@@ -438,3 +438,16 @@
   }
 }
 /* @end */
+.hide{
+  display: none;
+}
+#add_artist{
+  float: right;
+  margin-right: -20px;
+  margin-top: 4px;
+}
+#hide_field{
+  float: right;
+  margin-right: -23px;
+  margin-top: -24px
+}
