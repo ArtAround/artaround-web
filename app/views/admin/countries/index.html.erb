@@ -1,0 +1,27 @@
+<div id="pageMain" class="admin">
+
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Area</h2>
+    </div>
+  </div>
+<%if @countries.count() > 0%>
+  <div id="ltColumn">
+    <h3>Country Count</h3>
+    <ul>
+      <% @countries.each do |country| %>
+        <li>
+        <%#byebug%>
+          <%= link_to country.country_count, admin_country_path(country) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<%else%>
+  <div id="rtColumn">
+    <h3>
+      Country Count (<%= link_to 'Add', new_admin_country_path %>)
+    </h3>
+  </div>
+<%end%>
+</div>

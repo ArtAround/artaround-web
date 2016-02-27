@@ -11,8 +11,9 @@ class Art
   belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
-
-
+  has_many :tags, :dependent => :destroy
+  # after_save :link_art_id
+  
   attr_protected :_id, :commissioned, :approved, :location, :slug
 
   before_save :ensure_well_formed_url
@@ -25,9 +26,11 @@ class Art
 
   # fields doubled on submissions
   field :tag, :type => Array
+  field :tag_id, :type => Array
   field :category, :type => Array
   field :old_category
   field :artist
+  field :new_artist
   field :year, :default => ""
   field :neighborhood
   field :ward, :default => ""
@@ -70,7 +73,7 @@ class Art
   index :category
   index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
   index :approved
-  index :slug
+  # index :slug
   index :total_visits
   index :web_visits
   index :api_visits
@@ -181,5 +184,9 @@ class Art
     unless website.blank? || uri.scheme == "http" || uri.scheme == "https"
       self.website = "http://" + website
     end
+  end
+
+  def link_art_id(link_title, link_url)
+    ArtLink.create( :art_id => self.id, :link_title => link_title, :link_url => link_url)
   end
 end
