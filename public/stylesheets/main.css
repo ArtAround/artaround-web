@@ -33,13 +33,13 @@ height: auto;
 }
 
 .y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
 }
 .r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
 }
 .b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
 }
 
 input,textarea,select,optgroup,option,button {
@@ -1752,7 +1752,7 @@ select#category,select#tag,select#pin, #filters select {
 #filter-options {
 	margin-top: 20px;
 	max-width: 985px;
-	margin: 20px auto 0;
+	margin: 30px auto 0;
 }
 
 #filter-options li {
