@@ -32,16 +32,6 @@ height: auto;
 	height: inherit;
 }
 
-.y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
-}
-.r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
-}
-.b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px;
-}
-
 input,textarea,select,optgroup,option,button {
 font-family: inherit;
 font-size: 100%;
@@ -934,7 +924,7 @@ color: #e9e0e1;
 }
 footer nav {
 float: right;
-width: 345px;
+width: 248px;
 }
 footer .nav_link {
 float: right;

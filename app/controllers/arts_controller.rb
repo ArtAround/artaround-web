@@ -43,19 +43,15 @@ class ArtsController < ApplicationController
         @commissioner = Commissioner.create(:name => params[:art]['commissioned_by'])
       end
     end
-   
-    if !params[:art][:new_artist].nil?
-      params[:art][:artist] <<  params[:art][:new_artist]
-    end 
+
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
-    @art.artist = params[:art][:artist]
+
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
     @art.approved = true # auto-approve, would default to false otherwise
-    
-    @art.link_art_id(params[:link_title], params[:link_url])
+
     # Get around Rails bug that introduces empty element with multiple selects
     @art.category.reject!(&:blank?)
 
@@ -74,11 +70,8 @@ class ArtsController < ApplicationController
   end
 
   def submit
-    #debugger 
     @submission = @art.submissions.build params[:submission]
     @art.tag = params[:submission][:tag]
-    @art.artist = params[:submission][:artist]
-
     if @submission.save
       @art.submitted_at = Time.now
       @art.save!
@@ -175,17 +168,8 @@ class ArtsController < ApplicationController
     else
       @arts = Art.approved.where(category: filter ,tag: tag_filter).desc(sort).page(params[:page]).per(25)
     end
-    
-    @artworks_count= Art.count()
-    #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-    
-    @photos_count= Photo.count()
-    #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-    
-    @c_count= Country.find(:first)
-    @countries_count= @c_count.country_count if @c_count.present?
-    #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-end
+      
+  end
 
   def map
     @arts = Art.approved.all
@@ -195,26 +179,6 @@ end
     if params[:slug].present?
       @event = Event.where(:slug => params[:slug].strip).first
     end
-  end
-
-  def manage_link
-    # debugger
-    if params[:link_url_id].present?
-      art_link = ArtLink.find(params[:link_url_id])
-      art_link.title = params[:title]
-      art_link.link_url = params[:url]
-      art_link.save
-    else
-      art_link = ArtLink.create(title: params[:title],link_url: params[:url],art_id: params[:art_id])
-    end
-    # redirect_to :back
-    render :json => { :success => true }
-  end
-
-  def destroy_link
-    ArtLink.find(params[:id]).delete
-    redirect_to :back
-    #render :json => { :success => true }
   end
 
   protected

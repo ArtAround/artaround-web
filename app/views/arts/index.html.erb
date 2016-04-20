@@ -8,147 +8,55 @@
   <input id="mapsearch_value" type="hidden" value="" />
 <% end %>
 
-<div id="artListContainer"><div style=" text-align:center">
-<h3>
-<% if @artworks_count.present?%>
-<span class="y_count timer_p"></span>&nbsp;Photos<span style="margin:0px 150px;">
-<span class="r_count timer_a"></span>&nbsp;Artworks</span>
-<span class="b_count timer_c"></span>&nbsp;Countries</h3>
-<%end%>
-<script type="text/javascript">
-  (function($) {
-    $.fn.countTo = function(options) {
-        // merge the default plugin settings with the custom options
-        options = $.extend({}, $.fn.countTo.defaults, options || {});
-
-        // how many times to update the value, and how much to increment the value on each update
-        var loops = Math.ceil(options.speed / options.refreshInterval),
-            increment = (options.to - options.from) / loops;
-
-        return $(this).each(function() {
-            var _this = this,
-                loopCount = 0,
-                value = options.from,
-                interval = setInterval(updateTimer, options.refreshInterval);
-
-            function updateTimer() {
-                value += increment;
-                loopCount++;
-                $(_this).html(value.toFixed(options.decimals));
-
-                if (typeof(options.onUpdate) == 'function') {
-                    options.onUpdate.call(_this, value);
-                }
-
-                if (loopCount >= loops) {
-                    clearInterval(interval);
-                    value = options.to;
-
-                    if (typeof(options.onComplete) == 'function') {
-                        options.onComplete.call(_this, value);
-                    }
-                }
-            }
-        });
-    };
-
-    $.fn.countTo.defaults = {
-        from: 0,  // the number the element should start at
-        to: 100,  // the number the element should end at
-        speed: 1000,  // how long it should take to count between the target numbers
-        refreshInterval: 100,  // how often the element should be updated
-        decimals: 0,  // the number of decimal places to show
-        onUpdate: null,  // callback method for every time the element is updated,
-        onComplete: null,  // callback method for when the element finishes updating
-    };
-})(jQuery);
-
-jQuery(function($) {
-        $('.timer_p').countTo({
-            from: 0,
-            to: <%=@photos_count%>,
-            speed: 3000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
-    });
-jQuery(function($) {
-        $('.timer_a').countTo({
-            from: 0,
-            to: <%=@artworks_count%>,
-            speed: 3000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
-    });
-jQuery(function($) {
-        $('.timer_c').countTo({
-            from: 0,
-            to: <%=@countries_count%>,
-            speed: 3000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
-    });
-</script>
-
-</div>
-
+<div id="artListContainer">
 <div id="filter-options">
-  <ul id="sort-by">
-    <li><a href='<%=live_url%>/' class="current" id="recent">Recent</a></li>
-    <li><a href="<%=live_url%>/?sort=popular" id="popular">Popular</a></li>
-  </ul>
+	<ul id="sort-by">
+		<li><a href='<%=live_url%>/' class="current" id="recent">Recent</a></li>
+		<li><a href="<%=live_url%>/?sort=popular" id="popular">Popular</a></li>
+	</ul>
   <%if controller_name == 'arts'%>
-  <div id="filters">
+	<div id="filters">
   <form method="get" action="/" id="filter-form">
-    <b style="margin: 5px;" >TAGS</b>
-    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)).sort_by!{ |e| e.downcase })%>
-    
+		<b style="margin: 5px;" >TAGS</b>
+    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)))%>
     <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">
-      <option value="">show all</option>
-      <option value="architecture">Architecture</option>
-      <option value="digital">Digital</option>
-      <option value="drawing">Drawing</option>
-      <option value="gallery">Gallery</option>
-      <option value="graffiti">Graffiti</option>
-      <option value="installation">Installation</option>
-      <option value="interactive">Interactive</option>
-      <option value="kinetic">Kinetic</option>
-      <option value="lighting">Lighting Installation</option>
-      <option value="market">Market</option>
-      <option value="memorial">Memorial</option>
-      <option value="mixed">Mixed</option>
-      <option value="mosaic">Mosaic</option>
-      <option value="mural">Mural</option>
-      <option value="museum">Museum</option>
-      <option value="painting">Painting</option>
-      <option value="performance">Performance</option>
-      <option value="paste">Paste</option>
-      <option value="photograph">Photograph</option>
-      <option value="print">Print</option>
-      <option value="projection">Projection</option>
-      <option value="sculpture">Sculpture</option>
-      <option value="statue">Statue</option>
-      <option value="stained">Stained Glass</option>
-      <option value="temporary">Temporary</option>
-      <option value="textile">Textile</option>
-      <option value="video">Video</option>
-    </select>
+		  <option value="">show all</option>
+		  <option value="architecture">Architecture</option>
+		  <option value="digital">Digital</option>
+		  <option value="drawing">Drawing</option>
+		  <option value="gallery">Gallery</option>
+		  <option value="graffiti">Graffiti</option>
+		  <option value="installation">Installation</option>
+		  <option value="interactive">Interactive</option>
+		  <option value="kinetic">Kinetic</option>
+		  <option value="lighting">Lighting Installation</option>
+		  <option value="market">Market</option>
+		  <option value="memorial">Memorial</option>
+		  <option value="mixed">Mixed</option>
+		  <option value="mosaic">Mosaic</option>
+		  <option value="mural">Mural</option>
+		  <option value="museum">Museum</option>
+		  <option value="painting">Painting</option>
+		  <option value="performance">Performance</option>
+		  <option value="paste">Paste</option>
+		  <option value="photograph">Photograph</option>
+		  <option value="print">Print</option>
+		  <option value="projection">Projection</option>
+		  <option value="sculpture">Sculpture</option>
+		  <option value="statue">Statue</option>
+		  <option value="stained">Stained Glass</option>
+		  <option value="temporary">Temporary</option>
+		  <option value="textile">Textile</option>
+		  <option value="video">Video</option>
+		</select>
     <input id="sort-value" type="hidden" name="sort" value="" />
     <br>
     <button class="submit" style="float: right; margin-top: 5px;" >Filter</button>
     </form>
-  </div>
+	</div>
   <%end%>
-  <div class="clear"></div>
+	<div class="clear"></div>
 </div>
 
 <div id="art-list" >
@@ -157,21 +65,14 @@ jQuery(function($) {
       <% categories = art.category || [] %>
       <% classes = "#{categories.map{|x| x.downcase}.join(' ')} #{art.title.downcase.split.join('-')}" %>
       <% unless art.artist.nil? %>
-        <%# classes = classes + art.artist.downcase.split.join('-') %>
-      <% end %>
-      <div class="art <%= classes %>">
+      	<% classes = classes + art.artist.downcase.split.join('-') %>
+     	<% end %>
+ 			<div class="art <%= classes %>">
         <a href="<%= art_path(art) %>">
           <img class="" src="<%= art.primary_photo.image :big %>"/>
         </a>
         <h3><%= link_to art.title, art %></h3>
-        <%if known(art.artist).kind_of?(Array)%>
-          <% known(art.artist).each do |a| %>
-          <h4><%= a %></h4>
-          <% end %>
-        <%else%>
         <h4><%= known(art.artist) %></h4>
-        <%end%>
-        
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>
         <small class="visits" style="display:none;"><%= art.total_visits %></small>
       </div>

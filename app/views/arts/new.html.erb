@@ -3,8 +3,6 @@
   <script type="text/javascript">
   $('#art_category').chosen({allow_single_deselect:true});
   $('#art_tag').chosen({allow_single_deselect:true});
-  $('#art_artist').chosen({allow_single_deselect:true});
-  $('#art_tag_id').chosen({allow_single_deselect:true});
   </script>
 <% end %>
 
@@ -68,18 +66,7 @@
           });
         }
       });
-
-      $('li #add_artist').click(function(){
-        $("#minus_artist").removeClass('hide')
-      });
-
-      $('li #hide_field').click(function(){
-        $("#minus_artist").addClass('hide')
-        $("#art_new_artist").val('');
-      });
-
     });
-    
     function geoLocate(){
       if (navigator.geolocation)
       {
@@ -196,26 +183,17 @@
             <label for="art_category">category</label>
             <%= f.select :category, categories, {}, {:multiple => true, :style => "width: 350px"}  %>
           </li>
-          <!-- <li>
+          <li>
             <label for="art_tag">Tags</label>
-            <%#= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
-          </li> -->
-           <li>
-            <label for="art_tag">Tags</label>
-            <%= f.select('tag_id', Tag.all.collect {|r| [h(r.name), r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
+            <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
           </li>
           <li>
             <label for="art_title">title<sup>*</sup></label>
             <%= f.text_field :title %>
           </li>
           <li>
-            <label for="art_artist">Artist/Founder(s)</label>
-            <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %><%= image_tag("/images/plus.png", :id=>"add_artist")%>
-            <%#= f.label :artist, "Artist/Founder(s)" %>
-            <div id="minus_artist" class="hide">
-              <%= f.text_field :new_artist, :style=> "margin-top: 12px;", :placeholder => "Add More Artist" %>
-              <%= image_tag("/images/minus.png", :id=>"hide_field")%>
-            </div>
+            <%= f.label :artist, "Artist/Founder(s)" %>
+            <%= f.text_field :artist %>
           </li>
           <li>
             <%= f.label :year %>
@@ -233,17 +211,6 @@
             <%= f.label :description, "Describe the art" %>
             <%= f.text_area :description %>
           </li>
-          <li>
-          <%= label_tag :link_title ,"Link Title"%>
-          <%= text_field_tag :link_title %>
-          </li>
-          <li>
-          <%= label_tag :link_url,"Link Url" %>
-          <%= text_field_tag :link_url %>
-          <%#= hidden_field_tag :link_url_id %> 
-          <%#= button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
-          <%#= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
-          </li> 
           <li>
             <a id="next_slide" class="upload_link" href="#">Next</a>
           </li>

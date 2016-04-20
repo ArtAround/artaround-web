@@ -87,8 +87,6 @@
       })
       $('#art_category').chosen({allow_single_deselect:true});
       $('#art_tag').chosen({allow_single_deselect:true});
-      $('#art_artist').chosen({allow_single_deselect:true});
-      $('#art_tag_id').chosen({allow_single_deselect:true});
     });
   </script>
 <% end %>
@@ -162,12 +160,7 @@
       </li>
       <li>
         <label for="art_tag">Tags</label>
-        <%#= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
-        <% if @art.tag_id[1].present?%>
-          <%= f.select('tag_id', options_for_select(Tag.all.collect {|r| [h(r.name), r.id] }, @art.tag_id), {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
-        <% else %>
-          <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
-        <% end %>
+        <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
       </li>
       <li>
         <%= f.label :longitude %>
@@ -175,8 +168,7 @@
       </li>
       <li>
         <%= f.label :artist, "Artist(s)" %>
-        <%#= f.text_field :artist %>
-        <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+        <%= f.text_field :artist %>
       </li>
       <li>
         <%= f.label :location_description %>

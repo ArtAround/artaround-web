@@ -69,7 +69,7 @@
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
-        artist: "<%= escape_javascript art.artist.to_s %>",
+        artist: "<%= escape_javascript art.artist %>",
         year: "<%= escape_javascript art.year.to_s %>",
         timeline_year: <%= art.timeline_year %>,
         map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
