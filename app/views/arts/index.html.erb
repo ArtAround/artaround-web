@@ -11,9 +11,9 @@
 <div id="artListContainer"><div style=" text-align:center">
 <h3>
 <% if @artworks_count.present?%>
-<span class="y_count timer_p"></span>&nbsp;Photos<span style="margin:0px 150px;">
-<span class="r_count timer_a"></span>&nbsp;Artworks</span>
-<span class="b_count timer_c"></span>&nbsp;Countries</h3>
+<span class="y_count timer_p"></span>&nbsp;photos<span style="margin:0px 150px;">
+<span class="r_count timer_a"></span>&nbsp;artworks</span>
+<span class="b_count timer_c"></span>&nbsp;countries</h3>
 <%end%>
 <script type="text/javascript">
   (function($) {
@@ -109,7 +109,7 @@ jQuery(function($) {
   <div id="filters">
   <form method="get" action="/" id="filter-form">
     <b style="margin: 5px;" >TAGS</b>
-    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)).sort_by!{ |e| e.downcase })%>
+    <%= select_tag "tag_filter", options_for_select((['All']+Tag.all.collect(&:name)).sort_by!{ |e| e.downcase }), {prompt: "show all"}%>
     
     <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">
@@ -169,7 +169,7 @@ jQuery(function($) {
           <h4><%= a %></h4>
           <% end %>
         <%else%>
-        <h4><%= known(art.artist) %></h4>
+        <h4><%= art.artist %></h4>
         <%end%>
         
         <small class="created_at" style="display:none;"><%= art.created_at.strftime("%Y%m%d%H%M") %></small>

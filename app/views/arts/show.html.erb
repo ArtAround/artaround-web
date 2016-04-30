@@ -288,17 +288,18 @@
         </dd> -->
         <dt>Tags</dt>
         <dd>
-          <ul><%#debugger%>
+          <ul>
             <% if !@art.tag_id.nil? %>
                 <%if @art.tag_id == [""]%>
-                <li>Unknown</li>
+                  <li>Unknown</li>
+                <% else %>  
+                  <% @art.tag_id.reject(&:empty?).sort_by!{ |e| e.downcase }.each do |t| %>
+                    <% s = Tag.find(t.to_s) %>
+                    <% if !s.nil? %>
+                      <li><%=link_to s.name ,known(tag_path(s.name))%></li>
+                    <% end %>  
+                  <% end %>
                 <%end%>
-              <% @art.tag_id.reject(&:empty?).sort_by!{ |e| e.downcase }.each do |t| %>
-                <% s = Tag.find(t.to_s) %>
-                <% if !s.nil? %>
-                  <li><%=link_to s.name ,known(tag_path(t))%></li>
-                <% end %>  
-              <% end %>
             <%#else%>
             <% elsif @art.tag.present? %>
               <% @art.tag.sort_by!{ |e| e.downcase }.each do |t| %>
