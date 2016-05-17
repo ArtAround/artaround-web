@@ -1,6 +1,6 @@
 class ArtsController < ApplicationController
   before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
-
+  before_filter :find_out_category, :only => [:filter_category, :index]
 
   # New 2 step flow
   def new_art_photo
@@ -29,6 +29,7 @@ class ArtsController < ApplicationController
   end
 
   def create
+
     latitude = params[:art].delete 'latitude'
     longitude = params[:art].delete 'longitude'
 
@@ -44,12 +45,12 @@ class ArtsController < ApplicationController
       end
     end
    
-    if !params[:art][:new_artist].nil?
+    if !params[:art][:new_artist].blank?
       params[:art][:artist] <<  params[:art][:new_artist]
     end 
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
-    @art.artist = params[:art][:artist]
+    @art.artist = params[:art][:artist].reject!{|a| a==""}
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
@@ -140,53 +141,60 @@ class ArtsController < ApplicationController
       head 201
     end
   end
+  
+  def filter_category
+
+  end
 
   def index
-    valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
-                          "Graffiti", "Installation", "Interactive",
-                          "Kinetic", "Lighting installation", "Market",
-                          "Memorial", "Mixed media", "Mosaic", "Mural",
-                          "Museum", "Painting", "Performance", "Paste",
-                          "Photograph", "Print", "Projection", "Sculpture",
-                          "Statue", "Stained glass", "Temporary", "Textile",
-                          "Video"]
-    filter = params[:filter]
-    tag_filter = params[:tag_filter]
-    tag_filter = nil if params[:tag_filter] == 'All'
-    unless filter.nil?
-      filter.capitalize!
-    end
-    unless valid_categories.include?(filter)
-      filter = nil
-    end
+    # valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
+    #                       "Graffiti", "Installation", "Interactive",
+    #                       "Kinetic", "Lighting installation", "Market",
+    #                       "Memorial", "Mixed media", "Mosaic", "Mural",
+    #                       "Museum", "Painting", "Performance", "Paste",
+    #                       "Photograph", "Print", "Projection", "Sculpture",
+    #                       "Statue", "Stained glass", "Temporary", "Textile",
+    #                       "Video"]
+    # category = params[:category]
+    # tag = params[:tag]
+    # tag = nil if params[:tag] == 'All' || params[:tag] == ""
+    # unless category.nil?
+    #   category.capitalize!
+    # end
+    # unless valid_categories.include?(category)
+    #   category = nil
+    # end
 
-    if params[:sort] == 'popular'
-      sort = :total_visits
-    else
-      sort = :created_at
-    end
-
-    if filter == nil && tag_filter == nil
-      @arts = Art.approved.desc(sort).page(params[:page]).per(25)
-    elsif filter != nil && tag_filter == nil
-      @arts = Art.approved.where(category: filter).desc(sort).page(params[:page]).per(25)
-    elsif filter == nil && tag_filter != nil
-      @arts = Art.approved.where(tag: tag_filter).desc(sort).page(params[:page]).per(25)
-    else
-      @arts = Art.approved.where(category: filter ,tag: tag_filter).desc(sort).page(params[:page]).per(25)
-    end
+    # if params[:sort] == 'popular'
+    #   sort = :total_visits
+    # else
+    #   sort = :created_at
+    # end
     
+    # if category == nil && tag == nil
+    #   @arts = Art.approved.desc(sort).page(params[:page]).per(25)
+    # elsif category != nil && tag == nil
+    #   @arts = Art.approved.where(category: category).desc(sort).page(params[:page]).per(25)
+    # elsif category == nil && tag != nil
+    #   @arts = Art.approved.where(tag: tag).desc(sort).page(params[:page]).per(25)
+    # else
+    #   @arts = Art.approved.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
+    # end
+
     @artworks_count= Art.count()
     #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
     
     @photos_count= Photo.count()
     #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-    
+ 
     @c_count= Country.find(:first)
     @countries_count= @c_count.country_count if @c_count.present?
     #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-end
+    
 
+  end
+
+  
   def map
     @arts = Art.approved.all
 
@@ -222,6 +230,42 @@ end
   def load_art
     unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
       head :not_found and return false
+    end
+  end
+
+  def find_out_category
+    valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
+                          "Graffiti", "Installation", "Interactive",
+                          "Kinetic", "Lighting installation", "Market",
+                          "Memorial", "Mixed media", "Mosaic", "Mural",
+                          "Museum", "Painting", "Performance", "Paste",
+                          "Photograph", "Print", "Projection", "Sculpture",
+                          "Statue", "Stained glass", "Temporary", "Textile",
+                          "Video"]
+    category = params[:category]
+    tag = params[:tag]
+    tag = nil if params[:tag] == 'All' || params[:tag] == ""
+    unless category.nil?
+      category.capitalize!
+    end
+    unless valid_categories.include?(category)
+      category = nil
+    end
+
+    if params[:sort] == 'popular'
+      sort = :total_visits
+    else
+      sort = :created_at
+    end
+    
+    if category == nil && tag == nil
+      @arts = Art.approved.desc(sort).page(params[:page]).per(25)
+    elsif category != nil && tag == nil
+      @arts = Art.approved.where(category: category).desc(sort).page(params[:page]).per(25)
+    elsif category == nil && tag != nil
+      @arts = Art.approved.where(tag: tag).desc(sort).page(params[:page]).per(25)
+    else
+      @arts = Art.approved.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
     end
   end
 
