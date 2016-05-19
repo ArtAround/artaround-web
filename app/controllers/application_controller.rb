@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "application"
 
+
   # saves the art, creates a photo and saves it, returns the Photo object
   def create_photo(art, image, attribution_text = nil, attribution_url = nil)
     art.photos.new(
@@ -37,6 +38,8 @@ class ApplicationController < ActionController::Base
                     "Statue", "Stained glass", "Temporary", "Textile",
                     "Video"]
   end
+  
+  
 
   helper_method :neighborhoods
   def neighborhoods

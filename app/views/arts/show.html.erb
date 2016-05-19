@@ -13,6 +13,7 @@
 <% end %>
 
 <script type="text/javascript">
+
   var latitude = <%= @art.latitude || 0 %>;
   var longitude = <%= @art.longitude || 0 %>;
 
@@ -20,6 +21,20 @@
   var city = "<%= @art.city %>";
   var state = "<%= @art.state %>";
   var zip = "<%= @art.zip %>";
+
+  <% if @art.category.present? %>
+      var art_category = "<%=@art.category[0] %>"
+  <%else%>
+    var art_category = "Unknown"
+  <%end%>
+
+  <% if @art.tag.present? %>
+      var art_tag = "<%=@art.tag.last%>"
+  <%else%>
+    var art_tag = "Unknown"
+  <%end%>
+
+
 
   function loadMaps() {
 
@@ -36,6 +51,27 @@
     var marker = new google.maps.Marker({
       position: location
     });
+    art_category = art_category.toLowerCase();
+    art_tag = art_tag.toLowerCase();
+    if ( art_category == "catalog" || art_tag == "catalog") {
+      icon = "teal.png"
+    }
+    else if ( art_category == "street art host spots" ||  art_tag == "street art host spots") {
+      icon = "yellow.png"
+    }
+    else if ( art_category == "museum" || art_tag == "museum" ||  art_category == "art gallery" || art_tag == "art gallery" ||  art_category == "outdoor gallery" || art_tag == "outdoor gallery" ||  art_category == "gallery" || art_tag == "gallery") {
+      icon = "blue.png"
+    }
+    else if ( art_category == "artchive" || art_tag == "artchive") {
+      icon = "grey.png"
+    }
+    else {
+      icon = "red.png"
+    }
+    var pinImage = "/images/pins/"+icon;
+    marker.setIcon(pinImage); 
+
+
     marker.setMap(map);
   }
 
@@ -239,10 +275,12 @@
         <!-- <dd><%#= known @art.artist %></dd> -->
         <dd>
           <ul>
+          
           <% if !@art.artist.blank? %>
-            <%if @art.artist[1].present?%>
+            <%if @art.artist.present?%>
               <%if @art.artist.kind_of?(Array)%>
                 <% @art.artist.each do |a| %>
+
                   <li><%=link_to a ,artist_path(a)%></li>
                 <% end %>
               <%else%>

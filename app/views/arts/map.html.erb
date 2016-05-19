@@ -45,6 +45,7 @@
     <% end %>
 
     <% @arts.each do |art| %>
+
       arts.push({
         id: "<%= art.to_param %>",
         event_id: "<%= art.event_id %>",
@@ -69,7 +70,11 @@
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
-        artist: "<%= escape_javascript art.artist.to_s %>",
+        <%if art.artist.blank? %>
+          artist: "<%= escape_javascript art.artist.reject!{|a| a==[]}.to_s %>",
+        <% else%>
+          artist: "<%= escape_javascript art.artist.to_s %>",
+        <% end%>
         year: "<%= escape_javascript art.year.to_s %>",
         timeline_year: <%= art.timeline_year %>,
         map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
@@ -119,6 +124,7 @@
       icons.grey = new google.maps.MarkerImage("/images/pins/grey.png");
 
       $.each(arts, function(i, art) {
+        
         var marker = markerFor(art, map);
 
         marker.filters = {
@@ -187,7 +193,7 @@
 		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
 
       '</div>';
-
+      
       var icon = icons.art;
       var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
       if (isVenue){
@@ -538,12 +544,12 @@
 
     jQuery(document).ready(function ($) {
         var $imgs = $('img.lazy'),
+       
                 $container = $('#art-list');
 
         $imgs.lazyload({
             'failure_limit' : Math.max($imgs.length - 1, 0)
         });
-
         $imgs.load(function () {
             $container.isotope('reLayout');
         });

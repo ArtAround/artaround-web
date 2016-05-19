@@ -7,6 +7,8 @@ Artaround::Application.routes.draw do
     get :index, :on => :collection
     post :manage_link ,:on => :collection
     get :destroy_link, :on => :member
+    get :filter_category, :on => :collection
+    
   end
 
   namespace :admin do
