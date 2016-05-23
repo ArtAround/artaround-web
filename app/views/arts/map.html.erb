@@ -70,11 +70,11 @@
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
-        <%if art.artist.blank? %>
-          artist: "<%= escape_javascript art.artist.reject!{|a| a==[]}.to_s %>",
-        <% else%>
+        <% if art.artist[0] == "" %>
+          artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.to_s %>",
+        <% else %>
           artist: "<%= escape_javascript art.artist.to_s %>",
-        <% end%>
+        <% end %>
         year: "<%= escape_javascript art.year.to_s %>",
         timeline_year: <%= art.timeline_year %>,
         map_thumb: "<%= art.primary_photo ? art.primary_photo.image(:small) : "" %>",
@@ -116,10 +116,10 @@
 
 
       // icon types
-      icons.art = new google.maps.MarkerImage("/images/pins/red.png");
-      icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
-      icons.blue = new google.maps.MarkerImage("/images/pins/teal.png");
-      icons.navy = new google.maps.MarkerImage("/images/pins/blue.png");
+      icons.red = new google.maps.MarkerImage("/images/pins/red.png");
+      // icons.venue = new google.maps.MarkerImage("/images/pins/teal.png");
+      icons.teal = new google.maps.MarkerImage("/images/pins/teal.png");
+      icons.blue = new google.maps.MarkerImage("/images/pins/blue.png");
       icons.yellow = new google.maps.MarkerImage("/images/pins/yellow.png");
       icons.grey = new google.maps.MarkerImage("/images/pins/grey.png");
 
@@ -194,19 +194,40 @@
 
       '</div>';
       
-      var icon = icons.art;
-      var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
-      if (isVenue){
-        icon = icons.navy;
-      } else if ($.inArray('catalog', art.tag)>=0) {
-        icon = icons.blue;
-      } else if ($.inArray('street art hot spot', art.tag)>=0) {
+      var icon = icons.red;
+      // var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
+      // if (isVenue){
+      //   icon = icons.navy;
+      // } else if ($.inArray('catalog', art.tag)>=0) {
+      //   icon = icons.blue;
+      // } else if ($.inArray('street art hot spot', art.tag)>=0) {
+      //   icon = icons.yellow;
+      // }
+
+      // if ($.inArray('artchive', art.tag)>=0) {
+      //   icon = icons.grey;
+      // }
+
+
+      if ($.inArray('catalog', art.category)>=0 || $.inArray('catalog', art.tag)>=0){ 
+        icon = icons.teal;
+      }
+      else if ($.inArray('street art host spots', art.category)>=0 || $.inArray('street art host spots', art.tag)>=0){
         icon = icons.yellow;
       }
+      else if ($.inArray('museum', art.category)>=0 || $.inArray('museum', art.tag)>=0 || $.inArray('art gallery', art.category)>=0 || $.inArray('art gallery', art.tag)>=0 || $.inArray('outdoor gallery', art.category)>=0 || $.inArray('outdoor gallery', art.tag)>=0  || $.inArray('gallery', art.category)>=0 || $.inArray('gallery', art.tag)>=0 ){
+        icon = icons.blue;
+      }
 
-      if ($.inArray('artchive', art.tag)>=0) {
+      else if ($.inArray('artchive', art.category)>=0 || $.inArray('artchive', art.tag)>=0){
         icon = icons.grey;
       }
+      else {
+        icon = icons.red;
+      }
+
+
+
 
       var marker = new google.maps.Marker({
         position: location,

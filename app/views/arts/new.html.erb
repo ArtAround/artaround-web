@@ -10,7 +10,7 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
-
+    
     var slide_position = 0;
     var map;
     var marker;
@@ -28,6 +28,7 @@
     }
 
     function update_slide(){
+      
       if (slide_position == 0){
         // first slide
         $('#stepTitle').text('Step 2: Share What You Know');
@@ -50,10 +51,14 @@
 
     }
 
+
+
+
     $(document).ready(function() {
       $('#last_slide').hide();
       $('#map_canvas').hide();
       $('#next_slide').click(function(){
+        
         next_slide();
       });
 
@@ -115,7 +120,6 @@
       });
 
      
-
       google.maps.event.addListener(map, "click", function(event) {
        
         $("input#art_latitude").val(event.latLng.lat());
@@ -135,8 +139,10 @@
           art_tag = "Unknown"
         }
         else {
+
           art_tag = art_tag[0].toLowerCase();
         }
+         
 
         if ( art_category == "catalog" || art_tag == "catalog") {
           icon = "teal.png"
@@ -248,7 +254,7 @@
           </li>
            <!-- <li>
             <label for="art_tag">Tags</label>
-            <%#= f.select('tag_id', Tag.all.collect {|r| [h(r.name), r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px"}) %>
+            <%#= f.select('tag_id', Tag.all.collect {|r| [r.name, r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px"}) %>
           </li> -->
           <li>
             <label for="art_title">title<sup>*</sup></label>
