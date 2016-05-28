@@ -23,13 +23,29 @@
   var zip = "<%= @art.zip %>";
 
   <% if @art.category.present? %>
+    <% if @art.category[0] == "" %>
+      <% if @art.category[1].present?%>
+        var art_category = "<%=@art.category[1] %>"
+      <%else%>
+        var art_category = "Unknown"
+      <%end%> 
+    <%else%>
       var art_category = "<%=@art.category[0] %>"
+    <%end%> 
   <%else%>
     var art_category = "Unknown"
   <%end%>
 
   <% if @art.tag.present? %>
-      var art_tag = "<%=@art.tag.last%>"
+    <% if @art.tag[0] == "" %>
+      <% if @art.tag[1].present?%>
+        var art_tag = "<%=@art.tag[1]%>"
+      <%else%>
+        var art_tag = "Unknown"
+      <%end%>
+    <%else%>
+      var art_tag = "<%=@art.tag[0]%>"
+    <%end%>
   <%else%>
     var art_tag = "Unknown"
   <%end%>
@@ -42,7 +58,7 @@
 
     // regular map
     var map = new google.maps.Map(document.getElementById("map_canvas"), {
-      zoom: 15,
+      zoom: 8,
       center: location,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false

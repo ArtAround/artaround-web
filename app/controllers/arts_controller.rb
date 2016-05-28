@@ -50,7 +50,8 @@ class ArtsController < ApplicationController
     end 
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
-    @art.artist = params[:art][:artist].reject!{|a| a==""}
+
+    @art.artist = params[:art][:artist]
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
@@ -58,7 +59,10 @@ class ArtsController < ApplicationController
     
     @art.link_art_id(params[:link_title], params[:link_url])
     # Get around Rails bug that introduces empty element with multiple selects
+    
     @art.category.reject!(&:blank?)
+    @art.tag.reject!(&:blank?)
+    @art.artist.reject!(&:blank?)
 
     if @art.safely.save
         AdminMailer.new_art(@art).deliver
@@ -75,10 +79,13 @@ class ArtsController < ApplicationController
   end
 
   def submit
-    #debugger 
     @submission = @art.submissions.build params[:submission]
-    @art.tag = params[:submission][:tag]
-    @art.artist = params[:submission][:artist]
+    @art.tag = params[:submission][:tag].reject!(&:blank?)
+    @art.artist = params[:submission][:artist].reject!(&:blank?)
+    @art.category = params[:submission][:category].reject!(&:blank?)
+    @art.year = params[:submission][:year]
+    @art.location_description = params[:submission][:location_description]
+    @art.description = params[:submission][:description]
 
     if @submission.save
       @art.submitted_at = Time.now
