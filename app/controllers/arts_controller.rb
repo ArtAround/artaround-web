@@ -1,6 +1,6 @@
 class ArtsController < ApplicationController
   before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
-  before_filter :find_out_category, :only => [:filter_category, :index]
+ 
 
   # New 2 step flow
   def new_art_photo
@@ -50,7 +50,8 @@ class ArtsController < ApplicationController
     end 
     @art = Art.new params[:art]
     @photo = Photo.find(params[:photo_id])
-    @art.artist = params[:art][:artist].reject!{|a| a==""}
+
+    @art.artist = params[:art][:artist]
     @art.commissioned_by = @commissioner
     @art.location = [latitude, longitude] if latitude and longitude
 
@@ -58,7 +59,10 @@ class ArtsController < ApplicationController
     
     @art.link_art_id(params[:link_title], params[:link_url])
     # Get around Rails bug that introduces empty element with multiple selects
+    
     @art.category.reject!(&:blank?)
+    @art.tag.reject!(&:blank?)
+    @art.artist.reject!(&:blank?)
 
     if @art.safely.save
         AdminMailer.new_art(@art).deliver
@@ -75,10 +79,13 @@ class ArtsController < ApplicationController
   end
 
   def submit
-    #debugger 
     @submission = @art.submissions.build params[:submission]
-    @art.tag = params[:submission][:tag]
-    @art.artist = params[:submission][:artist]
+    @art.tag = params[:submission][:tag].reject!(&:blank?)
+    @art.artist = params[:submission][:artist].reject!(&:blank?)
+    @art.category = params[:submission][:category].reject!(&:blank?)
+    @art.year = params[:submission][:year]
+    @art.location_description = params[:submission][:location_description]
+    @art.description = params[:submission][:description]
 
     if @submission.save
       @art.submitted_at = Time.now
@@ -142,98 +149,8 @@ class ArtsController < ApplicationController
     end
   end
   
-  def filter_category
-
-  end
-
-  def index
-    # valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
-    #                       "Graffiti", "Installation", "Interactive",
-    #                       "Kinetic", "Lighting installation", "Market",
-    #                       "Memorial", "Mixed media", "Mosaic", "Mural",
-    #                       "Museum", "Painting", "Performance", "Paste",
-    #                       "Photograph", "Print", "Projection", "Sculpture",
-    #                       "Statue", "Stained glass", "Temporary", "Textile",
-    #                       "Video"]
-    # category = params[:category]
-    # tag = params[:tag]
-    # tag = nil if params[:tag] == 'All' || params[:tag] == ""
-    # unless category.nil?
-    #   category.capitalize!
-    # end
-    # unless valid_categories.include?(category)
-    #   category = nil
-    # end
-
-    # if params[:sort] == 'popular'
-    #   sort = :total_visits
-    # else
-    #   sort = :created_at
-    # end
-    
-    # if category == nil && tag == nil
-    #   @arts = Art.approved.desc(sort).page(params[:page]).per(25)
-    # elsif category != nil && tag == nil
-    #   @arts = Art.approved.where(category: category).desc(sort).page(params[:page]).per(25)
-    # elsif category == nil && tag != nil
-    #   @arts = Art.approved.where(tag: tag).desc(sort).page(params[:page]).per(25)
-    # else
-    #   @arts = Art.approved.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
-    # end
-
-    @artworks_count= Art.count()
-    #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-    
-    @photos_count= Photo.count()
-    #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
  
-    @c_count= Country.find(:first)
-    @countries_count= @c_count.country_count if @c_count.present?
-    #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
-    
-
-  end
-
-  
-  def map
-    @arts = Art.approved.all
-
-    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
-
-    if params[:slug].present?
-      @event = Event.where(:slug => params[:slug].strip).first
-    end
-  end
-
-  def manage_link
-    # debugger
-    if params[:link_url_id].present?
-      art_link = ArtLink.find(params[:link_url_id])
-      art_link.title = params[:title]
-      art_link.link_url = params[:url]
-      art_link.save
-    else
-      art_link = ArtLink.create(title: params[:title],link_url: params[:url],art_id: params[:art_id])
-    end
-    # redirect_to :back
-    render :json => { :success => true }
-  end
-
-  def destroy_link
-    ArtLink.find(params[:id]).delete
-    redirect_to :back
-    #render :json => { :success => true }
-  end
-
-  protected
-
-  def load_art
-    unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
-      head :not_found and return false
-    end
-  end
-
-  def find_out_category
+  def index
     valid_categories = ["Architecture", "Digital", "Drawing", "Gallery",
                           "Graffiti", "Installation", "Interactive",
                           "Kinetic", "Lighting installation", "Market",
@@ -266,6 +183,53 @@ class ArtsController < ApplicationController
       @arts = Art.approved.where(tag: tag).desc(sort).page(params[:page]).per(25)
     else
       @arts = Art.approved.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
+    end
+
+    @artworks_count= Art.count()
+    #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+    
+    @photos_count= Photo.count()
+    #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+ 
+    @c_count= Country.find(:first)
+    @countries_count= @c_count.country_count if @c_count.present?
+    #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+  end
+
+  
+  def map
+    @arts = Art.approved.all
+    @events = Event.current.all.select {|e| e.arts.count > 0 && e.arts.first.photos.count > 0}
+
+    if params[:slug].present?
+      @event = Event.where(:slug => params[:slug].strip).first
+    end
+  end
+
+  def manage_link
+    if params[:link_url_id].present?
+      art_link = ArtLink.find(params[:link_url_id])
+      art_link.title = params[:title]
+      art_link.link_url = params[:url]
+      art_link.save
+    else
+      art_link = ArtLink.create(title: params[:title],link_url: params[:url],art_id: params[:art_id])
+    end
+    # redirect_to :back
+    render :json => { :success => true }
+  end
+
+  def destroy_link
+    ArtLink.find(params[:id]).delete
+    redirect_to :back
+    #render :json => { :success => true }
+  end
+
+  protected
+
+  def load_art
+    unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
+      head :not_found and return false
     end
   end
 

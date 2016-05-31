@@ -10,7 +10,7 @@
 
 <% content_for :head do %>
   <script type="text/javascript">
-
+    
     var slide_position = 0;
     var map;
     var marker;
@@ -28,6 +28,7 @@
     }
 
     function update_slide(){
+      
       if (slide_position == 0){
         // first slide
         $('#stepTitle').text('Step 2: Share What You Know');
@@ -50,10 +51,14 @@
 
     }
 
+
+
+
     $(document).ready(function() {
       $('#last_slide').hide();
       $('#map_canvas').hide();
       $('#next_slide').click(function(){
+        
         next_slide();
       });
 
@@ -115,7 +120,6 @@
       });
 
      
-
       google.maps.event.addListener(map, "click", function(event) {
        
         $("input#art_latitude").val(event.latLng.lat());
@@ -123,36 +127,42 @@
 
         var art_category = $("#art_category").val();
         var art_tag = $("#art_tag").val();
-        
-        if (art_category == null) {
-          art_category = "Unknown"
-        }
-        else {
-          art_category = art_category[0].toLowerCase();
-        }
 
-        if (art_tag == null) {
-          art_tag = "Unknown"
-        }
-        else {
-          art_tag = art_tag[0].toLowerCase();
-        }
+        art_category = art_category.map(function(x) { return x.toLowerCase(); });
+        art_tag = art_tag.map(function(x) { return x.toLowerCase(); });
 
-        if ( art_category == "catalog" || art_tag == "catalog") {
+        // if (art_category == null) {
+        //   art_category = "Unknown"
+        // }
+        // else {
+        //   art_category = art_category.map(function(x) { return x.toLowerCase(); });
+        // }
+
+        // if (art_tag == null) {
+        //   art_tag = "Unknown"
+        // }
+        // else {
+
+        //   art_tag = art_tag.map(function(x) { return x.toLowerCase(); });
+        // }
+         
+
+        if ( art_category.includes("catalog") || art_tag.includes("catalog")) {
           icon = "teal.png"
         }
-        else if ( art_category == "street art host spots" ||  art_tag == "street art host spots") {
+        else if ( art_category.includes("street art host spots") ||  art_tag.includes("street art host spots")) {
           icon = "yellow.png"
         }
-        else if ( art_category == "museum" || art_tag == "museum" ||  art_category == "art gallery" || art_tag == "art gallery" ||  art_category == "outdoor gallery" || art_tag == "outdoor gallery" || art_category == "gallery" || art_tag == "gallery") {
+        else if ( art_category.includes("museum") || art_tag.includes("museum") ||  art_category.includes("art gallery") || art_tag.includes("art gallery") ||  art_category.includes("outdoor gallery") || art_tag.includes("outdoor gallery") || art_category.includes("gallery") || art_tag.includes("gallery") || art_category.includes("museums & galleries") || art_tag.includes("museums & galleries")) {
           icon = "blue.png"
         }
-        else if ( art_category == "artchive" || art_tag == "artchive") {
+        else if ( art_category.includes("artchive") || art_tag.includes("artchive")) {
           icon = "grey.png"
         }
         else {
           icon = "red.png"
         }
+
         var pinImage = "/images/pins/"+icon;
         marker.setIcon(pinImage); 
 
@@ -163,8 +173,6 @@
 
     }
     
-
-
     $(function() {
 
       var lat, lng;
@@ -248,7 +256,7 @@
           </li>
            <!-- <li>
             <label for="art_tag">Tags</label>
-            <%#= f.select('tag_id', Tag.all.collect {|r| [h(r.name), r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px"}) %>
+            <%#= f.select('tag_id', Tag.all.collect {|r| [r.name, r.id] }, {}, { :include_blank => false, :multiple => true, :style => "width: 350px"}) %>
           </li> -->
           <li>
             <label for="art_title">title<sup>*</sup></label>
