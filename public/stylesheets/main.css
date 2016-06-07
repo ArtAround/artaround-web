@@ -32,6 +32,16 @@ height: auto;
 	height: inherit;
 }
 
+.y_count{
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+}
+.r_count{
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+}
+.b_count{
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+}
+
 input,textarea,select,optgroup,option,button {
 font-family: inherit;
 font-size: 100%;
@@ -386,7 +396,8 @@ margin-bottom: 0;
 }
 
 button.submitBtn {
-	width: 89px;
+	width: auto;
+	padding: 10px
 }
 
 .submitBtn, input[type=submit] {
@@ -923,7 +934,7 @@ color: #e9e0e1;
 }
 footer nav {
 float: right;
-width: 248px;
+width: 345px;
 }
 footer .nav_link {
 float: right;
@@ -1719,7 +1730,7 @@ li.publicItem {
 	height: 10px;
 }
 
-select#category, #filters select {
+select#category,select#tag,select#pin, #filters select {
 	margin: 0;
 	border: 1px solid #ccc;
 	font-family: "proxima-nova", "proxima nova", helvetica, sans-serif;
@@ -1741,7 +1752,7 @@ select#category, #filters select {
 #filter-options {
 	margin-top: 20px;
 	max-width: 985px;
-	margin: 20px auto 0;
+	margin: 30px auto 0;
 }
 
 #filter-options li {
@@ -1826,6 +1837,45 @@ select#category, #filters select {
 
 .pagination a {
 	text-decoration: none;
+}
+
+.delete_icon{
+	background: url(/images/delete.png) no-repeat;
+	padding-right: 15px;
+}
+
+.edit_icon{
+	background: url(/images/edit.png) no-repeat;
+	padding-right: 15px;
+}
+
+#key_image{
+	position: absolute;
+	z-index: 9;
+	right: 130px;
+	width: 200px;
+	display: none;
+}
+
+#key_icon{
+	position: absolute;
+	z-index: 9;
+	right: 130px;
+	width: 32px;
+}
+#link_cancel{
+	background: #54c3c6;
+	max-width: 50%;
+	height: 45px;
+	margin-left: 0;
+	margin-top: -45px;
+	font-size: 150%;
+	color: #ffffff;
+	text-transform: uppercase;
+	float:right;
+	width: auto;
+	padding: 10px;
+	display: none;
 }
     /* Media quires for a responsive layout */
     /* For big monitors */

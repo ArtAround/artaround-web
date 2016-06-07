@@ -36,6 +36,7 @@ class Admin::ArtsController < Admin::AdminController
 
     @art.attributes = params[:art]
     @art.category.reject!(&:blank?)
+    # @art.art_link.create( params[:art][:art_link_attributes]['0']) if params[:art][:art_link_attributes]['0'][:title].present?
 
     if @art.save
       redirect_to admin_art_path(@art), :notice => "Successfully updated art piece."
@@ -44,6 +45,26 @@ class Admin::ArtsController < Admin::AdminController
       @art.slug = params[:id]
       render :show
     end
+  end
+
+  def manage_link
+    # debugger
+    if params[:link_url_id].present?
+      art_link = ArtLink.find(params[:link_url_id])
+      art_link.title = params[:title]
+      art_link.link_url = params[:url]
+      art_link.save
+    else
+      art_link = ArtLink.create(title: params[:title],link_url: params[:url],art_id: params[:art_id])
+    end
+    # redirect_to :back
+    render :json => { :success => true }
+  end
+
+  def destroy_link
+    ArtLink.find(params[:id]).delete
+    redirect_to :back
+    #render :json => { :success => true }
   end
 
   protected

@@ -13,6 +13,12 @@ class Admin::CommentsController < Admin::AdminController
     @comment.save!
     head 200
   end
+
+  def delete   
+   @comment = Comment.find(params[:id])
+   @comment.destroy
+   head 200
+  end
   
   protected
   
