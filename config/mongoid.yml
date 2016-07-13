@@ -1,5 +1,5 @@
 defaults: &defaults
-  host: localhost
+  host: mongo
   raise_not_found_error: false
 
 test:

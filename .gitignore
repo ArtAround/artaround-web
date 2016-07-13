@@ -15,6 +15,9 @@
 /vendor/bundle
 /tmp
 
+mongodata
+mongodumps
+
 /public/system
 
 .idea
