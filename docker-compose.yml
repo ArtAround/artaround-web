@@ -1,0 +1,17 @@
+app:
+  build: .
+  command: rails server -p 3000 -b '0.0.0.0'
+  volumes:
+    - .:/app
+  ports:
+    - "3000:3000"
+  links:
+    - mongo
+mongo:
+  image: mongo:2.2
+  volumes:
+    - ./mongodata:/data/db
+    - ./mongodumps:/backups
+  ports:
+    - "27017:27017"
+
