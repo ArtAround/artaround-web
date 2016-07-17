@@ -22,27 +22,34 @@
   var state = "<%= @art.state %>";
   var zip = "<%= @art.zip %>";
 
-  var art_category = "<%=@art.category.map(&:downcase) %>"
-  var art_tag = "<%=@art.tag.map(&:downcase) %>"
+  <% if @art.category.present? %>
+    <% if @art.category[0] == "" %>
+      <% if @art.category[1].present?%>
+        var art_category = "<%=@art.category[1] %>"
+      <%else%>
+        var art_category = "Unknown"
+      <%end%> 
+    <%else%>
+      var art_category = "<%=@art.category[0] %>"
+    <%end%> 
+  <%else%>
+    var art_category = "Unknown"
+  <%end%>
 
+  <% if @art.tag.present? %>
+    <% if @art.tag[0] == "" %>
+      <% if @art.tag[1].present?%>
+        var art_tag = "<%=@art.tag[1]%>"
+      <%else%>
+        var art_tag = "Unknown"
+      <%end%>
+    <%else%>
+      var art_tag = "<%=@art.tag[0]%>"
+    <%end%>
+  <%else%>
+    var art_tag = "Unknown"
+  <%end%>
 
-  if ( art_category.includes("catalog") || art_tag.includes("catalog")) {
-    icon = "teal.png"
-  }
-  else if ( art_category.includes("street art host spots") ||  art_tag.includes("street art host spots")) {
-    icon = "yellow.png"
-  }
-  else if ( art_category.includes("museum") || art_tag.includes("museum") ||  art_category.includes("art gallery") || art_tag.includes("art gallery") ||  art_category.includes("outdoor gallery") || art_tag.includes("outdoor gallery") || art_category.includes("gallery") || art_tag.includes("gallery") || art_category.includes("museums & galleries") || art_tag.includes("museums & galleries")) {
-    icon = "blue.png"
-  }
-  else if ( art_category.includes("artchive") || art_tag.includes("artchive")) {
-    icon = "grey.png"
-  }
-  else {
-    icon = "red.png"
-  }
-
-  
 
 
   function loadMaps() {
@@ -60,25 +67,23 @@
     var marker = new google.maps.Marker({
       position: location
     });
-    // art_category = art_category.toLowerCase();
-    // art_tag = art_tag.toLowerCase();
-    
-    // if ( art_category == "catalog" || art_tag == "catalog") {
-    //   icon = "teal.png"
-    // }
-    // else if ( art_category == "street art host spots" ||  art_tag == "street art host spots") {
-    //   icon = "yellow.png"
-    // }
-    // else if ( art_category == "museum" || art_tag == "museum" ||  art_category == "art gallery" || art_tag == "art gallery" ||  art_category == "outdoor gallery" || art_tag == "outdoor gallery" ||  art_category == "gallery" || art_tag == "gallery") {
-    //   icon = "blue.png"
-    // }
-    // else if ( art_category == "artchive" || art_tag == "artchive") {
-    //   icon = "grey.png"
-    // }
-    // else {
-    //   icon = "red.png"
-    // }
-
+    art_category = art_category.toLowerCase();
+    art_tag = art_tag.toLowerCase();
+    if ( art_category == "catalog" || art_tag == "catalog") {
+      icon = "teal.png"
+    }
+    else if ( art_category == "street art host spots" ||  art_tag == "street art host spots") {
+      icon = "yellow.png"
+    }
+    else if ( art_category == "museum" || art_tag == "museum" ||  art_category == "art gallery" || art_tag == "art gallery" ||  art_category == "outdoor gallery" || art_tag == "outdoor gallery" ||  art_category == "gallery" || art_tag == "gallery") {
+      icon = "blue.png"
+    }
+    else if ( art_category == "artchive" || art_tag == "artchive") {
+      icon = "grey.png"
+    }
+    else {
+      icon = "red.png"
+    }
     var pinImage = "/images/pins/"+icon;
     marker.setIcon(pinImage); 
 
@@ -192,25 +197,25 @@
         <span class='st_googleplus' displayText='Google +1'></span>
       </div>
 
-      <div class="clear"></div>
-      <div class="withLinks">
-        <% if @art.website.present? %>
-              <a><%= link_to "Visit website", @art.website %></a>
-          <% end %>
+  	  <div class="clear"></div>
+  		<div class="withLinks">
+  		  <% if @art.website.present? %>
+  	          <a><%= link_to "Visit website", @art.website %></a>
+  	      <% end %>
 
-        <a id="edit" href="#">Edit</a>
-        <a id="flagIt" href="#">Flag this art</a>
+  		  <a id="edit" href="#">Edit</a>
+  		  <a id="flagIt" href="#">Flag this art</a>
 
         <% if admin? %>
             <%= link_to "Admin", admin_art_path(@art) %>
         <% end %>
-      </div>
+  		</div>
 
       <div class="clear"></div>
 
     </div>
 
-  <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
 
 <div class="photoAndInfo">
   <div id="ltColumn">
@@ -563,45 +568,45 @@
     </div>
 
   <div class="flag overlay">
-    <div class="clear"></div>
-    <div class="light white">
+	  <div class="clear"></div>
+	  <div class="light white">
 
-      <a class="close" href="#">Close</a>
-      <div class="clear"></div>
+			<a class="close" href="#">Close</a>
+			<div class="clear"></div>
 
-      <h2>Something wrong with this page?</h2>
-      <small>Let us know and we'll look into it.</small>
-      <form action="<%= flag_art_path(@art) %>" method="post" id="flagForm" class="normalForm">
+			<h2>Something wrong with this page?</h2>
+	    <small>Let us know and we'll look into it.</small>
+			<form action="<%= flag_art_path(@art) %>" method="post" id="flagForm" class="normalForm">
         <input type="hidden" name="source" value="web" />
         <ul>
-          <li>
-            <label for="text"></label>
+					<li>
+						<label for="text"></label>
             <%= text_area_tag :text, "", :id => "flag_text" %>
-          </li>
-          <li class="button">
+					</li>
+				  <li class="button">
             <button class="submitBtn" type="submit">
               <span>Submit</span>
             </button>
-          </li>
-        </ul>
-      </form>
+				  </li>
+				</ul>
+			</form>
 
-      <div class="popupError">
-        <small>Are you sure you don't want to let us know about something?</small>
-      </div>
+			<div class="popupError">
+				<small>Are you sure you don't want to let us know about something?</small>
+			</div>
 
-    </div>
-    <div class="fade black"></div>
-  </div>
+		</div>
+		<div class="fade black"></div>
+	</div>
 </div>
-  <div class="addArt overlay">
-    <div class="clear"></div>
-    <div class="light white">
+	<div class="addArt overlay">
+	  <div class="clear"></div>
+	  <div class="light white">
 
-      <a class="close" href="#">Close</a>
-      <div class="clear"></div>
+			<a class="close" href="#">Close</a>
+			<div class="clear"></div>
 
-      <h2>Photo Upload</h2>
+			<h2>Photo Upload</h2>
       <small>All photos uploaded are licensed under a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial license</a>.</small>
 
         <%= form_tag add_photo_art_path(@art), :multipart => true, :id => "new_photo_form" do %>
@@ -613,15 +618,15 @@
             <%= submit_tag "Submit", :class => "submitBtn" %>
         <% end %>
 
-      <div class="popupError">
-        <small>Whoops! You forgot to upload an image.</small>
-      </div>
+			<div class="popupError">
+				<small>Whoops! You forgot to upload an image.</small>
+			</div>
 
-    </div>
-    <div class="fade black"></div>
-  </div>
+		</div>
+		<div class="fade black"></div>
+	</div>
 
-  <div class="clear"></div>
+	<div class="clear"></div>
 
 </div>
 <script>
