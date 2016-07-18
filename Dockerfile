@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     locales \
+    imagemagick \
     nodejs
 
 # Use en_US.UTF-8 as our locale
