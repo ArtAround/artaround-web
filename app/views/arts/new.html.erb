@@ -127,15 +127,12 @@
 
         var art_category = $("#art_category").val();
         var art_tag = $("#art_tag").val();
-
-        // art_category = art_category.map(function(x) { return x.toLowerCase(); });
-        // art_tag = art_tag.map(function(x) { return x.toLowerCase(); });
-
+        
         if (art_category == null) {
           art_category = "Unknown"
         }
         else {
-          art_category = art_category.map(function(x) { return x.toLowerCase(); });
+          art_category = art_category[0].toLowerCase();
         }
 
         if (art_tag == null) {
@@ -143,26 +140,25 @@
         }
         else {
 
-          art_tag = art_tag.map(function(x) { return x.toLowerCase(); });
+          art_tag = art_tag[0].toLowerCase();
         }
          
 
-        if ( art_category.includes("catalog") || art_tag.includes("catalog")) {
+        if ( art_category == "catalog" || art_tag == "catalog") {
           icon = "teal.png"
         }
-        else if ( art_category.includes("street art host spots") ||  art_tag.includes("street art host spots")) {
+        else if ( art_category == "street art host spots" ||  art_tag == "street art host spots") {
           icon = "yellow.png"
         }
-        else if ( art_category.includes("museum") || art_tag.includes("museum") ||  art_category.includes("art gallery") || art_tag.includes("art gallery") ||  art_category.includes("outdoor gallery") || art_tag.includes("outdoor gallery") || art_category.includes("gallery") || art_tag.includes("gallery") || art_category.includes("museums & galleries") || art_tag.includes("museums & galleries")) {
+        else if ( art_category == "museum" || art_tag == "museum" ||  art_category == "art gallery" || art_tag == "art gallery" ||  art_category == "outdoor gallery" || art_tag == "outdoor gallery" || art_category == "gallery" || art_tag == "gallery") {
           icon = "blue.png"
         }
-        else if ( art_category.includes("artchive") || art_tag.includes("artchive")) {
+        else if ( art_category == "artchive" || art_tag == "artchive") {
           icon = "grey.png"
         }
         else {
           icon = "red.png"
         }
-
         var pinImage = "/images/pins/"+icon;
         marker.setIcon(pinImage); 
 
@@ -173,6 +169,8 @@
 
     }
     
+
+
     $(function() {
 
       var lat, lng;
@@ -215,7 +213,7 @@
 
 
   <div id="ltColumn">
-  <%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
+	<%= render :partial => "layouts/flash", :locals => {:flash => flash} %>
 
     <% if @art.errors.delete(:location).present? %>
       <div class="errors">
