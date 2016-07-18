@@ -1,4 +1,5 @@
 class AdminMailer < ActionMailer::Base
+  self.default_url_options = { :host => 'example.com' } unless Rails.env.production?
 
   def new_comment(art, commenter, comment_body)
     @commenter = commenter
