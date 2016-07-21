@@ -8,7 +8,7 @@ Artaround::Application.routes.draw do
     post :manage_link ,:on => :collection
     get :destroy_link, :on => :member
     get :filter_category, :on => :collection
-    
+
   end
 
   namespace :admin do
@@ -21,6 +21,9 @@ Artaround::Application.routes.draw do
       resources :photos
       post :manage_link ,:on => :collection
       get :destroy_link, :on => :member
+      resources :submissions, :only => [:create] do
+        get :approve, :on => :member
+      end
     end
 
     resources :tags

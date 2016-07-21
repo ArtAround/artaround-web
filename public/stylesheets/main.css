@@ -2011,3 +2011,13 @@ select#category,select#tag,select#pin, #filters select {
 			width: 13%;
 		}
     }
+.submission{
+  background-color: #e9e6e6;
+  border: solid 1px rgb(213,207,199);
+  color: #585755;
+  padding: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.submission>a{ float: right; }

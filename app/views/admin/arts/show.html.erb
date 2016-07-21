@@ -275,6 +275,22 @@
     <input type="submit" id="search_button" value="Search" />
   </div>
   <div id="map_canvas"></div>
+
+  <!-- Submissions -->
+  <br/>
+  <h3>Edit Submissions</h3>
+  <% @art.submissions.each do |submission| %>
+    <div class="submission">
+      <b>Tag:</b> <%= submission.tag.join(',') %><br/>
+      <b>Category:</b> <%= submission.category.join(',') %><br/>
+      <b>Artist:</b> <%= submission.artist.join(',') %><br/>
+      <b>Year:</b> <%= submission.year %><br/>
+      <b>Description:</b> <%= submission.description %><br/>
+      <b>Location Description</b>: <%= submission.location_description %><br/>
+
+      <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>
+    </div>
+  <% end %>
 </div>
 
 <div class="clear"></div>

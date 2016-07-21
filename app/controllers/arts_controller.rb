@@ -80,17 +80,8 @@ class ArtsController < ApplicationController
 
   def submit
     @submission = @art.submissions.build params[:submission]
-    @art.tag = params[:submission][:tag].reject!(&:blank?)
-    @art.artist = params[:submission][:artist].reject!(&:blank?)
-    @art.category = params[:submission][:category].reject!(&:blank?)
-    @art.year = params[:submission][:year]
-    @art.location_description = params[:submission][:location_description]
-    @art.description = params[:submission][:description]
 
     if @submission.save
-      @art.submitted_at = Time.now
-      @art.save!
-
       AdminMailer.new_art_info(@art, @submission).deliver
 
       redirect_to art_path(@art), :notice => "Thanks for helping us fill in the gaps! We moderate submissions, so your contribution should appear shortly."
