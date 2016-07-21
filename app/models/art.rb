@@ -189,4 +189,14 @@ class Art
   def link_art_id(link_title, link_url)
     ArtLink.create( :art_id => self.id, :link_title => link_title, :link_url => link_url)
   end
+
+  def apply_submission submission
+    self.tag                  = submission.tag
+    self.artist               = submission.artist
+    self.category             = submission.category
+    self.year                 = submission.year
+    self.description          = submission.description
+    self.location_description = submission.location_description
+    self.save!
+  end
 end
