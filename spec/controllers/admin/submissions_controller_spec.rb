@@ -1,4 +1,4 @@
-describe SubmissionsController do
+describe Admin::SubmissionsController do
   describe 'POST /approve' do
 
     it "redirects to art on successful approval" do

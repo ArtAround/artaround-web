@@ -1,4 +1,4 @@
-class SubmissionsController < ApplicationController
+class Admin::SubmissionsController < Admin::AdminController
   def approve
     if art.apply_submission(submission)
       redirect_to art, notice: "Submission applied to #{art.title}"
