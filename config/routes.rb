@@ -22,7 +22,7 @@ Artaround::Application.routes.draw do
       post :manage_link ,:on => :collection
       get :destroy_link, :on => :member
       resources :submissions, :only => [:create] do
-        post :approve, :on => :member
+        get :approve, :on => :member
       end
     end
 
