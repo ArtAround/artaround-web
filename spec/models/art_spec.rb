@@ -30,6 +30,20 @@ describe Art do
       expect(art.description).to          eq(submission.description)
       expect(art.location_description).to eq(submission.location_description)
     end
+
+    it "rejects blank items in tags" do
+      art = create_approved_art
+      submission = art.submissions.create(tag: ['', nil, 'modern', 'classic'])
+      art.apply_submission submission
+      expect(art.tag).to eq(['modern', 'classic'])
+    end
+
+    it "rejects blank items in tags" do
+      art = create_approved_art
+      submission = art.submissions.create(category: [nil, 'Architecture', ''])
+      art.apply_submission submission
+      expect(art.category).to eq(['Architecture'])
+    end
   end
 
 end
