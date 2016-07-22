@@ -191,9 +191,9 @@ class Art
   end
 
   def apply_submission submission
-    self.tag                  = submission.tag
+    self.tag                  = submission.tag.reject(&:blank?) if submission.tag.present?
+    self.category             = submission.category.reject(&:blank?) if submission.category.present?
     self.artist               = submission.artist
-    self.category             = submission.category
     self.year                 = submission.year
     self.description          = submission.description
     self.location_description = submission.location_description
