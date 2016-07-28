@@ -281,9 +281,9 @@
   <h3>Edit Submissions</h3>
   <% @art.submissions.each do |submission| %>
     <div class="submission">
-      <b>Tag:</b> <%= submission.tag.reject(&:blank?) %><br/>
-      <b>Category:</b> <%= submission.category.reject(&:blank?) %><br/>
-      <b>Artist:</b> <%= submission.artist.join(',') %><br/>
+      <b>Tag:</b> <%= pretty_print_tags submission %><br/>
+      <b>Category:</b> <%= pretty_print_categories submission %><br/>
+      <b>Artist:</b> <%= pretty_print_artist submission %><br/>
       <b>Year:</b> <%= submission.year %><br/>
       <b>Description:</b> <%= submission.description %><br/>
       <b>Location Description</b>: <%= submission.location_description %><br/>
