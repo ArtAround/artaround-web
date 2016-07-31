@@ -21,7 +21,7 @@ Artaround::Application.routes.draw do
       resources :photos
       post :manage_link ,:on => :collection
       get :destroy_link, :on => :member
-      resources :submissions, :only => [:create] do
+      resources :submissions, :only => [:destroy] do
         get :approve, :on => :member
       end
     end

@@ -2020,4 +2020,4 @@ select#category,select#tag,select#pin, #filters select {
   overflow: hidden;
 }
 
-.submission>a{ float: right; }
+.submission>.tools{ float: right; }
