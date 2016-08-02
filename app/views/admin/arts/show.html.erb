@@ -288,7 +288,10 @@
       <b>Description:</b> <%= submission.description %><br/>
       <b>Location Description</b>: <%= submission.location_description %><br/>
 
-      <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>
+      <div class="tools">
+        <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>, 
+        <%= link_to "Delete Submission", admin_art_submission_path(@art, submission), method: 'delete' %>
+      </div>
     </div>
   <% end %>
 </div>

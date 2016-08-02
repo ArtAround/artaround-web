@@ -7,6 +7,11 @@ class Admin::SubmissionsController < Admin::AdminController
     end
   end
 
+  def destroy
+    submission.delete
+    render text: 'Submission deleted'
+  end
+
   private
 
   def art
