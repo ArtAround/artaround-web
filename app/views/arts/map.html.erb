@@ -70,7 +70,7 @@
         ward: "<%= art.ward %>",
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
-        <% if art.artist[0] == "" %>
+        <% if art.artist.present? && art.artist[0] == "" %>
           artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.to_s %>",
         <% else %>
           artist: "<%= escape_javascript art.artist.to_s %>",
