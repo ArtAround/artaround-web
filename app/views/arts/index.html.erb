@@ -21,6 +21,7 @@
  <!--  <form method="get" action="/" id="filter-form"> -->
     <b style="margin: 5px;" >TAGS</b>
     <%= select_tag "tag", options_for_select((Tag.all.collect(&:name)).sort_by!{ |e| e.downcase }), {prompt: "all"}%>
+    <b style="margin: 5px;" >CATEGORIES</b>
     <%= select_tag "category", options_for_select(['all']+categories)%>
 
    <!--  <b style="margin: 5px;" >CATEGORIES</b>
