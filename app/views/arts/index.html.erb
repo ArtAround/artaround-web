@@ -20,8 +20,9 @@
   <div id="filters">
  <!--  <form method="get" action="/" id="filter-form"> -->
     <b style="margin: 5px;" >TAGS</b>
-    <%= select_tag "tag", options_for_select((Tag.all.collect(&:name)).sort_by!{ |e| e.downcase }), {prompt: "all"}%>
-    <%= select_tag "category", options_for_select(['all']+categories)%>
+    <%= select_tag "tag", options_for_select(Tag.all.collect(&:name).sort_by!{ |e| e.downcase }, params[:tag]), {prompt: "all"} %>
+    <b style="margin: 5px;" >CATEGORIES</b>
+    <%= select_tag "category", options_for_select(['all']+categories, params[:category]) %>
 
    <!--  <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">
@@ -69,7 +70,7 @@
 
 </div>
 
-<%= paginate @arts %>
+<%= render "pagination" %>
 
 <script>
   $(document).on('click', '.category_submit', function(){
