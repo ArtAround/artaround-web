@@ -141,7 +141,11 @@ class ArtsController < ApplicationController
   end
   
   def filter_category
-
+    if request.xhr?
+      render 'filter_category'
+    else
+      render 'index'
+    end
   end
 
   def index
