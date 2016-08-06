@@ -70,29 +70,26 @@
 
 </div>
 
-<%= render "pagination" %>
+<%= render "arts/pagination" %>
 
 <script>
   $(document).on('click', '.category_submit', function(){
     var category=$('#category').val();
     var tag=$('#tag').val();
     var sort=$('#sort-value').val();
+    var args = [];
 
-    $.ajax({
-      method: 'GET',
-      url: '/arts/filter_category',
-      data: {category: category, tag: tag, sort: sort },
-      success: function(){   
-        var $container = $('#art-list');
-        $container.isotope({
-          itemSelector : '.art',
-          sortBy: 'created_at'
-        });
-        $('#art-list').isotope({ sortBy : 'created_at', sortAscending : true});
-        // HACK: Isotope is breaking height in pages with < 5 results
-        $('#art-list')[0].style.minHeight = '500px';
-      }
-    });    
+    console.log([category, tag]);
+
+    if (category)  {
+      args.push ('category=' + category);
+    }
+
+    if (tag)  {
+      args.push ('tag=' + tag);
+    }
+
+    window.location = '/arts/filter_category?' + args.join('&');
   });
 
   function setup_isotope(){
