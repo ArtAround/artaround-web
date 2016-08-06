@@ -88,6 +88,8 @@
           sortBy: 'created_at'
         });
         $('#art-list').isotope({ sortBy : 'created_at', sortAscending : true});
+        // HACK: Isotope is breaking height in pages with < 5 results
+        $('#art-list')[0].style.minHeight = '500px';
       }
     });    
   });
@@ -124,6 +126,8 @@
     // });
 
     $('#art-list').isotope({ sortBy : 'created_at', sortAscending : true});
+    // HACK: Isotope is breaking height in pages with < 5 results
+    $('#art-list')[0].style.minHeight = '500px';
   }
 
   $(window).load(function(){
