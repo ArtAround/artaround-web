@@ -253,6 +253,10 @@ div#ltColumn h3, div#rtColumn h3, .ltColumn h3, .rtColumn h3{
 	font-weight: 100;
 }
 
+div#ltColumn.faq h3{
+  margin: 15px 0;
+}
+
 .tip {
 	color: #86827a;
 	font-size: 10px;
