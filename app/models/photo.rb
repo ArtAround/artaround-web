@@ -19,7 +19,6 @@ class Photo
       :small => "112x112",
       :big => "500x375"
     },
-    :convert_options => { :all => '-auto-orient' },
     :path => ':rails_root/public/system/photos/:attachment/:id/:style.:extension',
     :url => '/system/photos/:attachment/:id/:style.:extension'
 
