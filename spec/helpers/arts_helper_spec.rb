@@ -14,9 +14,14 @@ describe ArtsHelper do
   end
 
   describe "#pretty_print_categories" do
-    it "returns tags that are not blank" do
+    it "returns categories that are not blank" do
       submission = Submission.new category: [nil, '', 'wall art']
       expect(helper.pretty_print_categories(submission)).to eq(['wall art'])
+    end
+
+    it "returns an array of categories if the category is a string" do
+      submission = Submission.new category: 'wall art'
+      expect(helper.pretty_print_category(submission)).to eq(['wall art'])
     end
 
     it "returns empty array when tags is nil" do

@@ -6,6 +6,7 @@ module ArtsHelper
 
   def pretty_print_categories submission
     return [] if submission.category.nil?
+    return [submission.category] if submission.category.is_a?(String)
     submission.category.reject(&:blank?)
   end
 
