@@ -80,6 +80,7 @@ class ArtsController < ApplicationController
 
   def submit
     @submission = @art.submissions.build params[:submission]
+    @submission.add_link_info(params)
 
     if @submission.save
       AdminMailer.new_art_info(@art, @submission).deliver
