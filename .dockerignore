@@ -5,3 +5,4 @@ log/*
 tmp/*
 Dockerfile
 README.rdoc
+tmp/pids/server.pid
