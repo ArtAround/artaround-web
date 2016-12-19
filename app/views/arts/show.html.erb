@@ -451,14 +451,14 @@
         <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
         <%#= form_for @art.art_link.new , remote: true do |l| %>
         <li>
-          <%= label_tag :title ,"Link Title"%>
-          <%= text_field_tag :title %>
+          <%= label_tag :link_title ,"Link Title"%>
+          <%= text_field_tag :link_title %>
         </li>
         <li>
           <%= label_tag :link_url,"Link Url" %>
           <%= text_field_tag :link_url %>
           <%= hidden_field_tag :link_url_id %><br>
-          <%= button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
+          <%# button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
           <%#= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
         </li> 
 

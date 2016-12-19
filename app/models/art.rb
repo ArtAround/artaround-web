@@ -198,5 +198,12 @@ class Art
     self.description          = submission.description
     self.location_description = submission.location_description
     self.save!
+
+    if submission.link?
+      art_link          = ArtLink.new art_id: self.id
+      art_link.title    = submission.link_title
+      art_link.link_url = submission.link_url
+      art_link.save!
+    end
   end
 end
