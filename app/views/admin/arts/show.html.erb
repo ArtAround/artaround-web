@@ -287,6 +287,9 @@
       <b>Year:</b> <%= submission.year %><br/>
       <b>Description:</b> <%= submission.description %><br/>
       <b>Location Description</b>: <%= submission.location_description %><br/>
+      <% if submission.link? %>
+        <b>Link</b>: <%= submission.link_title %> [<%= link_to submission.link_url, submission.link_url %>]<br/>
+      <% end %>
 
       <div class="tools">
         <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>, 
