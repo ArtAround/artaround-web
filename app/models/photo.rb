@@ -10,8 +10,10 @@ class Photo
   field :attribution_text, :type => String
   field :attribution_url, :type => String
   field :primary, :type => Boolean, :default => false
+  field :submitted_at, :type => DateTime
   field :sizes, :type => Hash, :default => {}
   before_save :ensure_well_formed_url
+  before_create :set_submitted_at
 
   has_mongoid_attached_file :image,
     :styles => {
@@ -33,6 +35,10 @@ class Photo
   end
 
   private
+
+  def set_submitted_at
+    self.submitted_at = DateTime.now
+  end
 
   def ensure_well_formed_url
     self.attribution_url ||= ""
