@@ -11,7 +11,7 @@
     <title>ArtAround</title>
 
     <script type="text/javascript" src="http://use.typekit.com/rxr6ppr.js"></script>
-	  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <%= stylesheet_link_tag 'main' %>
     <%= stylesheet_link_tag 'chosen' %>
@@ -32,34 +32,37 @@
 
     <div id="headerWrapper">
       <header>
-        <h1><a class="mainLogo" href="/"><img src="/images/logo.png" /></a><a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a></h1>
+        <h1>
+          <a class="mainLogo" href="/"><img src="/images/logo.png" /></a>
+          <a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a>
+        </h1>
         <div class="formNavContainer">
           <form action="/map" method="geT" id="mapsearch_form">
             <label>Search by artist or title</label>
-            <input id="mapsearch" type="text" name="q" placeholder="Search by artist or title"
-              <% if params[:q].present? %>
-                value="<%= params[:q] %>"
-              <% end %>
-              />
+            <input id="mapsearch"
+                   type="text"
+                   name="q"
+                   placeholder="Search by artist or title"
+                   <% if params[:q].present? %>value="<%= params[:q] %>"<% end %>/>
             <button class="searchBtn" type="submit">
-                <span>Search</span>
+              <span>Search</span>
             </button>
           </form>
-    		  <nav>
-      			<ul class="main_nav">
-      				<% tabs = yield(:tabs) %>
+          <nav>
+            <ul class="main_nav">
+              <% tabs = yield(:tabs) %>
 
               <% if tabs.present? %>
                 <%= tabs %>
               <% else %>
-        				<li id="map_link">
-        					<a id="map" href="/" href="#">Home</a>
-        				</li>
+                <li id="map_link">
+                  <a id="map" href="/" href="#">Home</a>
+                </li>
               <% end %>
 
-      				<li id="addArt_link">
+              <li id="addArt_link">
                 <%= link_to "Add Art", new_art_photo_path, :id => "addArt" %>
-      				</li>
+              </li>
               <% if params[:controller].include? 'admin/' %>
               <li id="tags_link">
                 <%= link_to "Tags", admin_tags_path, :id => "tags" %>
@@ -72,34 +75,33 @@
               </li>
               <script>$(".formNavContainer").css("width","500px")</script>
               <%end%>
-      			</ul>
-    		  </nav>
+            </ul>
+          </nav>
         </div>
         <div class="clear"></div>
       </header>
     </div>
 
     <%= yield %>
-	<div id="footerWrap">
-	  <footer>
-			<small class="cclicense">
-				<span class="ccicons"></span>
-				All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
-			</small>
-			<nav>
-	          <ul>
-	            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
-              <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
-	            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
-	            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
-              <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
-              <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
-	          </ul>
-	          <div class="clear"></div>
-		    </nav>
-
-        </footer>
-	</div>
+    <div id="footerWrap">
+      <footer>
+        <small class="cclicense">
+          <span class="ccicons"></span>
+          All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
+        </small>
+        <nav>
+          <ul>
+            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
+            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
+            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
+            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
+            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
+            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
+          </ul>
+          <div class="clear"></div>
+        </nav>
+      </footer>
+    </div>
     <%= yield :footer %>
 
     <% if Rails.env == "production" %>
