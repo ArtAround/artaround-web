@@ -1805,7 +1805,7 @@ select#category,select#tag,select#pin, #filters select {
 	max-width: 1000px;
 	font-size: 14px;
 	text-align: center;
-	margin: 20px auto; 
+	margin: 20px auto;
 }
 
 .pagination .page:hover {
@@ -2025,3 +2025,10 @@ select#category,select#tag,select#pin, #filters select {
 }
 
 .submission>.tools{ float: right; }
+
+.mainLogo>.tag-line {
+  color: rgb(145, 144, 144);
+  float: right;
+  margin-right: 10px;
+  margin-top: -18px;
+}
