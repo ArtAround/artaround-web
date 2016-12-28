@@ -172,7 +172,7 @@ header nav a {
 
 .formNavContainer {
 	float: right;
-	width: 211px;
+	width: 385px;
 }
 
 header nav a:hover {
@@ -2045,3 +2045,6 @@ select#category,select#tag,select#pin, #filters select {
   background-color: #545454;
   color: white;
 }
+
+li.nav_link { display: inline-block; }
+li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }

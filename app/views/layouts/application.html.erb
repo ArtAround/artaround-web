@@ -40,6 +40,14 @@
           <a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a>
         </h1>
         <div class="formNavContainer">
+          <ul>
+            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
+            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
+            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
+            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
+            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
+            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
+          </ul>
           <nav>
             <ul class="main_nav">
               <% tabs = yield(:tabs) %>
@@ -81,17 +89,6 @@
           <span class="ccicons"></span>
           All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
         </small>
-        <nav>
-          <ul>
-            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
-            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
-            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
-            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
-            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
-            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
-          </ul>
-          <div class="clear"></div>
-        </nav>
       </footer>
     </div>
     <%= yield :footer %>
