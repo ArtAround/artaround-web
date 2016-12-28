@@ -368,10 +368,15 @@ header .searchBtn{
 	text-align: center;
 	padding: 5px 5px 0 5px;
 }
-header .searchBtn span{
+header .searchBtn span, .search .searchBtn span{
 	text-indent: -9999em;
 	background: url(/images/searchBtn.png) center top no-repeat;
-	height: 20px;
+	height: 16px;
+}
+
+.search{
+	float:right;
+	margin-top:-10px
 }
 
 .searchBtn {

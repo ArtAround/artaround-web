@@ -40,17 +40,6 @@
           <a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a>
         </h1>
         <div class="formNavContainer">
-          <form action="/map" method="geT" id="mapsearch_form">
-            <label>Search by artist or title</label>
-            <input id="mapsearch"
-                   type="text"
-                   name="q"
-                   placeholder="Search by artist or title"
-                   <% if params[:q].present? %>value="<%= params[:q] %>"<% end %>/>
-            <button class="searchBtn" type="submit">
-              <span>Search</span>
-            </button>
-          </form>
           <nav>
             <ul class="main_nav">
               <% tabs = yield(:tabs) %>

@@ -52,11 +52,23 @@
       <option value="video">Video</option>
     </select> -->
     <input id="sort-value" type="hidden" name="sort" value="" />
-    <button class="category_submit" >Filter</button>
+    <button class="category_submit">Filter</button>
     <!-- </form> -->
   </div>
+  <div class="search">
+    <form action="/map" method="geT" id="mapsearch_form">
+      <label>Search by artist or title</label>
+      <input id="mapsearch"
+      type="text"
+      name="q"
+      placeholder="Search by artist or title"
+      <% if params[:q].present? %>value="<%= params[:q] %>"<% end %>/>
+      <button class="searchBtn" type="submit">
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
   <%end%>
-  <div class="clear"></div>
 </div>
 <div id="filter_category">
   <%=render '/arts/filter_category'%>
