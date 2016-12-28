@@ -1750,7 +1750,7 @@ select#category,select#tag,select#pin, #filters select {
 }
 
 #filters {
-	float: right;
+	float: left;
 }
 
 #filter-options {
@@ -2031,4 +2031,12 @@ select#category,select#tag,select#pin, #filters select {
   float: right;
   margin-right: 10px;
   margin-top: -18px;
+}
+
+.category_submit{
+	float: right;
+  margin-left: 5px;
+  padding: 2px 12px;
+  background-color: #545454;
+  color: white;
 }

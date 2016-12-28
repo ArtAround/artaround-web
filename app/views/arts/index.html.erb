@@ -12,10 +12,6 @@
 
 
 <div id="filter-options">
-  <ul id="sort-by">
-    <li><a href='<%=live_url%>/' class="current" id="recent">Recent</a></li>
-    <li><a href="<%=live_url%>/?sort=popular" id="popular">Popular</a></li>
-  </ul>
   <%if controller_name == 'arts'%>
   <div id="filters">
  <!--  <form method="get" action="/" id="filter-form"> -->
@@ -56,8 +52,7 @@
       <option value="video">Video</option>
     </select> -->
     <input id="sort-value" type="hidden" name="sort" value="" />
-    <br>
-    <button class="category_submit" style="float: right; margin-top: 5px;" >Filter</button>
+    <button class="category_submit" >Filter</button>
     <!-- </form> -->
   </div>
   <%end%>
@@ -65,7 +60,7 @@
 </div>
 <div id="filter_category">
   <%=render '/arts/filter_category'%>
-</div> 
+</div>
 
 
 </div>
@@ -129,7 +124,7 @@
   }
 
   $(window).load(function(){
-    
+
     if (window.location.search.replace( "?", "").split("&").indexOf("sort=popular") != -1){
       $('#recent').removeClass("current");
       $('#popular').addClass("current");
