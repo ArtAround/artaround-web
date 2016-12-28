@@ -147,7 +147,7 @@ header, #featureBox, #mapSearch, #pageMain, footer {
 	margin: 0 auto;
 }
 header nav {
-	margin-top: 45px;
+	margin-top: 70px;
 	z-index: 100;
 	float:right;
 	font-size: 120%;
@@ -2048,3 +2048,8 @@ select#category,select#tag,select#pin, #filters select {
 
 li.nav_link { display: inline-block; }
 li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }
+
+ul.about-links { float: right; }
+ul.social-links { width: 300px; float: left; }
+ul.social-links li { display:inline-block; }
+ul.social-links a { width: 16px; height: 16px; display: block; }

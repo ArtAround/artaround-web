@@ -32,6 +32,23 @@
 
     <div id="headerWrapper">
       <header>
+        <div class="">
+          <ul class="social-links">
+            <li class="stButton"><a class="twitter" href="https://twitter.com/artaround"></a></li>
+            <li class="stButton"><a class="facebook" href="https://www.facebook.com/ArtAround/"></a></li>
+            <li class="stButton"><a class="pinterest" href="https://www.pinterest.com/theartaroundyou/"></a></li>
+            <li class="stButton"><a class="googleplus" href="https://plus.google.com/u/0/b/104689477762831489720/+wanderartorg/posts/p/pub"></a></li>
+          </ul>
+          <ul class="about-links">
+            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
+            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
+            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
+            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
+            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
+            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
         <h1>
           <a class="mainLogo" href="/">
             <img src="/images/logo.png" />
@@ -40,14 +57,6 @@
           <a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a>
         </h1>
         <div class="formNavContainer">
-          <ul>
-            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
-            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
-            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
-            <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
-            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
-            <li class="nav_link"><a href="<%= about_path %>">About</a></li>
-          </ul>
           <nav>
             <ul class="main_nav">
               <% tabs = yield(:tabs) %>
