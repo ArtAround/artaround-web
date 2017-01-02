@@ -33,13 +33,13 @@ height: auto;
 }
 
 .y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 .r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 .b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 
 input,textarea,select,optgroup,option,button {
@@ -2053,3 +2053,6 @@ ul.about-links { float: right; }
 ul.social-links { width: 300px; float: left; }
 ul.social-links li { display:inline-block; }
 ul.social-links a { width: 16px; height: 16px; display: block; }
+
+.counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+
