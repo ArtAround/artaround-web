@@ -33,13 +33,13 @@ height: auto;
 }
 
 .y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 .r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 .b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:28px; line-height: 31px; font-family:"Courier New Bold";
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
 }
 
 input,textarea,select,optgroup,option,button {
@@ -147,7 +147,7 @@ header, #featureBox, #mapSearch, #pageMain, footer {
 	margin: 0 auto;
 }
 header nav {
-	margin-top: 45px;
+	margin-top: 70px;
 	z-index: 100;
 	float:right;
 	font-size: 120%;
@@ -172,7 +172,7 @@ header nav a {
 
 .formNavContainer {
 	float: right;
-	width: 211px;
+	width: 385px;
 }
 
 header nav a:hover {
@@ -368,10 +368,15 @@ header .searchBtn{
 	text-align: center;
 	padding: 5px 5px 0 5px;
 }
-header .searchBtn span{
+header .searchBtn span, .search .searchBtn span{
 	text-indent: -9999em;
 	background: url(/images/searchBtn.png) center top no-repeat;
-	height: 20px;
+	height: 16px;
+}
+
+.search{
+	float:right;
+	margin-top:-10px
 }
 
 .searchBtn {
@@ -1750,7 +1755,7 @@ select#category,select#tag,select#pin, #filters select {
 }
 
 #filters {
-	float: right;
+	float: left;
 }
 
 #filter-options {
@@ -1805,7 +1810,7 @@ select#category,select#tag,select#pin, #filters select {
 	max-width: 1000px;
 	font-size: 14px;
 	text-align: center;
-	margin: 20px auto; 
+	margin: 20px auto;
 }
 
 .pagination .page:hover {
@@ -2025,3 +2030,29 @@ select#category,select#tag,select#pin, #filters select {
 }
 
 .submission>.tools{ float: right; }
+
+.mainLogo>.tag-line {
+  color: rgb(145, 144, 144);
+  float: right;
+  margin-right: 10px;
+  margin-top: -18px;
+}
+
+.category_submit{
+	float: right;
+  margin-left: 5px;
+  padding: 2px 12px;
+  background-color: #545454;
+  color: white;
+}
+
+li.nav_link { display: inline-block; }
+li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }
+
+ul.about-links { float: right; }
+ul.social-links { width: 300px; float: left; }
+ul.social-links li { display:inline-block; }
+ul.social-links a { width: 16px; height: 16px; display: block; }
+
+.counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+

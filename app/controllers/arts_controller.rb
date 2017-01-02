@@ -186,6 +186,7 @@ class ArtsController < ApplicationController
 
     @artworks_count= Art.count()
     #@artworks_count = @a_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
+    @artist_count = Artist.count()
     
     @photos_count= Photo.count()
     #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
