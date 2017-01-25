@@ -2067,4 +2067,5 @@ ul.social-links li { display:inline-block; }
 ul.social-links a { width: 16px; height: 16px; display: block; }
 
 .counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+.count-container { margin: 0 10px; }
 

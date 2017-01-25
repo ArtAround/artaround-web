@@ -59,9 +59,9 @@
         <div>
           <% if @artworks_count.present?%>
             <div class="counts-container">
-              <span class="y_count timer_p"><%= @artworks_count %></span>&nbsp;artworks
-              <span class="r_count timer_a"><%= @artist_count %></span>&nbsp;artists
-              <span class="b_count timer_c"><%= @countries_count %></span>&nbsp;cities
+              <span class="count-container"><span class="y_count timer_p"><%= @artworks_count %></span>&nbsp;artworks</span>
+              <span class="count-container"><span class="r_count timer_a"><%= @artist_count %></span>&nbsp;artists</span>
+              <span class="count-container"><span class="b_count timer_c"><%= @countries_count %></span>&nbsp;cities</span>
             </div>
           <%end%>
         </div>
