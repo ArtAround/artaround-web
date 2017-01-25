@@ -36,15 +36,15 @@
           <ul class="social-links">
             <li class="stButton"><a class="twitter" href="https://twitter.com/artaround"></a></li>
             <li class="stButton"><a class="facebook" href="https://www.facebook.com/ArtAround/"></a></li>
-            <li class="stButton"><a class="pinterest" href="https://www.pinterest.com/theartaroundyou/"></a></li>
-            <li class="stButton"><a class="googleplus" href="https://plus.google.com/u/0/b/104689477762831489720/+wanderartorg/posts/p/pub"></a></li>
+            <li class="stButton"><a class="instagram" href="https://www.instagram.com/theartaroundus/"></a></li>
+            <li class="stButton"><a class="mail" href="http://eepurl.com/F40Sn"></a></li>
           </ul>
           <ul class="about-links">
-            <li class="nav_link"><a href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
-            <li class="nav_link"><a href="http://blog.theartaround.us/">Blog</a></li>
+            <li class="nav_link"><a target="_blank" href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
+            <li class="nav_link"><a target="_blank" href="http://blog.theartaround.us/">Blog</a></li>
             <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
             <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
-            <li class="nav_link"><a href="http://sponsor.theartaround.us/">Give</a></li>
+            <li class="nav_link"><a target="_blank" href="http://give.theartaround.us">Give</a></li>
             <li class="nav_link"><a href="<%= about_path %>">About</a></li>
           </ul>
         </div>
@@ -59,9 +59,9 @@
         <div>
           <% if @artworks_count.present?%>
             <div class="counts-container">
-              <span class="y_count timer_p"><%= @artworks_count %></span>&nbsp;artworks
-              <span class="r_count timer_a"><%= @artist_count %></span>&nbsp;artists
-              <span class="b_count timer_c"><%= @countries_count %></span>&nbsp;cities
+              <span class="count-container"><span class="y_count timer_p"><%= @artworks_count %></span>&nbsp;artworks</span>
+              <span class="count-container"><span class="r_count timer_a"><%= @artist_count %></span>&nbsp;artists</span>
+              <span class="count-container"><span class="b_count timer_c"><%= @countries_count %></span>&nbsp;cities</span>
             </div>
           <%end%>
         </div>

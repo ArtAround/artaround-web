@@ -33,13 +33,13 @@ height: auto;
 }
 
 .y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 .r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 .b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 
 input,textarea,select,optgroup,option,button {
@@ -173,6 +173,7 @@ header nav a {
 .formNavContainer {
 	float: right;
 	width: 385px;
+  margin-top:13px;
 }
 
 header nav a:hover {
@@ -1703,23 +1704,36 @@ display: block;
 }
 
 .stButton .googleplus {
-	background: #d14836 url(/images/googleplus-24.png)!important;
+	background: #d14836 url(/images/googleplus.png)!important;
 	padding: 4px;
+}
+
+.stButton .mail {
+	background: url(/images/icons/mail.png)!important;
+	padding: 15px;
+  background-repeat: no-repeat!important;
+  background-position-x:4px!important;
+  background-position-y:4px!important;
 }
 
 .stButton .pinterest {
-	background: #cb2027 url(/images/pinterest-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/pinterest.png)!important;
+	padding: 15px;
+}
+
+.stButton .instagram {
+	background: url(/images/icons/instagram.png)!important;
+	padding: 15px;
 }
 
 .stButton .facebook {
-	background: #3b5998 url(/images/facebook-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/facebook.png)!important;
+	padding: 15px;
 }
 
 .stButton .twitter {
-	background: #00aced url(/images/twitter-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/twitter.png)!important;
+	padding: 15px;
 }
 
 .rtColumn {
@@ -2034,8 +2048,9 @@ select#category,select#tag,select#pin, #filters select {
 .mainLogo>.tag-line {
   color: rgb(145, 144, 144);
   float: right;
-  margin-right: 10px;
-  margin-top: -18px;
+  margin-top: -13px;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
 }
 
 .category_submit{
@@ -2055,4 +2070,5 @@ ul.social-links li { display:inline-block; }
 ul.social-links a { width: 16px; height: 16px; display: block; }
 
 .counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+.count-container { margin: 0 10px; font-size:20px; }
 
