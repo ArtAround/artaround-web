@@ -173,8 +173,7 @@ header nav a {
 .formNavContainer {
 	float: right;
 	width: 385px;
-  margin-top:6px;
-  margin-bottom:6px;
+  margin-top:13px;
 }
 
 header nav a:hover {
@@ -2048,6 +2047,7 @@ select#category,select#tag,select#pin, #filters select {
   float: right;
   margin-top: -13px;
   letter-spacing: 1px;
+  margin-bottom: 2px;
 }
 
 .category_submit{
