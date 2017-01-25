@@ -173,7 +173,7 @@ header nav a {
 .formNavContainer {
 	float: right;
 	width: 385px;
-  margin-top:13px;
+  margin-top:16px;
 }
 
 header nav a:hover {
@@ -1710,30 +1710,27 @@ display: block;
 
 .stButton .mail {
 	background: url(/images/icons/mail.png)!important;
-	padding: 15px;
-  background-repeat: no-repeat!important;
-  background-position-x:4px!important;
-  background-position-y:4px!important;
+	padding: 7px;
 }
 
 .stButton .pinterest {
 	background: url(/images/icons/pinterest.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .instagram {
 	background: url(/images/icons/instagram.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .facebook {
 	background: url(/images/icons/facebook.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .twitter {
 	background: url(/images/icons/twitter.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .rtColumn {
@@ -2049,8 +2046,9 @@ select#category,select#tag,select#pin, #filters select {
   color: rgb(145, 144, 144);
   float: right;
   margin-top: -13px;
+  margin-right: -94px;
   letter-spacing: 1px;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 }
 
 .category_submit{
@@ -2067,8 +2065,31 @@ li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }
 ul.about-links { float: right; }
 ul.social-links { width: 300px; float: left; }
 ul.social-links li { display:inline-block; }
-ul.social-links a { width: 16px; height: 16px; display: block; }
+ul.social-links a { width: 25px; height: 25px; display: block; }
 
-.counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+.counts-container { float: right; margin-top: 22px; margin-bottom: -70px; color: rgb(145, 144, 144); width:385px;  }
 .count-container { margin: 0 10px; font-size:20px; }
+
+.count {
+  float: right;
+  padding: 5px 8px;
+  font-size: 23px;
+  font-weight: bold;
+  color: white;
+}
+
+.count.yellow { background:#fbc900; }
+.count.red { background:#ff0300; }
+.count.blue { background:#4a62ba; }
+
+.count-label {
+  font-size: 15px;
+  padding: 4px;
+  float: right;
+  color: rgb(145, 144, 144);
+  margin-right: 15px;
+}
+.count-label.no-margin {
+  margin-right: 0px;
+}
 
