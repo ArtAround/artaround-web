@@ -1710,30 +1710,27 @@ display: block;
 
 .stButton .mail {
 	background: url(/images/icons/mail.png)!important;
-	padding: 15px;
-  background-repeat: no-repeat!important;
-  background-position-x:4px!important;
-  background-position-y:4px!important;
+	padding: 7px;
 }
 
 .stButton .pinterest {
 	background: url(/images/icons/pinterest.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .instagram {
 	background: url(/images/icons/instagram.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .facebook {
 	background: url(/images/icons/facebook.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .stButton .twitter {
 	background: url(/images/icons/twitter.png)!important;
-	padding: 15px;
+	padding: 7px;
 }
 
 .rtColumn {
@@ -2067,7 +2064,7 @@ li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }
 ul.about-links { float: right; }
 ul.social-links { width: 300px; float: left; }
 ul.social-links li { display:inline-block; }
-ul.social-links a { width: 16px; height: 16px; display: block; }
+ul.social-links a { width: 25px; height: 25px; display: block; }
 
 .counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
 .count-container { margin: 0 10px; font-size:20px; }
