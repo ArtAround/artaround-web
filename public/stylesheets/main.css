@@ -2067,6 +2067,29 @@ ul.social-links { width: 300px; float: left; }
 ul.social-links li { display:inline-block; }
 ul.social-links a { width: 25px; height: 25px; display: block; }
 
-.counts-container { float: right; margin-top: 30px; margin-bottom: -70px; color: rgb(145, 144, 144);  }
+.counts-container { float: right; margin-top: 22px; margin-bottom: -70px; color: rgb(145, 144, 144); width:385px;  }
 .count-container { margin: 0 10px; font-size:20px; }
+
+.count {
+  float: right;
+  padding: 5px 8px;
+  font-size: 23px;
+  font-weight: bold;
+  color: white;
+}
+
+.count.yellow { background:#fbc900; }
+.count.red { background:#ff0300; }
+.count.blue { background:#4a62ba; }
+
+.count-label {
+  font-size: 15px;
+  padding: 4px;
+  float: right;
+  color: rgb(145, 144, 144);
+  margin-right: 15px;
+}
+.count-label.no-margin {
+  margin-right: 0px;
+}
 
