@@ -33,13 +33,13 @@ height: auto;
 }
 
 .y_count{
-	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#fbc900;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 .r_count{
-	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#ff0300;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 .b_count{
-	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px; font-family:"Courier New Bold";
+	background:#4a62ba;padding:1px 4px; color:#fff; font-weight:bold;font-size:20px; line-height: 31px;
 }
 
 input,textarea,select,optgroup,option,button {
