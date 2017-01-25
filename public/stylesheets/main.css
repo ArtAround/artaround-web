@@ -1709,8 +1709,11 @@ display: block;
 }
 
 .stButton .mail {
-	background: url(/images/icons/mail-icon.png)!important;
+	background: url(/images/icons/mail.png)!important;
 	padding: 15px;
+  background-repeat: no-repeat!important;
+  background-position-x:4px!important;
+  background-position-y:4px!important;
 }
 
 .stButton .pinterest {
