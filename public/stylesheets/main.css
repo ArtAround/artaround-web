@@ -173,6 +173,8 @@ header nav a {
 .formNavContainer {
 	float: right;
 	width: 385px;
+  margin-top:6px;
+  margin-bottom:6px;
 }
 
 header nav a:hover {
@@ -2044,8 +2046,8 @@ select#category,select#tag,select#pin, #filters select {
 .mainLogo>.tag-line {
   color: rgb(145, 144, 144);
   float: right;
-  margin-right: 10px;
-  margin-top: -18px;
+  margin-right: 45px;
+  margin-top: -13px;
 }
 
 .category_submit{
