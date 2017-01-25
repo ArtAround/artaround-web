@@ -1703,23 +1703,33 @@ display: block;
 }
 
 .stButton .googleplus {
-	background: #d14836 url(/images/googleplus-24.png)!important;
+	background: #d14836 url(/images/googleplus.png)!important;
 	padding: 4px;
+}
+
+.stButton .mail {
+	background: url(/images/icons/mail-icon.png)!important;
+	padding: 15px;
 }
 
 .stButton .pinterest {
-	background: #cb2027 url(/images/pinterest-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/pinterest.png)!important;
+	padding: 15px;
+}
+
+.stButton .instagram {
+	background: url(/images/icons/instagram.png)!important;
+	padding: 15px;
 }
 
 .stButton .facebook {
-	background: #3b5998 url(/images/facebook-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/facebook.png)!important;
+	padding: 15px;
 }
 
 .stButton .twitter {
-	background: #00aced url(/images/twitter-24.png)!important;
-	padding: 4px;
+	background: url(/images/icons/twitter.png)!important;
+	padding: 15px;
 }
 
 .rtColumn {
