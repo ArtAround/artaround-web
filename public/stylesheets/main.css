@@ -2119,7 +2119,7 @@ ul.social-links a { width: 25px; height: 25px; display: block; }
   .filter-field { float: none; margin-bottom: 7px; }
   .filter-field.tags>select { width:230px; }
   .filter-field.categories>select{ width: 184px; }
-  .category_submit { margin-left: 25px; padding: 5px 15px; font-size: 20px; margin-top: -22px; }
+  .category_submit { margin-left: 20px; padding: 5px 15px; font-size: 20px; margin-top: -25px; }
 
   .search { float:none; margin-top:-20px; }
 
