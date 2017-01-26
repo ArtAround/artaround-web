@@ -2096,12 +2096,14 @@ ul.social-links a { width: 25px; height: 25px; display: block; }
 }
 
 .filter-field { float: left; }
+.social-links-container.mobile { display: none; }
 
 @media (max-width: 600px) {
   .social-links-container.fullsite{
     display: none;
   }
   .social-links-container.mobile{
+    display: block;
     margin:0 auto;
     text-align: center;
     width: 100%;
