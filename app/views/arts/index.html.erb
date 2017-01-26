@@ -13,12 +13,30 @@
 
 <div id="filter-options">
   <%if controller_name == 'arts'%>
+  <div class="search">
+    <form action="/map" method="geT" id="mapsearch_form">
+      <label>Search by artist or title</label>
+      <input id="mapsearch"
+      type="text"
+      name="q"
+      placeholder="Search by artist or title"
+      <% if params[:q].present? %>value="<%= params[:q] %>"<% end %>/>
+      <button class="searchBtn" type="submit">
+        <span>Search</span>
+      </button>
+    </form>
+  </div>
   <div id="filters">
  <!--  <form method="get" action="/" id="filter-form"> -->
-    <b style="margin: 5px;" >TAGS</b>
-    <%= select_tag "tag", options_for_select(Tag.all.collect(&:name).sort_by!{ |e| e.downcase }, params[:tag]), {prompt: "all"} %>
-    <b style="margin: 5px;" >CATEGORIES</b>
-    <%= select_tag "category", options_for_select(['all']+categories, params[:category]) %>
+   <div class="filter-field tags">
+     <b style="margin: 5px;" >TAGS</b>
+     <%= select_tag "tag", options_for_select(Tag.all.collect(&:name).sort_by!{ |e| e.downcase }, params[:tag]), {prompt: "all"} %>
+   </div>
+   <div class="filter-field categories">
+     <b style="margin: 5px;" >CATEGORIES</b>
+     <%= select_tag "category", options_for_select(['all']+categories, params[:category]) %>
+     <button class="category_submit">Filter</button>
+   </div>
 
    <!--  <b style="margin: 5px;" >CATEGORIES</b>
     <select name="filter">
@@ -52,21 +70,7 @@
       <option value="video">Video</option>
     </select> -->
     <input id="sort-value" type="hidden" name="sort" value="" />
-    <button class="category_submit">Filter</button>
     <!-- </form> -->
-  </div>
-  <div class="search">
-    <form action="/map" method="geT" id="mapsearch_form">
-      <label>Search by artist or title</label>
-      <input id="mapsearch"
-      type="text"
-      name="q"
-      placeholder="Search by artist or title"
-      <% if params[:q].present? %>value="<%= params[:q] %>"<% end %>/>
-      <button class="searchBtn" type="submit">
-        <span>Search</span>
-      </button>
-    </form>
   </div>
   <%end%>
 </div>
