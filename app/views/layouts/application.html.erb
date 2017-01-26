@@ -29,7 +29,7 @@
   </head>
 
   <body class="<%= content_for :body_class %>">
-    <div class="social-links-container">
+    <div class="social-links-container fullsite">
       <a target="_blank" href="https://www.facebook.com/ArtAround/">
         <img src="/images/icons/facebook.png" />
       </a>
@@ -132,6 +132,20 @@
 
     <%= yield %>
     <div id="footerWrap">
+      <div class="social-links-container mobile">
+        <a target="_blank" href="https://www.facebook.com/ArtAround/">
+          <img src="/images/icons/facebook.png" />
+        </a>
+        <a target="_blank" href="https://twitter.com/artaround">
+          <img src="/images/icons/twitter.png" />
+        </a>
+        <a target="_blank" href="https://www.instagram.com/theartaroundus/">
+          <img src="/images/icons/instagram.png" />
+        </a>
+        <a target="_blank" href="http://eepurl.com/F40Sn">
+          <img src="/images/icons/mail.png" />
+        </a>
+      </div>
       <footer>
         <small class="cclicense">
           <span class="ccicons"></span>

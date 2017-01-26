@@ -2096,11 +2096,14 @@ ul.social-links a { width: 25px; height: 25px; display: block; }
 }
 
 .filter-field { float: left; }
+.social-links-container.mobile { display: none; }
 
 @media (max-width: 600px) {
-  .social-links-container{
-    position:absolute;
-    bottom: 0px;
+  .social-links-container.fullsite{
+    display: none;
+  }
+  .social-links-container.mobile{
+    display: block;
     margin:0 auto;
     text-align: center;
     width: 100%;
@@ -2116,3 +2119,5 @@ ul.social-links a { width: 25px; height: 25px; display: block; }
   .category_submit { margin-left: 30px; padding: 5px 15px; font-size: 20px; margin-top: -22px; }
 
   .search { float:none; margin-top:-20px; }
+
+}
