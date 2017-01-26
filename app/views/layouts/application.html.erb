@@ -124,6 +124,12 @@
 
     <%= yield %>
     <div id="footerWrap">
+      <footer>
+        <small class="cclicense">
+          <span class="ccicons"></span>
+          All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
+        </small>
+      </footer>
       <div class="social-links-container mobile">
         <a target="_blank" href="https://www.facebook.com/ArtAround/">
           <img src="/images/icons/facebook.png" />
@@ -138,12 +144,6 @@
           <img src="/images/icons/mail.png" />
         </a>
       </div>
-      <footer>
-        <small class="cclicense">
-          <span class="ccicons"></span>
-          All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
-        </small>
-      </footer>
     </div>
     <%= yield :footer %>
 
