@@ -1704,7 +1704,7 @@ display: block;
 }
 
 .stButton .googleplus {
-	background: #d14836 url(/images/googleplus.png)!important;
+	background: #d14836 url(/images/googleplus-24.png)!important;
 	padding: 4px;
 }
 
@@ -1714,8 +1714,8 @@ display: block;
 }
 
 .stButton .pinterest {
-	background: url(/images/icons/pinterest.png)!important;
-	padding: 7px;
+  background: #cb2027 url(/images/pinterest-24.png)!important;
+	padding: 4px;
 }
 
 .stButton .instagram {
@@ -1724,13 +1724,13 @@ display: block;
 }
 
 .stButton .facebook {
-	background: url(/images/icons/facebook.png)!important;
-	padding: 7px;
+  background: #3b5998 url(/images/facebook-24.png)!important;
+	padding: 4px;
 }
 
 .stButton .twitter {
-	background: url(/images/icons/twitter.png)!important;
-	padding: 7px;
+  background: #00aced url(/images/twitter-24.png)!important;
+	padding: 4px;
 }
 
 .rtColumn {
