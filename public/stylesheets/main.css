@@ -2100,6 +2100,8 @@ ul.social-links a { width: 25px; height: 25px; display: block; }
 .social-links-container.mobile { display: none; }
 
 @media (max-width: 600px) {
+  .no-mobile { display: none!important; }
+
   .social-links-container.fullsite{
     display: none;
   }
