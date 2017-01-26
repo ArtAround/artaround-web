@@ -29,32 +29,23 @@
   </head>
 
   <body class="<%= content_for :body_class %>">
-
+    <div class="social-links-container">
+      <a target="_blank" href="https://www.facebook.com/ArtAround/">
+        <img src="/images/icons/facebook.png" />
+      </a>
+      <a target="_blank" href="https://twitter.com/artaround">
+        <img src="/images/icons/twitter.png" />
+      </a>
+      <a target="_blank" href="https://www.instagram.com/theartaroundus/">
+        <img src="/images/icons/instagram.png" />
+      </a>
+      <a target="_blank" href="http://eepurl.com/F40Sn">
+        <img src="/images/icons/mail.png" />
+      </a>
+    </div>
     <div id="headerWrapper">
       <header>
-        <div class="">
-          <ul class="social-links">
-            <li class="stButton">
-              <a target="_blank" href="https://www.facebook.com/ArtAround/">
-                <img src="/images/icons/facebook.png" />
-              </a>
-            </li>
-            <li class="stButton">
-              <a target="_blank" href="https://twitter.com/artaround">
-                <img src="/images/icons/twitter.png" />
-              </a>
-            </li>
-            <li class="stButton">
-              <a target="_blank" href="https://www.instagram.com/theartaroundus/">
-                <img src="/images/icons/instagram.png" />
-              </a>
-            </li>
-            <li class="stButton">
-              <a target="_blank" href="http://eepurl.com/F40Sn">
-                <img src="/images/icons/mail.png" />
-              </a>
-            </li>
-          </ul>
+        <div>
           <ul class="about-links">
             <li class="nav_link"><a target="_blank" href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
             <li class="nav_link"><a target="_blank" href="http://blog.theartaround.us/">Blog</a></li>
@@ -70,7 +61,7 @@
             <img src="/images/logo.png" />
             <span class="tag-line">a living archive of art outside around the world</span>
           </a>
-          <a class="mobileLogo" href="/"><img src="/images/logo_mobile.png" /></a>
+          <a class="mobileLogo" href="/"><img src="/images/logo_mobile_new.png" /></a>
         </h1>
         <div>
           <% if @artworks_count.present?%>
