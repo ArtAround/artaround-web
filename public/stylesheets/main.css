@@ -2063,7 +2063,7 @@ li.nav_link { display: inline-block; }
 li.nav_link > a { color: rgb(145, 144, 144); margin:0 10px; }
 
 ul.about-links { float: right; }
-.social-links-container { max-width: 1000px; margin: 0 auto; }
+.social-links-container { float: left; }
 ul.social-links { width: 300px; float: left; }
 ul.social-links li { display:inline-block; }
 ul.social-links a { width: 25px; height: 25px; display: block; }
