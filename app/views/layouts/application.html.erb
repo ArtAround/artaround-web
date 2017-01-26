@@ -29,27 +29,27 @@
   </head>
 
   <body class="<%= content_for :body_class %>">
-    <div class="social-links-container fullsite">
-      <a target="_blank" href="https://www.facebook.com/ArtAround/">
-        <img src="/images/icons/facebook.png" />
-      </a>
-      <a target="_blank" href="https://twitter.com/artaround">
-        <img src="/images/icons/twitter.png" />
-      </a>
-      <a target="_blank" href="https://www.instagram.com/theartaroundus/">
-        <img src="/images/icons/instagram.png" />
-      </a>
-      <a target="_blank" href="http://eepurl.com/F40Sn">
-        <img src="/images/icons/mail.png" />
-      </a>
-    </div>
     <div id="headerWrapper">
       <header>
+      <div class="social-links-container fullsite">
+        <a target="_blank" href="https://www.facebook.com/ArtAround/">
+          <img src="/images/icons/facebook.png" />
+        </a>
+        <a target="_blank" href="https://twitter.com/artaround">
+          <img src="/images/icons/twitter.png" />
+        </a>
+        <a target="_blank" href="https://www.instagram.com/theartaroundus/">
+          <img src="/images/icons/instagram.png" />
+        </a>
+        <a target="_blank" href="http://eepurl.com/F40Sn">
+          <img src="/images/icons/mail.png" />
+        </a>
+      </div>
         <div>
           <ul class="about-links">
             <li class="nav_link"><a target="_blank" href="https://itunes.apple.com/us/app/artaround/id463678249?mt=8">Get the App⇗</a></li>
             <li class="nav_link"><a target="_blank" href="http://blog.theartaround.us/">Blog</a></li>
-            <li class="nav_link"><a href="<%= contact_path %>">Contact Us</a></li>
+            <li class="nav_link no-mobile"><a href="<%= contact_path %>">Contact Us</a></li>
             <li class="nav_link"><a href="<%= faq_path %>">FAQ</a></li>
             <li class="nav_link"><a target="_blank" href="http://give.theartaround.us">Give</a></li>
             <li class="nav_link"><a href="<%= about_path %>">About</a></li>
@@ -66,32 +66,24 @@
         <div>
           <% if @artworks_count.present?%>
             <div class="counts-container">
-              <ul>
-                <li>
-                  <div class="count-label no-margin">
-                    cities
-                  </div>
-                  <div class="count blue">
-                    <%= @countries_count %>
-                  </div>
-                </li>
-                <li>
-                  <div class="count-label">
-                    artists
-                  </div>
-                  <div class="count red">
-                    <%= @artist_count %>
-                  </div>
-                </li>
-                <li>
-                  <div class="count-label">
-                    artworks
-                  </div>
-                  <div class="count yellow">
-                    <%= @artworks_count %>
-                  </div>
-                </li>
-              </ul>
+              <span class="count yellow">
+                <%= @artworks_count %>
+              </span>
+              <span class="count-label">
+                artworks
+              </span>
+              <span class="count red">
+                <%= @artist_count %>
+              </span>
+              <span class="count-label">
+                artists
+              </span>
+              <span class="count blue">
+                <%= @countries_count %>
+              </span>
+              <span class="count-label no-margin">
+                cities
+              </span>
             </div>
           <%end%>
         </div>
@@ -132,6 +124,12 @@
 
     <%= yield %>
     <div id="footerWrap">
+      <footer>
+        <small class="cclicense">
+          <span class="ccicons"></span>
+          All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
+        </small>
+      </footer>
       <div class="social-links-container mobile">
         <a target="_blank" href="https://www.facebook.com/ArtAround/">
           <img src="/images/icons/facebook.png" />
@@ -146,12 +144,6 @@
           <img src="/images/icons/mail.png" />
         </a>
       </div>
-      <footer>
-        <small class="cclicense">
-          <span class="ccicons"></span>
-          All photos are licensed with a <a href="http://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-NonCommercial</a> license.
-        </small>
-      </footer>
     </div>
     <%= yield :footer %>
 
