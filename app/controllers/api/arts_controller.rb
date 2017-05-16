@@ -9,6 +9,8 @@ class Api::ArtsController < Api::ApiController
     # Drop the Rails-related parameters
     vals = params.reject { |k, v| %w[ controller action format ].include?(k) }
 
+    # Clean the Params as the ios app encodes them.
+    vals = ParamsCleaner.clean(vals)
     # Create a new Art object with the values received from the API client.
     # Some values are protected from mass-assignment, so they will need to
     # be set manually.
@@ -87,6 +89,8 @@ class Api::ArtsController < Api::ApiController
     head :not_found and return unless art
 
     data = params.reject { |k, v| %w[ controller action format id ].include?(k) }
+    # Clean the Params as the ios app encodes them.
+    ParamsCleaner.clean(data)
 
     submission = art.submissions.build(data)
 
@@ -116,6 +120,8 @@ class Api::ArtsController < Api::ApiController
      :url => params[:url],
      :text => params[:text]
     }
+    # Clean the Params as the ios app encodes them.
+    ParamsCleaner.clean(vals)
 
     comment = art.comments.build(vals)
     comment.ip_address = request.ip
