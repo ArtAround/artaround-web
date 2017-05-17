@@ -4,7 +4,7 @@ describe ParamsCleaner do
   let(:params) {
     {
       title: "Digital%20Fountain",
-      address: { street: "Michigan%20Ave.", number: "24", zipcode: "60601" },
+      address: { street: "Michigan%20Ave.", number: 24, zipcode: "60601" },
       categories: ["Digital%20Arts", "Modern"]
     }
   }
@@ -23,6 +23,11 @@ describe ParamsCleaner do
     it "removes unescaped characters on nested arrays" do
       ParamsCleaner.clean(params)
       expect(params[:categories][0]).to eq("Digital Arts")
+    end
+
+    it "respects numeric values" do
+      ParamsCleaner.clean(params)
+      expect(params[:address][:number]).to eq(24)
     end
   end
 end

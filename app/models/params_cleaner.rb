@@ -10,6 +10,7 @@ class ParamsCleaner
   def self.unescape obj
     return unescape_hash(obj) if obj.respond_to? :keys
     return unescape_array(obj) if obj.respond_to? :map
+    return obj if obj.is_a? Numeric
     CGI::unescape obj
   end
 
