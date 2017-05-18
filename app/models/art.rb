@@ -17,6 +17,7 @@ class Art
   attr_protected :_id, :commissioned, :approved, :location, :slug
 
   before_save :ensure_well_formed_url
+  before_save :set_photo_count
 
   # required field, used for slug
   field :title
@@ -67,6 +68,7 @@ class Art
   field :api_visits, :type => Integer
   field :total_visits, :type => Integer # sum of the previous two, duplicated to make filtering easy
   field :ranking, :type => Integer
+  field :photo_count, :type => Integer
 
   index [[:location, Mongo::GEO2D]]
   index :commissioned
@@ -88,6 +90,7 @@ class Art
   scope :submitted, :order_by => :submitted_at.desc
 
   scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
+  scope :with_photos, :where => {:photo_count.gt => 0}
 
   validates_presence_of :title
   validate :contains_valid_categories
@@ -205,5 +208,9 @@ class Art
       art_link.link_url = submission.link_url
       art_link.save!
     end
+  end
+
+  def set_photo_count
+    self.photo_count = photos.count
   end
 end
