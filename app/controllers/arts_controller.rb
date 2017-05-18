@@ -263,13 +263,13 @@ class ArtsController < ApplicationController
     end
     
     if category == nil && tag == nil
-      @arts = Art.approved.desc(sort).page(params[:page]).per(25)
+      @arts = Art.approved.with_photos.desc(sort).page(params[:page]).per(25)
     elsif category != nil && tag == nil
-      @arts = Art.approved.where(category: category).desc(sort).page(params[:page]).per(25)
+      @arts = Art.approved.with_photos.where(category: category).desc(sort).page(params[:page]).per(25)
     elsif category == nil && tag != nil
-      @arts = Art.approved.where(tag: tag).desc(sort).page(params[:page]).per(25)
+      @arts = Art.approved.with_photos.where(tag: tag).desc(sort).page(params[:page]).per(25)
     else
-      @arts = Art.approved.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
+      @arts = Art.approved.with_photos.where(category: category ,tag: tag).desc(sort).page(params[:page]).per(25)
     end
   end
 
