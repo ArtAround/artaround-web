@@ -1,20 +1,9 @@
-FROM ruby:2.1
+FROM ruby:2.3-alpine
 
-# Install apt based dependencies required to run Rails as 
-# well as RubyGems. As the Ruby image itself is based on a 
-# Debian image, we use apt-get to install those.
-RUN apt-get update && apt-get install -y \ 
-    git \
-    build-essential \
-    locales \
-    imagemagick \
-    nodejs
-
-# Use en_US.UTF-8 as our locale
-RUN locale-gen en_US.UTF-8 
-ENV LANG en_US.UTF-8 
-ENV LANGUAGE en_US:en 
-ENV LC_ALL en_US.UTF-8
+# Install dependencies required to run Rails as well as RubyGems.
+RUN apk --update add --virtual build-dependencies curl-dev ruby-dev build-base \
+    openssl-dev libc-dev linux-headers zlib-dev libxml2-dev libxslt-dev tzdata \
+    yaml-dev postgresql-dev nodejs imagemagick git
 
 # Configure the main working directory. This is the base 
 # directory used in any further RUN, COPY, and ENTRYPOINT 

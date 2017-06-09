@@ -8,7 +8,7 @@ app:
   links:
     - mongo
 mongo:
-  image: mongo:2.2
+  image: mongo:3.0
   volumes:
     - ./mongodata:/data/db
     - ./mongodumps:/backups

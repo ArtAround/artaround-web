@@ -1,26 +1,30 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '5.1.1'
 
 gem 'geocoder', '1.1.8'
-gem 'kaminari'
+gem 'kaminari-mongoid'
+gem 'kaminari-actionview'
 
-gem "mongo", '1.6.1'
-gem "mongoid", '2.4.7'
-gem 'mongoid_slug', '0.9.0', :require => 'mongoid/slug'
-gem 'bson_ext', '1.6.1'
+
+# gem "mongo", '1.6.1'
+gem "mongoid", '~> 6.1.0'
+# gem 'mongoid_slug', '0.9.0', :require => 'mongoid/slug'
+# gem 'mongoid_slug', :require => 'mongoid/slug'
+gem 'mongoid-slug'
+# gem 'bson_ext', '1.6.1'
 gem 'exifr', :git => 'git://github.com/picuous/exifr.git'
 
 gem 'rails_autolink'
 
-gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
+# gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
+gem 'mongoid-paperclip', :require => "mongoid_paperclip"
 
 group :development do
   gem 'wirble', '0.1.3'
   gem 'capistrano', '2.5.21' # update to 2.8.0
-  gem 'rack', '1.4.5'
-  gem 'rake', '0.9.2.2'
-  gem 'unicorn', '4.2.1'
+  gem 'rack'
+  gem 'unicorn'
 end
 
 group :test, :development do
