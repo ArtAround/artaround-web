@@ -1,19 +1,30 @@
 defaults: &defaults
-  host: mongo
-  raise_not_found_error: false
+  clients:
+    default:
+      hosts:
+        - mongo:27017
+      raise_not_found_error: false
 
 test:
   <<: *defaults
-  database: artaround_test
+  clients:
+    default:
+      database: artaround_test
 
 development:
   <<: *defaults
-  autocreate_indexes: true
-  database: artaround
+  clients:
+    default:
+      hosts:
+        - mongo:27017
+      autocreate_indexes: true
+      database: artaround
 
 # set these environment variables on your prod server
 production:
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
+  clients:
+    default:
+      host: <%= ENV['MONGOID_HOST'] %>
+      port: <%= ENV['MONGOID_PORT'] %>
+      database: <%= ENV['MONGOID_DATABASE'] %>
 

@@ -45,26 +45,26 @@ Artaround::Application.routes.draw do
         end
       end
 
-      match "/neighborhoods" => "arts#neighborhoods_api"
-      match "/categories" => "arts#categories_api"
-      match "/tags" => "arts#tags_api"
+      get "/neighborhoods" => "arts#neighborhoods_api"
+      get "/categories" => "arts#categories_api"
+      get "/tags" => "arts#tags_api"
     end
   end
 
-  match "/new_art_photo" => "arts#new_art_photo", :as => "new_art_photo"
-  match "/create_art_photo" => "arts#create_art_photo", :as => "create_art_photo"
+  get "/new_art_photo" => "arts#new_art_photo", :as => "new_art_photo"
+  get "/create_art_photo" => "arts#create_art_photo", :as => "create_art_photo"
 
-  match "/admin" => "admin/arts#index", :as => "admin"
+  get "/admin" => "admin/arts#index", :as => "admin"
 
-  match "/contact" => "home#contact"
-  match "/about" => "home#about"
-  match "/faq" => "home#faq"
+  get "/contact" => "home#contact"
+  get "/about" => "home#about"
+  get "/faq" => "home#faq"
 
-  match "/contact/send" => "home#send_contact", :via => [:post], :as => "send_contact"
+  post "/contact/send" => "home#send_contact", :as => "send_contact"
 
-  match "/map" => "arts#map", :as => "map"
-  match "/events/:slug" => "arts#map"
-  match "/autocomplete_commissioners" => "home#autocomplete_commissioners"
+  get "/map" => "arts#map", :as => "map"
+  get "/events/:slug" => "arts#map"
+  get "/autocomplete_commissioners" => "home#autocomplete_commissioners"
 
   get "/tag/:id" => "tag#show" ,:as => "tag"
   get "/artist/:id" => "artist#show" ,:as => "artist"
