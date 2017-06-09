@@ -1,6 +1,6 @@
 class ArtsController < ApplicationController
-  before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
-  before_filter :find_out_category, :only => [:filter_category, :index]
+  before_action :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
+  before_action :find_out_category, :only => [:filter_category, :index]
 
   # New 2 step flow
   def new_art_photo
@@ -191,7 +191,7 @@ class ArtsController < ApplicationController
     @photos_count= Photo.count()
     #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
  
-    @c_count= Country.find(:first)
+    @c_count= Country.first
     @countries_count= @c_count.country_count if @c_count.present?
     #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
     
