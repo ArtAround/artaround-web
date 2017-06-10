@@ -12,8 +12,8 @@ class Event
   field :name
   field :description
   field :website
-  field :starts_at, :type => DateTime
-  field :ends_at, :type => DateTime
+  field :starts_at, type: DateTime
+  field :ends_at, type: DateTime
 
   has_mongoid_attached_file :icon, 
     :styles => {
@@ -32,5 +32,5 @@ class Event
   validates_presence_of :ends_at
   validates_uniqueness_of :slug
 
-  scope :current, lambda {{:where => {:ends_at.gte => Date.today}}}
+  scope :current, -> { where :ends_at.gte => Date.today }
 end

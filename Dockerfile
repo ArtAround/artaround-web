@@ -3,7 +3,7 @@ FROM ruby:2.3-alpine
 # Install dependencies required to run Rails as well as RubyGems.
 RUN apk --update add --virtual build-dependencies curl-dev ruby-dev build-base \
     openssl-dev libc-dev linux-headers zlib-dev libxml2-dev libxslt-dev tzdata \
-    yaml-dev postgresql-dev nodejs imagemagick git
+    yaml-dev postgresql-dev nodejs imagemagick git file
 
 # Configure the main working directory. This is the base 
 # directory used in any further RUN, COPY, and ENTRYPOINT 

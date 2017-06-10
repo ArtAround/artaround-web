@@ -7,8 +7,8 @@ class Art
   has_many :comments
   has_many :art_link
   accepts_nested_attributes_for :art_link
-  belongs_to :event
-  belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
+  belongs_to :event, optional: true
+  belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts, optional: true
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
   has_many :tags, :dependent => :destroy
@@ -194,7 +194,11 @@ class Art
   end
 
   def link_art_id(link_title, link_url)
-    ArtLink.create( :art_id => self.id, :link_title => link_title, :link_url => link_url)
+    ArtLink.create(
+      :art_id => self.id,
+      :link_title => link_title,
+      :link_url => link_url
+    )
   end
 
   def apply_submission submission

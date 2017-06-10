@@ -52,7 +52,7 @@ Artaround::Application.routes.draw do
   end
 
   get "/new_art_photo" => "arts#new_art_photo", :as => "new_art_photo"
-  get "/create_art_photo" => "arts#create_art_photo", :as => "create_art_photo"
+  post "/create_art_photo" => "arts#create_art_photo", :as => "create_art_photo"
 
   get "/admin" => "admin/arts#index", :as => "admin"
 
