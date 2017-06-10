@@ -67,17 +67,17 @@ class Api::ArtsController < Api::ApiController
 
     if photo.save
       AdminMailer.new_photo(art).deliver
-      render :json => json_for_art(art)
+      render json: json_for_art(art)
     else
-      render :json => { :success => false, :errors => photo.errors.messages.values.flatten }, :status => 500
+      render json: { success: false, errors: photo.errors.messages.values.flatten }, status: 500
     end
   end
 
   def show
     @art.inc :api_visits, 1
     @art.inc :total_visits, 1
-    render :json => {
-      :art => json_for_art(@art)
+    render json: {
+      art: json_for_art(@art)
     }
   end
 
@@ -98,10 +98,10 @@ class Api::ArtsController < Api::ApiController
       format.json do
         if submission.save
           AdminMailer.new_art_info(art, submission).deliver
-          render :json => { :success => true }
+          render json: { success: true }
         else
           Rails.logger.info "Could not save submission: #{submission.errors}"
-          render :json => { :success => false }, :status => 400
+          render json: { success: false }, status: 400
         end
       end
     end
@@ -115,10 +115,10 @@ class Api::ArtsController < Api::ApiController
     head :not_found and return unless art
 
     vals = {
-     :name => params[:name],
-     :email => params[:email],
-     :url => params[:url],
-     :text => params[:text]
+      name: params[:name],
+      email: params[:email],
+      url: params[:url],
+      text: params[:text]
     }
     # Clean the Params as the ios app encodes them.
     ParamsCleaner.clean(vals)
@@ -132,33 +132,30 @@ class Api::ArtsController < Api::ApiController
         # client it was a BadRequest otherwise
         if comment.save
           AdminMailer.new_comment(art, params[:name], params[:text]).deliver
-          render :json => { :success => true }
+          render json: { success: true }
         else
           Rails.logger.info "Comment for art #{art.id} could not be saved: #{comment.errors}"
-          render :json => { :success => false }
+          render json: { success: false }
         end
       end
     end
   end
 
   def neighborhoods_api
-    render :json => neighborhoods.to_json
+    render json: neighborhoods.to_json
   end
 
   def categories_api
-    render :json => categories.to_json
+    render json: categories.to_json
   end
 
   def tags_api
-    render :json => tags.to_json
+    render json: tags.to_json
   end
 
   protected
 
   def load_art
-    unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
-      head :not_found and return false
-    end
+    @art = Art.approved.find(params[:id])
   end
-
 end
