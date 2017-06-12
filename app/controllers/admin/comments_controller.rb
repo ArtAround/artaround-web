@@ -1,6 +1,6 @@
 class Admin::CommentsController < Admin::AdminController
-  before_filter :load_art
-  before_filter :load_comment, only: [:unapprove, :approve]
+  before_action :load_art
+  before_action :load_comment, only: [:unapprove, :approve]
 
   def unapprove
     @comment.approved = false

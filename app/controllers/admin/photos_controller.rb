@@ -1,6 +1,6 @@
 class Admin::PhotosController < Admin::AdminController
-  before_filter :load_art
-  before_filter :load_photo, only: [:update, :destroy]
+  before_action :load_art
+  before_action :load_photo, only: [:update, :destroy]
 
   def update
     attribution_text = params[:photo][:attribution_text]

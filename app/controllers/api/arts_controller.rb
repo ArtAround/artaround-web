@@ -1,5 +1,5 @@
 class Api::ArtsController < Api::ApiController
-  before_filter :load_art, :only => :show
+  before_action :load_art, :only => :show
 
   def index
     render :json => json_for_arts

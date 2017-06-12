@@ -1,5 +1,5 @@
 class Admin::CommissionersController < Admin::AdminController
-  before_filter :load_commissioner
+  before_action :load_commissioner
   def show
   end
 

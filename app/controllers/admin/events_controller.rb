@@ -1,5 +1,5 @@
 class Admin::EventsController < Admin::AdminController
-  before_filter :load_event, only: [:show, :update, :destroy]
+  before_action :load_event, only: [:show, :update, :destroy]
 
   def new
     @event = Event.new
