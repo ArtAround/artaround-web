@@ -2,7 +2,7 @@ class Event
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
-  include Mongoid::MultiParameterAttributes
+  # include Mongoid::MultiParameterAttributes
   include Mongoid::Paperclip
 
   has_many :arts
