@@ -1,5 +1,6 @@
 Artaround::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
+  config.eager_load = false
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
@@ -27,6 +28,8 @@ Artaround::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  # config.assets.debug = true
+  # config.assets.quiet = true
 
   # Prevent silly mailing errors in development
   config.action_mailer.default_url_options = { :host => "example.com" }

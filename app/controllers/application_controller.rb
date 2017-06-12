@@ -6,9 +6,9 @@ class ApplicationController < ActionController::Base
   # saves the art, creates a photo and saves it, returns the Photo object
   def create_photo(art, image, attribution_text = nil, attribution_url = nil)
     art.photos.new(
-      :attribution_text => attribution_text,
-      :attribution_url => attribution_url,
-      :image => image
+      attribution_text: attribution_text,
+      attribution_url: attribution_url,
+      image: image
     )
   end
 

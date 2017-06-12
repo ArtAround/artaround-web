@@ -1,6 +1,5 @@
 class Admin::EventsController < Admin::AdminController
-  before_filter :load_event, :only => [:show, :update, :destroy]
-  
+  before_filter :load_event, only: [:show, :update, :destroy]
 
   def new
     @event = Event.new
@@ -10,7 +9,8 @@ class Admin::EventsController < Admin::AdminController
     @event = Event.new params[:event]
 
     if @event.save
-      redirect_to admin_event_path(@event), :notice => "Successfully updated event."
+      redirect_to admin_event_path(@event),
+                  notice: 'Successfully updated event.'
     else
       render :new
     end
@@ -24,23 +24,21 @@ class Admin::EventsController < Admin::AdminController
     @event.destroy
     redirect_to admin_path
   end
-  
+
   def update
     @event.attributes = params[:event]
-    
+
     if @event.save
-      redirect_to admin_event_path(@event), :notice => "Successfully updated event."
+      redirect_to admin_event_path(@event),
+                  notice: 'Successfully updated event.'
     else
       render :show
     end
   end
-  
+
   protected
-  
+
   def load_event
-    unless params[:id] and (@event = Event.where(:slug => params[:id]).first)
-      head :not_found and return false
-    end
+    @event = Event.find(params[:id])
   end
-  
 end

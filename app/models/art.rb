@@ -2,19 +2,19 @@ class Art
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
-  include Mongoid::MultiParameterAttributes
+  # include Mongoid::MultiParameterAttributes
 
   has_many :comments
   has_many :art_link
   accepts_nested_attributes_for :art_link
-  belongs_to :event
-  belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts
+  belongs_to :event, optional: true
+  belongs_to :commissioned_by, :class_name => "Commissioner", :inverse_of => :arts, optional: true
   embeds_many :submissions
   has_many :photos, :dependent => :destroy
   has_many :tags, :dependent => :destroy
   # after_save :link_art_id
   
-  attr_protected :_id, :commissioned, :approved, :location, :slug
+  # attr_protected :_id, :commissioned, :approved, :location, :slug
 
   before_save :ensure_well_formed_url
   before_save :set_photo_count
@@ -37,6 +37,7 @@ class Art
   field :ward, :default => ""
   field :location_description
   field :description
+  field :approved
 
   # Location (array of lat/long)
   field :location, :type => Array
@@ -70,27 +71,30 @@ class Art
   field :ranking, :type => Integer
   field :photo_count, :type => Integer
 
-  index [[:location, Mongo::GEO2D]]
-  index :commissioned
-  index :category
-  index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
-  index :approved
+  # index [[:location, Mongo::GEO2D]]
+  index(location: '2d')
+  # index :commissioned
+  index(commissioned: 1)
+  index(category: 1)
+  index(approved: 1, slug: 1)
+  # index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
+  index(approved: 1)
   # index :slug
-  index :total_visits
-  index :web_visits
-  index :api_visits
+  index(total_visits: 1)
+  index(web_visits: 1)
+  index(api_visits: 1)
 
-  scope :commissioned, :where => {:commissioned => true}
-  scope :uncommissioned, :where => {:commissioned => false}
-  scope :approved, :where => {:approved => true}
-  scope :unapproved, :where => {:approved => false}
-  scope :featured, :where => {:featured => true}
+  scope :commissioned, -> { where({:commissioned => true}) }
+  scope :uncommissioned, -> { where({:commissioned => false}) }
+  scope :approved, -> { where(approved: true) }
+  scope :unapproved, -> { where({:approved => false}) }
+  scope :featured, -> { where({:featured => true}) }
 
-  scope :inbox, :where => {:approved => false}, :order_by => :created_at.desc
-  scope :submitted, :order_by => :submitted_at.desc
+  scope :inbox, -> { where({:approved => false}).order_by(:created_at.desc) }
+  scope :submitted, -> { order_by(:submitted_at.desc) }
 
-  scope :popular, :where => {:ranking => {"$type" => 16}}, :order_by => :ranking.asc
-  scope :with_photos, :where => {:photo_count.gt => 0}
+  scope :popular, -> { where({:ranking => {"$type" => 16}}).order_by(:ranking.asc) }
+  scope :with_photos, -> { where(:photo_count.gt => 0) }
 
   validates_presence_of :title
   validate :contains_valid_categories
@@ -190,7 +194,11 @@ class Art
   end
 
   def link_art_id(link_title, link_url)
-    ArtLink.create( :art_id => self.id, :link_title => link_title, :link_url => link_url)
+    ArtLink.create(
+      :art_id => self.id,
+      :link_title => link_title,
+      :link_url => link_url
+    )
   end
 
   def apply_submission submission

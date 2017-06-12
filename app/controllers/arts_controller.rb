@@ -1,6 +1,6 @@
 class ArtsController < ApplicationController
-  before_filter :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
-  before_filter :find_out_category, :only => [:filter_category, :index]
+  before_action :load_art, :only => [:show, :comment, :submit, :add_photo, :flag]
+  before_action :find_out_category, :only => [:filter_category, :index]
 
   # New 2 step flow
   def new_art_photo
@@ -8,7 +8,7 @@ class ArtsController < ApplicationController
   end
 
   def create_art_photo
-    @photo = Photo.new(params[:photo])
+    @photo = Photo.new(photo_params)
     if @photo.save
       redirect_to new_art_path(:photo_id => @photo.id)
     else
@@ -48,7 +48,7 @@ class ArtsController < ApplicationController
     if !params[:art][:new_artist].blank?
       params[:art][:artist] <<  params[:art][:new_artist]
     end 
-    @art = Art.new params[:art]
+    @art = Art.new art_params
     @photo = Photo.find(params[:photo_id])
 
     @art.artist = params[:art][:artist]
@@ -64,15 +64,17 @@ class ArtsController < ApplicationController
     @art.tag.reject!(&:blank?)
     @art.artist.reject!(&:blank?)
 
-    if @art.safely.save
-        AdminMailer.new_art(@art).deliver
-        unless @commissioner.nil?
-          @commissioner.arts.push(@art)
-          @commissioner.save
-        end
-        @art.photos << @photo
+    if @art.save
+      AdminMailer.new_art(@art).deliver
+      unless @commissioner.nil?
+        @commissioner.arts.push(@art)
+        @commissioner.save
+      end
 
-        redirect_to art_path(@art), :notice => "Thanks for contributing a new piece of art!"
+      @art.photos << @photo
+      @art.inc photo_count: 1
+
+      redirect_to @art, notice: 'Thanks for contributing a new piece of art!'
     else
       render :new
     end
@@ -111,10 +113,11 @@ class ArtsController < ApplicationController
   end
 
   def show
+    puts @art.inspect
     @comment = Comment.new
     @submission = @art.new_submission
-    @art.inc :web_visits, 1
-    @art.inc :total_visits, 1
+    @art.inc web_visits: 1
+    @art.inc total_visits: 1
     @other_photos = @art.photos.to_a.reject {|p| p == @art.primary_photo}
   end
 
@@ -191,7 +194,7 @@ class ArtsController < ApplicationController
     @photos_count= Photo.count()
     #@photos_count= @p_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
  
-    @c_count= Country.find(:first)
+    @c_count= Country.first
     @countries_count= @c_count.country_count if @c_count.present?
     #@countries_count= @co_count.to_s.chars.to_a.reverse.each_slice(1).map(&:join).join(",").reverse
     
@@ -231,10 +234,23 @@ class ArtsController < ApplicationController
 
   protected
 
+  def photo_params
+    params.require(:photo).permit(:image, :attribution_text, :attribution_url)
+  end
+
+  def art_params
+    params.require(:art).permit(
+      :title, :artist, :new_artist, :year, :website, :commisioned_by,
+      :description, :location_description, :latitude, :longitude, :address,
+      :city, :state, :zip, category: [], tag: []
+    )
+  end
+
   def load_art
-    unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
-      head :not_found and return false
-    end
+    @art = Art.approved.find(params[:id])
+    # unless params[:id] and (@art = Art.where(:approved => true, :slug => params[:id]).first)
+    #   head :not_found and return false
+    # end
   end
 
   def find_out_category
