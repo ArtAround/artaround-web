@@ -25,7 +25,7 @@ class Event
     :url => '/system/events/:attachment/:id/:style.:extension'
 
 
-  index :slug
+  index(slug: 1)
 
   validates_presence_of :name
   validates_presence_of :starts_at
