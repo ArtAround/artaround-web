@@ -22,7 +22,7 @@ gem 'mongoid-paperclip', :require => "mongoid_paperclip"
 
 group :development do
   gem 'wirble', '0.1.3'
-  gem 'capistrano', '2.5.21' # update to 2.8.0
+  gem 'capistrano'
   gem 'rack'
   gem 'unicorn'
 end
