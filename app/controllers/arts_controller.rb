@@ -122,7 +122,7 @@ class ArtsController < ApplicationController
   end
 
   def comment
-    @comment = @art.comments.build params[:comment]
+    @comment = @art.comments.build comment_params
     @comment.ip_address = request.ip
 
     if @comment.save
@@ -244,6 +244,10 @@ class ArtsController < ApplicationController
       :description, :location_description, :latitude, :longitude, :address,
       :city, :state, :zip, category: [], tag: []
     )
+  end
+
+  def comment_params
+    params.require(:comment).permit(:name, :email, :url, :text)
   end
 
   def load_art
