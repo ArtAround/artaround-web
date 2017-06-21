@@ -23,8 +23,11 @@ class Admin::TagsController < Admin::AdminController
   def update
     @tag = Tag.find(params[:id])
     @tag.name = params[:tag][:name]
-    @tag.save
-    redirect_to :back
+    if @tag.save
+      redirect_to admin_tags_path, notice: 'Tag edits successfully saved!'
+    else
+      render :edit
+    end
   end
 
   def destroy
