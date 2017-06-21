@@ -81,7 +81,7 @@ class ArtsController < ApplicationController
   end
 
   def submit
-    @submission = @art.submissions.build params[:submission]
+    @submission = @art.submissions.build submission_params
     @submission.add_link_info(params)
 
     if @submission.save
@@ -243,6 +243,13 @@ class ArtsController < ApplicationController
       :title, :artist, :new_artist, :year, :website, :commisioned_by,
       :description, :location_description, :latitude, :longitude, :address,
       :city, :state, :zip, category: [], tag: []
+    )
+  end
+
+  def submission_params
+    params.require(:submission).permit(
+      :artist, :year, :website, :description, :location_description,
+      category: [], tag: []
     )
   end
 
