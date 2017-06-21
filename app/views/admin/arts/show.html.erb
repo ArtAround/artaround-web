@@ -292,7 +292,9 @@
       <% end %>
 
       <div class="tools">
-        <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>, 
+        <% unless submission.applied? %>
+          <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>, 
+        <% end %>
         <%= link_to "Delete Submission", admin_art_submission_path(@art, submission), method: 'delete' %>
       </div>
     </div>

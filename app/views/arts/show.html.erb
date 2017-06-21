@@ -402,7 +402,7 @@
           <li>
             <%= f.label :artist, "Artist(s)" %>
             <%#= f.text_field :artist, {value: @art.artist} %>
-            <% if !@art.new_artist.nil? %>
+            <% if !@art.new_artist.nil? && @art.artist.present? %>
               <% @art.artist.push(@art.new_artist)  %>
             <% end %>
 

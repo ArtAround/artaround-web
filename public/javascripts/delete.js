@@ -1,5 +1,5 @@
 $(function() {
-  $('*[data-method=delete]').live('click', function(e) {
+  $('*[data-method=delete]').on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
     var containerElement = $(e.target).parent().parent();

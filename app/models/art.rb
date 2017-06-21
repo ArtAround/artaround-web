@@ -204,7 +204,7 @@ class Art
   def apply_submission submission
     self.tag                  = submission.tag.reject(&:blank?) if submission.tag.present?
     self.category             = submission.category.reject(&:blank?) if submission.category.present?
-    self.artist               = submission.artist
+    self.artist               = submission.artist if submission.artist.present?
     self.year                 = submission.year
     self.description          = submission.description
     self.location_description = submission.location_description
@@ -216,6 +216,11 @@ class Art
       art_link.link_url = submission.link_url
       art_link.save!
     end
+
+    submission.applied = true
+    submission.save
+
+    true
   end
 
   def set_photo_count

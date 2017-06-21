@@ -15,7 +15,8 @@ class Submission
   field :description
   field :link_title
   field :link_url
-  
+  field :applied, type: Boolean, default: false
+
   validates_numericality_of :year, :allow_blank => true
   validates_numericality_of :ward, :allow_blank => true
 
