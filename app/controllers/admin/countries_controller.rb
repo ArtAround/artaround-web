@@ -8,7 +8,7 @@ class Admin::CountriesController < Admin::AdminController
   end
 
   def create
-    @country = Country.new params[:country]
+    @country = Country.new(params.require(:country).permit(:country_count))
     if @country.save
       redirect_to admin_countries_path, notice: 'Successfully Created Country.'
     else
@@ -24,7 +24,7 @@ class Admin::CountriesController < Admin::AdminController
     @country = Country.find(params[:id])
     @country.country_count = params[:country][:country_count]
     @country.save
-    redirect_to :back
+    redirect_to admin_countries_path
   end
 
   def destroy

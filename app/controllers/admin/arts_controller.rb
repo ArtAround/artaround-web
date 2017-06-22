@@ -70,9 +70,7 @@ class Admin::ArtsController < Admin::AdminController
   protected
 
   def load_art
-    unless params[:id] and (@art = Art.where(:slug => params[:id]).first)
-      head :not_found and return false
-    end
+    @art = Art.find(params[:id])
     @events = Event.all
   end
 

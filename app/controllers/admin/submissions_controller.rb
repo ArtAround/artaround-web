@@ -9,13 +9,15 @@ class Admin::SubmissionsController < Admin::AdminController
 
   def destroy
     submission.delete
-    render text: 'Submission deleted'
+    respond_to do |format|
+      format.json { render json: { message: 'Submission deleted' } }
+    end
   end
 
   private
 
   def art
-    Art.find_by_slug(params[:art_id])
+    Art.find(params[:art_id])
   end
 
   def submission
