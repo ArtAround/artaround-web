@@ -13,6 +13,11 @@ class Admin::PhotosController < Admin::AdminController
 
     @photo.attribution_text = attribution_text
     @photo.attribution_url = attribution_url
+    @photo.submitted_at = Time.new(params[:photo]['submitted_at(1i)'],
+                                   params[:photo]['submitted_at(2i)'],
+                                   params[:photo]['submitted_at(3i)'],
+                                   params[:photo]['submitted_at(4i)'],
+                                   params[:photo]['submitted_at(5i)'])
     @photo.save!
     redirect_to admin_art_path(@art),
                 notice: 'Successfully updated photo\'s details.'
@@ -24,6 +29,11 @@ class Admin::PhotosController < Admin::AdminController
   end
 
   protected
+
+  def photo_params
+    params.require(:photo).permit(:attribution_text, :attribution_url,
+                                  :primary)
+  end
 
   def load_art
     @art = Art.find params[:art_id]
