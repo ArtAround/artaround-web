@@ -36,6 +36,7 @@ class Admin::ArtsController < Admin::AdminController
 
     @art.attributes = art_params
     @art.category.reject!(&:blank?)
+    @art.artist.reject!(&:blank?)
     # @art.art_link.create( params[:art][:art_link_attributes]['0']) if params[:art][:art_link_attributes]['0'][:title].present?
 
     if @art.save
@@ -73,7 +74,7 @@ class Admin::ArtsController < Admin::AdminController
     params.require(:art).permit(:featured, :commisioned, :approved, :title,
                                 :website, :year, :latitude, :logitude,
                                 :location_description, :description, :event_id,
-                                category: [], tag: [])
+                                artist: [], category: [], tag: [])
   end
 
   def load_art
