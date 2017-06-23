@@ -40,6 +40,7 @@ namespace :deploy do
       execute "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
       execute "ln -nfs #{shared_path}/config/pony.yml #{release_path}/config/pony.yml"
       execute "ln -nfs #{shared_path}/config/email.yml #{release_path}/config/email.yml"
+      execute "ln -nfs #{shared_path}/system #{release_path}/public/system"
       # execute "rm #{File.join release_path, 'log'}"
       execute "ln -nfs #{shared_path}/log #{release_path}/log"
     end

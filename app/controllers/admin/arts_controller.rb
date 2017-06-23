@@ -24,7 +24,7 @@ class Admin::ArtsController < Admin::AdminController
     # can't do a validates_presence_of for weird reasons, so validate here
     slug = params[:art].delete 'slug'
     if slug.present?
-      @art.slug = slug
+      @art._slugs = [slug]
     end
 
     latitude = params[:art].delete 'latitude'
@@ -34,7 +34,7 @@ class Admin::ArtsController < Admin::AdminController
     longitude = ["Click on Map", nil].include?(longitude) ? nil : longitude.to_f
     @art.location = [latitude, longitude]
 
-    @art.attributes = params[:art]
+    @art.attributes = art_params
     @art.category.reject!(&:blank?)
     # @art.art_link.create( params[:art][:art_link_attributes]['0']) if params[:art][:art_link_attributes]['0'][:title].present?
 
@@ -68,6 +68,13 @@ class Admin::ArtsController < Admin::AdminController
   end
 
   protected
+
+  def art_params
+    params.require(:art).permit(:featured, :commisioned, :approved, :title,
+                                :website, :year, :latitude, :logitude,
+                                :location_description, :description, :event_id,
+                                category: [], tag: [])
+  end
 
   def load_art
     @art = Art.find(params[:id])
