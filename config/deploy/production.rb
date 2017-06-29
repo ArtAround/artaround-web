@@ -59,5 +59,7 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-set :gems_dir, "/home/#{fetch(:user)}/webapps/artaround/gems"
-set :deploy_to, "/home/#{fetch(:user)}/webapps/artaround/artaround"
+server fetch(:domain), user: fetch(:user), roles: %w{web app}
+set :gems_dir, "/home/#{fetch(:user)}/webapps/production/gems"
+set :deploy_to, "/home/#{fetch(:user)}/webapps/production/artaround"
+set :app_directory, "/home/#{fetch(:user)}/webapps/production"
