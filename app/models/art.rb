@@ -79,7 +79,6 @@ class Art
   index(approved: 1, slug: 1)
   # index [[:approved, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
   index(approved: 1)
-  index(slug: 1)
   index(total_visits: 1)
   index(web_visits: 1)
   index(api_visits: 1)
