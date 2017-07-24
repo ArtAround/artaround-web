@@ -8,6 +8,10 @@ production:
     - "3000:3000"
   links:
     - mongo
+  environment:
+    - MONGOID_HOST=mongo
+    - MONGOID_PORT=27017
+    - MONGOID_DATABASE=artaround
 staging:
   build: .
   command: rails server -p 3001 -b '0.0.0.0'
@@ -18,6 +22,10 @@ staging:
     - "3001:3001"
   links:
     - mongo
+  environment:
+    - MONGOID_HOST=mongo
+    - MONGOID_PORT=27017
+    - MONGOID_DATABASE=artaround_staging
 mongo:
   image: mongo:3.0
   volumes:
