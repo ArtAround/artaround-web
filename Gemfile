@@ -17,6 +17,7 @@ gem 'exifr', :git => 'git://github.com/picuous/exifr.git'
 
 gem 'rails_autolink'
 
+gem 'posix-spawn'
 # gem 'mongoid-paperclip', '0.0.7', :require => "mongoid_paperclip"
 gem 'mongoid-paperclip', :require => "mongoid_paperclip"
 
