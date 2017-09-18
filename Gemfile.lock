@@ -129,6 +129,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    posix-spawn (0.3.13)
     public_suffix (2.0.5)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -221,6 +222,7 @@ DEPENDENCIES
   mongoid (~> 6.1.0)
   mongoid-paperclip
   mongoid-slug
+  posix-spawn
   rack
   rails (= 5.1.1)
   rails_autolink
