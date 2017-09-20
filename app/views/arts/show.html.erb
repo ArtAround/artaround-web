@@ -499,7 +499,7 @@
               <div class="commentMetaData">
                 <span class="commentName">
                   <% if comment.url.present? %>
-                    <a href="<%= comment.url %>"><%= comment.name %></a>
+                    <a href="<%= comment_url comment %>"><%= comment.name %></a>
                   <% else %>
                     <%= comment.name %>
                   <% end %>
