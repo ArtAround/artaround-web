@@ -441,28 +441,8 @@
           <%@art.art_link.each do |al|%>
             <li>
               <%= link_to al.title , al.link_url%> 
-              <span style="float: right;">        
-              <%= link_to "" , destroy_link_art_path(al),:class => "delete_icon" ,:remote => true %>
-              <%= link_to "" ,"javascript:void(0)",:class => "edit_icon" ,:art_link_id => al.id ,:art_link_title => al.title ,:art_link_url => al.link_url %>
-              </span>
             </li>
           <%end%>
-      
-        <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
-        <%#= form_for @art.art_link.new , remote: true do |l| %>
-        <li>
-          <%= label_tag :link_title ,"Link Title"%>
-          <%= text_field_tag :link_title %>
-        </li>
-        <li>
-          <%= label_tag :link_url,"Link Url" %>
-          <%= text_field_tag :link_url %>
-          <%= hidden_field_tag :link_url_id %><br>
-          <%# button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
-          <%#= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
-        </li> 
-
-        <%#end%>
 
           <li>
             <button class="submitBtn" type="submit">
