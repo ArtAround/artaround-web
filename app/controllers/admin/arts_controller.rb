@@ -63,8 +63,10 @@ class Admin::ArtsController < Admin::AdminController
   end
 
   def destroy_link
-    ArtLink.find(params[:id]).delete
-    redirect_to :back
+    art_link = ArtLink.find params[:id]
+    art = art_link.art
+    art_link.delete
+    redirect_to art
     #render :json => { :success => true }
   end
 

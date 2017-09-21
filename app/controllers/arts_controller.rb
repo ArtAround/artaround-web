@@ -226,12 +226,6 @@ class ArtsController < ApplicationController
     render :json => { :success => true }
   end
 
-  def destroy_link
-    ArtLink.find(params[:id]).delete
-    redirect_to :back
-    #render :json => { :success => true }
-  end
-
   protected
 
   def photo_params

@@ -14,4 +14,12 @@ module ArtsHelper
     return '' if submission.artist.nil?
     submission.artist
   end
+
+  def comment_url comment
+    if comment.url.include "http://"
+      comment.url
+    else
+      "http://#{comment.url}"
+    end
+  end
 end
