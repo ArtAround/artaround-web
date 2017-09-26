@@ -28,10 +28,10 @@
         var art_category = "<%=@art.category[1] %>"
       <%else%>
         var art_category = "Unknown"
-      <%end%> 
+      <%end%>
     <%else%>
       var art_category = "<%=@art.category[0] %>"
-    <%end%> 
+    <%end%>
   <%else%>
     var art_category = "Unknown"
   <%end%>
@@ -85,7 +85,7 @@
       icon = "red.png"
     }
     var pinImage = "/images/pins/"+icon;
-    marker.setIcon(pinImage); 
+    marker.setIcon(pinImage);
 
 
     marker.setMap(map);
@@ -231,7 +231,7 @@
             <% else %>
                 <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text_for_display %></a>.
             <% end %>
-            <%= t :posted, date: @art.primary_photo.created_at.strftime("%B %Y") %>
+            <%= t :posted, date: @art.primary_photo.submitted_at.strftime("%B %Y") %>
             <br>
           </div>
       <% end %>
@@ -244,7 +244,7 @@
               <% else %>
                   <a href="<%= photo.attribution_url %>"> <%= photo.attribution_text_for_display %></a>.
               <% end %>
-              <%= t :posted, date: photo.created_at.strftime("%B %Y") %>
+              <%= t :posted, date: photo.submitted_at.strftime("%B %Y") %>
               <br>
             </div>
         <% end %>
@@ -291,7 +291,7 @@
         <!-- <dd><%#= known @art.artist %></dd> -->
         <dd>
           <ul>
-          
+
           <% if !@art.artist.blank? %>
             <%if @art.artist.present?%>
               <%if @art.artist.kind_of?(Array)%>
@@ -326,7 +326,7 @@
           <%end%>
           </ul>
         </dd>
-        
+
         <%# if @art.tag.count > 1 %>
         <!-- <dt>Tags</dt>
         <dd>
@@ -346,12 +346,12 @@
             <% if !@art.tag_id.nil? %>
                 <%if @art.tag_id == [""]%>
                   <li>Unknown</li>
-                <% else %>  
+                <% else %>
                   <% @art.tag_id.reject(&:empty?).sort_by!{ |e| e.downcase }.each do |t| %>
                     <% s = Tag.find(t.to_s) %>
                     <% if !s.nil? %>
                       <li><%=link_to s.name ,known(tag_path(s.name))%></li>
-                    <% end %>  
+                    <% end %>
                   <% end %>
                 <%end%>
             <%#else%>
@@ -440,14 +440,14 @@
 
           <%@art.art_link.each do |al|%>
             <li>
-              <%= link_to al.title , al.link_url%> 
-              <span style="float: right;">        
+              <%= link_to al.title , al.link_url%>
+              <span style="float: right;">
               <%= link_to "" , destroy_link_art_path(al),:class => "delete_icon" ,:remote => true %>
               <%= link_to "" ,"javascript:void(0)",:class => "edit_icon" ,:art_link_id => al.id ,:art_link_title => al.title ,:art_link_url => al.link_url %>
               </span>
             </li>
           <%end%>
-      
+
         <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
         <%#= form_for @art.art_link.new , remote: true do |l| %>
         <li>
@@ -460,7 +460,7 @@
           <%= hidden_field_tag :link_url_id %><br>
           <%# button_tag "Save link",:type => "button",:class=>"" ,:id => "link_submit"%>
           <%#= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
-        </li> 
+        </li>
 
         <%#end%>
 
@@ -484,7 +484,7 @@
 <div id="map_canvas" class="smMap module"></div>
   </div>
 
-    
+
   </div>
 
   <div id="rtColumn">
