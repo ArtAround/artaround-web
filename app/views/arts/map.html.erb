@@ -71,7 +71,7 @@
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
         <% if art.artist.present? && art.artist[0] == "" %>
-          artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.to_s %>",
+          artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.join(' ').to_s %>",
         <% else %>
           artist: "<%= escape_javascript art.artist.to_s %>",
         <% end %>
@@ -124,7 +124,7 @@
       icons.grey = new google.maps.MarkerImage("/images/pins/grey.png");
 
       $.each(arts, function(i, art) {
-        
+
         var marker = markerFor(art, map);
 
         marker.filters = {
@@ -190,10 +190,10 @@
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.map_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
+		    '<p>' + (description || "") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
 
       '</div>';
-      
+
       var icon = icons.red;
       // var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
       // if (isVenue){
@@ -209,7 +209,7 @@
       // }
 
 
-      if ($.inArray('catalog', art.category)>=0 || $.inArray('catalog', art.tag)>=0){ 
+      if ($.inArray('catalog', art.category)>=0 || $.inArray('catalog', art.tag)>=0){
         icon = icons.teal;
       }
       else if ($.inArray('street art host spots', art.category)>=0 || $.inArray('street art host spots', art.tag)>=0){
@@ -565,7 +565,7 @@
 
     jQuery(document).ready(function ($) {
         var $imgs = $('img.lazy'),
-       
+
                 $container = $('#art-list');
 
         $imgs.lazyload({
