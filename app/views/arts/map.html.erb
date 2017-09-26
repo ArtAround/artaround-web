@@ -71,9 +71,9 @@
         popular: <%= art.popular? %>,
         description: "<%= escape_javascript art.description %>",
         <% if art.artist.present? && art.artist[0] == "" %>
-          artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.to_s %>",
+          artist: "<%= escape_javascript art.artist.reject!{|a| a==""}.join(', ').to_s %>",
         <% else %>
-          artist: "<%= escape_javascript art.artist.to_s %>",
+          artist: "<%= escape_javascript art.artist.join(', ').to_s %>",
         <% end %>
         year: "<%= escape_javascript art.year.to_s %>",
         timeline_year: <%= art.timeline_year %>,
@@ -190,7 +190,7 @@
             '</dl>' +
         '</div>' +
         '<a class="bubbleimg" id="bubbleimg-' + art.id + '" style="background-image: url(' + art.map_thumb + ')" href="/arts/' + art.id + '" target="_blank">Image</a>' +
-		    '<p>' + (description || "(no description)") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
+		    '<p>' + (description || "") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
 
       '</div>';
       
