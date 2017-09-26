@@ -231,7 +231,7 @@
             <% else %>
                 <a href="<%= @art.primary_photo.attribution_url %>"> <%= @art.primary_photo.attribution_text_for_display %></a>.
             <% end %>
-            <%= t :posted, date: @art.primary_photo.created_at.strftime("%B %Y") %>
+            <%= t :posted, date: @art.primary_photo.submitted_at.strftime("%B %Y") %>
             <br>
           </div>
       <% end %>
@@ -244,7 +244,7 @@
               <% else %>
                   <a href="<%= photo.attribution_url %>"> <%= photo.attribution_text_for_display %></a>.
               <% end %>
-              <%= t :posted, date: photo.created_at.strftime("%B %Y") %>
+              <%= t :posted, date: photo.submitted_at.strftime("%B %Y") %>
               <br>
             </div>
         <% end %>
