@@ -34,7 +34,7 @@ class Api::ApiController < ApplicationController
       hash = art.as_json
 
       if art.artist
-        hash[:artist] = art.artist.to_a
+        hash[:artist] = art.artist.is_a?(Array) ? art.artist : [art.artist]
       end
 
       if art.commissioned_by.nil?
