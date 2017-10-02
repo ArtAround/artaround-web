@@ -74,8 +74,8 @@ class Api::ArtsController < Api::ApiController
   end
 
   def show
-    @art.inc :api_visits, 1
-    @art.inc :total_visits, 1
+    @art.inc api_visits: 1
+    @art.inc total_visits: 1
     render json: {
       art: json_for_art(@art)
     }
