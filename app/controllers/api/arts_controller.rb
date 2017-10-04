@@ -7,14 +7,16 @@ class Api::ArtsController < Api::ApiController
 
   def create
     # Drop the Rails-related parameters
-    vals = params.reject { |k, v| %w[ controller action format ].include?(k) }
+    location = params[:location]
+    vals = params.reject { |k, v| %w[ controller action format _method location ].include?(k) }
 
     # Clean the Params as the ios app encodes them.
-    vals = ParamsCleaner.clean(vals)
+    vals = ParamsCleaner.clean(vals.permit(:artist, :category, :description,
+                                           :location_description, :year, :title,
+                                           :website, :commisioned_by))
     # Create a new Art object with the values received from the API client.
     # Some values are protected from mass-assignment, so they will need to
     # be set manually.
-
     if vals[:category]
       vals[:category] = vals[:category].split(',')
     end
@@ -23,9 +25,9 @@ class Api::ArtsController < Api::ApiController
 
     art.approved = true # auto-approve, would default to false otherwise
 
-    if vals[:location]
-      latitude = vals[:location][0].to_f
-      longitude = vals[:location][1].to_f
+    if location
+      latitude = location[0].to_f
+      longitude = location[1].to_f
       art.location = [latitude, longitude]
     end
 
@@ -41,7 +43,7 @@ class Api::ArtsController < Api::ApiController
         # If the art is successfully saved, send back the JSON representation
         # of the art. Otherwise, send back the errors and a Bad Request
         # status code.
-        if art.safely.save
+        if art.save
           AdminMailer.new_art(art).deliver
           unless @commissioner.nil?
             @commissioner.arts.push(art)
@@ -49,7 +51,7 @@ class Api::ArtsController < Api::ApiController
           end
           render :json => { :success => art.slug }
         else
-          Rails.logger.info "Could not save art: #{art.errors}"
+          Rails.logger.info "Could not save art: #{art.errors.inspect}"
           render :json => art.errors, :status => 400
         end
       end
@@ -82,15 +84,17 @@ class Api::ArtsController < Api::ApiController
   end
 
   def update
-    art = Art.find_by_slug(params[:id])
+    art = Art.find(params[:id])
 
     # Send back a 404 message if the art was not found. Since
     # this is an API, no body is required.
     head :not_found and return unless art
 
-    data = params.reject { |k, v| %w[ controller action format id ].include?(k) }
+    data = params.reject { |k, v| %w[ controller action format id _method location slug title website ].include?(k) }
     # Clean the Params as the ios app encodes them.
-    ParamsCleaner.clean(data)
+    data = ParamsCleaner.clean(data.permit(:artist, :category, :description,
+                                           :location_description, :year, :title,
+                                           :website, :commisioned_by))
 
     submission = art.submissions.build(data)
 
@@ -100,7 +104,7 @@ class Api::ArtsController < Api::ApiController
           AdminMailer.new_art_info(art, submission).deliver
           render json: { success: true }
         else
-          Rails.logger.info "Could not save submission: #{submission.errors}"
+          Rails.logger.info "Could not save submission: #{submission.errors.inspect}"
           render json: { success: false }, status: 400
         end
       end
@@ -108,7 +112,7 @@ class Api::ArtsController < Api::ApiController
   end
 
   def comments
-    art = Art.find_by_slug(params[:id])
+    art = Art.find(params[:id])
 
     # Send back a 404 message if the art was not found. Since
     # this is an API, no body is required.
@@ -121,7 +125,7 @@ class Api::ArtsController < Api::ApiController
       text: params[:text]
     }
     # Clean the Params as the ios app encodes them.
-    ParamsCleaner.clean(vals)
+    vals = ParamsCleaner.clean(vals)
 
     comment = art.comments.build(vals)
     comment.ip_address = request.ip
@@ -134,7 +138,7 @@ class Api::ArtsController < Api::ApiController
           AdminMailer.new_comment(art, params[:name], params[:text]).deliver
           render json: { success: true }
         else
-          Rails.logger.info "Comment for art #{art.id} could not be saved: #{comment.errors}"
+          Rails.logger.info "Comment for art #{art.id} could not be saved: #{comment.errors.inspect}"
           render json: { success: false }
         end
       end
