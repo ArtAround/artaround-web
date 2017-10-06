@@ -69,6 +69,7 @@ class Api::ArtsController < Api::ApiController
 
     if photo.save
       AdminMailer.new_photo(art).deliver
+      art.inc photo_count: 1
       render json: json_for_art(art)
     else
       render json: { success: false, errors: photo.errors.messages.values.flatten }, status: 500
