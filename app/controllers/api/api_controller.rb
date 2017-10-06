@@ -1,6 +1,7 @@
 class Api::ApiController < ApplicationController
   def json_for_art(art)
     hash = art.as_json
+    hash[:slug] = art.slug
     hash = clean hash, art_fields
     hash[:comments] = art.comments.approved.all.map {|comment| clean comment.attributes, comment_fields}
     hash[:event] = event_for_art(art)
@@ -32,6 +33,7 @@ class Api::ApiController < ApplicationController
 
     results = arts.skip(skip).limit(limit).map do |art|
       hash = art.as_json
+      hash[:slug] = art.slug
 
       if art.artist
         hash[:artist] = art.artist.is_a?(Array) ? art.artist : [art.artist]
