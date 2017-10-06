@@ -59,7 +59,7 @@ class Api::ArtsController < Api::ApiController
   end
 
   def photos
-    art = Art.find_by_slug(params[:id])
+    art = Art.find(params[:id])
 
     # Send back a 404 message if the art was not found. Since
     # this is an API, no body is required.
