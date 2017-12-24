@@ -6,4 +6,11 @@ class ArtLink
   field :link_title, :type => String
 
   belongs_to :art
+
+  def self.new_from_csv(csv_data)
+    title, url = csv_data.try(:split, ';')
+    if title.present? && url.present?
+      ArtLink.new title: title, link_title: title, link_url: url
+    end
+  end
 end

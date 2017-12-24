@@ -13,7 +13,7 @@ class Art
   has_many :photos, :dependent => :destroy
   has_many :tags, :dependent => :destroy
   # after_save :link_art_id
-  
+
   # attr_protected :_id, :commissioned, :approved, :location, :slug
 
   before_save :ensure_well_formed_url
@@ -224,5 +224,33 @@ class Art
 
   def set_photo_count
     self.photo_count = photos.count
+  end
+
+  def self.create_from_csv csv_row
+    art = Art.new
+
+    art.title = csv_row['Title']
+    art.description = csv_row['Description']
+    art.artist = csv_row['Artist']
+    art.year = csv_row['Year']
+    art.website = csv_row['Website']
+    art.location = [csv_row['Latitude'].to_f, csv_row['Longitude'].to_f]
+    art.location_description = csv_row['Location Description']
+
+    csv_row['Tags'].to_s.split(',').map(&:strip).each do |tag_name|
+      tag = Tag.where(name: tag_name).first_or_create
+      art.tags << tag
+    end
+
+    art.category = csv_row['Category'].split(',').map(&:strip)
+
+    # Links are poorly formatted
+    csv_row.select{|k,v| k.include? 'Link'}.each do |k, v|
+      link = ArtLink.new_from_csv(v)
+      art.art_link << link if link.present?
+    end
+
+    art.approved = true
+    art.save
   end
 end
