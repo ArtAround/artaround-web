@@ -12,7 +12,7 @@ Artaround::Application.routes.draw do
   end
 
   namespace :admin do
-    resource :art_import, controller: 'arts_import', only: [:new, :create]
+    resources :art_imports, controller: 'arts_import', only: [:show, :new, :create]
     resources :arts do
       resources :comments do
         post :delete, :on => :member

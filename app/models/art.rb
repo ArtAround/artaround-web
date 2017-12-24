@@ -252,5 +252,6 @@ class Art
 
     art.approved = true
     art.save
+    art
   end
 end

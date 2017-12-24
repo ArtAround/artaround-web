@@ -1,0 +1,12 @@
+<div id="pageMain">
+  <br />
+  <br />
+  <h3>Import Art Results</h3>
+  <br />
+    Imported Rows: <%= @import.import_count %> <br />
+    Errors Rows: <%= @import.error_count %> <br />
+    Total Rows: <%= @import.total_count %> <br />
+    <%= link_to "Download CSV Result", admin_art_import_path(@import, format: 'csv') %>
+  <br />
+  <br />
+</div>
