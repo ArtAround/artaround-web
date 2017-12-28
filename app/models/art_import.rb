@@ -27,8 +27,7 @@ class ArtImport
     ArtImport.create import_count: imported.count,
       error_count: errors.count,
       total_count: total_count,
-      art_ids: imported.map(&:id),
-      errored_rows: errors
+      art_ids: imported.map(&:id)
   end
 
   def to_csv
