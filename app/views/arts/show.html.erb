@@ -388,7 +388,7 @@
           <ul>
             <% @art.art_link.each do |link| %>
               <li style="list-style-type: initial;">
-                <%= link_to link.title ,"http://"+link.link_url , :target => "_blank" %>
+                <%= link_to link.title, link.safe_url, :target => "_blank" %>
               </li>
             <% end %>
           </ul>
