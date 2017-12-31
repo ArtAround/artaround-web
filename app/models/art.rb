@@ -231,21 +231,23 @@ class Art
 
     art.title = csv_row['Title']
     art.description = csv_row['Description']
-    art.artist = csv_row['Artist']
     art.year = csv_row['Year']
     art.website = csv_row['Website']
     art.location = [csv_row['Latitude'].to_f, csv_row['Longitude'].to_f]
     art.location_description = csv_row['Location Description']
 
-    csv_row['Tags'].to_s.split(',').map(&:strip).each do |tag_name|
-      tag = Tag.where(name: tag_name).first_or_create
-      art.tags << tag
+    Artist.where(name: csv_row['Artist']).first_or_create
+    art.artist = [csv_row['Artist']]
+
+    imported_tags = csv_row['Tags'].to_s.split(',').map do |tag_name|
+      Tag.where(name: tag_name.strip).first_or_create
     end
+    art.tag_id = imported_tags.map(&:id).map(&:to_s)
 
     art.category = csv_row['Category'].split(',').map(&:strip)
 
     # Links are poorly formatted
-    csv_row.select{|k,v| k.include? 'Link'}.each do |k, v|
+    csv_row.select{|k,_| k.include? 'Link'}.each do |_, v|
       link = ArtLink.new_from_csv(v)
       art.art_link << link if link.present?
     end

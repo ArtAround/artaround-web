@@ -13,4 +13,10 @@ class ArtLink
       ArtLink.new title: title, link_title: title, link_url: url
     end
   end
+
+  def safe_url
+    return link_url if link_url.include? 'http'
+
+    "http://#{link_url}"
+  end
 end
