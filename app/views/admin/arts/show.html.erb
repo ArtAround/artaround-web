@@ -89,7 +89,7 @@
         icon = "red.png"
       }
       var pinImage = "/images/pins/"+icon;
-      searchMarker.setIcon(pinImage); 
+      searchMarker.setIcon(pinImage);
 
 
 
@@ -203,15 +203,15 @@
           <% else %>
             <%= f.select :tag, options_for_select(Tag.all.collect(&:name), @art.tag), {},{:multiple => true} %>
           <% end %>
-        <% end %>  
+        <% end %>
       </li>
       <li>
         <%= f.label :longitude %>
         <%= f.text_field :longitude %>
       </li>
       <li>
-        <%= f.label :artist, "Artist(s)" %>
-        <%#= f.text_field :artist %>
+        <%= f.label :artist, "Artist(s) blah" %>
+        <%#= f.text_field :artist, value: "joel" %>
         <%= f.select :artist, Artist.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
       </li>
       <li>
@@ -222,17 +222,17 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
       </li>
-      
+
       <%@art.art_link.each do |al|%>
         <li>
-          <%= link_to al.title , al.link_url%> 
-          <span style="float: right;">        
+          <%= link_to al.title , al.link_url%>
+          <span style="float: right;">
           <%= link_to "" , destroy_link_admin_art_path(al),:class => "delete_icon" ,:remote => true %>
           <%= link_to "" ,"javascript:void(0)",:class => "edit_icon" ,:art_link_id => al.id ,:art_link_title => al.title ,:art_link_url => al.link_url %>
           </span>
         </li>
       <%end%>
-      
+
       <%#= f.fields_for :art_link ,@art.art_link.new do |l| %>
       <%#= form_for @art.art_link.new , remote: true do |l| %>
       <li>
@@ -242,10 +242,10 @@
       <li>
         <%= label_tag :link_url,"Link Url" %>
         <%= text_field_tag :link_url %>
-        <%= hidden_field_tag :link_url_id %> 
+        <%= hidden_field_tag :link_url_id %>
         <%= button_tag "Save link",:type => "button",:class=>"submitBtn" ,:id => "link_submit"%>
         <%= button_tag "Cancel",:type => "button",:class=>"" ,:id => "link_cancel" %>
-      </li> 
+      </li>
 
       <%#end%>
 
@@ -293,7 +293,7 @@
 
       <div class="tools">
         <% unless submission.applied? %>
-          <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>, 
+          <%= link_to "Apply Submission", approve_admin_art_submission_path(@art, submission) %>,
         <% end %>
         <%= link_to "Delete Submission", admin_art_submission_path(@art, submission), method: 'delete' %>
       </div>
