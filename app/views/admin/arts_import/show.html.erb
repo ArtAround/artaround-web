@@ -9,4 +9,25 @@
     <%= link_to "Download CSV Result", admin_art_import_path(@import, format: 'csv') %>
   <br />
   <br />
+  <% if @import.errored_rows.any? %>
+    <h3>Error details</h3>
+    <table>
+      <% @import.errored_rows.each do |error| %>
+      <tr>
+        <td style="vertical-align:top;font-weight:bold;">
+          <%= error["row_number"] %> <%= error["exception"] %>
+        </td>
+        <td>
+          <ul>
+            <% error["row"].each do |k,v| %>
+            <li>
+              <strong><%= k %></strong>:<%= v %>
+            </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  <% end %>
 </div>

@@ -20,15 +20,15 @@ class ArtImport
         art = Art.create_from_csv(row)
         imported << art
       rescue Exception => e
-        raise e
-        errors << row
+        errors << {row: row.to_h, exception: e.inspect, row_number: total_count}
       end
     end
 
     ArtImport.create import_count: imported.count,
       error_count: errors.count,
       total_count: total_count,
-      art_ids: imported.map(&:id)
+      art_ids: imported.map(&:id),
+      errored_rows: errors
   end
 
   def to_csv
