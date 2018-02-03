@@ -30,7 +30,7 @@ class Art
   field :tag_id, :type => Array
   field :category, :type => Array
   field :old_category
-  field :artist
+  field :artist, :type => Array
   field :new_artist
   field :year, :default => ""
   field :neighborhood
@@ -236,8 +236,10 @@ class Art
     art.location = [csv_row['Latitude'].to_f, csv_row['Longitude'].to_f]
     art.location_description = csv_row['Location Description']
 
-    Artist.where(name: csv_row['Artist']).first_or_create
-    art.artist = [csv_row['Artist']]
+    art.artist = csv_row['Artist'].to_s.split(',').map do |a|
+      Artist.where(name: a).first_or_create
+      a
+    end
 
     imported_tags = csv_row['Tags'].to_s.split(',').map do |tag_name|
       Tag.where(name: tag_name.strip).first_or_create

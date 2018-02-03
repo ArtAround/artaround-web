@@ -19,7 +19,8 @@ class ArtImport
       begin
         art = Art.create_from_csv(row)
         imported << art
-      rescue
+      rescue Exception => e
+        raise e
         errors << row
       end
     end
