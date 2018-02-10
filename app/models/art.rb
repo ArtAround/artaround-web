@@ -245,6 +245,7 @@ class Art
       Tag.where(name: tag_name.strip).first_or_create
     end
     art.tag_id = imported_tags.map(&:id).map(&:to_s)
+    art.tag = imported_tags.map(&:name)
 
     art.category = csv_row['Category'].split(',').map(&:strip)
 
