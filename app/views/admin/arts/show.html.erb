@@ -196,7 +196,9 @@
       </li>
       <li>
         <label for="art_tag">Tags</label>
-        <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+        <% if @art.tag.blank? || @art.tag_id.blank? %>
+          <%= f.select :tag, Tag.all.collect(&:name), {}, {:multiple => true, :style => "width: 350px"}  %>
+        <% end %>
         <% if !@art.tag_id.blank? %>
           <% if @art.tag_id[1].present?%>
             <%= f.select('tag_id', options_for_select(Tag.all.collect {|r| [h(r.name), r.id] }, @art.tag_id), {}, { :include_blank => false, :multiple => true, :style => "width: 350px" }) %>
