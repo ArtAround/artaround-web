@@ -1,6 +1,6 @@
 <% content_for :body_class, "home" %>
 <% content_for :footer do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBdug7_rlFIe_C9eQdKgEZHX9Cbx-wYBi0&sensor=false"></script>
 <% end %>
 <% content_for :tabs do %>
   <li id="allArt_link" class="active">
@@ -126,7 +126,7 @@
       icons.grey = new google.maps.MarkerImage("/images/pins/grey.png");
 
       $.each(arts, function(i, art) {
-        
+
         var marker = markerFor(art, map);
 
         marker.filters = {
@@ -195,7 +195,7 @@
 		    '<p>' + (description || "") + '<a class="moreInfo" href="/arts/' + art.id + '" target="_blank">More Info</a></p>' +
 
       '</div>';
-      
+
       var icon = icons.red;
       // var isVenue = ($.inArray('museum', art.category)>=0 || $.inArray('gallery', art.category)>=0 || $.inArray('market', art.category)>=0);
       // if (isVenue){
@@ -211,7 +211,7 @@
       // }
 
 
-      if ($.inArray('catalog', art.category)>=0 || $.inArray('catalog', art.tag)>=0){ 
+      if ($.inArray('catalog', art.category)>=0 || $.inArray('catalog', art.tag)>=0){
         icon = icons.teal;
       }
       else if ($.inArray('street art host spots', art.category)>=0 || $.inArray('street art host spots', art.tag)>=0){
@@ -567,7 +567,7 @@
 
     jQuery(document).ready(function ($) {
         var $imgs = $('img.lazy'),
-       
+
                 $container = $('#art-list');
 
         $imgs.lazyload({
