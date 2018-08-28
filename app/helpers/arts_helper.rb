@@ -16,7 +16,7 @@ module ArtsHelper
   end
 
   def comment_url comment
-    if comment.url.include "http://"
+    if comment.url.include? "http://"
       comment.url
     else
       "http://#{comment.url}"
