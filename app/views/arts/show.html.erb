@@ -1,5 +1,5 @@
 <% content_for :footer do %>
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&callback=loadMaps"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBdug7_rlFIe_C9eQdKgEZHX9Cbx-wYBi0&sensor=false&callback=loadMaps"></script>
 <% end %>
 
 <% content_for :head do %>
@@ -28,10 +28,10 @@
         var art_category = "<%=@art.category[1] %>"
       <%else%>
         var art_category = "Unknown"
-      <%end%> 
+      <%end%>
     <%else%>
       var art_category = "<%=@art.category[0] %>"
-    <%end%> 
+    <%end%>
   <%else%>
     var art_category = "Unknown"
   <%end%>
@@ -85,7 +85,7 @@
       icon = "red.png"
     }
     var pinImage = "/images/pins/"+icon;
-    marker.setIcon(pinImage); 
+    marker.setIcon(pinImage);
 
 
     marker.setMap(map);
@@ -291,7 +291,7 @@
         <!-- <dd><%#= known @art.artist %></dd> -->
         <dd>
           <ul>
-          
+
           <% if !@art.artist.blank? %>
             <%if @art.artist.present?%>
               <%if @art.artist.kind_of?(Array)%>
@@ -326,7 +326,7 @@
           <%end%>
           </ul>
         </dd>
-        
+
         <%# if @art.tag.count > 1 %>
         <!-- <dt>Tags</dt>
         <dd>
@@ -346,12 +346,12 @@
             <% if !@art.tag_id.nil? %>
                 <%if @art.tag_id == [""]%>
                   <li>Unknown</li>
-                <% else %>  
+                <% else %>
                   <% @art.tag_id.reject(&:empty?).sort_by!{ |e| e.downcase }.each do |t| %>
                     <% s = Tag.find(t.to_s) %>
                     <% if !s.nil? %>
                       <li><%=link_to s.name ,known(tag_path(s.name))%></li>
-                    <% end %>  
+                    <% end %>
                   <% end %>
                 <%end%>
             <%#else%>
@@ -440,7 +440,7 @@
 
           <%@art.art_link.each do |al|%>
             <li>
-              <%= link_to al.title , al.link_url%> 
+              <%= link_to al.title , al.link_url%>
             </li>
           <%end%>
 
@@ -464,7 +464,7 @@
 <div id="map_canvas" class="smMap module"></div>
   </div>
 
-    
+
   </div>
 
   <div id="rtColumn">
