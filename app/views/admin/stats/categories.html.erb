@@ -1,0 +1,27 @@
+<div id="pageMain" class="admin">
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Stats::Counts by tags</h2>
+    </div>
+
+    <%= render partial: "navigation" %>
+
+    <table class="stats">
+      <thead>
+        <th>Category Name</th>
+        <th># of Artworks total</th>
+        <th># of Artworks in the last month</th>
+      </thead>
+      <tbody>
+        <% @categories.each do |category, count| %>
+          <tr>
+            <td class="label"><%= category %></td>
+            <td><%= count %></td>
+            <td><%= @categories_in_the_last_month[category] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

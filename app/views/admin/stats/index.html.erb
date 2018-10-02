@@ -1,0 +1,43 @@
+<div id="pageMain" class="admin">
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Stats</h2>
+    </div>
+
+    <%= render partial: "navigation" %>
+
+    <table class="stats">
+      <thead>
+        <th></th>
+        <th></th>
+        <th># of artworks</th>
+        <th># of tags</th>
+        <th># of categories</th>
+        <th># of artists</th>
+        <th># of cities</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="label">Total</td>
+          <th></th>
+          <td><%= Art.count %></td>
+          <td><%= Art.pluck(:tag).flatten.uniq.count %></td>
+          <td><%= Art.pluck(:category).flatten.uniq.count %></td>
+          <td><%= Art.pluck(:artist).flatten.uniq.count %></td>
+          <td><%= Art.pluck(:city).flatten.uniq.count %></td>
+        </tr>
+
+        <tr>
+          <td class="label">Last Month</td>
+          <th>&nbsp;</th>
+          <td><%= Art.last_month.count %></td>
+          <td><%= Art.last_month.pluck(:tag).flatten.uniq.count %></td>
+          <td><%= Art.last_month.pluck(:category).flatten.uniq.count %></td>
+          <td><%= Art.last_month.pluck(:artist).flatten.uniq.count %></td>
+          <td><%= Art.last_month.pluck(:city).flatten.uniq.count %></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

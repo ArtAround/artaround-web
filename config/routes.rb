@@ -12,6 +12,14 @@ Artaround::Application.routes.draw do
   end
 
   namespace :admin do
+    resources :stats, only:[:index] do
+      collection do
+        get :tags
+        get :categories
+        get :cities
+        get :artists
+      end
+    end
     resources :art_imports, controller: 'arts_import', only: [:show, :new, :create]
     resources :arts do
       resources :comments do
