@@ -1,0 +1,8 @@
+table.stats .label, table.stats th { font-weight: bold; text-align: right }
+
+table.stats th, table.stats td {
+  padding: 5px 10px;
+  text-align: right;
+}
+
+ul.stats-navigation li { display: inline-block; font-weight: bold; }

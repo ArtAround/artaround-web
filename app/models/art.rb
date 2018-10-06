@@ -94,6 +94,7 @@ class Art
 
   scope :popular, -> { where({:ranking => {"$type" => 16}}).order_by(:ranking.asc) }
   scope :with_photos, -> { where(:photo_count.gt => 0) }
+  scope :last_month, -> { where({:created_at.gt => 1.month.ago}) }
 
   validates_presence_of :title
   validate :contains_valid_categories
@@ -258,5 +259,79 @@ class Art
     art.approved = true
     art.save
     art
+  end
+
+  def self.counts_grouped_by_tags(scope=Art)
+    arts = scope.all
+    tag_counts = {}
+
+    arts.each do |art|
+      next unless art.tag.present?
+      art.tag.each do |tag|
+        if tag_counts[tag].present?
+          tag_counts[tag] += 1
+        else
+          tag_counts[tag] = 1
+        end
+      end
+    end
+
+    tag_counts
+  end
+
+  def self.counts_grouped_by_categories(scope=Art)
+    arts = scope.all
+    category_counts = {}
+
+    arts.each do |art|
+      next unless art.category.present?
+      art.category.each do |category|
+        if category_counts[category].present?
+          category_counts[category] += 1
+        else
+          category_counts[category] = 1
+        end
+      end
+    end
+
+    category_counts
+  end
+
+  def self.counts_grouped_by_artists(scope=Art)
+    arts = scope.all
+    artist_counts = {}
+
+    arts.each do |art|
+      next unless art.artist.present?
+      [art.artist].flatten.each do |artist|
+        if artist_counts[artist].present?
+          artist_counts[artist] += 1
+        else
+          artist_counts[artist] = 1
+        end
+      end
+    end
+
+    artist_counts
+  end
+
+  def self.counts_grouped_by_cities(scope=Art)
+    arts = scope.all
+    city_counts = { "NA" => 0 }
+
+    arts.each do |art|
+      if art.city.nil?
+        city_counts["NA"] += 1
+        next
+      end
+
+      if city_counts[art.city].present?
+        city_counts[art.city] += 1
+      else
+        city_counts[art.city] = 1
+      end
+    end
+
+    city_counts
   end
 end

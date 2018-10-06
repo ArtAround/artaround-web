@@ -1,0 +1,27 @@
+<div id="pageMain" class="admin">
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Stats::Counts by tags</h2>
+    </div>
+
+    <%= render partial: "navigation" %>
+
+    <table class="stats">
+      <thead>
+        <th>City</th>
+        <th># of Artworks total</th>
+        <th># of Artworks in the last month</th>
+      </thead>
+      <tbody>
+        <% @cities.each do |city, count| %>
+          <tr>
+            <td class="label"><%= city %></td>
+            <td><%= count %></td>
+            <td><%= @cities_in_the_last_month[city] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

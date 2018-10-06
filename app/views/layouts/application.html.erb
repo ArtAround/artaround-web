@@ -14,6 +14,7 @@
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <%= stylesheet_link_tag 'main' %>
+    <%= stylesheet_link_tag 'stats' %>
     <%= stylesheet_link_tag 'chosen' %>
 
     <%= javascript_include_tag 'jquery-1.7.1.min' %>
@@ -116,6 +117,9 @@
               </li>
               <li id="countries_link">
                 <%= link_to "Countries", admin_countries_path, :id => "countries" %>
+              </li>
+              <li>
+                <%= link_to "Stats", admin_stats_path, id: "stats" %>
               </li>
               <script>$(".formNavContainer").css("width","500px")</script>
               <%end%>

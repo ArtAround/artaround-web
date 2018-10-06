@@ -1,0 +1,27 @@
+<div id="pageMain" class="admin">
+  <div id="fullColumn">
+    <div id="titleContent">
+      <h2>Admin Stats::Counts by tags</h2>
+    </div>
+
+    <%= render "navigation" %>
+
+    <table class="stats">
+      <thead>
+        <th>Artist Name</th>
+        <th># of Artworks total</th>
+        <th># of Artworks in the last month</th>
+      </thead>
+      <tbody>
+        <% @artists.each do |artist, count| %>
+          <tr>
+            <td class="label"><%= artist %></td>
+            <td><%= count %></td>
+            <td><%= @artists_in_the_last_month[artist] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>
